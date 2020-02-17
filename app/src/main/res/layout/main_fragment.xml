@@ -8,7 +8,7 @@
     tools:context=".ui.fragment.MainFragment">
 
     <EditText
-        android:id="@+id/edt_selected_place"
+        android:id="@+id/edtSelectedPlace"
         style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,43 +22,43 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_reset_user_selection"
+        android:id="@+id/btnResetUserSelection"
         style="@style/ButtonStyle"
         android:text="@string/btn_reset_name"
-        app:layout_constraintEnd_toStartOf="@id/btn_trip_start_date_select"
+        app:layout_constraintEnd_toStartOf="@id/btnTripStartDateSelect"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_selected_place" />
+        app:layout_constraintTop_toBottomOf="@id/edtSelectedPlace" />
 
     <Button
-        android:id="@+id/btn_trip_start_date_select"
+        android:id="@+id/btnTripStartDateSelect"
         style="@style/ButtonIconStyle"
         android:text="@string/btn_start_date_name"
         app:icon="@drawable/ic_date_range"
-        app:layout_constraintEnd_toStartOf="@id/btn_trip_end_date_select"
+        app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/btn_reset_user_selection"
-        app:layout_constraintTop_toBottomOf="@id/edt_selected_place" />
+        app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
+        app:layout_constraintTop_toBottomOf="@id/edtSelectedPlace" />
 
     <Button
-        android:id="@+id/btn_trip_end_date_select"
+        android:id="@+id/btnTripEndDateSelect"
         style="@style/ButtonIconStyle"
         android:text="@string/btn_end_date_name"
         app:icon="@drawable/ic_date_range"
-        app:layout_constraintEnd_toStartOf="@id/btn_search_wear"
+        app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/btn_trip_start_date_select"
-        app:layout_constraintTop_toBottomOf="@id/edt_selected_place" />
+        app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
+        app:layout_constraintTop_toBottomOf="@id/edtSelectedPlace" />
 
     <Button
-        android:id="@+id/btn_search_wear"
+        android:id="@+id/btnSearchWear"
         style="@style/ButtonStyle"
         android:text="@string/btn_select_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/btn_trip_end_date_select"
-        app:layout_constraintTop_toBottomOf="@id/edt_selected_place" />
+        app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
+        app:layout_constraintTop_toBottomOf="@id/edtSelectedPlace" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wearList"
@@ -68,5 +68,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_reset_user_selection"/>
+        app:layout_constraintTop_toBottomOf="@id/btnResetUserSelection"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
