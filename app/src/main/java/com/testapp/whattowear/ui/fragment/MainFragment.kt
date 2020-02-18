@@ -41,8 +41,7 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.selectedPlace.observe(viewLifecycleOwner,Observer<PlaceTrip>{
-            // log temporally for checking,need to delete
-            Log.d("Wear", "selected - $it")
+            // TODO weather achieve
         })
 
         getPlaceWhereToGo()
