@@ -1,7 +1,5 @@
 package com.testapp.whattowear.ui.viewmodel
 
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.common.api.Status
@@ -12,12 +10,14 @@ import com.testapp.whattowear.data.PlaceTrip
 class MainViewModel : ViewModel() {
 
     val selectedPlace = MutableLiveData<PlaceTrip>()
+    val selectedPlaceStatus = MutableLiveData<String>()
 
 
-    fun getSelectedWeather(context: Context): PlaceSelectionListener {
+    fun getSelectedWeather(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
+
             override fun onError(status: Status) {
-                Toast.makeText(context, status.statusMessage, Toast.LENGTH_SHORT).show()
+                selectedPlaceStatus.value = status.statusMessage
             }
 
             override fun onPlaceSelected(place: Place) {

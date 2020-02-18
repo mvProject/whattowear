@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.libraries.places.api.Places
@@ -47,8 +48,11 @@ class MainFragment : Fragment() {
             // TODO weather achieve
         })
 
-        getPlaceWhereToGo()
+        viewModel.selectedPlaceStatus.observe(viewLifecycleOwner,Observer<String>{
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        })
 
+        getPlaceWhereToGo()
     }
 
     private fun getPlaceWhereToGo(){
@@ -57,7 +61,7 @@ class MainFragment : Fragment() {
 
         autoComplete.apply {
             setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
-            setOnPlaceSelectedListener(viewModel.getSelectedWeather(context!!))
+            setOnPlaceSelectedListener(viewModel.getSelectedWeather())
         }
     }
 
