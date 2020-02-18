@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.MainFragment">
-
+<!--
     <EditText
         android:id="@+id/edtSelectedPlace"
         style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
@@ -20,6 +20,13 @@
         android:textSize="@dimen/small_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+-->
+    <fragment android:id="@+id/autocompleteFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        />
 
     <Button
         android:id="@+id/btnResetUserSelection"
@@ -29,7 +36,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtSelectedPlace" />
+        app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
     <Button
         android:id="@+id/btnTripStartDateSelect"
@@ -39,7 +46,7 @@
         app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
-        app:layout_constraintTop_toBottomOf="@id/edtSelectedPlace" />
+        app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
     <Button
         android:id="@+id/btnTripEndDateSelect"
@@ -49,7 +56,7 @@
         app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
-        app:layout_constraintTop_toBottomOf="@id/edtSelectedPlace" />
+        app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
     <Button
         android:id="@+id/btnSearchWear"
@@ -58,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
-        app:layout_constraintTop_toBottomOf="@id/edtSelectedPlace" />
+        app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wearList"
