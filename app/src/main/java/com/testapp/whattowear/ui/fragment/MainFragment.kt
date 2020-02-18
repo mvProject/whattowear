@@ -2,7 +2,6 @@ package com.testapp.whattowear.ui.fragment
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +14,13 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.R
+import com.testapp.whattowear.databinding.MainFragmentBinding
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var mainFragmentBinding: MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,18 +30,25 @@ class MainFragment : Fragment() {
         if (!Places.isInitialized()) {
             Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
         }
-        return inflater.inflate(R.layout.main_fragment, container, false)
+
+        mainFragmentBinding = MainFragmentBinding.inflate(inflater,container,false)
+        return mainFragmentBinding.root
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+        mainFragmentBinding.mainViewModel = viewModel
+        mainFragmentBinding.lifecycleOwner = this
+
         viewModel.selectedPlace.observe(viewLifecycleOwner,Observer<PlaceTrip>{
             // TODO weather achieve
         })
 
         getPlaceWhereToGo()
+
     }
 
     private fun getPlaceWhereToGo(){
