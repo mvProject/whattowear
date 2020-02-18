@@ -40,14 +40,33 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.selectedPlace.observe(viewLifecycleOwner,Observer<PlaceTrip>{
-            // log temporally for checking
-            Log.d("Wear", "view model selected - $it")
+            // log temporally for checking,need to delete
+            Log.d("Wear", "selected - $it")
         })
 
-
+        getPlaceWhereToGo()
     }
 
+    private fun getPlaceWhereToGo(){
 
+        val autoComplete = childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
+
+        autoComplete.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+
+        autoComplete.setOnPlaceSelectedListener(object : PlaceSelectionListener{
+            override fun onError(status: Status) {
+                // TODO maybe some error message
+            }
+
+            override fun onPlaceSelected(place: Place) {
+                viewModel.selectedPlace.value = PlaceTrip(
+                    place.id!!,
+                    place.name!!,
+                    place.latLng.toString()
+                )
+            }
+        })
+    }
 
 }
 
