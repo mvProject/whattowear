@@ -2,18 +2,16 @@ package com.testapp.whattowear.ui.fragment
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.R
@@ -49,21 +47,10 @@ class MainFragment : Fragment() {
 
         val autoComplete = childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
 
-        autoComplete.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
-
-        autoComplete.setOnPlaceSelectedListener(object : PlaceSelectionListener{
-            override fun onError(status: Status) {
-                Toast.makeText(context,status.statusMessage,Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onPlaceSelected(place: Place) {
-                viewModel.selectedPlace.value = PlaceTrip(
-                    place.id!!,
-                    place.name!!,
-                    place.latLng.toString()
-                )
-            }
-        })
+        autoComplete.apply {
+            setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+            setOnPlaceSelectedListener(viewModel.getSelectedWeather(context!!))
+        }
     }
 
 }
