@@ -52,10 +52,10 @@ class MainFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
-        getPlaceWhereToGo()
+        setupPlaceSelectListener()
     }
 
-    private fun getPlaceWhereToGo(){
+    private fun setupPlaceSelectListener(){
 
         val autoComplete = childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
 
