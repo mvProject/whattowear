@@ -15,6 +15,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.R
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
@@ -23,15 +24,13 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    private val apiKey = "AIzaSyAbiAj6LivbiUwyGh6YoU4sWiEd7Sfvrpk"
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         if (!Places.isInitialized()) {
-            Places.initialize(context!!, apiKey)
+            Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
         }
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
