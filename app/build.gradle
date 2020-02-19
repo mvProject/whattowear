@@ -4,9 +4,20 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.testapp.whattowear"
         minSdkVersion 23
@@ -14,6 +25,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "GOOGLE_PLACE_API_KEY", '"AIzaSyAbiAj6LivbiUwyGh6YoU4sWiEd7Sfvrpk"'
     }
     buildTypes {
         release {
@@ -41,4 +54,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     // material design
     implementation 'com.google.android.material:material:1.1.0'
+    // google places
+    implementation 'com.google.android.libraries.places:places:2.2.0'
 }
