@@ -3,4 +3,6 @@
     <dimen name="small_padding_8dp">8dp</dimen>
     <dimen name="list_margin_top">90dp</dimen>
     <dimen name="small_text_size">12sp</dimen>
+    <dimen name="fab_padding_end">12dp</dimen>
+    <dimen name="fab_padding_bottom">12dp</dimen>
 </resources>

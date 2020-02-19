@@ -69,5 +69,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnResetUserSelection" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/fab_padding_end"
+            android:layout_marginBottom="@dimen/fab_padding_bottom"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
