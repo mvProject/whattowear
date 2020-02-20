@@ -11,6 +11,8 @@ class MainViewModel : ViewModel() {
 
     val selectedPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
+    val selectedTripStartDate = MutableLiveData<Long>()
+    val selectedTripEndDate = MutableLiveData<Long>()
 
 
     fun getSelectedWeather(): PlaceSelectionListener {

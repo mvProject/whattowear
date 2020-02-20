@@ -18,10 +18,7 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
 
     private val c: Calendar = Calendar.getInstance()
 
-
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
@@ -29,15 +26,17 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         c.set(year,month,day,12,0)
         when (tag){
             START_DATE_DIALOG -> {
-                Log.d("Wear","start date selected")
+                //mainViewModel.selectedTripStartDate.value = (c.timeInMillis / 1000)
             }
             END_DATE_DIALOG -> {
-                Log.d("Wear","end date selected")
+                //mainViewModel.selectedTripEndDate.value = (c.timeInMillis / 1000)
             }
         }
-        Log.d("Wear","$tag date selected ${c.timeInMillis / 1000}")
+        Log.d("Wear","date selected ${c.timeInMillis / 1000}")
     }
+    // TODO find solution
 }

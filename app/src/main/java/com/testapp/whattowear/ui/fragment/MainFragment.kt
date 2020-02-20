@@ -1,7 +1,10 @@
 package com.testapp.whattowear.ui.fragment
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -64,15 +67,14 @@ class MainFragment : Fragment() {
 
         setupPlaceSelectListener()
 
-
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val startDateFragment = TripDatePickerDialog()
             startDateFragment.show(childFragmentManager,START_DATE_DIALOG)
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
-            val startDateFragment = TripDatePickerDialog()
-            startDateFragment.show(childFragmentManager,END_DATE_DIALOG)
+            val endDateFragment = TripDatePickerDialog()
+            endDateFragment.show(childFragmentManager,END_DATE_DIALOG)
         }
     }
     private fun setupPlaceSelectListener(){
