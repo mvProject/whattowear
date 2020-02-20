@@ -2,6 +2,7 @@ package com.testapp.whattowear.ui.fragment
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.R
 import com.testapp.whattowear.data.PlaceTrip
+import com.testapp.whattowear.data.WeatherData
 import com.testapp.whattowear.databinding.MainFragmentBinding
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 
@@ -52,7 +54,18 @@ class MainFragment : Fragment() {
         mainFragmentBinding.lifecycleOwner = this
 
         viewModel.selectedPlace.observe(viewLifecycleOwner,Observer<PlaceTrip>{
+
+            val dataRange = mutableListOf<Long>()
+            dataRange.add(1582114347)
+            dataRange.add(1582269744)
+            dataRange.add(1582356144)
+
+            viewModel.getSelectedPlaceWeatherRange(it,dataRange)
             // TODO weather achieve
+        })
+
+        viewModel.singleWeatherList.observe(viewLifecycleOwner,Observer<MutableList<WeatherData>>{
+            Log.d("Wear", "single weather - $it")
         })
 
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner,Observer<String>{
@@ -68,7 +81,7 @@ class MainFragment : Fragment() {
         autoComplete.apply {
             retainInstance = true
             setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
-            setOnPlaceSelectedListener(viewModel.getSelectedWeather())
+            setOnPlaceSelectedListener(viewModel.getDestinationPlace())
         }
     }
 }
