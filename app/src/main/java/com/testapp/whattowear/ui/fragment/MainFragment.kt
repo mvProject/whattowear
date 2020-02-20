@@ -24,6 +24,8 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
 
+    private val START_DATE_DIALOG = "StartDateDialog"
+    private val END_DATE_DIALOG = "EndDateDialog"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +67,12 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val startDateFragment = WeatherPickerDialog()
-            startDateFragment.show(childFragmentManager,"StartDate")
+            startDateFragment.show(childFragmentManager,START_DATE_DIALOG)
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val startDateFragment = WeatherPickerDialog()
-            startDateFragment.show(childFragmentManager,"EndDate")
+            startDateFragment.show(childFragmentManager,END_DATE_DIALOG)
         }
     }
     private fun setupPlaceSelectListener(){
