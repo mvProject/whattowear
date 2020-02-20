@@ -8,7 +8,7 @@ import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import java.util.*
 
-class WeatherPickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private val START_DATE_DIALOG = "StartDateDialog"
     private val END_DATE_DIALOG = "EndDateDialog"
