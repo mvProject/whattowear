@@ -30,4 +30,8 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
+    fun addNewCustomWear(){
+        // TODO add new item feature
+    }
 }
