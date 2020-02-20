@@ -3,6 +3,7 @@ package com.testapp.whattowear.utils
 import com.testapp.whattowear.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 
 fun getApiInterceptor(): Interceptor {
     return object : Interceptor {
@@ -16,4 +17,10 @@ fun getApiInterceptor(): Interceptor {
             return chain.proceed(chain.request().newBuilder().url(url).build())
         }
     }
+}
+
+fun getLoggingInterceptor(): HttpLoggingInterceptor {
+    val logs = HttpLoggingInterceptor()
+    logs.level = HttpLoggingInterceptor.Level.BODY
+    return logs
 }
