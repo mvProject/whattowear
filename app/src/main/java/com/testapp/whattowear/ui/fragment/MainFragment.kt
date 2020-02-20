@@ -16,6 +16,7 @@ import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.R
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.databinding.MainFragmentBinding
+import com.testapp.whattowear.dialog.WeatherPickerDialog
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -63,11 +64,13 @@ class MainFragment : Fragment() {
 
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
-            //
+            val startDateFragment = WeatherPickerDialog()
+            startDateFragment.show(childFragmentManager,"StartDate")
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
-            //
+            val startDateFragment = WeatherPickerDialog()
+            startDateFragment.show(childFragmentManager,"EndDate")
         }
     }
     private fun setupPlaceSelectListener(){
