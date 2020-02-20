@@ -60,6 +60,15 @@ class MainFragment : Fragment() {
         })
 
         setupPlaceSelectListener()
+
+
+        mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
+            //
+        }
+
+        mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
+            //
+        }
     }
     private fun setupPlaceSelectListener(){
 
