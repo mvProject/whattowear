@@ -20,7 +20,9 @@ class WeatherApiService {
             addCallAdapterFactory(CoroutineCallAdapterFactory())
             addConverterFactory(GsonConverterFactory.create())
             client(okHttpClient)
-        }.build().create(DarkSkyApi::class.java)
+        }
+            .build()
+            .create(DarkSkyApi::class.java)
     }
     companion object {
         const val BASE_URL = "https://api.darksky.net/"
