@@ -62,13 +62,7 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-
-            val dataRange = mutableListOf<Long>()
-            dataRange.add(1582114347)
-            dataRange.add(1582269744)
-            dataRange.add(1582356144)
-
-            viewModel.getSelectedPlaceWeatherRange(viewModel.selectedPlace.value,dataRange)
+            viewModel.getSelectedPlaceWeatherRange()
         }
 
         setupPlaceSelectListener()

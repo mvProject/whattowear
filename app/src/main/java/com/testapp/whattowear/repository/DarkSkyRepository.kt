@@ -2,23 +2,26 @@ package com.testapp.whattowear.repository
 
 import com.testapp.whattowear.data.WeatherData
 import kotlinx.coroutines.*
+import androidx.lifecycle.MutableLiveData
+
+
 
 class DarkSkyRepository : IDarkSkyRepository{
     private val darkSkyService = DarkSkyService()
     private var myJob: Job? = null
-    private var weatherDataList = mutableListOf<WeatherData>()
 
     override fun getWeatherDataForDateRange(
         lat: String,
         lon: String,
         dataRange: List<Long>
-    ): List<WeatherData> {
+    ): MutableLiveData<List<WeatherData>> {
+        val weatherData = MutableLiveData<List<WeatherData>>()
         myJob = CoroutineScope(Dispatchers.IO).launch {
             val weatherList = darkSkyService.getDarkSkyWeatherDataForDateRange(lon,lon,dataRange)
             withContext(Dispatchers.Main) {
-                weatherDataList.addAll(weatherList)
+                weatherData.value = weatherList
             }
         }
-        return weatherDataList
+        return weatherData
     }
 }
