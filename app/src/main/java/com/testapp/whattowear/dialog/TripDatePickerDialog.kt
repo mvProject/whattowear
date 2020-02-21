@@ -3,10 +3,10 @@ package com.testapp.whattowear.dialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 import java.util.*
 
@@ -26,17 +26,16 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        c.set(year,month,day,12,0)
+        mainViewModel = ViewModelProvider(parentFragment as ViewModelStoreOwner).get(MainViewModel::class.java)
+        c.set(year,month,day,12,0,0)
+        val selectedDateInSeconds = c.timeInMillis / 1000
         when (tag){
             START_DATE_DIALOG -> {
-                //mainViewModel.selectedTripStartDate.value = (c.timeInMillis / 1000)
+                mainViewModel.tripStartDate = selectedDateInSeconds
             }
             END_DATE_DIALOG -> {
-                //mainViewModel.selectedTripEndDate.value = (c.timeInMillis / 1000)
+                mainViewModel.tripEndDate = selectedDateInSeconds
             }
         }
-        Log.d("Wear","date selected ${c.timeInMillis / 1000}")
     }
-    // TODO find solution
 }

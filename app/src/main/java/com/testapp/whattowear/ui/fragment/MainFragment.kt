@@ -1,8 +1,5 @@
 package com.testapp.whattowear.ui.fragment
 
-
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,19 +13,20 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.testapp.whattowear.BuildConfig
-import com.testapp.whattowear.R
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.databinding.MainFragmentBinding
-import com.testapp.whattowear.dialog.TripDatePickerDialog
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
+import com.testapp.whattowear.dialog.TripDatePickerDialog
+
 
 class MainFragment : Fragment() {
+
 
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
 
     private val START_DATE_DIALOG = "StartDateDialog"
-    private val END_DATE_DIALOG = "EndDateDialog"
+   private val END_DATE_DIALOG = "EndDateDialog"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +65,7 @@ class MainFragment : Fragment() {
 
         setupPlaceSelectListener()
 
+
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val startDateFragment = TripDatePickerDialog()
             startDateFragment.show(childFragmentManager,START_DATE_DIALOG)
@@ -76,10 +75,14 @@ class MainFragment : Fragment() {
             val endDateFragment = TripDatePickerDialog()
             endDateFragment.show(childFragmentManager,END_DATE_DIALOG)
         }
+
+        mainFragmentBinding.btnSearchWear.setOnClickListener {
+            Log.d("Wear",viewModel.getTripDataRange(viewModel.tripStartDate,viewModel.tripEndDate).toString())
+        }
     }
     private fun setupPlaceSelectListener(){
 
-        val autoComplete = childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
+        val autoComplete = childFragmentManager.findFragmentById(com.testapp.whattowear.R.id.autocompleteFragment) as AutocompleteSupportFragment
 
         autoComplete.apply {
             retainInstance = true

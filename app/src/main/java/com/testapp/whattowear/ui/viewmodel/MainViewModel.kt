@@ -11,9 +11,9 @@ class MainViewModel : ViewModel() {
 
     val selectedPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
-    val selectedTripStartDate = MutableLiveData<Long>()
-    val selectedTripEndDate = MutableLiveData<Long>()
 
+    var tripStartDate = 0L
+    var tripEndDate = 0L
 
     fun getSelectedWeather(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
@@ -31,5 +31,17 @@ class MainViewModel : ViewModel() {
                 )
             }
         }
+    }
+
+    // TODO move to utils later
+    fun getTripDataRange(startDate : Long,endDate : Long) : List<Long>? {
+        val ONE_DAY = 86400L //24 hours in seconds
+        if((startDate>0) and (endDate>0) and (endDate>startDate)){
+            val dataRange = mutableListOf<Long>()
+            for (item in startDate..endDate step ONE_DAY)
+            dataRange.add(item)
+            return dataRange
+        }
+        return null
     }
 }
