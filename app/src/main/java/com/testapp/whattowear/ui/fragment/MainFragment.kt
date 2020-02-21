@@ -53,7 +53,7 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.singleWeatherList.observe(viewLifecycleOwner,Observer<MutableList<WeatherData>>{
+        viewModel.singleWeatherList.observe(viewLifecycleOwner,Observer<List<WeatherData>>{
             Log.d("Wear", "single weather - $it")
         })
 

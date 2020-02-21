@@ -1,7 +1,7 @@
 package com.testapp.whattowear.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.testapp.whattowear.utils.getApiInterceptor
+import com.testapp.whattowear.utils.getRequestSettingsInterceptor
 import com.testapp.whattowear.utils.getLoggingInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -13,7 +13,7 @@ class WeatherApiService {
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(getLoggingInterceptor())
-            .addInterceptor(getApiInterceptor())
+            .addInterceptor(getRequestSettingsInterceptor())
             .build()
         return Retrofit.Builder().apply {
             baseUrl(BASE_URL)

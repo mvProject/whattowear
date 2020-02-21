@@ -1,17 +1,24 @@
 package com.testapp.whattowear.repository
 
-import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.WeatherData
-import com.testapp.whattowear.network.DarkSkyApi
-import com.testapp.whattowear.utils.convertToWeatherDataModel
+import kotlinx.coroutines.*
 
-class DarkSkyRepository(private val api : DarkSkyApi) : IDarkSkyRepository {
-    override suspend fun getDarkSkyWeatherDataForDateRange(lat: String, lon : String, dataRange : List<Long>): List<WeatherData> {
-        val weatherList = mutableListOf<WeatherData>()
-        for (data in dataRange){
-            val current = api.getSingleForecastAsync(BuildConfig.DARKSKY_API_KEY,lat,lon,data.toString()).await()
-            weatherList.add(current.convertToWeatherDataModel())
+class DarkSkyRepository : IDarkSkyRepository{
+    private val darkSkyService = DarkSkyService()
+    private var myJob: Job? = null
+    private var weatherDataList = mutableListOf<WeatherData>()
+
+    override fun getWeatherDataForDateRange(
+        lat: String,
+        lon: String,
+        dataRange: List<Long>
+    ): List<WeatherData> {
+        myJob = CoroutineScope(Dispatchers.IO).launch {
+            val weatherList = darkSkyService.getDarkSkyWeatherDataForDateRange(lon,lon,dataRange)
+            withContext(Dispatchers.Main) {
+                weatherDataList.addAll(weatherList)
+            }
         }
-        return weatherList
+        return weatherDataList
     }
 }

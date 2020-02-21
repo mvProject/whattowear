@@ -7,17 +7,20 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.data.WeatherData
-import com.testapp.whattowear.network.WeatherRepository
+import com.testapp.whattowear.repository.DarkSkyRepository
+import com.testapp.whattowear.repository.DarkSkyService
 import kotlinx.coroutines.*
 
 class MainViewModel : ViewModel() {
 
     val selectedPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
-    val singleWeatherList = MutableLiveData<MutableList<WeatherData>>()
+    val singleWeatherList = MutableLiveData<List<WeatherData>>()
 
     private var myJob: Job? = null
 
+    private val darkSkyService = DarkSkyService()
+  //  private val darkSkyRepository = DarkSkyRepository()
 
     fun getDestinationPlace(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
@@ -43,12 +46,14 @@ class MainViewModel : ViewModel() {
 
     fun getSelectedPlaceWeatherRange(placeTrip: PlaceTrip?, dataRange : MutableList<Long>){
         placeTrip?.let{
+           // TODO replace  
             myJob = CoroutineScope(Dispatchers.IO).launch {
-                val weatherList = WeatherRepository().getWeatherDataForDateRange(placeTrip.latitude,placeTrip.longitude,dataRange)
+                val weatherList = darkSkyService.getDarkSkyWeatherDataForDateRange(placeTrip.latitude,placeTrip.longitude,dataRange)
                 withContext(Dispatchers.Main) {
                     singleWeatherList.value = weatherList
                 }
             }
+
         }
 
     }
