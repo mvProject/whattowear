@@ -41,12 +41,15 @@ class MainViewModel : ViewModel() {
         // TODO add new item feature
     }
 
-    fun getSelectedPlaceWeatherRange(placeTrip: PlaceTrip, dataRange : MutableList<Long>){
-        myJob = CoroutineScope(Dispatchers.IO).launch {
-            val weatherList = WeatherRepository().getWeatherDataForDateRange(placeTrip.latitude,placeTrip.longitude,dataRange)
-            withContext(Dispatchers.Main) {
-                singleWeatherList.value = weatherList
+    fun getSelectedPlaceWeatherRange(placeTrip: PlaceTrip?, dataRange : MutableList<Long>){
+        placeTrip?.let{
+            myJob = CoroutineScope(Dispatchers.IO).launch {
+                val weatherList = WeatherRepository().getWeatherDataForDateRange(placeTrip.latitude,placeTrip.longitude,dataRange)
+                withContext(Dispatchers.Main) {
+                    singleWeatherList.value = weatherList
+                }
             }
         }
+
     }
 }

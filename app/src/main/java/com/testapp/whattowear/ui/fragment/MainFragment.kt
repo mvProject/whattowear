@@ -53,17 +53,6 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.selectedPlace.observe(viewLifecycleOwner,Observer<PlaceTrip>{
-
-            val dataRange = mutableListOf<Long>()
-            dataRange.add(1582114347)
-            dataRange.add(1582269744)
-            dataRange.add(1582356144)
-
-            viewModel.getSelectedPlaceWeatherRange(it,dataRange)
-            // TODO weather achieve
-        })
-
         viewModel.singleWeatherList.observe(viewLifecycleOwner,Observer<MutableList<WeatherData>>{
             Log.d("Wear", "single weather - $it")
         })
@@ -71,6 +60,16 @@ class MainFragment : Fragment() {
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner,Observer<String>{
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
+
+        mainFragmentBinding.btnSearchWear.setOnClickListener {
+
+            val dataRange = mutableListOf<Long>()
+            dataRange.add(1582114347)
+            dataRange.add(1582269744)
+            dataRange.add(1582356144)
+
+            viewModel.getSelectedPlaceWeatherRange(viewModel.selectedPlace.value,dataRange)
+        }
 
         setupPlaceSelectListener()
     }
