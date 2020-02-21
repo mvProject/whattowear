@@ -43,7 +43,7 @@ class MainViewModel : ViewModel() {
 
     fun getSelectedPlaceWeatherRange(placeTrip: PlaceTrip, dataRange : MutableList<Long>){
         myJob = CoroutineScope(Dispatchers.IO).launch {
-            val weatherList = WeatherRepository().getDateRangeWeatherData(placeTrip.latitude,placeTrip.longitude,dataRange)
+            val weatherList = WeatherRepository().getWeatherDataForDateRange(placeTrip.latitude,placeTrip.longitude,dataRange)
             withContext(Dispatchers.Main) {
                 singleWeatherList.value = weatherList
             }

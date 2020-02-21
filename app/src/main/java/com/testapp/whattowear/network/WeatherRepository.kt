@@ -8,7 +8,7 @@ class WeatherRepository {
 
     private val api = WeatherApiService().initApi()
 
-    suspend fun getDateRangeWeatherData(lat: String, lon : String, dataRange : List<Long>) : MutableList<WeatherData>{
+    suspend fun getWeatherDataForDateRange(lat: String, lon : String, dataRange : List<Long>) : MutableList<WeatherData>{
         val weatherList = mutableListOf<WeatherData>()
         for (data in dataRange){
             val current = api.getSingleForecastAsync(BuildConfig.DARKSKY_API_KEY,lat,lon,data.toString()).await()
