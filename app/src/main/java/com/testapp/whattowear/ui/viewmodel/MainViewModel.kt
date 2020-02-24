@@ -17,7 +17,9 @@ class MainViewModel : ViewModel() {
         return object : PlaceSelectionListener {
 
             override fun onError(status: Status) {
-                selectedPlaceStatus.value = status.statusMessage
+                if (!status.statusMessage.isNullOrEmpty())
+                    selectedPlaceStatus.value = status.statusMessage
+
             }
 
             override fun onPlaceSelected(place: Place) {
