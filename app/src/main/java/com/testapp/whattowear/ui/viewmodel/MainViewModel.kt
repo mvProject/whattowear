@@ -2,7 +2,6 @@ package com.testapp.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
@@ -12,7 +11,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.dialog.TripDatePickerDialog
-import java.util.concurrent.TimeUnit
+import com.testapp.whattowear.utils.getTripDataRange
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -40,16 +39,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // TODO move to utils later
-    private fun getTripDataRange(startDate: Long, endDate: Long): List<Long>? {
-        if ((startDate > 0) and (endDate > 0) and (endDate > startDate)) {
-            val dataRange = mutableListOf<Long>()
-            for (item in startDate..endDate step DateUtils.DAY_IN_MILLIS)
-                dataRange.add(TimeUnit.MILLISECONDS.toSeconds(item))
-            return dataRange
-        }
-        return null
-    }
+
 
     fun startDateSelectListener(fm: FragmentManager) {
         val startDateFragment = TripDatePickerDialog(listener = tripDateTypeSelectedListener)
