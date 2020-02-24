@@ -18,9 +18,13 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val startDateValueSelected = arguments?.getLong(END_DATE_DIALOG)
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
+        if (startDateValueSelected != null){
+            calendar.timeInMillis = startDateValueSelected
+        }
         val dpd = DatePickerDialog(context!!, this, year, month, day)
         dpd.datePicker.minDate = calendar.timeInMillis
         return dpd

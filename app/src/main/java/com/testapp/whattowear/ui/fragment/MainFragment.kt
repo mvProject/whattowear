@@ -63,7 +63,10 @@ class MainFragment : Fragment(), TripDatePickerDialog.DatePickerDialogListener {
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
+            val endBundle = Bundle()
             val endDateFragment = TripDatePickerDialog()
+            endDateFragment.arguments = endBundle
+            endBundle.putLong(TripDatePickerDialog.END_DATE_DIALOG,viewModel.tripStartDate)
             endDateFragment.show(childFragmentManager, TripDatePickerDialog.END_DATE_DIALOG)
         }
 
