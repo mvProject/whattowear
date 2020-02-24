@@ -81,7 +81,7 @@ class MainFragment : Fragment(), TripDatePickerDialog.DatePickerDialogListener {
         }
     }
 
-    override fun onDateSelectedDialog(type: String, date: Long) {
+    override fun getTripDateTypeSelectedValue(type: String, date: Long) {
         when (type) {
             TripDatePickerDialog.START_DATE_DIALOG -> {
                 viewModel.tripStartDate = date

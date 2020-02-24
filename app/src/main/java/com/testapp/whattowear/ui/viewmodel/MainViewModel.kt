@@ -3,12 +3,10 @@ package com.testapp.whattowear.ui.viewmodel
 import android.app.Application
 import android.os.Bundle
 import android.text.format.DateUtils
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
@@ -53,25 +51,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return null
     }
 
-    fun startDateSelectListener(fm : FragmentManager) {
+    fun startDateSelectListener(fm: FragmentManager) {
         val startDateFragment = TripDatePickerDialog()
         startDateFragment.show(fm, TripDatePickerDialog.START_DATE_DIALOG)
     }
 
-    fun endDateSelectListener(fm : FragmentManager){
+    fun endDateSelectListener(fm: FragmentManager) {
         val endBundle = Bundle()
+        endBundle.putLong(TripDatePickerDialog.END_DATE_DIALOG, tripStartDate)
         val endDateFragment = TripDatePickerDialog()
         endDateFragment.arguments = endBundle
-        endBundle.putLong(TripDatePickerDialog.END_DATE_DIALOG, tripStartDate)
         endDateFragment.show(fm, TripDatePickerDialog.END_DATE_DIALOG)
     }
 
-    fun selectDataRangeListener(){
+    fun selectDataRangeListener() {
         Toast.makeText(
-            getApplication(),getTripDataRange(tripStartDate,tripEndDate).toString(),Toast.LENGTH_SHORT)
+            getApplication(),
+            getTripDataRange(tripStartDate, tripEndDate).toString(),
+            Toast.LENGTH_SHORT
+        )
             .show()
     }
-
 
 
 }

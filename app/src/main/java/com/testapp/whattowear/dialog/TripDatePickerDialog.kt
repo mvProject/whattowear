@@ -7,23 +7,23 @@ import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import java.util.*
 
-class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListener {
-
-    private val calendar: Calendar = Calendar.getInstance()
-    private val initialHours = 12
-    private val initialMinutes = 0
+class TripDatePickerDialog constructor(
+    private val calendar: Calendar = Calendar.getInstance(),
+    private val initialHours: Int = 12,
+    private val initialMinutes: Int = 0,
+    private val year: Int = calendar.get(Calendar.YEAR),
+    private val month: Int = calendar.get(Calendar.MONTH),
+    private val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+) : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     interface DatePickerDialogListener {
-        fun onDateSelectedDialog(type: String, date: Long)
+        fun getTripDateTypeSelectedValue(type: String, date: Long)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val startDateValueSelected = arguments?.getLong(END_DATE_DIALOG)
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
         if (startDateValueSelected != null) {
-            calendar.timeInMillis = startDateValueSelected
+            calendar.timeInMillis = startDateValueSelected.toLong()
         }
         val dpd = DatePickerDialog(context!!, this, year, month, day)
         dpd.datePicker.minDate = calendar.timeInMillis
@@ -36,10 +36,10 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
         val selectedDateInSeconds = calendar.timeInMillis
         when (tag) {
             START_DATE_DIALOG -> {
-                listener?.onDateSelectedDialog(START_DATE_DIALOG, selectedDateInSeconds)
+                listener?.getTripDateTypeSelectedValue(START_DATE_DIALOG, selectedDateInSeconds)
             }
             END_DATE_DIALOG -> {
-                listener?.onDateSelectedDialog(END_DATE_DIALOG, selectedDateInSeconds)
+                listener?.getTripDateTypeSelectedValue(END_DATE_DIALOG, selectedDateInSeconds)
             }
         }
     }
