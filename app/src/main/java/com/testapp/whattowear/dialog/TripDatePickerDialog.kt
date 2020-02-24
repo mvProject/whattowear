@@ -26,7 +26,8 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         mainViewModel = ViewModelProvider(parentFragment as ViewModelStoreOwner).get(MainViewModel::class.java)
         c.set(year,month,day,12,0,0)
-        val selectedDateInSeconds = c.timeInMillis / 1000
+
+        val selectedDateInSeconds = c.timeInMillis
         when (tag){
             START_DATE_DIALOG -> {
                 mainViewModel.tripStartDate = selectedDateInSeconds

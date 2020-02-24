@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
         if (!Places.isInitialized()) {
             Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
         }
-        mainFragmentBinding = MainFragmentBinding.inflate(inflater,container,false)
+        mainFragmentBinding = MainFragmentBinding.inflate(inflater, container, false)
         return mainFragmentBinding.root
 
     }
@@ -52,11 +52,11 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.selectedPlace.observe(viewLifecycleOwner,Observer<PlaceTrip>{
+        viewModel.selectedPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
             // TODO weather achieve
         })
 
-        viewModel.selectedPlaceStatus.observe(viewLifecycleOwner,Observer<String>{
+        viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
@@ -65,21 +65,29 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val startDateFragment = TripDatePickerDialog()
-            startDateFragment.show(childFragmentManager,TripDatePickerDialog.START_DATE_DIALOG)
+            startDateFragment.show(childFragmentManager, TripDatePickerDialog.START_DATE_DIALOG)
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val endDateFragment = TripDatePickerDialog()
-            endDateFragment.show(childFragmentManager,TripDatePickerDialog.END_DATE_DIALOG)
+            endDateFragment.show(childFragmentManager, TripDatePickerDialog.END_DATE_DIALOG)
         }
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            Log.d("Wear",viewModel.getTripDataRange(viewModel.tripStartDate,viewModel.tripEndDate).toString())
+            Log.d(
+                "Wear",
+                viewModel.getTripDataRange(
+                    viewModel.tripStartDate,
+                    viewModel.tripEndDate
+                ).toString()
+            )
         }
     }
-    private fun setupPlaceSelectListener(){
 
-        val autoComplete = childFragmentManager.findFragmentById(com.testapp.whattowear.R.id.autocompleteFragment) as AutocompleteSupportFragment
+    private fun setupPlaceSelectListener() {
+
+        val autoComplete =
+            childFragmentManager.findFragmentById(com.testapp.whattowear.R.id.autocompleteFragment) as AutocompleteSupportFragment
 
         autoComplete.apply {
             retainInstance = true
