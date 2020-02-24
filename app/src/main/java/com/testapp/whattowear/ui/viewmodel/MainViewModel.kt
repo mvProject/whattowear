@@ -52,14 +52,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun startDateSelectListener(fm: FragmentManager) {
-        val startDateFragment = TripDatePickerDialog()
+        val startDateFragment = TripDatePickerDialog(listener = tripDateTypeSelectedListener)
         startDateFragment.show(fm, TripDatePickerDialog.START_DATE_DIALOG)
     }
 
     fun endDateSelectListener(fm: FragmentManager) {
         val endBundle = Bundle()
         endBundle.putLong(TripDatePickerDialog.END_DATE_DIALOG, tripStartDate)
-        val endDateFragment = TripDatePickerDialog()
+        val endDateFragment = TripDatePickerDialog(listener = tripDateTypeSelectedListener)
         endDateFragment.arguments = endBundle
         endDateFragment.show(fm, TripDatePickerDialog.END_DATE_DIALOG)
     }
@@ -72,6 +72,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
             .show()
     }
+
+    private var tripDateTypeSelectedListener =
+        object : TripDatePickerDialog.DatePickerDialogListener {
+            override fun getTripDateTypeSelectedValue(type: String, date: Long) {
+                when (type) {
+                    TripDatePickerDialog.START_DATE_DIALOG -> {
+                        tripStartDate = date
+                    }
+                    TripDatePickerDialog.END_DATE_DIALOG -> {
+                        tripEndDate = date
+                    }
+                }
+            }
+        }
 
 
 }

@@ -13,7 +13,8 @@ class TripDatePickerDialog constructor(
     private val initialMinutes: Int = 0,
     private val year: Int = calendar.get(Calendar.YEAR),
     private val month: Int = calendar.get(Calendar.MONTH),
-    private val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+    private val day: Int = calendar.get(Calendar.DAY_OF_MONTH),
+    private val listener: DatePickerDialogListener
 ) : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     interface DatePickerDialogListener {
@@ -22,9 +23,8 @@ class TripDatePickerDialog constructor(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val startDateValueSelected = arguments?.getLong(END_DATE_DIALOG)
-        if (startDateValueSelected != null) {
-            calendar.timeInMillis = startDateValueSelected.toLong()
-        }
+        if (startDateValueSelected != null)
+            calendar.timeInMillis = startDateValueSelected
         val dpd = DatePickerDialog(context!!, this, year, month, day)
         dpd.datePicker.minDate = calendar.timeInMillis
         return dpd
@@ -32,14 +32,13 @@ class TripDatePickerDialog constructor(
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         calendar.set(year, month, day, initialHours, initialMinutes)
-        val listener = parentFragment as DatePickerDialogListener?
         val selectedDateInSeconds = calendar.timeInMillis
         when (tag) {
             START_DATE_DIALOG -> {
-                listener?.getTripDateTypeSelectedValue(START_DATE_DIALOG, selectedDateInSeconds)
+                listener.getTripDateTypeSelectedValue(START_DATE_DIALOG, selectedDateInSeconds)
             }
             END_DATE_DIALOG -> {
-                listener?.getTripDateTypeSelectedValue(END_DATE_DIALOG, selectedDateInSeconds)
+                listener.getTripDateTypeSelectedValue(END_DATE_DIALOG, selectedDateInSeconds)
             }
         }
     }

@@ -15,10 +15,8 @@ import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.databinding.MainFragmentBinding
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
-import com.testapp.whattowear.dialog.TripDatePickerDialog
 
-class MainFragment : Fragment(), TripDatePickerDialog.DatePickerDialogListener {
-
+class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
 
@@ -78,17 +76,6 @@ class MainFragment : Fragment(), TripDatePickerDialog.DatePickerDialogListener {
             retainInstance = true
             setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
             setOnPlaceSelectedListener(viewModel.getSelectedWeather())
-        }
-    }
-
-    override fun getTripDateTypeSelectedValue(type: String, date: Long) {
-        when (type) {
-            TripDatePickerDialog.START_DATE_DIALOG -> {
-                viewModel.tripStartDate = date
-            }
-            TripDatePickerDialog.END_DATE_DIALOG -> {
-                viewModel.tripEndDate = date
-            }
         }
     }
 }
