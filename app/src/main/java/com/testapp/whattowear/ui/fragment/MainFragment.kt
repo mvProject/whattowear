@@ -25,9 +25,6 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
 
-    private val START_DATE_DIALOG = "StartDateDialog"
-   private val END_DATE_DIALOG = "EndDateDialog"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -68,12 +65,12 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val startDateFragment = TripDatePickerDialog()
-            startDateFragment.show(childFragmentManager,START_DATE_DIALOG)
+            startDateFragment.show(childFragmentManager,TripDatePickerDialog.START_DATE_DIALOG)
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val endDateFragment = TripDatePickerDialog()
-            endDateFragment.show(childFragmentManager,END_DATE_DIALOG)
+            endDateFragment.show(childFragmentManager,TripDatePickerDialog.END_DATE_DIALOG)
         }
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {

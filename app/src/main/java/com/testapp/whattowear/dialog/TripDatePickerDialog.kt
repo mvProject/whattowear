@@ -13,8 +13,6 @@ import java.util.*
 class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var mainViewModel: MainViewModel
-    private val START_DATE_DIALOG = "StartDateDialog"
-    private val END_DATE_DIALOG = "EndDateDialog"
 
     private val c: Calendar = Calendar.getInstance()
 
@@ -38,4 +36,10 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
             }
         }
     }
+
+    companion object{
+        const val START_DATE_DIALOG = "StartDateDialog"
+        const val END_DATE_DIALOG = "EndDateDialog"
+    }
+
 }
