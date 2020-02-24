@@ -17,10 +17,13 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
     private val c: Calendar = Calendar.getInstance()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-        return DatePickerDialog(context!!, this, year, month, day)
+        val dpd = DatePickerDialog(context!!, this, year, month, day)
+        dpd.datePicker.minDate = c.timeInMillis
+        return dpd
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
@@ -42,5 +45,4 @@ class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListene
         const val START_DATE_DIALOG = "StartDateDialog"
         const val END_DATE_DIALOG = "EndDateDialog"
     }
-
 }
