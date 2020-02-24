@@ -1,7 +1,6 @@
 package com.testapp.whattowear.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -58,34 +57,15 @@ class MainFragment : Fragment(), TripDatePickerDialog.DatePickerDialogListener {
         setupPlaceSelectListener()
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
-            val startDateFragment = TripDatePickerDialog()
-            startDateFragment.show(childFragmentManager, TripDatePickerDialog.START_DATE_DIALOG)
+            viewModel.startDateSelectListener(childFragmentManager)
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
-            val endBundle = Bundle()
-            val endDateFragment = TripDatePickerDialog()
-            endDateFragment.arguments = endBundle
-            endBundle.putLong(TripDatePickerDialog.END_DATE_DIALOG,viewModel.tripStartDate)
-            endDateFragment.show(childFragmentManager, TripDatePickerDialog.END_DATE_DIALOG)
+            viewModel.endDateSelectListener(childFragmentManager)
         }
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            Log.d(
-                LOG_TAG,
-                viewModel.getTripDataRange(
-                    viewModel.tripStartDate,
-                    viewModel.tripEndDate
-                ).toString()
-            )
-
-            Toast.makeText(context,
-                viewModel.getTripDataRange(
-                    viewModel.tripStartDate,
-                    viewModel.tripEndDate
-                ).toString(),
-                Toast.LENGTH_SHORT)
-                .show()
+            viewModel.selectDataRangeListener()
         }
     }
 
@@ -101,19 +81,15 @@ class MainFragment : Fragment(), TripDatePickerDialog.DatePickerDialogListener {
         }
     }
 
-    override fun onDateSelectedDialog(type: String,date: Long) {
-        when(type){
-            TripDatePickerDialog.START_DATE_DIALOG->{
+    override fun onDateSelectedDialog(type: String, date: Long) {
+        when (type) {
+            TripDatePickerDialog.START_DATE_DIALOG -> {
                 viewModel.tripStartDate = date
             }
-            TripDatePickerDialog.END_DATE_DIALOG ->{
+            TripDatePickerDialog.END_DATE_DIALOG -> {
                 viewModel.tripEndDate = date
             }
         }
-    }
-
-    companion object{
-        const val LOG_TAG = "Wear"
     }
 }
 
