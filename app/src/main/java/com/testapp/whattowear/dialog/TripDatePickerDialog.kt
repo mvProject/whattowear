@@ -5,38 +5,37 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
-import com.testapp.whattowear.ui.viewmodel.MainViewModel
 import java.util.*
 
 class TripDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
-    private lateinit var mainViewModel: MainViewModel
+    private val calendar: Calendar = Calendar.getInstance()
+    private val initialHours = 12
+    private val initialMinutes = 0
 
-    private val c: Calendar = Calendar.getInstance()
+    interface DatePickerDialogListener {
+        fun onDateSelectedDialog(type : String,date: Long)
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
         val dpd = DatePickerDialog(context!!, this, year, month, day)
-        dpd.datePicker.minDate = c.timeInMillis
+        dpd.datePicker.minDate = calendar.timeInMillis
         return dpd
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        mainViewModel = ViewModelProvider(parentFragment as ViewModelStoreOwner).get(MainViewModel::class.java)
-        c.set(year,month,day,12,0,0)
-
-        val selectedDateInSeconds = c.timeInMillis
+        calendar.set(year,month,day,initialHours,initialMinutes)
+        val listener = parentFragment as DatePickerDialogListener?
+        val selectedDateInSeconds = calendar.timeInMillis
         when (tag){
             START_DATE_DIALOG -> {
-                mainViewModel.tripStartDate = selectedDateInSeconds
+                listener?.onDateSelectedDialog(START_DATE_DIALOG,selectedDateInSeconds)
             }
             END_DATE_DIALOG -> {
-                mainViewModel.tripEndDate = selectedDateInSeconds
+                listener?.onDateSelectedDialog(END_DATE_DIALOG,selectedDateInSeconds)
             }
         }
     }

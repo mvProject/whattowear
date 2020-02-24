@@ -1,13 +1,11 @@
 package com.testapp.whattowear.ui.fragment
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +18,7 @@ import com.testapp.whattowear.databinding.MainFragmentBinding
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 import com.testapp.whattowear.dialog.TripDatePickerDialog
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), TripDatePickerDialog.DatePickerDialogListener {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
@@ -28,7 +26,6 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-
     }
 
     override fun onCreateView(
@@ -41,13 +38,11 @@ class MainFragment : Fragment() {
         }
         mainFragmentBinding = MainFragmentBinding.inflate(inflater, container, false)
         return mainFragmentBinding.root
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
 
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
@@ -62,7 +57,6 @@ class MainFragment : Fragment() {
 
         setupPlaceSelectListener()
 
-
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val startDateFragment = TripDatePickerDialog()
             startDateFragment.show(childFragmentManager, TripDatePickerDialog.START_DATE_DIALOG)
@@ -75,12 +69,20 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
             Log.d(
-                "Wear",
+                LOG_TAG,
                 viewModel.getTripDataRange(
                     viewModel.tripStartDate,
                     viewModel.tripEndDate
                 ).toString()
             )
+
+            Toast.makeText(context,
+                viewModel.getTripDataRange(
+                    viewModel.tripStartDate,
+                    viewModel.tripEndDate
+                ).toString(),
+                Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -94,6 +96,21 @@ class MainFragment : Fragment() {
             setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
             setOnPlaceSelectedListener(viewModel.getSelectedWeather())
         }
+    }
+
+    override fun onDateSelectedDialog(type: String,date: Long) {
+        when(type){
+            TripDatePickerDialog.START_DATE_DIALOG->{
+                viewModel.tripStartDate = date
+            }
+            TripDatePickerDialog.END_DATE_DIALOG ->{
+                viewModel.tripEndDate = date
+            }
+        }
+    }
+
+    companion object{
+        const val LOG_TAG = "Wear"
     }
 }
 
