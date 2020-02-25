@@ -1,6 +1,7 @@
 package com.testapp.whattowear.ui.viewmodel
 
 import android.app.Application
+import android.app.DatePickerDialog
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -8,19 +9,20 @@ import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.testapp.whattowear.data.PlaceTrip
-import com.testapp.whattowear.utils.getTripDataRange
+import com.testapp.whattowear.utils.getDataRangeForTrip
+import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val context = getApplication<Application>().applicationContext
 
-    val selectedPlace = MutableLiveData<PlaceTrip>()
+    val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
 
     var tripStartDate = 0L
     var tripEndDate = 0L
 
-    fun getSelectedWeather(): PlaceSelectionListener {
+    fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
 
             override fun onError(status: Status) {
@@ -29,7 +31,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onPlaceSelected(place: Place) {
-                selectedPlace.value = PlaceTrip(
+                selectedDestinationPlace.value = PlaceTrip(
                     place.id!!,
                     place.name!!,
                     place.latLng?.latitude.toString(),
@@ -39,18 +41,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun startDateSelectListener() {
+    var tripStartDateSelectionDialogListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            tripStartDate = calendar.timeInMillis
+        }
 
-    }
+    var tripEndDateSelectionDialogListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            tripEndDate = calendar.timeInMillis
+        }
 
-    fun endDateSelectListener() {
-
-    }
-
-    fun selectDataRangeListener() {
+    fun getDataRangeForTripListener() {
         Toast.makeText(
             context,
-            getTripDataRange(tripStartDate, tripEndDate).toString(),
+            getDataRangeForTrip(tripStartDate, tripEndDate).toString(),
             Toast.LENGTH_SHORT
         )
             .show()

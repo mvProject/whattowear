@@ -4,7 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 
-class DateTripDialog constructor(
+class DateTripSelectionDialog constructor(
     context: Context,
     private val startDateValueSelected: Long?,
     year: Int,

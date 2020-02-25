@@ -1,6 +1,5 @@
 package com.testapp.whattowear.ui.fragment
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.databinding.MainFragmentBinding
-import com.testapp.whattowear.dialog.DateTripDialog
+import com.testapp.whattowear.dialog.DateTripSelectionDialog
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 import java.util.*
 
@@ -47,7 +46,7 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.selectedPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
+        viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
             // TODO weather achieve
         })
 
@@ -59,32 +58,32 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val startDateTripDialog = DateTripDialog(
+            val tripStartDateSelectionDialog = DateTripSelectionDialog(
                 context!!,
                 calendar.timeInMillis,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH),
-                startDateDialogListener
+                viewModel.tripStartDateSelectionDialogListener
             )
-            startDateTripDialog.show()
+            tripStartDateSelectionDialog.show()
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val endDateTripDialog = DateTripDialog(
+            val tripEndDateSelectionDialog = DateTripSelectionDialog(
                 context!!,
                 viewModel.tripStartDate,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH),
-                endDateDialogListener
+                viewModel.tripEndDateSelectionDialogListener
             )
-            endDateTripDialog.show()
+            tripEndDateSelectionDialog.show()
         }
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.selectDataRangeListener()
+            viewModel.getDataRangeForTripListener()
         }
     }
 
@@ -96,22 +95,11 @@ class MainFragment : Fragment() {
         autoComplete.apply {
             retainInstance = true
             setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
-            setOnPlaceSelectedListener(viewModel.getSelectedWeather())
+            setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
         }
     }
 
-    private var startDateDialogListener =
-        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
-            viewModel.tripStartDate = calendar.timeInMillis
-        }
-    private var endDateDialogListener =
-        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
-            viewModel.tripEndDate = calendar.timeInMillis
-        }
+
 }
 
 
