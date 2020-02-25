@@ -1,5 +1,6 @@
 package com.testapp.whattowear.ui.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +15,9 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.databinding.MainFragmentBinding
+import com.testapp.whattowear.dialog.DateTripDialog
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
+import java.util.*
 
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
@@ -55,11 +58,29 @@ class MainFragment : Fragment() {
         setupPlaceSelectListener()
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
-            viewModel.startDateSelectListener(childFragmentManager)
+            val calendar = Calendar.getInstance()
+            val startDateTripDialog = DateTripDialog(
+                context!!,
+                calendar.timeInMillis,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH),
+                startDateDialogListener
+            )
+            startDateTripDialog.show()
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
-            viewModel.endDateSelectListener(childFragmentManager)
+            val calendar = Calendar.getInstance()
+            val endDateTripDialog = DateTripDialog(
+                context!!,
+                viewModel.tripStartDate,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH),
+                endDateDialogListener
+            )
+            endDateTripDialog.show()
         }
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
@@ -78,6 +99,19 @@ class MainFragment : Fragment() {
             setOnPlaceSelectedListener(viewModel.getSelectedWeather())
         }
     }
+
+    private var startDateDialogListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            viewModel.tripStartDate = calendar.timeInMillis
+        }
+    private var endDateDialogListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            viewModel.tripEndDate = calendar.timeInMillis
+        }
 }
 
 
