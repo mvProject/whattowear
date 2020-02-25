@@ -6,7 +6,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.data.WeatherData
-import com.testapp.whattowear.repository.RepositoryLive
+import com.testapp.whattowear.repository.DarkSkyWeatherRepository
 
 class MainViewModel : ViewModel() {
 
@@ -35,7 +35,7 @@ class MainViewModel : ViewModel() {
         // TODO add new item feature
     }
 
-    private val repository = RepositoryLive()
+    private val repository = DarkSkyWeatherRepository()
 
     val selectedPlaceWeatherData : LiveData<List<WeatherData>> = liveData {
         val dataRange = mutableListOf<Long>()

@@ -4,7 +4,7 @@ import com.testapp.whattowear.data.DarkSkyWeather
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface DarkSkyApi {
+interface DarkSkyEndPoint {
     @GET("forecast/{key}/{latitude},{longitude},{time}")
     suspend fun getSingleForecastAsync(
         @Path("key") key : String,

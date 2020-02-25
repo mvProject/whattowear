@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.testapp.whattowear.data.WeatherData
 
-class RepositoryLive {
+class DarkSkyWeatherRepository {
 
-    private val repositoryLiveService = RepositoryLiveService()
+    private val darkSkyWeatherService = DarkSkyWeatherImpl()
 
     fun getDarkSkyWeatherLiveDataForDateRange(lat: String, lon: String, dataRange: List<Long>): LiveData<List<WeatherData>> = liveData{
-        val data = repositoryLiveService.getDarkSkyWeatherDataForDateRange(lat,lon,dataRange)
+        val data = darkSkyWeatherService.getDarkSkyWeatherDataForDateRange(lat,lon,dataRange)
         emit(data)
     }
 

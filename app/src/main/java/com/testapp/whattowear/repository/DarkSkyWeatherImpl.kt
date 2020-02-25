@@ -2,12 +2,12 @@ package com.testapp.whattowear.repository
 
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.WeatherData
-import com.testapp.whattowear.network.WeatherApiService
+import com.testapp.whattowear.network.DarkSkyWeatherApiService
 import com.testapp.whattowear.utils.convertToWeatherDataModel
 
-class RepositoryLiveService() : IRepositoryLive{
+class DarkSkyWeatherImpl() : IDarkSkyWeather{
 
-    private val api = WeatherApiService().initApi()
+    private val api = DarkSkyWeatherApiService().initApi()
 
     override suspend fun getDarkSkyWeatherDataForDateRange(
         lat: String,
