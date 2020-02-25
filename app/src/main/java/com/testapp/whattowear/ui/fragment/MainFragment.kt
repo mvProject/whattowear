@@ -13,7 +13,6 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.R
-import com.testapp.whattowear.data.WeatherData
 import com.testapp.whattowear.databinding.MainFragmentBinding
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 
@@ -49,21 +48,16 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.singleWeatherList.observe(viewLifecycleOwner,Observer<List<WeatherData>>{
-            Log.d("Wear", "single weather - $it")
-        })
-
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner,Observer<String>{
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.getSelectedPlaceWeatherRange()
+            viewModel.selectedPlaceWeatherData.observe(viewLifecycleOwner, Observer{
+              //  Log.d("Wear", "single live data weather - $it")
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+            })
         }
-
-        viewModel.selectedPlaceWeatherData.observe(viewLifecycleOwner, Observer{
-            Log.d("Wear", "single live data weather - $it")
-        })
 
         setupPlaceSelectListener()
     }

@@ -6,15 +6,12 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.data.WeatherData
-import com.testapp.whattowear.repository.DarkSkyRepository
 import com.testapp.whattowear.repository.RepositoryLive
-import kotlinx.coroutines.*
 
 class MainViewModel : ViewModel() {
 
     val selectedPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
-    var singleWeatherList = MutableLiveData<List<WeatherData>>()
 
     fun getDestinationPlace(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
@@ -38,28 +35,13 @@ class MainViewModel : ViewModel() {
         // TODO add new item feature
     }
 
-    private val darkSkyService = DarkSkyRepository()
-
-    fun getSelectedPlaceWeatherRange(){
-
-        val dataRange = mutableListOf<Long>()
-        dataRange.add(1582114347)
-        dataRange.add(1582269744)
-        dataRange.add(1582356144)
-
-        selectedPlace.value?.let {
-            viewModelScope.launch {
-                singleWeatherList.value = darkSkyService.getDarkSkyWeatherDataForDateRange(it.latitude,it.longitude,dataRange)
-            }
-        }
-    }
-
     private val repository = RepositoryLive()
+
     val selectedPlaceWeatherData : LiveData<List<WeatherData>> = liveData {
         val dataRange = mutableListOf<Long>()
-        dataRange.add(1582114347)
-        dataRange.add(1582269744)
-        dataRange.add(1582356144)
+            dataRange.add(1582114347)
+            dataRange.add(1582269744)
+            dataRange.add(1582356144)
         selectedPlace.value?.let {
             emitSource(repository.getDarkSkyWeatherLiveDataForDateRange(it.latitude,it.longitude,dataRange))
         }
