@@ -41,8 +41,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
-
     fun startDateSelectListener(fm: FragmentManager) {
         val startDateFragment = TripDatePickerDialog(listener = tripDateTypeSelectedListener)
         startDateFragment.show(fm, TripDatePickerDialog.START_DATE_DIALOG)
@@ -79,9 +77,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-
-
-    fun addNewCustomWear(){
+    fun addNewCustomWear() {
         // TODO add new item feature
     }
 }

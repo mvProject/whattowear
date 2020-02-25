@@ -9,13 +9,14 @@ import java.util.*
 
 class TripDatePickerDialog constructor(
     private val calendar: Calendar = Calendar.getInstance(),
-    private val initialHours: Int = 12,
-    private val initialMinutes: Int = 0,
     private val year: Int = calendar.get(Calendar.YEAR),
     private val month: Int = calendar.get(Calendar.MONTH),
     private val day: Int = calendar.get(Calendar.DAY_OF_MONTH),
     private val listener: DatePickerDialogListener
 ) : DialogFragment(), DatePickerDialog.OnDateSetListener {
+
+    private val initialHours: Int = 12
+    private val initialMinutes: Int = 0
 
     interface DatePickerDialogListener {
         fun getTripDateTypeSelectedValue(type: String, date: Long)
