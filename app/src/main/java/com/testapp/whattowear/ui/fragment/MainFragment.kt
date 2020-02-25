@@ -1,6 +1,4 @@
 package com.testapp.whattowear.ui.fragment
-
-
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -62,6 +60,10 @@ class MainFragment : Fragment() {
         mainFragmentBinding.btnSearchWear.setOnClickListener {
             viewModel.getSelectedPlaceWeatherRange()
         }
+
+        viewModel.selectedPlaceWeatherData.observe(viewLifecycleOwner, Observer{
+            Log.d("Wear", "single live data weather - $it")
+        })
 
         setupPlaceSelectListener()
     }
