@@ -9,14 +9,11 @@ import java.util.*
 
 class TripDatePickerDialog constructor(
     private val calendar: Calendar = Calendar.getInstance(),
-    private val year: Int = calendar.get(Calendar.YEAR),
-    private val month: Int = calendar.get(Calendar.MONTH),
-    private val day: Int = calendar.get(Calendar.DAY_OF_MONTH),
+    private val selectedYear: Int = calendar.get(Calendar.YEAR),
+    private val selectedMonth: Int = calendar.get(Calendar.MONTH),
+    private val selectedDay: Int = calendar.get(Calendar.DAY_OF_MONTH),
     private val listener: DatePickerDialogListener
 ) : DialogFragment(), DatePickerDialog.OnDateSetListener {
-
-    private val initialHours: Int = 12
-    private val initialMinutes: Int = 0
 
     interface DatePickerDialogListener {
         fun getTripDateTypeSelectedValue(type: String, date: Long)
@@ -26,13 +23,13 @@ class TripDatePickerDialog constructor(
         val startDateValueSelected = arguments?.getLong(END_DATE_DIALOG)
         if (startDateValueSelected != null)
             calendar.timeInMillis = startDateValueSelected
-        val dpd = DatePickerDialog(context!!, this, year, month, day)
+        val dpd = DatePickerDialog(context!!, this, selectedYear, selectedMonth, selectedDay)
         dpd.datePicker.minDate = calendar.timeInMillis
         return dpd
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        calendar.set(year, month, day, initialHours, initialMinutes)
+        calendar.set(year, month, day, INIT_DAY_HOUR, INIT_DAY_MINUTE)
         val selectedDateInSeconds = calendar.timeInMillis
         when (tag) {
             START_DATE_DIALOG -> {
@@ -47,5 +44,8 @@ class TripDatePickerDialog constructor(
     companion object {
         const val START_DATE_DIALOG = "StartDateDialog"
         const val END_DATE_DIALOG = "EndDateDialog"
+        // for time of weather forecast data
+        const val INIT_DAY_HOUR = 12
+        const val INIT_DAY_MINUTE = 0
     }
 }

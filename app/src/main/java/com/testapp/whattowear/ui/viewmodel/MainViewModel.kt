@@ -15,6 +15,8 @@ import com.testapp.whattowear.utils.getTripDataRange
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val context = getApplication<Application>().applicationContext
+
     val selectedPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
 
@@ -27,7 +29,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             override fun onError(status: Status) {
                 if (!status.statusMessage.isNullOrEmpty())
                     selectedPlaceStatus.value = status.statusMessage
-
             }
 
             override fun onPlaceSelected(place: Place) {
@@ -56,7 +57,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun selectDataRangeListener() {
         Toast.makeText(
-            getApplication(),
+            context,
             getTripDataRange(tripStartDate, tripEndDate).toString(),
             Toast.LENGTH_SHORT
         )
