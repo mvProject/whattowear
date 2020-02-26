@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mainViewModel"
             type="com.testapp.whattowear.ui.viewmodel.MainViewModel" />
@@ -14,12 +15,12 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragment.MainFragment">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/autocompleteFragment"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnResetUserSelection"
@@ -60,6 +61,16 @@
             app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
+        <ProgressBar
+            android:id="@+id/progress_indicator"
+            style="?android:attr/progressBarStyleHorizontal"
+            dialogVisible="@{mainViewModel.isLoading()}"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:indeterminate="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnResetUserSelection"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/wearList"
             android:layout_width="match_parent"
@@ -74,14 +85,14 @@
             android:id="@+id/fabAddCustomWear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_custom_wear"
-            android:backgroundTint="@color/colorAccent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:borderWidth="@dimen/fab_no_border"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="@dimen/fab_margin_end"
             android:layout_marginBottom="@dimen/fab_margin_bottom"
-            android:onClick="@{() -> mainViewModel.addNewCustomWear()}"/>
+            android:backgroundTint="@color/colorAccent"
+            android:onClick="@{() -> mainViewModel.addNewCustomWear()}"
+            android:src="@drawable/ic_add_custom_wear"
+            app:borderWidth="@dimen/fab_no_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

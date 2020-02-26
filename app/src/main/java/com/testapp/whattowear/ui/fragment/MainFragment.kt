@@ -55,8 +55,10 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
+            viewModel.isLoading.value = true
             viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+
             })
         }
 

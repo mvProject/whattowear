@@ -18,6 +18,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
+    var isLoading = MutableLiveData<Boolean>()
 
     var tripStartDate = 0L
     var tripEndDate = 0L
