@@ -2,7 +2,6 @@ package com.testapp.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.*
@@ -22,11 +21,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var tripStartDate = 0L
     var tripEndDate = 0L
-    private val dataRange = mutableListOf<Long>().apply {
-        add(1582114347)
-        add(1582269744)
-        add(1582356144)
-    }
+
 
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
@@ -61,14 +56,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             tripEndDate = calendar.timeInMillis
         }
 
-    fun getDataRangeForTripListener() {
-        Toast.makeText(
-            getApplication(),
-            getDataRangeForTrip(tripStartDate, tripEndDate).toString(),
-            Toast.LENGTH_SHORT
-        )
-            .show()
-    }
 
     fun addNewCustomWear() {
         // TODO add new item feature
@@ -77,12 +64,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = DarkSkyWeatherRepository()
 
     fun getSelectedPlaceWeatherData(): LiveData<List<WeatherData>>? {
-        selectedPlace.value?.let {
-            return repository.getDarkSkyWeatherLiveDataForDateRange(
-                it.latitude,
-                it.longitude,
-                dataRange
-            )
+        selectedDestinationPlace.value?.let { place ->
+            getDataRangeForTrip(tripStartDate, tripEndDate)?.let {
+                return repository.getDarkSkyWeatherLiveDataForDateRange(
+                    place.latitude,
+                    place.longitude,
+                    it
+                )
+            }
         }
         return null
     }
+}

@@ -89,10 +89,6 @@ class MainFragment : Fragment() {
             }
             tripEndDateSelectionDialog.show()
         }
-
-        mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.getDataRangeForTripListener()
-        }
     }
 
     private fun setupPlaceSelectListener() {
