@@ -2,15 +2,17 @@ package com.testapp.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.utils.getDataRangeForTrip
 import java.util.*
+import com.testapp.whattowear.data.WeatherData
+import com.testapp.whattowear.repository.DarkSkyWeatherRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,6 +21,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var tripStartDate = 0L
     var tripEndDate = 0L
+
 
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
@@ -53,16 +56,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             tripEndDate = calendar.timeInMillis
         }
 
-    fun getDataRangeForTripListener() {
-        Toast.makeText(
-            getApplication(),
-            getDataRangeForTrip(tripStartDate, tripEndDate).toString(),
-            Toast.LENGTH_SHORT
-        )
-            .show()
-    }
 
     fun addNewCustomWear() {
         // TODO add new item feature
+    }
+
+    private val repository = DarkSkyWeatherRepository()
+
+    fun getSelectedPlaceWeatherData(): LiveData<List<WeatherData>>? {
+        selectedDestinationPlace.value?.let { place ->
+            getDataRangeForTrip(tripStartDate, tripEndDate)?.let {
+                return repository.getDarkSkyWeatherLiveDataForDateRange(
+                    place.latitude,
+                    place.longitude,
+                    it
+                )
+            }
+        }
+        return null
     }
 }
