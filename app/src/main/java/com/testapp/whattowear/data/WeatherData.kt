@@ -21,7 +21,7 @@ data class Daily(
 )
 
 data class Data(
-    val time: Long,
+    val time: Long?,
     val summary: String? = "",
     val icon: String? = "",
     val nearestStormDistance: Int?,

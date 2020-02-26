@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
         if (!Places.isInitialized()) {
             Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
         }
-        mainFragmentBinding = MainFragmentBinding.inflate(inflater,container,false)
+        mainFragmentBinding = MainFragmentBinding.inflate(inflater, container, false)
         return mainFragmentBinding.root
 
     }
@@ -48,21 +48,23 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.selectedPlaceStatus.observe(viewLifecycleOwner,Observer<String>{
+        viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer{
+            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
             })
         }
 
         setupPlaceSelectListener()
     }
-    private fun setupPlaceSelectListener(){
 
-        val autoComplete = childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
+    private fun setupPlaceSelectListener() {
+
+        val autoComplete =
+            childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
 
         autoComplete.apply {
             retainInstance = true

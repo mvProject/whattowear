@@ -9,22 +9,83 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class ConvertingUtilsKtTest {
-    private val expectedValue = WeatherData("12", "12.5", "12")
-    private val testData = Data(
-        12L, null, null, null, null,
-        null, null, null, null, 12.5,
-        null, 12L, null, null, null,
-        null, null, null, null, null, null,
-        null, null, null, null
-    )
-    private val testListData = mutableListOf<Data>().apply {
-        add(testData)
+    private fun getExpectedValue(
+        time: String,
+        tempHigh: String,
+        tempHighTime: String
+    ): WeatherData {
+        return WeatherData(time, tempHigh, tempHighTime)
     }
-    private val testDaily = Daily("summary", "icon", testListData)
-    private val testValue = DarkSkyWeather(1.5, 2.5, "timezone", testData, testDaily)
+
+    private fun getTestData(time: Long?, tempHigh: Double?, tempHighTime: Long?): Data {
+        return Data(
+            time, null, null, null, null,
+            null, null, null, null, tempHigh,
+            null, tempHighTime, null, null, null,
+            null, null, null, null, null, null,
+            null, null, null, null
+        )
+    }
+
+    private fun getTestListData(
+        time: Long?,
+        tempHigh: Double?,
+        tempHighTime: Long?
+    ): MutableList<Data> {
+        return mutableListOf<Data>().apply {
+            add(getTestData(time, tempHigh, tempHighTime))
+        }
+    }
+
+    private fun getTestDaily(time: Long?, tempHigh: Double?, tempHighTime: Long?): Daily {
+        return Daily("summary", "icon", getTestListData(time, tempHigh, tempHighTime))
+    }
+
+    private fun getTestValue(time: Long?, tempHigh: Double?, tempHighTime: Long?): DarkSkyWeather {
+        return DarkSkyWeather(
+            1.5,
+            2.5,
+            "timezone",
+            getTestData(time, tempHigh, tempHighTime),
+            getTestDaily(time, tempHigh, tempHighTime)
+        )
+    }
 
     @Test
     fun convertToWeatherDataModel_Test() {
-        assertEquals(expectedValue, testValue.convertToWeatherDataModel())
+        assertEquals(
+            getExpectedValue("12", "12.5", "12"),
+            getTestValue(12L, 12.5, 12L).convertToWeatherDataModel()
+        )
     }
+
+    @Test
+    fun convertToWeatherDataModel_Test_Not_Null() {
+        assertNotEquals(null, getTestValue(12L, 12.5, 12L).convertToWeatherDataModel())
+    }
+
+    @Test
+    fun convertToWeatherDataModel_Test_Weather_Sub_Zero() {
+        assertEquals(
+            getExpectedValue("12", "-12.5", "12"),
+            getTestValue(12L, -12.5, 12L).convertToWeatherDataModel()
+        )
+    }
+
+    @Test
+    fun convertToWeatherDataModel_Test_HighTime_Is_Null() {
+        assertEquals(null, getTestValue(12L, 12.5, null).convertToWeatherDataModel())
+    }
+
+    @Test
+    fun convertToWeatherDataModel_Test_Temp_Null() {
+        assertEquals(null, getTestValue(12L, null, 12L).convertToWeatherDataModel())
+    }
+
+    @Test
+    fun convertToWeatherDataModel_Test_Time_Null() {
+        assertEquals(null, getTestValue(null, 12.5, 12L).convertToWeatherDataModel())
+    }
+
+
 }

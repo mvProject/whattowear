@@ -19,7 +19,10 @@ class DarkSkyWeatherImpl() : IDarkSkyWeather {
         for (data in dataRange) {
             val current =
                 api.getSingleForecastAsync(BuildConfig.DARKSKY_API_KEY, lat, lon, data.toString())
-            weatherList.add(current.convertToWeatherDataModel())
+            current.let {
+                weatherList.add(current.convertToWeatherDataModel()!!)
+            }
+
         }
         return weatherList
     }

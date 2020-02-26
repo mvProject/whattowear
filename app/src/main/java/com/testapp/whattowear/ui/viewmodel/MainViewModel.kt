@@ -39,15 +39,19 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun addNewCustomWear(){
+    fun addNewCustomWear() {
         // TODO add new item feature
     }
 
     private val repository = DarkSkyWeatherRepository()
 
-    fun getSelectedPlaceWeatherData() : LiveData<List<WeatherData>>? {
+    fun getSelectedPlaceWeatherData(): LiveData<List<WeatherData>>? {
         selectedPlace.value?.let {
-            return repository.getDarkSkyWeatherLiveDataForDateRange(it.latitude,it.longitude,dataRange)
+            return repository.getDarkSkyWeatherLiveDataForDateRange(
+                it.latitude,
+                it.longitude,
+                dataRange
+            )
         }
         return null
     }
