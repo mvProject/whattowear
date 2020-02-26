@@ -58,11 +58,13 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val tripStartDateSelectionDialog = DatePickerDialog(context!!,
+            val tripStartDateSelectionDialog = DatePickerDialog(
+                context!!,
                 viewModel.tripStartDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).also {
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).also {
                 it.datePicker.minDate = calendar.timeInMillis
             }
             tripStartDateSelectionDialog.show()
@@ -70,11 +72,13 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val tripEndDateSelectionDialog = DatePickerDialog(context!!,
+            val tripEndDateSelectionDialog = DatePickerDialog(
+                context!!,
                 viewModel.tripEndDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).also {
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).also {
                 it.datePicker.minDate = viewModel.tripStartDate
             }
             tripEndDateSelectionDialog.show()
