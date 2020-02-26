@@ -1,6 +1,6 @@
 package com.testapp.whattowear.ui.fragment
+
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,8 +53,7 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.selectedPlaceWeatherData.observe(viewLifecycleOwner, Observer{
-              //  Log.d("Wear", "single live data weather - $it")
+            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer{
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
             })
         }
