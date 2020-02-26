@@ -54,6 +54,12 @@ class MainFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
+        mainFragmentBinding.btnSearchWear.setOnClickListener {
+            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+            })
+        }
+
         setupPlaceSelectListener()
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
@@ -83,10 +89,6 @@ class MainFragment : Fragment() {
             }
             tripEndDateSelectionDialog.show()
         }
-
-        mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.getDataRangeForTripListener()
-        }
     }
 
     private fun setupPlaceSelectListener() {
@@ -100,8 +102,6 @@ class MainFragment : Fragment() {
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
         }
     }
-
-
 }
 
 
