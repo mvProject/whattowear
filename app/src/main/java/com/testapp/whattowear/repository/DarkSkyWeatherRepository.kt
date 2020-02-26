@@ -8,8 +8,12 @@ class DarkSkyWeatherRepository {
 
     private val darkSkyWeatherService = DarkSkyWeatherImpl()
 
-    fun getDarkSkyWeatherLiveDataForDateRange(lat: String, lon: String, dataRange: List<Long>): LiveData<List<WeatherData>> = liveData{
-        val data = darkSkyWeatherService.getDarkSkyWeatherDataForDateRange(lat,lon,dataRange)
+    fun getDarkSkyWeatherLiveDataForDateRange(
+        lat: String,
+        lon: String,
+        dataRange: List<Long>
+    ): LiveData<List<WeatherData>> = liveData {
+        val data = darkSkyWeatherService.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)
         emit(data)
     }
 

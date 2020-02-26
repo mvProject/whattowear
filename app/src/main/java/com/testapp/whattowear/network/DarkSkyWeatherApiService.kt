@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class DarkSkyWeatherApiService {
 
-    fun initApi() : DarkSkyEndPoint {
+    fun initApi(): DarkSkyEndPoint {
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(getLoggingInterceptor())
@@ -24,6 +24,7 @@ class DarkSkyWeatherApiService {
             .build()
             .create(DarkSkyEndPoint::class.java)
     }
+
     companion object {
         const val BASE_URL = "https://api.darksky.net/"
     }

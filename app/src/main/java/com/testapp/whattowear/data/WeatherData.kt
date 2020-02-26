@@ -1,9 +1,9 @@
 package com.testapp.whattowear.data
 
 data class WeatherData(
-    val time : String,
-    val temperature : String,
-    val temperatureTime : String
+    val time: String,
+    val temperature: String,
+    val temperatureTime: String
 )
 
 data class DarkSkyWeather(
@@ -11,7 +11,8 @@ data class DarkSkyWeather(
     val longitude: Double,
     val timezone: String,
     val currently: Data,
-    val daily: Daily)
+    val daily: Daily
+)
 
 data class Daily(
     val summary: String?,
