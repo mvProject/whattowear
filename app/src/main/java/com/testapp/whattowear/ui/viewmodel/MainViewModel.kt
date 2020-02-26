@@ -14,8 +14,6 @@ import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val context = getApplication<Application>().applicationContext
-
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
 
@@ -57,7 +55,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getDataRangeForTripListener() {
         Toast.makeText(
-            context,
+            getApplication(),
             getDataRangeForTrip(tripStartDate, tripEndDate).toString(),
             Toast.LENGTH_SHORT
         )
