@@ -1,5 +1,6 @@
 package com.testapp.whattowear.ui.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +15,6 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.databinding.MainFragmentBinding
-import com.testapp.whattowear.dialog.DateTripSelectionDialog
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 import java.util.*
 
@@ -58,27 +58,25 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val tripStartDateSelectionDialog = DateTripSelectionDialog(
-                context!!,
-                calendar.timeInMillis,
+            val tripStartDateSelectionDialog = DatePickerDialog(context!!,
+                viewModel.tripStartDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH),
-                viewModel.tripStartDateSelectionDialogListener
-            )
+                calendar.get(Calendar.DAY_OF_MONTH)).also {
+                it.datePicker.minDate = calendar.timeInMillis
+            }
             tripStartDateSelectionDialog.show()
         }
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val tripEndDateSelectionDialog = DateTripSelectionDialog(
-                context!!,
-                viewModel.tripStartDate,
+            val tripEndDateSelectionDialog = DatePickerDialog(context!!,
+                viewModel.tripEndDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH),
-                viewModel.tripEndDateSelectionDialogListener
-            )
+                calendar.get(Calendar.DAY_OF_MONTH)).also {
+                it.datePicker.minDate = viewModel.tripStartDate
+            }
             tripEndDateSelectionDialog.show()
         }
 
