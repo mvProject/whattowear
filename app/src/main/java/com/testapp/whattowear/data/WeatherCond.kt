@@ -1,5 +1,6 @@
 package com.testapp.whattowear.data
 
 enum class WeatherCond {
-    Sun,Rain,Fog
+    rain,snow,sleet,wind,fog,cloudy
 }
+// clear-night,partly-cloudy-day,partly-cloudy-night

@@ -1,4 +1,8 @@
-package com.testapp.whattowear.data
+package com.testapp.whattowear.data.storage
+
+import com.testapp.whattowear.data.TripItem
+import com.testapp.whattowear.data.TripKit
+import com.testapp.whattowear.data.WearItem
 
 interface ILocalStoragePrefs {
     fun getTripKitForRange() : List<TripKit>

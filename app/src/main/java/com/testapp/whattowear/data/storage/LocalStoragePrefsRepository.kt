@@ -1,9 +1,13 @@
-package com.testapp.whattowear.data
+package com.testapp.whattowear.data.storage
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.testapp.whattowear.data.TripItem
+import com.testapp.whattowear.data.TripKit
+import com.testapp.whattowear.data.WearItem
 
-class LocalStoragePrefsRepository(context: Context) : ILocalStoragePrefs {
+class LocalStoragePrefsRepository(context: Context) :
+    ILocalStoragePrefs {
 
     private val PREFS_NAME = "WhatToWearPrefs"
     private val sharedPreferences: SharedPreferences
