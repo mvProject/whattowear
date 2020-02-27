@@ -19,18 +19,18 @@ class LocalStoragePrefsRepository(context: Context) :
     }
 
     override fun getWearItemsForSelect(): List<WearItem> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("load wears list from prefs")
     }
 
     override fun setWearItemsForSelect(wearItems: List<WearItem>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("save wears list in prefs")
     }
 
     override fun getTripItemsForSelect(): List<TripItem> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("load items list from prefs")
     }
 
     override fun setTripItemsForSelect(tripItems: List<TripItem>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("save items list in prefs")
     }
 }
