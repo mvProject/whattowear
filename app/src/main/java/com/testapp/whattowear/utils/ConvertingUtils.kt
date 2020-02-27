@@ -1,5 +1,7 @@
 package com.testapp.whattowear.utils
 
+import android.content.Context
+import com.testapp.whattowear.R
 import com.testapp.whattowear.data.DarkSkyWeather
 import com.testapp.whattowear.data.WeatherData
 import java.text.SimpleDateFormat
@@ -16,7 +18,10 @@ fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     return null
 }
 
-fun Long.getDateToReadableFormat(): String? {
-    if (this > 0) return SimpleDateFormat("dd/MM/YY", Locale.getDefault()).format(this)
+fun Long.getDateToReadableFormat(context: Context): String? {
+    if (this > 0) return SimpleDateFormat(
+        context.getString(R.string.date_readable_pattern),
+        Locale.getDefault()
+    ).format(this)
     return null
 }
