@@ -85,7 +85,7 @@ class MainFragment : Fragment() {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
-                it.datePicker.minDate = viewModel.tripStartDate
+                it.datePicker.minDate = viewModel.tripEndDateLive.value!!
             }
             tripEndDateSelectionDialog.show()
         }
