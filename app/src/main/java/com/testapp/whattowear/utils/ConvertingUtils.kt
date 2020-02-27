@@ -8,7 +8,7 @@ import java.util.*
 
 class Utils {
     companion object {
-        const val DATE_READABLE_PATTERN = "dd/MM/YY"
+        const val DATE_READABLE_PATTERN = "dd/MM/yy"
     }
 }
 
