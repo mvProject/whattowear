@@ -28,7 +28,7 @@
             android:text="@string/btn_reset_name"
             app:layout_constraintEnd_toStartOf="@id/btnTripStartDateSelect"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
@@ -37,7 +37,7 @@
             style="@style/DateSelectViewStyle"
             viewStartTripText="@{mainViewModel.tripStartDateLive}"
             app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
@@ -46,7 +46,7 @@
             style="@style/DateSelectViewStyle"
             viewEndTripText="@{mainViewModel.tripEndDateLive}"
             app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
@@ -55,7 +55,7 @@
             style="@style/ButtonStyle"
             android:text="@string/btn_select_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
