@@ -34,15 +34,8 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripStartDateSelect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_data_select_buttons"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_date_range"
-            android:focusable="true"
-            android:padding="@dimen/padding_12dp"
+            style="@style/DateSelectViewStyle"
             android:text="@string/btn_start_date_name"
-            android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
@@ -50,15 +43,8 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripEndDateSelect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_data_select_buttons"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_date_range"
-            android:focusable="true"
-            android:padding="@dimen/padding_12dp"
+            style="@style/DateSelectViewStyle"
             android:text="@string/btn_end_date_name"
-            android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
