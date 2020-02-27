@@ -26,6 +26,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         value = 0L
     }
 
+    var tripStartDate = 0L
+    var tripEndDate = 0L
+
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
 
@@ -49,14 +52,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
-            tripStartDateLive.value = calendar.timeInMillis
+            tripStartDate = calendar.timeInMillis
+            tripStartDateLive.value = tripStartDate
         }
 
     var tripEndDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
-            tripEndDateLive.value = calendar.timeInMillis
+            tripEndDate = calendar.timeInMillis
+            tripEndDateLive.value = tripEndDate
         }
 
 
@@ -68,7 +73,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getSelectedPlaceWeatherData(): LiveData<List<WeatherData>>? {
         selectedDestinationPlace.value?.let { place ->
-            getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
+            getDataRangeForTrip(tripStartDate, tripEndDate)?.let {
                 return repository.getDarkSkyWeatherLiveDataForDateRange(
                     place.latitude,
                     place.longitude,
