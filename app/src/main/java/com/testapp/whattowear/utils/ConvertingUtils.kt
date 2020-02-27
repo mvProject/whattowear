@@ -1,11 +1,16 @@
 package com.testapp.whattowear.utils
 
-import android.content.Context
-import com.testapp.whattowear.R
 import com.testapp.whattowear.data.DarkSkyWeather
 import com.testapp.whattowear.data.WeatherData
+import com.testapp.whattowear.utils.Utils.Companion.DATE_READABLE_PATTERN
 import java.text.SimpleDateFormat
 import java.util.*
+
+class Utils {
+    companion object {
+        const val DATE_READABLE_PATTERN = "dd/MM/YY"
+    }
+}
 
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     if ((this.daily.data.first().time != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureHighTime != null)) {
@@ -18,10 +23,14 @@ fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     return null
 }
 
-fun Long.getDateToReadableFormat(context: Context): String? {
+fun Long.getDateToReadableFormat(): String? {
     if (this > 0) return SimpleDateFormat(
-        context.getString(R.string.date_readable_pattern),
+        DATE_READABLE_PATTERN,
         Locale.getDefault()
     ).format(this)
     return null
 }
+
+
+
+

@@ -5,7 +5,6 @@ import com.testapp.whattowear.data.DarkSkyWeather
 import com.testapp.whattowear.data.WeatherData
 import com.testapp.whattowear.data.Data
 import org.junit.Test
-
 import org.junit.Assert.*
 
 class ConvertingUtilsKtTest {
@@ -85,6 +84,21 @@ class ConvertingUtilsKtTest {
     @Test
     fun convertToWeatherDataModel_Test_Time_Null() {
         assertEquals(null, getTestValue(null, 12.5, 12L).convertToWeatherDataModel())
+    }
+
+    @Test
+    fun getDateToReadableFormat_Test() {
+        val expectedDate = "19/02/20"
+        val expectedDateSmall = "01/01/70"
+        val longNull = null
+        val longZero = 0L
+        val longSmallValue = 123L
+        val longValue = 1582114347000L
+
+        assertEquals(null, longZero.getDateToReadableFormat())
+        assertEquals(null, longNull?.getDateToReadableFormat())
+        assertEquals(expectedDateSmall, longSmallValue.getDateToReadableFormat())
+        assertEquals(expectedDate, longValue.getDateToReadableFormat())
     }
 
 

@@ -7,5 +7,4 @@
     <string name="btn_end_date_name">finish</string>
     <string name="wear_item_category">Wear Category</string>
     <string name="wear_item_type">Wear Type</string>
-    <string name="date_readable_pattern">dd/MM/YY</string>
 </resources>

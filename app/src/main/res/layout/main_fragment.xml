@@ -39,7 +39,8 @@
             app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
-            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
+            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
+            tools:text="25/02/20"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripEndDateSelect"
@@ -48,7 +49,8 @@
             app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
-            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
+            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
+            tools:text="25/02/20"/>
 
         <Button
             android:id="@+id/btnSearchWear"
