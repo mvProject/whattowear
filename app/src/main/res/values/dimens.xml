@@ -7,4 +7,5 @@
     <dimen name="fab_margin_bottom">12dp</dimen>
     <dimen name="fab_no_border">0dp</dimen>
     <dimen name="progress_bar_height_8dp">8dp</dimen>
+    <dimen name="progress_bar_height_12dp">12dp</dimen>
 </resources>
