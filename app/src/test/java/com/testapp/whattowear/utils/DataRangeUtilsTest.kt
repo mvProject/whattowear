@@ -38,47 +38,49 @@ class DataRangeUtilsTest {
 
     @Test
     fun isProperDataRangeSelected_StartDate_Null() {
-        val result = isProperDataRangeSelected(testStartNull,testEndDate)
-        assertEquals(false,result)
+        val result = isProperDataRangeSelected(testStartNull, testEndDate)
+        assertEquals(false, result)
     }
 
     @Test
     fun isProperDataRangeSelected_EndDate_Null() {
-        val result = isProperDataRangeSelected(testStartDate,testEndNull)
-        assertEquals(false,result)
+        val result = isProperDataRangeSelected(testStartDate, testEndNull)
+        assertEquals(false, result)
     }
 
     @Test
     fun isProperDataRangeSelected_BothDate_Null() {
-        val result = isProperDataRangeSelected(testStartNull,testEndNull)
-        assertEquals(false,result)
+        val result = isProperDataRangeSelected(testStartNull, testEndNull)
+        assertEquals(false, result)
     }
 
     @Test
     fun isProperDataRangeSelected_StartDate_Zero() {
-        val result = isProperDataRangeSelected(testStartZero,testEndDate)
-        assertEquals(false,result)
+        val result = isProperDataRangeSelected(testStartZero, testEndDate)
+        assertEquals(false, result)
     }
 
     @Test
     fun isProperDataRangeSelected_End_Zero() {
-        val result = isProperDataRangeSelected(testStartDate,testEndZero)
-        assertEquals(false,result)
+        val result = isProperDataRangeSelected(testStartDate, testEndZero)
+        assertEquals(false, result)
     }
 
     @Test
     fun isProperDataRangeSelected_BothDate_Zero() {
-        val result = isProperDataRangeSelected(testStartZero,testEndZero)
-        assertEquals(false,result)
+        val result = isProperDataRangeSelected(testStartZero, testEndZero)
+        assertEquals(false, result)
     }
+
     @Test
     fun isProperDataRangeSelected_EndDateEarlier() {
-        val result = isProperDataRangeSelected(testEndDate,testStartZero)
-        assertEquals(false,result)
+        val result = isProperDataRangeSelected(testEndDate, testStartZero)
+        assertEquals(false, result)
     }
+
     @Test
     fun isProperDataRangeSelected_Proper() {
-        val result = isProperDataRangeSelected(testStartZero,testEndDate)
-        assertEquals(false,result)
+        val result = isProperDataRangeSelected(testStartZero, testEndDate)
+        assertEquals(false, result)
     }
 }

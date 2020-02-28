@@ -35,7 +35,8 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripStartDateSelect"
             style="@style/DateSelectViewStyle"
-            viewStartTripText="@{mainViewModel.tripStartDateLive}"
+            tripDate="@{mainViewModel.tripStartDateLive}"
+            placeholderText="@{@string/btn_start_date_name}"
             app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
@@ -45,7 +46,8 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripEndDateSelect"
             style="@style/DateSelectViewStyle"
-            viewEndTripText="@{mainViewModel.tripEndDateLive}"
+            tripDate="@{mainViewModel.tripEndDateLive}"
+            placeholderText="@{@string/btn_end_date_name}"
             app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"

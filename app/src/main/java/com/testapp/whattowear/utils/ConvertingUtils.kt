@@ -26,7 +26,7 @@ fun Long.convertDateToReadableFormat(): String? {
     return null
 }
 
-fun isDateConvertible(date : Long?) : Boolean{
+fun isDateConvertible(date: Long?): Boolean {
     if (date != null)
         if (date > 0)
             return true
