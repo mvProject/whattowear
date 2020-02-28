@@ -13,6 +13,7 @@ import com.testapp.whattowear.utils.getDataRangeForTrip
 import java.util.*
 import com.testapp.whattowear.data.WeatherData
 import com.testapp.whattowear.repository.DarkSkyWeatherRepository
+import com.testapp.whattowear.utils.isProperDataRangeSelected
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -68,7 +69,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getSelectedPlaceWeatherData(): LiveData<List<WeatherData>>? {
         selectedDestinationPlace.value?.let { place ->
-            getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
+           getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
                 return repository.getDarkSkyWeatherLiveDataForDateRange(
                     place.latitude,
                     place.longitude,
