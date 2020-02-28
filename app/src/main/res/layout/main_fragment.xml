@@ -35,24 +35,24 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripStartDateSelect"
             style="@style/DateSelectViewStyle"
-            tripDate="@{mainViewModel.tripStartDateLive}"
             placeholderText="@{@string/btn_start_date_name}"
+            tripDate="@{mainViewModel.tripStartDateLive}"
             app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
-            tools:text="25/02/20"/>
+            tools:text="25/02/20" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripEndDateSelect"
             style="@style/DateSelectViewStyle"
-            tripDate="@{mainViewModel.tripEndDateLive}"
             placeholderText="@{@string/btn_end_date_name}"
+            tripDate="@{mainViewModel.tripEndDateLive}"
             app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
-            tools:text="25/02/20"/>
+            tools:text="25/02/20" />
 
         <Button
             android:id="@+id/btnSearchWear"

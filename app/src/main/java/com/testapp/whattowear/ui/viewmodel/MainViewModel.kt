@@ -59,7 +59,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             tripEndDateLive.value = calendar.timeInMillis
         }
 
-
     fun addNewCustomWear() {
         // TODO add new item feature
     }

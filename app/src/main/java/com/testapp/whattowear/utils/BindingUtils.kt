@@ -1,12 +1,16 @@
 package com.testapp.whattowear.utils
 
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.textview.MaterialTextView
 
 @BindingAdapter(value = ["tripDate", "placeholderText"])
-fun getProperTextForStartTextView(view: TextView, timestamp: Long, placeholderTextId: Int) {
+fun getProperTextForStartTextView(
+    view: MaterialTextView,
+    timestamp: Long,
+    placeholderText: String
+) {
     view.text = when (isDateConvertible(timestamp)) {
         true -> timestamp.convertDateToReadableFormat()
-        false -> view.resources.getString(placeholderTextId)
+        false -> placeholderText
     }
 }
