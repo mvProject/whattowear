@@ -68,10 +68,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return null
     }
 
-    fun getLoadingStatus(): LiveData<Boolean> {
-        return repository.repositoryLoadingStatus
-    }
-
     fun addNewCustomWear() {
         // TODO add new item feature
     }

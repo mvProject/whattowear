@@ -9,8 +9,6 @@ class DarkSkyWeatherImpl : IDarkSkyWeather {
 
     private val api = DarkSkyWeatherApiService().initApi()
 
-    var dataLoadingStatus = true
-
     override suspend fun getDarkSkyWeatherDataForDateRange(
         lat: String,
         lon: String,
@@ -25,7 +23,6 @@ class DarkSkyWeatherImpl : IDarkSkyWeather {
                 weatherList.add(current.convertToWeatherDataModel()!!)
             }
         }
-        dataLoadingStatus = false
         return weatherList
     }
 
