@@ -3,6 +3,7 @@ package com.testapp.whattowear.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.testapp.whattowear.data.WeatherData
+import com.testapp.whattowear.data.WeatherEvent
 
 class DarkSkyWeatherRepository {
 
@@ -12,9 +13,10 @@ class DarkSkyWeatherRepository {
         lat: String,
         lon: String,
         dataRange: List<Long>
-    ): LiveData<List<WeatherData>> = liveData {
+    ): LiveData<WeatherEvent<List<WeatherData>>> = liveData {
+        emit(WeatherEvent.loading())
         val data = darkSkyWeatherService.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)
-        emit(data)
+        emit(WeatherEvent.success(data))
     }
 
 }

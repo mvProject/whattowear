@@ -12,6 +12,7 @@ import com.testapp.whattowear.data.PlaceTrip
 import com.testapp.whattowear.utils.getDataRangeForTrip
 import java.util.*
 import com.testapp.whattowear.data.WeatherData
+import com.testapp.whattowear.data.WeatherEvent
 import com.testapp.whattowear.repository.DarkSkyWeatherRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -55,7 +56,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getSelectedPlaceWeatherData(): LiveData<List<WeatherData>>? {
+    fun getSelectedPlaceWeatherData(): LiveData<WeatherEvent<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(tripStartDate, tripEndDate)?.let {
                 return repository.getDarkSkyWeatherLiveDataForDateRange(
