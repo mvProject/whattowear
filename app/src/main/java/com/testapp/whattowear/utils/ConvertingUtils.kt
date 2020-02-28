@@ -18,12 +18,19 @@ fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     return null
 }
 
-fun Long.getDateToReadableFormat(): String? {
+fun Long.convertDateToReadableFormat(): String? {
     if (this > 0) return SimpleDateFormat(
         DATE_READABLE_PATTERN,
         Locale.getDefault()
     ).format(this)
     return null
+}
+
+fun isDateConvertible(date : Long?) : Boolean{
+    if (date != null)
+        if (date > 0)
+            return true
+    return false
 }
 
 

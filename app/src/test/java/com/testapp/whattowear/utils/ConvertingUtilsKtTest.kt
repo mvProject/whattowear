@@ -90,28 +90,26 @@ class ConvertingUtilsKtTest {
     fun getDateToReadableFormat_Test_ZeroDate() {
         val longZero = 0L
 
-        assertEquals(null, longZero.getDateToReadableFormat())
+        assertEquals(null, longZero.convertDateToReadableFormat())
     }
 
     @Test
     fun getDateToReadableFormat_Test_NullDate() {
         val longNull = null
-        assertEquals(null, longNull?.getDateToReadableFormat())
+        assertEquals(null, longNull?.convertDateToReadableFormat())
     }
 
     @Test
     fun getDateToReadableFormat_Test_SmallDate() {
         val expectedDateSmall = "01/01/70"
         val longSmallValue = 123L
-
-        assertEquals(expectedDateSmall, longSmallValue.getDateToReadableFormat())
+        assertEquals(expectedDateSmall, longSmallValue.convertDateToReadableFormat())
     }
 
     @Test
     fun getDateToReadableFormat_Test_ProperDate() {
         val expectedDate = "19/02/20"
         val longValue = 1582114347000L
-
-        assertEquals(expectedDate, longValue.getDateToReadableFormat())
+        assertEquals(expectedDate, longValue.convertDateToReadableFormat())
     }
 }
