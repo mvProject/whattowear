@@ -2,15 +2,10 @@ package com.testapp.whattowear.utils
 
 import com.testapp.whattowear.data.DarkSkyWeather
 import com.testapp.whattowear.data.WeatherData
-import com.testapp.whattowear.utils.Utils.Companion.DATE_READABLE_PATTERN
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Utils {
-    companion object {
-        const val DATE_READABLE_PATTERN = "dd/MM/yy"
-    }
-}
+const val DATE_READABLE_PATTERN = "dd/MM/yy"
 
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     if ((this.daily.data.first().time != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureHighTime != null)) {
