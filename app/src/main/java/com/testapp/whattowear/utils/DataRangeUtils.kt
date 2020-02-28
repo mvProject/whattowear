@@ -12,3 +12,12 @@ fun getDataRangeForTrip(startDate: Long, endDate: Long): List<Long>? {
     }
     return null
 }
+
+fun isProperDataRangeSelected(startDate: Long?, endDate: Long?) : Boolean{
+    return when {
+        (startDate == null) or (endDate == null) -> false
+        (startDate!! <= 0L) or (endDate!! <= 0L) -> false
+        startDate>endDate -> false
+        else -> true
+    }
+}
