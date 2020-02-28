@@ -16,12 +16,25 @@ import com.testapp.whattowear.repository.DarkSkyWeatherRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val repository = DarkSkyWeatherRepository()
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
-
     var tripStartDate = 0L
     var tripEndDate = 0L
 
+    var tripStartDateSelectionDialogListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            tripStartDate = calendar.timeInMillis
+        }
+
+    var tripEndDateSelectionDialogListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            tripEndDate = calendar.timeInMillis
+        }
 
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
@@ -42,27 +55,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    var tripStartDateSelectionDialogListener =
-        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
-            tripStartDate = calendar.timeInMillis
-        }
-
-    var tripEndDateSelectionDialogListener =
-        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
-            tripEndDate = calendar.timeInMillis
-        }
-
-
-    fun addNewCustomWear() {
-        // TODO add new item feature
-    }
-
-    private val repository = DarkSkyWeatherRepository()
-
     fun getSelectedPlaceWeatherData(): LiveData<List<WeatherData>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(tripStartDate, tripEndDate)?.let {
@@ -78,5 +70,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getLoadingStatus(): LiveData<Boolean> {
         return repository.repositoryLoadingStatus
+    }
+
+    fun addNewCustomWear() {
+        // TODO add new item feature
     }
 }
