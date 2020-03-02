@@ -28,36 +28,38 @@
             android:text="@string/btn_reset_name"
             app:layout_constraintEnd_toStartOf="@id/btnTripStartDateSelect"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
-        <Button
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripStartDateSelect"
-            style="@style/ButtonIconStyle"
-            android:text="@string/btn_start_date_name"
-            app:icon="@drawable/ic_date_range"
+            style="@style/DateSelectViewStyle"
+            placeholderText="@{@string/btn_start_date_name}"
+            tripDate="@{mainViewModel.tripStartDateLive}"
             app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
-            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
+            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
+            tools:text="25/02/20" />
 
-        <Button
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripEndDateSelect"
-            style="@style/ButtonIconStyle"
-            android:text="@string/btn_end_date_name"
-            app:icon="@drawable/ic_date_range"
+            style="@style/DateSelectViewStyle"
+            placeholderText="@{@string/btn_end_date_name}"
+            tripDate="@{mainViewModel.tripEndDateLive}"
             app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
-            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
+            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
+            tools:text="25/02/20" />
 
         <Button
             android:id="@+id/btnSearchWear"
             style="@style/ButtonStyle"
             android:text="@string/btn_select_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 

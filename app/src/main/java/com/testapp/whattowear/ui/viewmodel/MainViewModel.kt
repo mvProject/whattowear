@@ -20,22 +20,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = DarkSkyWeatherRepository()
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
-    var tripStartDate = 0L
-    var tripEndDate = 0L
 
-    var tripStartDateSelectionDialogListener =
-        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
-            tripStartDate = calendar.timeInMillis
-        }
-
-    var tripEndDateSelectionDialogListener =
-        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
-            tripEndDate = calendar.timeInMillis
-        }
+    val tripEndDateLive = MutableLiveData<Long>().apply {
+        value = 0L
+    }
+    val tripStartDateLive = MutableLiveData<Long>().apply {
+        value = 0L
+    }
 
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
@@ -56,9 +47,30 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    var tripStartDateSelectionDialogListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            tripStartDateLive.value = calendar.timeInMillis
+        }
+
+    var tripEndDateSelectionDialogListener =
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            tripEndDateLive.value = calendar.timeInMillis
+        }
+
+    fun addNewCustomWear() {
+        // TODO add new item feature
+    }
+
+    private val repository = DarkSkyWeatherRepository()
+
+    fun getSelectedPlaceWeatherData(): LiveData<List<WeatherData>>? {
     fun getSelectedPlaceWeatherData(): LiveData<WeatherEvent<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
-            getDataRangeForTrip(tripStartDate, tripEndDate)?.let {
+            getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
                 return repository.getDarkSkyWeatherLiveDataForDateRange(
                     place.latitude,
                     place.longitude,
