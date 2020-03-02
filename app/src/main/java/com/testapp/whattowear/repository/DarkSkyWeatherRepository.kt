@@ -5,11 +5,11 @@ import androidx.lifecycle.liveData
 import com.testapp.whattowear.data.WeatherData
 import com.testapp.whattowear.data.ResourceWrapper
 
-class DarkSkyWeatherRepository {
+class DarkSkyWeatherRepository : IDarkSkyWeatherRepository{
 
     private val darkSkyWeatherService = DarkSkyWeatherImpl()
 
-    fun getDarkSkyWeatherLiveDataForDateRange(
+    override fun getDarkSkyWeatherLiveDataForDateRange(
         lat: String,
         lon: String,
         dataRange: List<Long>
