@@ -10,6 +10,4 @@ interface IDarkSkyWeatherRepository {
             lon: String,
             dataRange: List<Long>
     ): LiveData<ResourceWrapper<List<WeatherData>>>
-
-
 }
