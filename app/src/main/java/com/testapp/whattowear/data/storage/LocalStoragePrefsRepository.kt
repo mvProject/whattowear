@@ -6,7 +6,7 @@ import com.testapp.whattowear.data.item.model.TripItem
 import com.testapp.whattowear.data.wear.model.WearItem
 
 class LocalStoragePrefsRepository(context: Context) :
-    ILocalStoragePrefs {
+        ILocalStoragePrefs {
 
     private val PREFS_NAME = "WhatToWearPrefs"
     private val TRIP_ITEM_LIST_NAME = "itemListPrefs"

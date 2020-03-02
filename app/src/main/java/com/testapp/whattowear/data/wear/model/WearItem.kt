@@ -1,3 +1,5 @@
 package com.testapp.whattowear.data.wear.model
 
-data class WearItem(val name: String, val temp: WeatherTemp)
+import com.testapp.whattowear.data.ITripKitItem
+
+data class WearItem(val name: String, val temp: WeatherTemp) : ITripKitItem
