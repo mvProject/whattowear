@@ -5,7 +5,7 @@ import com.testapp.whattowear.data.WeatherData
 import com.testapp.whattowear.network.DarkSkyWeatherApiService
 import com.testapp.whattowear.utils.convertToWeatherDataModel
 
-class DarkSkyWeatherImpl() : IDarkSkyWeather {
+class DarkSkyWeatherImpl : IDarkSkyWeather {
 
     private val api = DarkSkyWeatherApiService().initApi()
 
@@ -22,7 +22,6 @@ class DarkSkyWeatherImpl() : IDarkSkyWeather {
             current.let {
                 weatherList.add(current.convertToWeatherDataModel()!!)
             }
-
         }
         return weatherList
     }

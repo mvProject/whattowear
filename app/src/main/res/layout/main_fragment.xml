@@ -63,6 +63,16 @@
             app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
+        <ProgressBar
+            android:id="@+id/progress_indicator"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/progress_bar_height_12dp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnResetUserSelection" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/wearList"
             android:layout_width="match_parent"

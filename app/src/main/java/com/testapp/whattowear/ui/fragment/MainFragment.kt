@@ -14,6 +14,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.testapp.whattowear.BuildConfig
 import com.testapp.whattowear.data.PlaceTrip
+import com.testapp.whattowear.data.Status
 import com.testapp.whattowear.databinding.MainFragmentBinding
 import com.testapp.whattowear.ui.viewmodel.MainViewModel
 import java.util.*
@@ -55,8 +56,19 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
+
             viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                when (it.status) {
+                    Status.LOADING -> {
+                        mainFragmentBinding.progressIndicator.visibility = View.VISIBLE
+                    }
+                    Status.SUCCESS -> {
+                        mainFragmentBinding.progressIndicator.visibility = View.INVISIBLE
+                        Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                    Status.ERROR -> {
+                    }
+                }
             })
         }
 

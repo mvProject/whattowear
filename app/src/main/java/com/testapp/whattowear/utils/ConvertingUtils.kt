@@ -45,7 +45,7 @@ fun Long.convertDateToReadableFormat(): String {
  */
 fun isDateConvertible(date: Long?): Boolean {
     if (date != null)
-        if (date > 0L)
+        if (date > 0)
             return true
     return false
 }
