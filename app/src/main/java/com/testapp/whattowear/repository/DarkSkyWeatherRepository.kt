@@ -2,6 +2,7 @@ package com.testapp.whattowear.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.testapp.whattowear.data.ITripKitItem
 import com.testapp.whattowear.data.WeatherData
 import com.testapp.whattowear.data.ResourceWrapper
 

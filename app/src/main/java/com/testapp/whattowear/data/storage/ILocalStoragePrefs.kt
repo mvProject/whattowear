@@ -1,11 +1,13 @@
 package com.testapp.whattowear.data.storage
 
-import com.testapp.whattowear.data.item.model.TripItem
-import com.testapp.whattowear.data.wear.model.WearItem
+import com.testapp.whattowear.data.ITripKitItem
+import com.testapp.whattowear.data.PlaceTrip
 
 interface ILocalStoragePrefs {
-    fun getWearItemsForSelect(): List<WearItem>
-    fun setWearItemsForSelect(wearItems: List<WearItem>)
-    fun getTripItemsForSelect(): List<TripItem>
-    fun setTripItemsForSelect(tripItems: List<TripItem>)
+    fun getLastSelectedPlace(): PlaceTrip?
+    fun setLastSelectedPlace(selectedPlace: PlaceTrip)
+    fun getLastSelectedDateRange(): List<Long>?
+    fun setLastSelectedDateRange(selectedDates: List<Long>)
+    fun getLastSelectedTripKit(): List<ITripKitItem>?
+    fun setLastSelectedTripKit(selectedKitItems: List<ITripKitItem>)
 }
