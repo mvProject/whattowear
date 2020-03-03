@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.testapp.whattowear"
+        applicationId "com.kinectpro.whattowear"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
