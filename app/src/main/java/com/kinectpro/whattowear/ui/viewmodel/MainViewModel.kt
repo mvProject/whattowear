@@ -13,11 +13,11 @@ import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import java.util.*
 import com.kinectpro.whattowear.data.WeatherData
 import com.kinectpro.whattowear.data.ResourceWrapper
-import com.kinectpro.whattowear.repository.DarkSkyWeatherRepository
+import com.kinectpro.whattowear.data.wear.WhatToWearRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = DarkSkyWeatherRepository()
+    private val repository = WhatToWearRepository()
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
 
@@ -38,28 +38,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             override fun onPlaceSelected(place: Place) {
                 selectedDestinationPlace.value = PlaceTrip(
-                        place.id!!,
-                        place.name!!,
-                        place.latLng?.latitude.toString(),
-                        place.latLng?.longitude.toString()
+                    place.id!!,
+                    place.name!!,
+                    place.latLng?.latitude.toString(),
+                    place.latLng?.longitude.toString()
                 )
             }
         }
     }
 
     var tripStartDateSelectionDialogListener =
-            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                val calendar = Calendar.getInstance()
-                calendar.set(year, month, dayOfMonth)
-                tripStartDateLive.value = calendar.timeInMillis
-            }
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            tripStartDateLive.value = calendar.timeInMillis
+        }
 
     var tripEndDateSelectionDialogListener =
-            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                val calendar = Calendar.getInstance()
-                calendar.set(year, month, dayOfMonth)
-                tripEndDateLive.value = calendar.timeInMillis
-            }
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            tripEndDateLive.value = calendar.timeInMillis
+        }
 
     fun addNewCustomWear() {
         // TODO add new item feature
@@ -68,10 +68,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
-                return repository.getDarkSkyWeatherLiveDataForDateRange(
-                        place.latitude,
-                        place.longitude,
-                        it
+                return repository.getWeatherForecastForSelectedPlace(
+                    place.latitude,
+                    place.longitude,
+                    it
                 )
             }
         }
