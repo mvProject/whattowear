@@ -1,12 +1,12 @@
-package com.testapp.whattowear.data.storage
+package com.kinectpro.whattowear.data.storage
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.testapp.whattowear.data.PlaceTrip
-import com.testapp.whattowear.data.wear.model.WearItem
-import com.testapp.whattowear.utils.*
+import com.kinectpro.whattowear.data.PlaceTrip
+import com.kinectpro.whattowear.data.wear.model.WearItem
+import com.kinectpro.whattowear.utils.*
 
-class LocalStoragePrefsRepository(context: Context) :
+class WhatToWearCache(context: Context) :
     ICache {
 
     private val PREFS_NAME = "WhatToWearPrefs"

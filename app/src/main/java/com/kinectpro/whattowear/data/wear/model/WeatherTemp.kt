@@ -1,4 +1,4 @@
-package com.testapp.whattowear.data.wear.model
+package com.kinectpro.whattowear.data.wear.model
 
 enum class WeatherTemp {
     COLD,

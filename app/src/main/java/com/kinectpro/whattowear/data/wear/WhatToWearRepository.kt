@@ -1,9 +1,9 @@
-package com.testapp.whattowear.data.wear
+package com.kinectpro.whattowear.data.wear
 
-import com.testapp.whattowear.data.PlaceTrip
-import com.testapp.whattowear.data.WeatherData
-import com.testapp.whattowear.data.wear.model.WearItem
-import com.testapp.whattowear.data.wear.model.WeatherTemp
+import com.kinectpro.whattowear.data.PlaceTrip
+import com.kinectpro.whattowear.data.WeatherData
+import com.kinectpro.whattowear.data.wear.model.WearItem
+import com.kinectpro.whattowear.data.wear.model.WeatherTemp
 
 class WhatToWearRepository :
     IWhatToWearRepository {
