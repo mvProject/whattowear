@@ -2,12 +2,12 @@ package com.testapp.whattowear.data.storage
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.testapp.whattowear.data.ITripKitItem
 import com.testapp.whattowear.data.PlaceTrip
+import com.testapp.whattowear.data.wear.model.WearItem
 import com.testapp.whattowear.utils.*
 
 class LocalStoragePrefsRepository(context: Context) :
-        ILocalStoragePrefs {
+    ICache {
 
     private val PREFS_NAME = "WhatToWearPrefs"
     private val TRIP_SELECTED_WEAR_KIT = "tripSelectedWearKit"
@@ -35,16 +35,17 @@ class LocalStoragePrefsRepository(context: Context) :
     }
 
     override fun setLastSelectedDateRange(selectedDates: List<Long>) {
-        sharedPreferences.edit().putString(TRIP_SELECTED_DATA_RANGE, selectedDates.dateRangeToJson()).apply()
+        sharedPreferences.edit()
+            .putString(TRIP_SELECTED_DATA_RANGE, selectedDates.dateRangeToJson()).apply()
     }
 
-    override fun getLastSelectedTripKit(): List<ITripKitItem>? {
+    override fun getLastSelectedTripKit(): List<WearItem>? {
         val wears = sharedPreferences.getString(TRIP_SELECTED_WEAR_KIT, null)
         return wears?.jsonToKitList()
     }
 
-    override fun setLastSelectedTripKit(selectedKitItems: List<ITripKitItem>) {
-        sharedPreferences.edit().putString(TRIP_SELECTED_WEAR_KIT, selectedKitItems.kitListToJson()).apply()
+    override fun setLastSelectedTripKit(selectedKitItems: List<WearItem>) {
+        sharedPreferences.edit().putString(TRIP_SELECTED_WEAR_KIT, selectedKitItems.kitListToJson())
+            .apply()
     }
-
 }

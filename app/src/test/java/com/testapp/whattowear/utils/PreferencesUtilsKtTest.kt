@@ -1,20 +1,22 @@
 package com.testapp.whattowear.utils
 
 import com.testapp.whattowear.data.PlaceTrip
-import com.testapp.whattowear.data.item.model.TripItem
+import com.testapp.whattowear.data.wear.model.WearItem
+import com.testapp.whattowear.data.wear.model.WeatherTemp
 import org.junit.Test
 
 import org.junit.Assert.*
 
 class PreferencesUtilsKtTest {
     private val testPlace = PlaceTrip("1", "PlaceName", "PlaceLat", "PlaceLon")
-    private val jsonPlace = """{"id":"1","name":"PlaceName","latitude":"PlaceLat","longitude":"PlaceLon"}"""
+    private val jsonPlace =
+        """{"id":"1","name":"PlaceName","latitude":"PlaceLat","longitude":"PlaceLon"}"""
 
     private val dateRange = listOf<Long>(1234567L, 1472589L, 9876543L)
     private val jsonDateRange = "[1234567,1472589,9876543]"
 
-    private val kitItems = listOf(TripItem("item1"), TripItem("item1"))
-    private val jsonKitItems = """[{"name":"item1"},{"name":"item1"}]"""
+    private val kitItems = listOf(WearItem("item1",WeatherTemp.FRESH), WearItem("item1",WeatherTemp.NORMAL))
+    private val jsonKitItems = """[{"name":"item1","temp":"FRESH"},{"name":"item1","temp":"NORMAL"}]"""
     @Test
     fun placeToJson_toJsonString() {
         assertEquals(jsonPlace, testPlace.placeToJson())

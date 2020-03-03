@@ -2,9 +2,8 @@ package com.testapp.whattowear.utils
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.testapp.whattowear.data.ITripKitItem
 import com.testapp.whattowear.data.PlaceTrip
-import com.testapp.whattowear.data.item.model.TripItem
+import com.testapp.whattowear.data.wear.model.WearItem
 
 fun PlaceTrip.placeToJson(): String {
     return Gson().toJson(this)
@@ -30,12 +29,12 @@ fun String?.jsonToDateRange(): List<Long>? {
 
 }
 
-fun List<ITripKitItem>.kitListToJson(): String {
+fun List<WearItem>.kitListToJson(): String {
     return Gson().toJson(this)
 }
 
-fun String?.jsonToKitList(): List<TripItem>? {
-    val kitType = object : TypeToken<List<TripItem>>() {}.type
+fun String?.jsonToKitList(): List<WearItem>? {
+    val kitType = object : TypeToken<List<WearItem>>() {}.type
     if (!this.isNullOrEmpty()) {
         return Gson().fromJson(this, kitType)
     }
