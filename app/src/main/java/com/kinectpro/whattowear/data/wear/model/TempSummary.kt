@@ -5,4 +5,4 @@ package com.kinectpro.whattowear.data.wear.model
  * @param minValue minimum from range
  * @param maxValue maximum from range
  */
-data class TempSummary(val minValue: Double, val maxValue: Double)
+data class TempSummary(val minValue: Float, val maxValue: Float)
