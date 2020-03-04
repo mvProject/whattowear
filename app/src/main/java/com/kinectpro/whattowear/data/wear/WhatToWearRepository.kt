@@ -11,14 +11,14 @@ import com.kinectpro.whattowear.repository.DarkSkyWeatherRepository
 class WhatToWearRepository :
     IWhatToWearRepository {
 
-    private val repository = DarkSkyWeatherRepository()
+    private val apiManager = DarkSkyWeatherRepository()
 
     override fun getWeatherForecastForSelectedPlace(
         lat: String,
         lon: String,
         dataRange: List<Long>
     ): LiveData<ResourceWrapper<List<WeatherData>>> {
-        return repository.getDarkSkyWeatherLiveDataForDateRange(
+        return apiManager.getDarkSkyWeatherLiveDataForDateRange(
             lat,
             lon,
             dataRange
