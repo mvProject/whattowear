@@ -18,7 +18,7 @@ class WhatToWearRepository :
         lat: String,
         lon: String,
         dataRange: List<Long>
-    ): LiveData<ResourceWrapper<List<WeatherData>>>  = liveData {
+    ): LiveData<ResourceWrapper<List<WeatherData>>> = liveData {
         emit(ResourceWrapper.loading())
         val data = apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)
         emit(ResourceWrapper.success(data))
