@@ -1,7 +1,7 @@
 package com.kinectpro.whattowear.utils
 
 
-import com.kinectpro.whattowear.data.wear.model.enums.WeatherConditionState
+import com.kinectpro.whattowear.data.wear.model.WeatherConditionState
 
 fun String?.convertIconToEnumValue(): WeatherConditionState? {
     return when (this) {

@@ -1,7 +1,6 @@
-package com.kinectpro.whattowear.network.api
+package com.kinectpro.whattowear.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.kinectpro.whattowear.network.endpoints.DarkSkyEndPoint
 import com.kinectpro.whattowear.utils.getRequestSettingsInterceptor
 import com.kinectpro.whattowear.utils.getLoggingInterceptor
 import okhttp3.OkHttpClient

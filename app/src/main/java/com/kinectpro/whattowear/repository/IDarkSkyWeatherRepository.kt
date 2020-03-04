@@ -1,8 +1,8 @@
 package com.kinectpro.whattowear.repository
 
 import androidx.lifecycle.LiveData
-import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
-import com.kinectpro.whattowear.data.response.WeatherData
+import com.kinectpro.whattowear.data.wear.ResourceWrapper
+import com.kinectpro.whattowear.data.wear.WeatherData
 
 interface IDarkSkyWeatherRepository {
     fun getDarkSkyWeatherLiveDataForDateRange(

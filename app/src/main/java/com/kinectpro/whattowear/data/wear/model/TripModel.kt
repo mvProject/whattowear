@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear.data.wear.model.trip
+package com.kinectpro.whattowear.data.wear.model
 
 data class TripModel(
     val dayTemp: TempSummary,

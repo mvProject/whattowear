@@ -1,8 +1,8 @@
-package com.kinectpro.whattowear.network.service
+package com.kinectpro.whattowear.repository
 
 import com.kinectpro.whattowear.BuildConfig
-import com.kinectpro.whattowear.data.response.WeatherData
-import com.kinectpro.whattowear.network.api.DarkSkyWeatherApiService
+import com.kinectpro.whattowear.data.wear.WeatherData
+import com.kinectpro.whattowear.network.DarkSkyWeatherApiService
 import com.kinectpro.whattowear.utils.convertToWeatherDataModel
 
 class DarkSkyWeatherImpl :

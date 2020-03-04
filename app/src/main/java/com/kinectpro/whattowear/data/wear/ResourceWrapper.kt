@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear.data.wrapper
+package com.kinectpro.whattowear.data.wear
 
 /**
  *  Helper class for wrap data

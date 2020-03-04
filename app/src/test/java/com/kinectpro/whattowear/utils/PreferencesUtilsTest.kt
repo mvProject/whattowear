@@ -1,8 +1,8 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.location.PlaceTrip
-import com.kinectpro.whattowear.data.wear.model.item.WearItem
-import com.kinectpro.whattowear.data.wear.model.enums.WeatherTemp
+import com.kinectpro.whattowear.data.wear.PlaceTrip
+import com.kinectpro.whattowear.data.wear.model.WearItem
+import com.kinectpro.whattowear.data.wear.model.WeatherTemp
 import org.junit.Test
 
 import org.junit.Assert.*

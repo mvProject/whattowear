@@ -1,10 +1,9 @@
 package com.kinectpro.whattowear.data.wear
 
 
-import com.kinectpro.whattowear.data.response.WeatherData
-import com.kinectpro.whattowear.data.wear.model.trip.TempSummary
-import com.kinectpro.whattowear.data.wear.model.trip.TripModel
-import com.kinectpro.whattowear.data.wear.model.trip.WeatherCondition
+import com.kinectpro.whattowear.data.wear.model.TempSummary
+import com.kinectpro.whattowear.data.wear.model.TripModel
+import com.kinectpro.whattowear.data.wear.model.WeatherCondition
 import com.kinectpro.whattowear.utils.*
 
 class TripWeatherCondition : IWeatherRangeSummary {

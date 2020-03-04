@@ -1,6 +1,6 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.wear.model.enums.WeatherConditionState
+import com.kinectpro.whattowear.data.wear.model.WeatherConditionState
 import org.junit.Test
 
 import org.junit.Assert.*

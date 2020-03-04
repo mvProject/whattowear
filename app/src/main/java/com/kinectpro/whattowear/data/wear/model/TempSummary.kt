@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear.data.wear.model.trip
+package com.kinectpro.whattowear.data.wear.model
 
 /**
  * Class holding temperature values

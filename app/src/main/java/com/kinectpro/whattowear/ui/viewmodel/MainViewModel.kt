@@ -8,11 +8,11 @@ import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.kinectpro.whattowear.data.location.PlaceTrip
+import com.kinectpro.whattowear.data.wear.PlaceTrip
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import java.util.*
-import com.kinectpro.whattowear.data.response.WeatherData
-import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
+import com.kinectpro.whattowear.data.wear.WeatherData
+import com.kinectpro.whattowear.data.wear.ResourceWrapper
 import com.kinectpro.whattowear.repository.DarkSkyWeatherRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {

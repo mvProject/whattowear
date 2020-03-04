@@ -1,7 +1,7 @@
 package com.kinectpro.whattowear.data.storage
 
-import com.kinectpro.whattowear.data.location.PlaceTrip
-import com.kinectpro.whattowear.data.wear.model.item.WearItem
+import com.kinectpro.whattowear.data.wear.PlaceTrip
+import com.kinectpro.whattowear.data.wear.model.WearItem
 
 interface ICache {
     fun getLastSelectedPlace(): PlaceTrip?
