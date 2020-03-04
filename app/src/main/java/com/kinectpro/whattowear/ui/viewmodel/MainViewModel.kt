@@ -11,13 +11,13 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.kinectpro.whattowear.data.wear.PlaceTrip
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import java.util.*
-import com.kinectpro.whattowear.data.wear.WeatherData
-import com.kinectpro.whattowear.data.wear.ResourceWrapper
-import com.kinectpro.whattowear.repository.DarkSkyWeatherRepository
+import com.kinectpro.whattowear.data.WeatherData
+import com.kinectpro.whattowear.data.ResourceWrapper
+import com.kinectpro.whattowear.data.wear.WhatToWearRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = DarkSkyWeatherRepository()
+    private val repository = WhatToWearRepository()
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
 
@@ -37,13 +37,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onPlaceSelected(place: Place) {
-                selectedDestinationPlace.value =
-                    PlaceTrip(
-                        place.id!!,
-                        place.name!!,
-                        place.latLng?.latitude.toString(),
-                        place.latLng?.longitude.toString()
-                    )
+                selectedDestinationPlace.value = PlaceTrip(
+                    place.id!!,
+                    place.name!!,
+                    place.latLng?.latitude.toString(),
+                    place.latLng?.longitude.toString()
+                )
             }
         }
     }
@@ -69,7 +68,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
-                return repository.getDarkSkyWeatherLiveDataForDateRange(
+                return repository.getWeatherForecastForSelectedPlace(
                     place.latitude,
                     place.longitude,
                     it

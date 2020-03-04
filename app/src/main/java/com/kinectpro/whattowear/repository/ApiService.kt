@@ -1,15 +1,13 @@
 package com.kinectpro.whattowear.repository
 
 import com.kinectpro.whattowear.BuildConfig
-import com.kinectpro.whattowear.data.wear.WeatherData
+import com.kinectpro.whattowear.data.WeatherData
 import com.kinectpro.whattowear.network.DarkSkyWeatherApiService
 import com.kinectpro.whattowear.utils.convertToWeatherDataModel
 
-class DarkSkyWeatherImpl :
-    IDarkSkyWeather {
+class ApiService : IDarkSkyWeather {
 
-    private val api = DarkSkyWeatherApiService()
-        .initApi()
+    private val api = DarkSkyWeatherApiService().initApi()
 
     override suspend fun getDarkSkyWeatherDataForDateRange(
         lat: String,
