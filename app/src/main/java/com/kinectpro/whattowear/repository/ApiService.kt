@@ -5,7 +5,7 @@ import com.kinectpro.whattowear.data.WeatherData
 import com.kinectpro.whattowear.network.DarkSkyWeatherApiService
 import com.kinectpro.whattowear.utils.convertToWeatherDataModel
 
-class DarkSkyWeatherImpl : IDarkSkyWeather {
+class ApiService : IDarkSkyWeather {
 
     private val api = DarkSkyWeatherApiService().initApi()
 
