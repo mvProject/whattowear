@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import com.google.android.material.textview.MaterialTextView
 import com.squareup.picasso.Picasso
 
+
 /**
  * Binding adapter for Date TextView's
  * @param view type of view which adapter can be binded
