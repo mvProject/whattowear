@@ -8,7 +8,7 @@ import java.util.*
 /**
  * Specified pattern to convert long variable timestamp
  */
-const val DATE_READABLE_PATTERN = "dd/MM/yy"
+const val STATE_DATE_READABLE_PATTERN = "dd/MM"
 
 /**
  * Extension Method to response data class which
@@ -31,9 +31,9 @@ fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
  * convert value to specified date pattern
  * @return String converted date value
  */
-fun Long.convertDateToReadableFormat(): String {
+fun Long.convertDateToReadableFormat(pattern : String): String {
     return SimpleDateFormat(
-            DATE_READABLE_PATTERN,
+            pattern,
             Locale.getDefault()
     ).format(this)
 }

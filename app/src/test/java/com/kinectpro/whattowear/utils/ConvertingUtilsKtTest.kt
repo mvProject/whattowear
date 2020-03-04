@@ -8,6 +8,9 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class ConvertingUtilsKtTest {
+
+    private val pattern = "dd/MM/yy"
+
     private fun getExpectedValue(
         time: String,
         tempHigh: String,
@@ -90,26 +93,26 @@ class ConvertingUtilsKtTest {
     fun getDateToReadableFormat_Test_ZeroDate() {
         val longZero = 0L
         val expectedDateSmall = "01/01/70"
-        assertEquals(expectedDateSmall, longZero.convertDateToReadableFormat())
+        assertEquals(expectedDateSmall, longZero.convertDateToReadableFormat(pattern))
     }
 
     @Test
     fun getDateToReadableFormat_Test_NullDate() {
         val longNull = null
-        assertEquals(null, longNull?.convertDateToReadableFormat())
+        assertEquals(null, longNull?.convertDateToReadableFormat(pattern))
     }
 
     @Test
     fun getDateToReadableFormat_Test_SmallDate() {
         val expectedDateSmall = "01/01/70"
         val longSmallValue = 123L
-        assertEquals(expectedDateSmall, longSmallValue.convertDateToReadableFormat())
+        assertEquals(expectedDateSmall, longSmallValue.convertDateToReadableFormat(pattern))
     }
 
     @Test
     fun getDateToReadableFormat_Test_ProperDate() {
         val expectedDate = "19/02/20"
         val longValue = 1582114347000L
-        assertEquals(expectedDate, longValue.convertDateToReadableFormat())
+        assertEquals(expectedDate, longValue.convertDateToReadableFormat(pattern))
     }
 }

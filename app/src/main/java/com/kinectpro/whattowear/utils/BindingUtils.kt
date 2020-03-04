@@ -3,6 +3,8 @@ package com.kinectpro.whattowear.utils
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textview.MaterialTextView
 
+const val DATE_READABLE_PATTERN = "dd/MM/yy"
+
 /**
  * Binding adapter for Date TextView's
  * @param view type of view which adapter can be binded
@@ -16,7 +18,7 @@ fun getProperTextForStartTextView(
         placeholderText: String
 ) {
     view.text = when (isDateConvertible(timestamp)) {
-        true -> timestamp.convertDateToReadableFormat()
+        true -> timestamp.convertDateToReadableFormat(DATE_READABLE_PATTERN)
         false -> placeholderText
     }
 }
