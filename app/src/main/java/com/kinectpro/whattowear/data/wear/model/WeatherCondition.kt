@@ -5,4 +5,4 @@ package com.kinectpro.whattowear.data.wear.model
  * @param condition weather which are present in forecast (like rain)
  * @param dates list of dates in string format (dd/MM) when specified condition expected
  */
-data class WeatherCondition(val condition: String, val dates: List<String>)
+data class WeatherCondition(val condition: String, val dates: List<Long>)

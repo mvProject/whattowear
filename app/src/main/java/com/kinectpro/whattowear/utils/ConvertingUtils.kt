@@ -3,13 +3,16 @@ package com.kinectpro.whattowear.utils
 import com.kinectpro.whattowear.data.DarkSkyWeather
 import com.kinectpro.whattowear.data.WeatherData
 import com.kinectpro.whattowear.data.wear.model.WeatherCondition
+import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  * Specified pattern to convert long variable timestamp
  */
-const val STATE_DATE_READABLE_PATTERN = "dd/MM"
+const val STATE_DATE_READABLE_PATTERN = "dd.MM"
+const val DATE_READABLE_PATTERN = "dd/MM/yy"
 
 /**
  * Extension Method to response data class which
@@ -19,7 +22,7 @@ const val STATE_DATE_READABLE_PATTERN = "dd/MM"
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     if ((this.daily.data.first().time != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureLow != null)) {
         return WeatherData(
-            this.daily.data.first().time.toString(),
+            this.daily.data.first().time!!,
             this.daily.data.first().apparentTemperatureHigh!!,
             this.daily.data.first().apparentTemperatureLow!!,
             this.daily.data.first().icon
@@ -53,7 +56,8 @@ fun isDateConvertible(date: Long?): Boolean {
 }
 
 /**
- * Returns list of day temp from weather forecast list
+ * Extension filtering day temperatures from weather forecast
+ * @return list of day temp from weather forecast list
  */
 fun List<WeatherData>.getDayTemperatureAsList(): List<Float> {
     val tempResultList = mutableListOf<Float>()
@@ -64,7 +68,8 @@ fun List<WeatherData>.getDayTemperatureAsList(): List<Float> {
 }
 
 /**
- * Returns list of day temp from weather forecast list
+ * Extension filtering night temperatures from weather forecast
+ * @return list of day temp from weather forecast list
  */
 fun List<WeatherData>.getNightTemperatureAsList(): List<Float> {
     val tempResultList = mutableListOf<Float>()
@@ -75,7 +80,8 @@ fun List<WeatherData>.getNightTemperatureAsList(): List<Float> {
 }
 
 /**
- * Returns list of weather states in range without nulls and duplicates
+ * Extension filtering weather states from weather forecast
+ * @return list of weather states in range without nulls and duplicates
  */
 fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
     val tempResultList = mutableListOf<String>()
@@ -87,16 +93,12 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
     return tempResultList.distinct()
 }
 
-/**
- * Return list of states with dates of appearing
- */
-fun getWeatherStateAppearanceInDateRange(weatherForecast: List<WeatherData>): List<WeatherCondition> {
-    val conditions = mutableListOf<WeatherCondition>()
-    for (state in weatherForecast.getWeatherStatesUniqueAsList()) {
-        val stateDates = weatherForecast.filter { it.weatherState == state }
-        conditions.add(WeatherCondition(state, stateDates.map { it.time }))
-    }
-    return conditions
+fun List<Long>.convertToShortDateFormatString(): String {
+    val result = StringBuilder()
+    for (date in this) {
+            result.append(TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(STATE_DATE_READABLE_PATTERN) + ",")
+        }
+    return result.substring(0,result.length-1).toString()
 }
 
 

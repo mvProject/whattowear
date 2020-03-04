@@ -1,7 +1,7 @@
 package com.kinectpro.whattowear.data
 
 data class WeatherData(
-    val time: String,
+    val time: Long,
     val temperatureDay: Float,
     val temperatureNight: Float,
     val weatherState: String?

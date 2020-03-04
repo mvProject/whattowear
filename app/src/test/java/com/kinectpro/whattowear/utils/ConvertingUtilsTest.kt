@@ -14,12 +14,16 @@ class ConvertingUtilsTest {
 
     private fun getExpectedWeatherList(): List<WeatherData> {
         return listOf(
-            WeatherData("12", 11f, 3f, "rain"),
-            WeatherData("13", 10.5f, 2.5f, "wind"),
-            WeatherData("14", 10f, 2f, "clear-day"),
-            WeatherData("15", 9f, 1f, null),
-            WeatherData("16", 8f, 3f, "wind")
+            WeatherData(1583704800, 11f, 3f, "rain"),
+            WeatherData(1583791200, 10.5f, 2.5f, "wind"),
+            WeatherData(1583877600, 10f, 2f, "clear-day"),
+            WeatherData(1583964000, 9f, 1f, null),
+            WeatherData(1584050400, 8f, 3f, "wind")
         )
+    }
+
+    private fun getTestDateList(): List<Long> {
+        return listOf(1583704800, 1583791200, 1583877600, 1583964000, 1584050400)
     }
 
     private fun getExpectedDayTempList(): List<Float> {
@@ -34,16 +38,9 @@ class ConvertingUtilsTest {
         return listOf("rain", "wind", "clear-day")
     }
 
-    private fun getStatesAppearanceTempList(): List<WeatherCondition> {
-        return listOf(
-            WeatherCondition("rain",listOf("12")),
-            WeatherCondition("wind",listOf("13","16")),
-            WeatherCondition("clear-day",listOf("14"))
-        )
-    }
 
     private fun getExpectedValue(
-        time: String,
+        time: Long,
         tempHigh: Float,
         tempLow: Float,
         state: String?
@@ -99,8 +96,8 @@ class ConvertingUtilsTest {
     @Test
     fun convertToWeatherDataModel_Test() {
         assertEquals(
-            getExpectedValue("12", 12.5f, 12f, "rain"),
-            getTestValue(12L, 12.5f, 12f, "rain").convertToWeatherDataModel()
+            getExpectedValue(1583704800, 12.5f, 12f, "rain"),
+            getTestValue(1583704800, 12.5f, 12f, "rain").convertToWeatherDataModel()
         )
     }
 
@@ -112,19 +109,19 @@ class ConvertingUtilsTest {
     @Test
     fun convertToWeatherDataModel_Test_Weather_Sub_Zero() {
         assertEquals(
-            getExpectedValue("12", -12.5f, -12f, "rain"),
-            getTestValue(12L, -12.5f, -12f, "rain").convertToWeatherDataModel()
+            getExpectedValue(1583704800, -12.5f, -12f, "rain"),
+            getTestValue(1583704800, -12.5f, -12f, "rain").convertToWeatherDataModel()
         )
     }
 
     @Test
     fun convertToWeatherDataModel_Test_HighTime_Is_Null() {
-        assertEquals(null, getTestValue(12L, 12.5f, null, "rain").convertToWeatherDataModel())
+        assertEquals(null, getTestValue(1583704800, 12.5f, null, "rain").convertToWeatherDataModel())
     }
 
     @Test
     fun convertToWeatherDataModel_Test_Temp_Null() {
-        assertEquals(null, getTestValue(12L, null, 12f, "rain").convertToWeatherDataModel())
+        assertEquals(null, getTestValue(1583704800, null, 12f, "rain").convertToWeatherDataModel())
     }
 
     @Test
@@ -135,8 +132,8 @@ class ConvertingUtilsTest {
     @Test
     fun convertToWeatherDataModel_Test_State_Null() {
         assertEquals(
-            getExpectedValue("12", 12.5f, -12f, null),
-            getTestValue(12L, 12.5f, -12f, null).convertToWeatherDataModel()
+            getExpectedValue(1583704800, 12.5f, -12f, null),
+            getTestValue(1583704800, 12.5f, -12f, null).convertToWeatherDataModel()
         )
     }
 
@@ -189,11 +186,10 @@ class ConvertingUtilsTest {
     }
 
     @Test
-    fun getWeatherStateAppearanceInDateRange() {
+    fun convertToShortDateFormatString() {
         assertEquals(
-            getStatesAppearanceTempList(),
-            getWeatherStateAppearanceInDateRange(getExpectedWeatherList())
+            "09.03,10.03,11.03,12.03,13.03",
+            getTestDateList().convertToShortDateFormatString()
         )
     }
-
 }
