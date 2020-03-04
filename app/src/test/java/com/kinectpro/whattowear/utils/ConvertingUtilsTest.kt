@@ -4,6 +4,7 @@ import com.kinectpro.whattowear.data.Daily
 import com.kinectpro.whattowear.data.DarkSkyWeather
 import com.kinectpro.whattowear.data.WeatherData
 import com.kinectpro.whattowear.data.Data
+import com.kinectpro.whattowear.data.wear.model.WeatherCondition
 import org.junit.Test
 import org.junit.Assert.*
 
@@ -27,6 +28,18 @@ class ConvertingUtilsTest {
 
     private fun getExpectedNightTempList(): List<Float> {
         return listOf(3f, 2.5f, 2f, 1f, 3f)
+    }
+
+    private fun getExpectedStatesTempList(): List<String> {
+        return listOf("rain", "wind", "clear-day")
+    }
+
+    private fun getStatesAppearanceTempList(): List<WeatherCondition> {
+        return listOf(
+            WeatherCondition("rain",listOf("12")),
+            WeatherCondition("wind",listOf("13","16")),
+            WeatherCondition("clear-day",listOf("14"))
+        )
     }
 
     private fun getExpectedValue(
@@ -166,4 +179,21 @@ class ConvertingUtilsTest {
             getExpectedWeatherList().getNightTemperatureAsList()
         )
     }
+
+    @Test
+    fun getWeatherUniqueStatesAsList_PROPER() {
+        assertEquals(
+            getExpectedStatesTempList(),
+            getExpectedWeatherList().getWeatherStatesUniqueAsList()
+        )
+    }
+
+    @Test
+    fun getWeatherStateAppearanceInDateRange() {
+        assertEquals(
+            getStatesAppearanceTempList(),
+            getWeatherStateAppearanceInDateRange(getExpectedWeatherList())
+        )
+    }
+
 }

@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.DarkSkyWeather
 import com.kinectpro.whattowear.data.WeatherData
+import com.kinectpro.whattowear.data.wear.model.WeatherCondition
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -72,6 +73,33 @@ fun List<WeatherData>.getNightTemperatureAsList(): List<Float> {
     }
     return tempResultList
 }
+
+/**
+ * Returns list of weather states in range without nulls and duplicates
+ */
+fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
+    val tempResultList = mutableListOf<String>()
+    for (temp in this) {
+        temp.weatherState?.let {
+            tempResultList.add(it)
+        }
+    }
+    return tempResultList.distinct()
+}
+
+/**
+ * Return list of states with dates of appearing
+ */
+fun getWeatherStateAppearanceInDateRange(weatherForecast: List<WeatherData>): List<WeatherCondition> {
+    val conditions = mutableListOf<WeatherCondition>()
+    for (state in weatherForecast.getWeatherStatesUniqueAsList()) {
+        val stateDates = weatherForecast.filter { it.weatherState == state }
+        conditions.add(WeatherCondition(state, stateDates.map { it.time }))
+    }
+    return conditions
+}
+
+
 
 
 
