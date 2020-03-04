@@ -51,6 +51,28 @@ fun isDateConvertible(date: Long?): Boolean {
     return false
 }
 
+/**
+ * Returns list of day temp from weather forecast list
+ */
+fun List<WeatherData>.getDayTemperatureAsList(): List<Float> {
+    val tempResultList = mutableListOf<Float>()
+    for (temp in this) {
+        tempResultList.add(temp.temperatureDay)
+    }
+    return tempResultList
+}
+
+/**
+ * Returns list of day temp from weather forecast list
+ */
+fun List<WeatherData>.getNightTemperatureAsList(): List<Float> {
+    val tempResultList = mutableListOf<Float>()
+    for (temp in this) {
+        tempResultList.add(temp.temperatureNight)
+    }
+    return tempResultList
+}
+
 
 
 

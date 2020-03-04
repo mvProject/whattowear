@@ -11,6 +11,24 @@ class ConvertingUtilsTest {
 
     private val pattern = "dd/MM/yy"
 
+    private fun getExpectedWeatherList(): List<WeatherData> {
+        return listOf(
+            WeatherData("12", 11f, 3f, "rain"),
+            WeatherData("13", 10.5f, 2.5f, "wind"),
+            WeatherData("14", 10f, 2f, "clear-day"),
+            WeatherData("15", 9f, 1f, null),
+            WeatherData("16", 8f, 3f, "wind")
+        )
+    }
+
+    private fun getExpectedDayTempList(): List<Float> {
+        return listOf(11f, 10.5f, 10f, 9f, 8f)
+    }
+
+    private fun getExpectedNightTempList(): List<Float> {
+        return listOf(3f, 2.5f, 2f, 1f, 3f)
+    }
+
     private fun getExpectedValue(
         time: String,
         tempHigh: Float,
@@ -134,5 +152,18 @@ class ConvertingUtilsTest {
         val expectedDate = "19/02/20"
         val longValue = 1582114347000L
         assertEquals(expectedDate, longValue.convertDateToReadableFormat(pattern))
+    }
+
+    @Test
+    fun getTemperatureAsList_DayTemp() {
+        assertEquals(getExpectedDayTempList(), getExpectedWeatherList().getDayTemperatureAsList())
+    }
+
+    @Test
+    fun getTemperatureAsList_NightTemp() {
+        assertEquals(
+            getExpectedNightTempList(),
+            getExpectedWeatherList().getNightTemperatureAsList()
+        )
     }
 }
