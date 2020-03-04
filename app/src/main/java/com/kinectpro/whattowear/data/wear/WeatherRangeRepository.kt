@@ -10,7 +10,7 @@ import com.kinectpro.whattowear.utils.getMinimumTempFromRange
 class WeatherRangeRepository : IWeatherRangeSummary {
     override fun getTempMinMaxValue(tempForecast: List<Float>?): TempSummary? {
         tempForecast?.let {
-            if ((getMinimumTempFromRange(it) !=null) and (getMaximumTempFromRange(it) != null))
+            if ((getMinimumTempFromRange(it) != null) and (getMaximumTempFromRange(it) != null))
                 return TempSummary(
                     getMinimumTempFromRange(it)!!,
                     getMaximumTempFromRange(it)!!

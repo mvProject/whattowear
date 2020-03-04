@@ -11,8 +11,8 @@ import com.kinectpro.whattowear.data.WeatherData
  * */
 interface IDarkSkyWeather {
     suspend fun getDarkSkyWeatherDataForDateRange(
-            lat: String,
-            lon: String,
-            dataRange: List<Long>
+        lat: String,
+        lon: String,
+        dataRange: List<Long>
     ): List<WeatherData>
 }

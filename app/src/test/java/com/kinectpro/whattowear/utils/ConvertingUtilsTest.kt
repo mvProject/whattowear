@@ -7,23 +7,24 @@ import com.kinectpro.whattowear.data.Data
 import org.junit.Test
 import org.junit.Assert.*
 
-class ConvertingUtilsKtTest {
+class ConvertingUtilsTest {
 
     private val pattern = "dd/MM/yy"
 
     private fun getExpectedValue(
         time: String,
-        tempHigh: String,
-        tempHighTime: String
+        tempHigh: Float,
+        tempLow: Float,
+        state: String?
     ): WeatherData {
-        return WeatherData(time, tempHigh, tempHighTime)
+        return WeatherData(time, tempHigh, tempLow, state)
     }
 
-    private fun getTestData(time: Long?, tempHigh: Double?, tempHighTime: Long?): Data {
+    private fun getTestData(time: Long?, tempHigh: Float?, tempLow: Float?, state: String?): Data {
         return Data(
-            time, null, null, null, null,
+            time, null, state, null, null,
             null, null, null, null, tempHigh,
-            null, tempHighTime, null, null, null,
+            tempLow, null, null, null, null,
             null, null, null, null, null, null,
             null, null, null, null
         )
@@ -31,62 +32,81 @@ class ConvertingUtilsKtTest {
 
     private fun getTestListData(
         time: Long?,
-        tempHigh: Double?,
-        tempHighTime: Long?
+        tempHigh: Float?,
+        tempLow: Float?,
+        state: String?
     ): MutableList<Data> {
         return mutableListOf<Data>().apply {
-            add(getTestData(time, tempHigh, tempHighTime))
+            add(getTestData(time, tempHigh, tempLow, state))
         }
     }
 
-    private fun getTestDaily(time: Long?, tempHigh: Double?, tempHighTime: Long?): Daily {
-        return Daily("summary", "icon", getTestListData(time, tempHigh, tempHighTime))
+    private fun getTestDaily(
+        time: Long?,
+        tempHigh: Float?,
+        tempLow: Float?,
+        state: String?
+    ): Daily {
+        return Daily("summary", "icon", getTestListData(time, tempHigh, tempLow, state))
     }
 
-    private fun getTestValue(time: Long?, tempHigh: Double?, tempHighTime: Long?): DarkSkyWeather {
+    private fun getTestValue(
+        time: Long?,
+        tempHigh: Float?,
+        tempLow: Float?,
+        state: String?
+    ): DarkSkyWeather {
         return DarkSkyWeather(
             1.5,
             2.5,
             "timezone",
-            getTestData(time, tempHigh, tempHighTime),
-            getTestDaily(time, tempHigh, tempHighTime)
+            getTestData(time, tempHigh, tempLow, state),
+            getTestDaily(time, tempHigh, tempLow, state)
         )
     }
 
     @Test
     fun convertToWeatherDataModel_Test() {
         assertEquals(
-            getExpectedValue("12", "12.5", "12"),
-            getTestValue(12L, 12.5, 12L).convertToWeatherDataModel()
+            getExpectedValue("12", 12.5f, 12f, "rain"),
+            getTestValue(12L, 12.5f, 12f, "rain").convertToWeatherDataModel()
         )
     }
 
     @Test
     fun convertToWeatherDataModel_Test_Not_Null() {
-        assertNotEquals(null, getTestValue(12L, 12.5, 12L).convertToWeatherDataModel())
+        assertNotEquals(null, getTestValue(12L, 12.5f, 12f, "rain").convertToWeatherDataModel())
     }
 
     @Test
     fun convertToWeatherDataModel_Test_Weather_Sub_Zero() {
         assertEquals(
-            getExpectedValue("12", "-12.5", "12"),
-            getTestValue(12L, -12.5, 12L).convertToWeatherDataModel()
+            getExpectedValue("12", -12.5f, -12f, "rain"),
+            getTestValue(12L, -12.5f, -12f, "rain").convertToWeatherDataModel()
         )
     }
 
     @Test
     fun convertToWeatherDataModel_Test_HighTime_Is_Null() {
-        assertEquals(null, getTestValue(12L, 12.5, null).convertToWeatherDataModel())
+        assertEquals(null, getTestValue(12L, 12.5f, null, "rain").convertToWeatherDataModel())
     }
 
     @Test
     fun convertToWeatherDataModel_Test_Temp_Null() {
-        assertEquals(null, getTestValue(12L, null, 12L).convertToWeatherDataModel())
+        assertEquals(null, getTestValue(12L, null, 12f, "rain").convertToWeatherDataModel())
     }
 
     @Test
     fun convertToWeatherDataModel_Test_Time_Null() {
-        assertEquals(null, getTestValue(null, 12.5, 12L).convertToWeatherDataModel())
+        assertEquals(null, getTestValue(null, 12.5f, 12f, "rain").convertToWeatherDataModel())
+    }
+
+    @Test
+    fun convertToWeatherDataModel_Test_State_Null() {
+        assertEquals(
+            getExpectedValue("12", 12.5f, -12f, null),
+            getTestValue(12L, 12.5f, -12f, null).convertToWeatherDataModel()
+        )
     }
 
     @Test

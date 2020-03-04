@@ -16,12 +16,12 @@ const val STATE_DATE_READABLE_PATTERN = "dd/MM"
  * @return instance of WeatherData data class or null
  */
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
-    if ((this.daily.data.first().time != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureHighTime != null)) {
+    if ((this.daily.data.first().time != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureLow != null)) {
         return WeatherData(
-                this.daily.data.first().time.toString(),
-                this.daily.data.first().apparentTemperatureHigh.toString(),
-                this.daily.data.first().apparentTemperatureLow?.toString() ?: "null",
-                this.daily.data.first().icon
+            this.daily.data.first().time.toString(),
+            this.daily.data.first().apparentTemperatureHigh!!,
+            this.daily.data.first().apparentTemperatureLow!!,
+            this.daily.data.first().icon
         )
     }
     return null
@@ -32,10 +32,10 @@ fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
  * convert value to specified date pattern
  * @return String converted date value
  */
-fun Long.convertDateToReadableFormat(pattern : String): String {
+fun Long.convertDateToReadableFormat(pattern: String): String {
     return SimpleDateFormat(
-            pattern,
-            Locale.getDefault()
+        pattern,
+        Locale.getDefault()
     ).format(this)
 }
 

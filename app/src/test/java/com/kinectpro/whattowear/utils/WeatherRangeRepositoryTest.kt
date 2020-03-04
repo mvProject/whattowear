@@ -13,7 +13,10 @@ class WeatherRangeRepositoryTest {
 
     @Test
     fun getTempMinMaxValue_LIST() {
-        assertEquals(TempSummary(-10.5f, 10.5f), WeatherRangeRepository().getTempMinMaxValue(tempList))
+        assertEquals(
+            TempSummary(-10.5f, 10.5f),
+            WeatherRangeRepository().getTempMinMaxValue(tempList)
+        )
     }
 
     @Test

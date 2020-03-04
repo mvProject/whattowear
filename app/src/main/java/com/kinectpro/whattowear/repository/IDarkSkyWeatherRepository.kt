@@ -6,8 +6,8 @@ import com.kinectpro.whattowear.data.WeatherData
 
 interface IDarkSkyWeatherRepository {
     fun getDarkSkyWeatherLiveDataForDateRange(
-            lat: String,
-            lon: String,
-            dataRange: List<Long>
+        lat: String,
+        lon: String,
+        dataRange: List<Long>
     ): LiveData<ResourceWrapper<List<WeatherData>>>
 }
