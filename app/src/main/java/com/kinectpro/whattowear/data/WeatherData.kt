@@ -2,8 +2,9 @@ package com.kinectpro.whattowear.data
 
 data class WeatherData(
     val time: String,
-    val temperature: String,
-    val temperatureTime: String
+    val temperatureDay: String,
+    val temperatureNight: String,
+    val weatherState : String?
 )
 
 data class DarkSkyWeather(

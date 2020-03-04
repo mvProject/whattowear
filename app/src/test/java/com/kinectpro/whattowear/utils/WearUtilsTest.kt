@@ -4,7 +4,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-class WeatherUtilsTest {
+class WearUtilsTest {
 
     private val tempRange = listOf(-10.5f, 0.5f, 10.5f)
     private val zeroRange = listOf<Float>()

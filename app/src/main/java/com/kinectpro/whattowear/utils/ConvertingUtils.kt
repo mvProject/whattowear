@@ -20,7 +20,8 @@ fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
         return WeatherData(
                 this.daily.data.first().time.toString(),
                 this.daily.data.first().apparentTemperatureHigh.toString(),
-                this.daily.data.first().apparentTemperatureHighTime?.toString() ?: "null"
+                this.daily.data.first().apparentTemperatureLow?.toString() ?: "null",
+                this.daily.data.first().icon
         )
     }
     return null
