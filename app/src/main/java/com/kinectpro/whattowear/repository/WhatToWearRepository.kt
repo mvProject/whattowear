@@ -1,21 +1,20 @@
-package com.kinectpro.whattowear.data.wear
+package com.kinectpro.whattowear.repository
 
-import com.kinectpro.whattowear.data.wear.IWhatToWearRepository
-import com.kinectpro.whattowear.data.wear.PlaceTrip
-import com.kinectpro.whattowear.data.wear.WeatherData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.kinectpro.whattowear.data.PlaceTrip
-import com.kinectpro.whattowear.data.ResourceWrapper
-import com.kinectpro.whattowear.data.WeatherData
-import com.kinectpro.whattowear.data.wear.model.WearItem
-import com.kinectpro.whattowear.data.wear.model.WeatherTemp
-import com.kinectpro.whattowear.repository.ApiService
+import com.kinectpro.whattowear.data.model.location.PlaceTrip
+import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.model.wear.WearItem
+import com.kinectpro.whattowear.data.model.wear.WeatherTemp
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
+import com.kinectpro.whattowear.network.service.ApiService
+import com.kinectpro.whattowear.repository.IWhatToWearRepository
 
 class WhatToWearRepository :
     IWhatToWearRepository {
 
-    private val apiManager = ApiService()
+    private val apiManager =
+        ApiService()
 
     override fun getWeatherForecastForSelectedPlace(
         lat: String,

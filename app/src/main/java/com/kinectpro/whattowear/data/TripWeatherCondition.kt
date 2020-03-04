@@ -1,12 +1,13 @@
-package com.kinectpro.whattowear.data.wear
+package com.kinectpro.whattowear.data
 
-
-import com.kinectpro.whattowear.data.wear.model.TempSummary
-import com.kinectpro.whattowear.data.wear.model.TripModel
-import com.kinectpro.whattowear.data.wear.model.WeatherCondition
+import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.model.trip.TempSummary
+import com.kinectpro.whattowear.data.model.trip.TripModel
+import com.kinectpro.whattowear.data.model.trip.WeatherCondition
 import com.kinectpro.whattowear.utils.*
 
-class TripWeatherCondition : IWeatherRangeSummary {
+class TripWeatherCondition :
+    IWeatherRangeSummary {
     /**
      * @param weatherForecast list of weather data items`
      * @return list of states with dates of appearing

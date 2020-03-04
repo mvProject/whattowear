@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear.data.wear.model
+package com.kinectpro.whattowear.data.model.wear
 
 /**
  * enum for proper holding weather condition state achieved from forecast icon data

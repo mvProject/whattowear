@@ -1,9 +1,9 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.wear.Daily
-import com.kinectpro.whattowear.data.wear.DarkSkyWeather
-import com.kinectpro.whattowear.data.wear.WeatherData
-import com.kinectpro.whattowear.data.wear.Data
+import com.kinectpro.whattowear.data.model.response.Daily
+import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
+import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.model.response.Data
 import org.junit.Test
 import org.junit.Assert.*
 

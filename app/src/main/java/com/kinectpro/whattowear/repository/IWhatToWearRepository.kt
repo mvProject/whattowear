@@ -1,11 +1,11 @@
-package com.kinectpro.whattowear.data.wear
+package com.kinectpro.whattowear.repository
 
 import androidx.lifecycle.LiveData
-import com.kinectpro.whattowear.data.PlaceTrip
-import com.kinectpro.whattowear.data.ResourceWrapper
-import com.kinectpro.whattowear.data.WeatherData
-import com.kinectpro.whattowear.data.wear.model.WearItem
-import com.kinectpro.whattowear.data.wear.model.WeatherTemp
+import com.kinectpro.whattowear.data.model.location.PlaceTrip
+import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.model.wear.WearItem
+import com.kinectpro.whattowear.data.model.wear.WeatherTemp
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 
 interface IWhatToWearRepository {
     fun getWeatherForecastForSelectedPlace(

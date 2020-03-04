@@ -2,8 +2,8 @@ package com.kinectpro.whattowear.utils
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.kinectpro.whattowear.data.wear.PlaceTrip
-import com.kinectpro.whattowear.data.wear.model.WearItem
+import com.kinectpro.whattowear.data.model.location.PlaceTrip
+import com.kinectpro.whattowear.data.model.wear.WearItem
 
 fun PlaceTrip.placeToJson(): String {
     return Gson().toJson(this)

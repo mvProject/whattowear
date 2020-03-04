@@ -13,8 +13,8 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.kinectpro.whattowear.BuildConfig
-import com.kinectpro.whattowear.data.wear.PlaceTrip
-import com.kinectpro.whattowear.data.wear.Status
+import com.kinectpro.whattowear.data.model.location.PlaceTrip
+import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
 import java.util.*

@@ -1,10 +1,10 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.wear.WeatherData
-import com.kinectpro.whattowear.data.wear.TripWeatherCondition
-import com.kinectpro.whattowear.data.wear.model.TempSummary
-import com.kinectpro.whattowear.data.wear.model.TripModel
-import com.kinectpro.whattowear.data.wear.model.WeatherCondition
+import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.TripWeatherCondition
+import com.kinectpro.whattowear.data.model.trip.TempSummary
+import com.kinectpro.whattowear.data.model.trip.TripModel
+import com.kinectpro.whattowear.data.model.trip.WeatherCondition
 import org.junit.Test
 
 import org.junit.Assert.*

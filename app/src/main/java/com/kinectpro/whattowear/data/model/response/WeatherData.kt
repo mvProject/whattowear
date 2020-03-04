@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear.data.wear
+package com.kinectpro.whattowear.data.model.response
 
 data class WeatherData(
     val time: Long,
