@@ -1,23 +1,7 @@
 package com.kinectpro.whattowear.utils
 
 
-import com.kinectpro.whattowear.data.wear.model.WeatherConditionState
-
-/**
- * Returns minimum value from float range or null if not exists
- * @param tempRange list of temperature from forecast
- */
-fun getMinimumTempFromRange(tempRange: List<Float>?): Float? {
-    return tempRange?.min()
-}
-
-/**
- * Returns maximum value from float range or null if not exists
- * @param tempRange list of temperature from forecast
- */
-fun getMaximumTempFromRange(tempRange: List<Float>?): Float? {
-    return tempRange?.max()
-}
+import com.kinectpro.whattowear.data.wear.model.enums.WeatherConditionState
 
 fun String?.convertIconToEnumValue(): WeatherConditionState? {
     return when (this) {

@@ -1,8 +1,7 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.DarkSkyWeather
-import com.kinectpro.whattowear.data.WeatherData
-import com.kinectpro.whattowear.data.wear.model.WeatherCondition
+import com.kinectpro.whattowear.data.response.DarkSkyWeather
+import com.kinectpro.whattowear.data.response.WeatherData
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*

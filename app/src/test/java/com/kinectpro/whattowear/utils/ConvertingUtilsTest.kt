@@ -1,10 +1,9 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.Daily
-import com.kinectpro.whattowear.data.DarkSkyWeather
-import com.kinectpro.whattowear.data.WeatherData
-import com.kinectpro.whattowear.data.Data
-import com.kinectpro.whattowear.data.wear.model.WeatherCondition
+import com.kinectpro.whattowear.data.response.Daily
+import com.kinectpro.whattowear.data.response.DarkSkyWeather
+import com.kinectpro.whattowear.data.response.WeatherData
+import com.kinectpro.whattowear.data.response.Data
 import org.junit.Test
 import org.junit.Assert.*
 
@@ -14,11 +13,36 @@ class ConvertingUtilsTest {
 
     private fun getExpectedWeatherList(): List<WeatherData> {
         return listOf(
-            WeatherData(1583704800, 11f, 3f, "rain"),
-            WeatherData(1583791200, 10.5f, 2.5f, "wind"),
-            WeatherData(1583877600, 10f, 2f, "clear-day"),
-            WeatherData(1583964000, 9f, 1f, null),
-            WeatherData(1584050400, 8f, 3f, "wind")
+            WeatherData(
+                1583704800,
+                11f,
+                3f,
+                "rain"
+            ),
+            WeatherData(
+                1583791200,
+                10.5f,
+                2.5f,
+                "wind"
+            ),
+            WeatherData(
+                1583877600,
+                10f,
+                2f,
+                "clear-day"
+            ),
+            WeatherData(
+                1583964000,
+                9f,
+                1f,
+                null
+            ),
+            WeatherData(
+                1584050400,
+                8f,
+                3f,
+                "wind"
+            )
         )
     }
 
@@ -45,7 +69,12 @@ class ConvertingUtilsTest {
         tempLow: Float,
         state: String?
     ): WeatherData {
-        return WeatherData(time, tempHigh, tempLow, state)
+        return WeatherData(
+            time,
+            tempHigh,
+            tempLow,
+            state
+        )
     }
 
     private fun getTestData(time: Long?, tempHigh: Float?, tempLow: Float?, state: String?): Data {
@@ -75,7 +104,11 @@ class ConvertingUtilsTest {
         tempLow: Float?,
         state: String?
     ): Daily {
-        return Daily("summary", "icon", getTestListData(time, tempHigh, tempLow, state))
+        return Daily(
+            "summary",
+            "icon",
+            getTestListData(time, tempHigh, tempLow, state)
+        )
     }
 
     private fun getTestValue(

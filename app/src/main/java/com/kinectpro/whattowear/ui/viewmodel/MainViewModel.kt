@@ -8,11 +8,11 @@ import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.kinectpro.whattowear.data.PlaceTrip
+import com.kinectpro.whattowear.data.location.PlaceTrip
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import java.util.*
-import com.kinectpro.whattowear.data.WeatherData
-import com.kinectpro.whattowear.data.ResourceWrapper
+import com.kinectpro.whattowear.data.response.WeatherData
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.repository.DarkSkyWeatherRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -37,12 +37,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onPlaceSelected(place: Place) {
-                selectedDestinationPlace.value = PlaceTrip(
-                    place.id!!,
-                    place.name!!,
-                    place.latLng?.latitude.toString(),
-                    place.latLng?.longitude.toString()
-                )
+                selectedDestinationPlace.value =
+                    PlaceTrip(
+                        place.id!!,
+                        place.name!!,
+                        place.latLng?.latitude.toString(),
+                        place.latLng?.longitude.toString()
+                    )
             }
         }
     }

@@ -1,9 +1,9 @@
-package com.kinectpro.whattowear.data.wear
+package com.kinectpro.whattowear.repository
 
-import com.kinectpro.whattowear.data.PlaceTrip
-import com.kinectpro.whattowear.data.WeatherData
-import com.kinectpro.whattowear.data.wear.model.WearItem
-import com.kinectpro.whattowear.data.wear.model.WeatherTemp
+import com.kinectpro.whattowear.data.location.PlaceTrip
+import com.kinectpro.whattowear.data.response.WeatherData
+import com.kinectpro.whattowear.data.wear.model.item.WearItem
+import com.kinectpro.whattowear.data.wear.model.enums.WeatherTemp
 
 interface IWhatToWearRepository {
     fun getWeatherForecastForSelectedPlace(place: PlaceTrip): List<WeatherData>

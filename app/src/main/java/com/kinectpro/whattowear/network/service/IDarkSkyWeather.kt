@@ -1,6 +1,6 @@
-package com.kinectpro.whattowear.repository
+package com.kinectpro.whattowear.network.service
 
-import com.kinectpro.whattowear.data.WeatherData
+import com.kinectpro.whattowear.data.response.WeatherData
 
 /**
  * Interface contain method for getting weather list which must be launching async

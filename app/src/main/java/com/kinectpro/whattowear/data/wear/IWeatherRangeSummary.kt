@@ -1,10 +1,8 @@
 package com.kinectpro.whattowear.data.wear
 
-import com.kinectpro.whattowear.data.wear.model.TempSummary
-import com.kinectpro.whattowear.data.WeatherData
-import com.kinectpro.whattowear.data.wear.model.WeatherCondition
+import com.kinectpro.whattowear.data.response.WeatherData
+import com.kinectpro.whattowear.data.wear.model.trip.TripModel
 
 interface IWeatherRangeSummary {
-    fun getTempMinMaxValue(tempForecast: List<Float>?): TempSummary?
-    fun getWeatherConditionRange(weatherForecast: List<WeatherData>): List<WeatherCondition>
+    fun getTripWeatherCondition(weatherForecast: List<WeatherData>): TripModel?
 }
