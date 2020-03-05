@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
 
-            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
+            viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.LOADING -> {
                         mainFragmentBinding.progressIndicator.visibility = View.VISIBLE
@@ -70,6 +70,10 @@ class MainFragment : Fragment() {
                     }
                 }
             })
+
+            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
+            })
+
         }
 
         setupPlaceSelectListener()

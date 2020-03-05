@@ -2,10 +2,8 @@ package com.kinectpro.whattowear.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.kinectpro.whattowear.data.TripWeatherCondition
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
-import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.model.wear.WeatherTemp
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
@@ -17,17 +15,14 @@ class WhatToWearRepository :
     private val apiManager =
         ApiService()
 
-    private val tripCondition = TripWeatherCondition()
-
     override fun getWeatherForecastForSelectedPlace(
         lat: String,
         lon: String,
         dataRange: List<Long>
-    ): LiveData<ResourceWrapper<TripModel>> = liveData {
+    ): LiveData<ResourceWrapper<List<WeatherData>>> = liveData {
         emit(ResourceWrapper.loading())
         val data = apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)
-        val tripData = tripCondition.getTripWeatherCondition(data)
-        emit(ResourceWrapper.success(tripData))
+        emit(ResourceWrapper.success(data))
     }
 
     override fun getWearsAvailableForSelect(condition: List<WeatherTemp>): List<WearItem> {
