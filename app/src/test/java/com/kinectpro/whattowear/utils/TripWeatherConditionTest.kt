@@ -56,14 +56,20 @@ class TripWeatherConditionTest {
             ),
             WeatherData(
                 1583791200,
-                10.5f,
+                13.5f,
                 null,
                 "wind"
             ),
             WeatherData(
                 1583877600,
-                10f,
+                5.5f,
                 2f,
+                "clear-day"
+            ),
+            WeatherData(
+                1583964000,
+                9.5f,
+                4f,
                 "clear-day"
             )
         )
@@ -122,6 +128,29 @@ class TripWeatherConditionTest {
             listOf(1583791200)
         )
     )
+    private val conditionTestNull = listOf(
+        WeatherCondition(
+            "rain",
+            listOf(1583704800)
+        ),
+        WeatherCondition(
+            "wind",
+            listOf(1583791200)
+        ),
+        WeatherCondition(
+            "clear-day",
+            listOf(1583877600, 1583964000)
+        )
+    )
+
+    private val expectedResultNull =
+        TripModel(
+            TempSummary(
+                5.5f,
+                13.5f
+            ),
+            TempSummary(2f, 4f), conditionTestNull
+        )
 
     private val expectedResultZero =
         TripModel(
@@ -152,7 +181,7 @@ class TripWeatherConditionTest {
     @Test
     fun getTripWeatherCondition_Null_Values() {
         assertEquals(
-            expectedResult,
+            expectedResultNull,
             TripWeatherCondition().getTripWeatherCondition(getTestWeatherListWithNulls())
         )
     }
