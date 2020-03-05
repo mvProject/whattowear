@@ -1,6 +1,6 @@
-package com.kinectpro.whattowear.network
+package com.kinectpro.whattowear.network.endpoint
 
-import com.kinectpro.whattowear.data.DarkSkyWeather
+import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import retrofit2.http.GET
 import retrofit2.http.Path
 

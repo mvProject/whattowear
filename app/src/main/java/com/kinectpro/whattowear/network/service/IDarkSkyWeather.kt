@@ -1,6 +1,6 @@
-package com.kinectpro.whattowear.repository
+package com.kinectpro.whattowear.network.service
 
-import com.kinectpro.whattowear.data.WeatherData
+import com.kinectpro.whattowear.data.model.response.WeatherData
 
 /**
  * Interface contain method for getting weather list which must be launching async
@@ -11,8 +11,8 @@ import com.kinectpro.whattowear.data.WeatherData
  * */
 interface IDarkSkyWeather {
     suspend fun getDarkSkyWeatherDataForDateRange(
-            lat: String,
-            lon: String,
-            dataRange: List<Long>
+        lat: String,
+        lon: String,
+        dataRange: List<Long>
     ): List<WeatherData>
 }
