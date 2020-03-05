@@ -8,17 +8,18 @@ import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.kinectpro.whattowear.data.TripWeatherCondition
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
-import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository =
-        WhatToWearRepository()
+    private val repository = WhatToWearRepository()
+
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
 
@@ -67,7 +68,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         // TODO add new item feature
     }
 
-    fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
+    fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<TripModel>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
                 return repository.getWeatherForecastForSelectedPlace(
