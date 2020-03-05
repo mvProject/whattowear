@@ -1,13 +1,16 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.DarkSkyWeather
-import com.kinectpro.whattowear.data.WeatherData
+import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
+import com.kinectpro.whattowear.data.model.response.WeatherData
+import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  * Specified pattern to convert long variable timestamp
  */
+const val STATE_DATE_READABLE_PATTERN = "dd.MM"
 const val DATE_READABLE_PATTERN = "dd/MM/yy"
 
 /**
@@ -16,11 +19,12 @@ const val DATE_READABLE_PATTERN = "dd/MM/yy"
  * @return instance of WeatherData data class or null
  */
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
-    if ((this.daily.data.first().time != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureHighTime != null)) {
+    if ((this.daily.data.first().time != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureLow != null)) {
         return WeatherData(
-                this.daily.data.first().time.toString(),
-                this.daily.data.first().apparentTemperatureHigh.toString(),
-                this.daily.data.first().apparentTemperatureHighTime?.toString() ?: "null"
+            this.daily.data.first().time!!,
+            this.daily.data.first().apparentTemperatureHigh!!,
+            this.daily.data.first().apparentTemperatureLow!!,
+            this.daily.data.first().icon
         )
     }
     return null
@@ -31,10 +35,10 @@ fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
  * convert value to specified date pattern
  * @return String converted date value
  */
-fun Long.convertDateToReadableFormat(): String {
+fun Long.convertDateToReadableFormat(pattern: String): String {
     return SimpleDateFormat(
-            DATE_READABLE_PATTERN,
-            Locale.getDefault()
+        pattern,
+        Locale.getDefault()
     ).format(this)
 }
 
@@ -49,6 +53,62 @@ fun isDateConvertible(date: Long?): Boolean {
             return true
     return false
 }
+
+/**
+ * Extension filtering day temperatures from weather forecast
+ * @return list of day temp from weather forecast list
+ */
+fun List<WeatherData>.getDayTemperatureAsList(): List<Float> {
+    val tempResultList = mutableListOf<Float>()
+    for (temp in this) {
+        if (temp.temperatureDay != null) {
+            tempResultList.add(temp.temperatureDay)
+        }
+    }
+    return tempResultList
+}
+
+/**
+ * Extension filtering night temperatures from weather forecast
+ * @return list of day temp from weather forecast list
+ */
+fun List<WeatherData>.getNightTemperatureAsList(): List<Float> {
+    val tempResultList = mutableListOf<Float>()
+    for (temp in this) {
+        if (temp.temperatureNight != null) {
+            tempResultList.add(temp.temperatureNight)
+        }
+    }
+    return tempResultList
+}
+
+/**
+ * Extension filtering weather states from weather forecast
+ * @return list of weather states in range without nulls and duplicates
+ */
+fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
+    val tempResultList = mutableListOf<String>()
+    for (temp in this) {
+        temp.weatherState?.let {
+            tempResultList.add(it)
+        }
+    }
+    return tempResultList.distinct()
+}
+
+fun List<Long>.convertToShortDateFormatString(): String {
+    val result = StringBuilder()
+    for (date in this) {
+        result.append(
+            TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
+                STATE_DATE_READABLE_PATTERN
+            ) + ","
+        )
+    }
+    return result.substring(0, result.length - 1).toString()
+}
+
+
 
 
 

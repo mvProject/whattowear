@@ -1,40 +1,40 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.wear.model.WearItem
-import com.kinectpro.whattowear.data.wear.model.WeatherTemp
-import kotlin.collections.mutableListOf
 
-fun getWearsToSelectAccordingTempRange(temps: List<Float>): List<WearItem> {
-    val allWears = getDummyWears()
-    val neededWears = mutableListOf<WearItem>()
-    for (temp in temps) {
-        neededWears.addAll(allWears.filter { it.temp == convertTempToWearType(temp) })
+import com.kinectpro.whattowear.data.model.wear.WeatherConditionState
+
+fun String?.convertIconToEnumValue(): WeatherConditionState? {
+    return when (this) {
+        "clear-day" -> WeatherConditionState.CLEARDAY
+        "clear-night" -> WeatherConditionState.CLEARNIGHT
+        "rain" -> WeatherConditionState.RAIN
+        "snow" -> WeatherConditionState.SNOW
+        "sleet" -> WeatherConditionState.SLEET
+        "wind" -> WeatherConditionState.WIND
+        "fog" -> WeatherConditionState.FOG
+        "cloudy" -> WeatherConditionState.CLOUDY
+        "partly-cloudy-day" -> WeatherConditionState.PARTYCLOUDYDAY
+        "partly-cloudy-night" -> WeatherConditionState.PARTYCLOUDYNIGHT
+        else -> return null
     }
-    return neededWears.distinct()
 }
 
-fun convertTempToWearType(temp: Float): WeatherTemp =
-    when {
-        temp < -10 -> {
-            WeatherTemp.COLD
-        }
-        temp > 10 -> {
-            WeatherTemp.HOT
-        }
-        else -> WeatherTemp.NORMAL
-    }
-
-fun getDummyWears(): List<WearItem> {
-    return mutableListOf<WearItem>().apply {
-        add(WearItem("shirt1", WeatherTemp.NORMAL))
-        add(WearItem("shirt2", WeatherTemp.HOT))
-        add(WearItem("jacket", WeatherTemp.COLD))
-        add(WearItem("t-shirt", WeatherTemp.HOT))
-        add(WearItem("pants", WeatherTemp.NORMAL))
-        add(WearItem("warmpants", WeatherTemp.COLD))
-        add(WearItem("shorts", WeatherTemp.HOT))
-        add(WearItem("hat", WeatherTemp.COLD))
-        add(WearItem("cap", WeatherTemp.HOT))
+fun String?.checkProperConditionState(): Boolean {
+    val condition = listOf(
+        "clear-day",
+        "clear-night",
+        "rain",
+        "snow",
+        "sleet",
+        "wind",
+        "fog",
+        "cloudy",
+        "partly-cloudy-day",
+        "partly-cloudy-night"
+    )
+    return when (this) {
+        in condition -> true
+        else -> false
     }
 }
 
