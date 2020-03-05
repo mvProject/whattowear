@@ -19,6 +19,24 @@ fun String?.convertIconToEnumValue(): WeatherConditionState? {
     }
 }
 
+fun String?.checkProperConditionState(): Boolean {
+    val condition = listOf(
+        "clear-day",
+        "clear-night",
+        "rain",
+        "snow",
+        "sleet",
+        "wind",
+        "fog",
+        "cloudy",
+        "partly-cloudy-day",
+        "partly-cloudy-night"
+    )
+    return when (this) {
+        in condition -> true
+        else -> false
+    }
+}
 
 
 

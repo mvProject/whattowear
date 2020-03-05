@@ -61,7 +61,9 @@ fun isDateConvertible(date: Long?): Boolean {
 fun List<WeatherData>.getDayTemperatureAsList(): List<Float> {
     val tempResultList = mutableListOf<Float>()
     for (temp in this) {
-        tempResultList.add(temp.temperatureDay)
+        temp.temperatureDay.let {
+            tempResultList.add(temp.temperatureDay!!)
+        }
     }
     return tempResultList
 }
@@ -73,7 +75,9 @@ fun List<WeatherData>.getDayTemperatureAsList(): List<Float> {
 fun List<WeatherData>.getNightTemperatureAsList(): List<Float> {
     val tempResultList = mutableListOf<Float>()
     for (temp in this) {
-        tempResultList.add(temp.temperatureNight)
+        temp.temperatureNight.let {
+            tempResultList.add(temp.temperatureNight!!)
+        }
     }
     return tempResultList
 }
@@ -95,9 +99,13 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
 fun List<Long>.convertToShortDateFormatString(): String {
     val result = StringBuilder()
     for (date in this) {
-            result.append(TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(STATE_DATE_READABLE_PATTERN) + ",")
-        }
-    return result.substring(0,result.length-1).toString()
+        result.append(
+            TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
+                STATE_DATE_READABLE_PATTERN
+            ) + ","
+        )
+    }
+    return result.substring(0, result.length - 1).toString()
 }
 
 

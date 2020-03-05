@@ -2,8 +2,8 @@ package com.kinectpro.whattowear.data.model.response
 
 data class WeatherData(
     val time: Long,
-    val temperatureDay: Float,
-    val temperatureNight: Float,
+    val temperatureDay: Float?,
+    val temperatureNight: Float?,
     val weatherState: String?
 )
 

@@ -43,13 +43,14 @@ class TripWeatherCondition :
 
         for (state in weatherForecast.getWeatherStatesUniqueAsList()) {
             val stateDates = weatherForecast.filter { it.weatherState == state }
-            conditions.add(
-                WeatherCondition(
-                    state,
-                    stateDates.map { it.time })
-            )
+            if (state.checkProperConditionState()) {
+                conditions.add(
+                    WeatherCondition(
+                        state,
+                        stateDates.filter { it.time > 0 }.map { it.time })
+                )
+            }
         }
         return conditions
     }
-
 }

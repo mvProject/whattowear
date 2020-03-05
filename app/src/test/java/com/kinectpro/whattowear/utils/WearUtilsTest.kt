@@ -24,4 +24,22 @@ class WearUtilsTest {
         val state = null
         assertEquals(null, state.convertIconToEnumValue())
     }
+
+    @Test
+    fun checkProperConditionState_PROPER_VALUE() {
+        val state = "clear-day"
+        assertEquals(true, state.checkProperConditionState())
+    }
+
+    @Test
+    fun checkProperConditionState_RANDOM_VALUE() {
+        val state = "random"
+        assertEquals(false, state.checkProperConditionState())
+    }
+
+    @Test
+    fun checkProperConditionState_NULL_VALUE() {
+        val state = null
+        assertEquals(false, state.checkProperConditionState())
+    }
 }
