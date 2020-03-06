@@ -56,6 +56,7 @@ fun loadImage(
     }
 }
 
+// Dummy Data
 fun GetDummy(): TripModel {
     return TripModel(
         TempSummary(5f, 10f),
