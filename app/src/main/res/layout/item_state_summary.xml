@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iconWeatherState"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtWeatherStateType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_8dp"
-        android:layout_marginTop="@dimen/padding_4dp"
-        app:layout_constraintStart_toEndOf="@id/iconWeatherState"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="rain" />
+        <variable
+            name="weatherState"
+            type="com.kinectpro.whattowear.data.model.trip.WeatherCondition" />
+    </data>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtWeatherStateTypeDateRange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_8dp"
-        android:layout_marginTop="@dimen/padding_4dp"
-        app:layout_constraintStart_toEndOf="@id/iconWeatherState"
-        app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
-        tools:text="10.03,11.03,12.03" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iconWeatherState"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtWeatherStateType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_8dp"
+            android:layout_marginTop="@dimen/padding_4dp"
+            android:text="@{weatherState.condition}"
+            app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="rain" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtWeatherStateTypeDateRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_8dp"
+            android:layout_marginTop="@dimen/padding_4dp"
+            conditionDates="@{weatherState.dates}"
+            app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+            app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
+            tools:text="10.03,11.03,12.03" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

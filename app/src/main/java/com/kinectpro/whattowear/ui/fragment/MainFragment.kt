@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
@@ -16,7 +17,10 @@ import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
+import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
+import com.kinectpro.whattowear.utils.GetDummy
+import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
 
 class MainFragment : Fragment() {
@@ -57,13 +61,25 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
 
+            it.let {
+                wearList.apply {
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = WeatherConditionsAdapter(GetDummy().conditionDates)
+                }
+            }
+
             viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.LOADING -> {
                         mainFragmentBinding.progressIndicator.visibility = View.VISIBLE
+                        mainFragmentBinding.txtNightWeatherSummary.visibility = View.INVISIBLE
+                        mainFragmentBinding.txtDayWeatherSummary.visibility = View.INVISIBLE
                     }
                     Status.SUCCESS -> {
                         mainFragmentBinding.progressIndicator.visibility = View.INVISIBLE
+                        mainFragmentBinding.txtNightWeatherSummary.visibility = View.VISIBLE
+                        mainFragmentBinding.txtDayWeatherSummary.visibility = View.VISIBLE
+
                         Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                     }
                     Status.ERROR -> {

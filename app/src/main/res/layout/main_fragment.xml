@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="mainViewModel"
             type="com.kinectpro.whattowear.ui.viewmodel.MainViewModel" />
@@ -63,27 +62,6 @@
             app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtNightWeatherSummary"
-            style="@style/WeatherSummaryViewStyle"
-            android:drawableStart="@drawable/ic_night_summary"
-            app:layout_constraintEnd_toStartOf="@+id/txtDayWeatherSummary"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnResetUserSelection"
-            tools:text="-3..-1" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtDayWeatherSummary"
-            style="@style/WeatherSummaryViewStyle"
-            android:drawableStart="@drawable/ic_day_summary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/txtNightWeatherSummary"
-            app:layout_constraintTop_toBottomOf="@id/btnResetUserSelection"
-            tools:text="3..5" />
-
-
         <ProgressBar
             android:id="@+id/progress_indicator"
             style="?android:attr/progressBarStyleHorizontal"
@@ -92,17 +70,40 @@
             android:indeterminate="true"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
+            app:layout_constraintTop_toBottomOf="@id/btnSearchWear" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtNightWeatherSummary"
+            style="@style/WeatherSummaryViewStyle"
+            android:drawableStart="@drawable/ic_night_summary"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/txtDayWeatherSummary"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_indicator"
+            tools:text="-3..-1"
+            tools:visibility="visible" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtDayWeatherSummary"
+            style="@style/WeatherSummaryViewStyle"
+            android:drawableStart="@drawable/ic_day_summary"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtNightWeatherSummary"
+            app:layout_constraintTop_toBottomOf="@id/progress_indicator"
+            tools:text="3..5"
+            tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/wearList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/list_margin_top"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_indicator" />
+            app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddCustomWear"
