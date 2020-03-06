@@ -77,33 +77,37 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
-                val weatherList = repository.getWeatherForecastForSelectedPlace(
+                return repository.getWeatherForecastForSelectedPlace(
                     place.latitude,
                     place.longitude,
                     it
                 )
-                selectedTripCondition.addSource(weatherList, Observer {
-                    when (weatherList.value?.status) {
-                        RequestStatus.LOADING -> {
-                            selectedTripCondition.postValue(ResourceWrapper.loading())
-                        }
-                        RequestStatus.SUCCESS -> {
-                            selectedTripCondition.postValue(
-                                ResourceWrapper.success(
-                                    tripCondition.getTripWeatherCondition(
-                                        weatherList.value?.data!!
-                                    )
-                                )
-                            )
-                        }
-                        com.kinectpro.whattowear.data.wrapper.Status.ERROR -> {
-
-                        }
-                    }
-                })
-                return weatherList
             }
         }
         return null
+    }
+
+    fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
+        if (weatherList != null) {
+            selectedTripCondition.addSource(weatherList, Observer {
+                when (it.status) {
+                    RequestStatus.LOADING -> {
+                        selectedTripCondition.postValue(ResourceWrapper.loading())
+                    }
+                    RequestStatus.SUCCESS -> {
+                        selectedTripCondition.postValue(
+                            ResourceWrapper.success(
+                                tripCondition.getTripWeatherCondition(
+                                    it.data!!
+                                )
+                            )
+                        )
+                    }
+                    com.kinectpro.whattowear.data.wrapper.Status.ERROR -> {
+
+                    }
+                }
+            })
+        }
     }
 }

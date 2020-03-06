@@ -57,6 +57,8 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
 
+            viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+
             viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.LOADING -> {
@@ -70,10 +72,6 @@ class MainFragment : Fragment() {
                     }
                 }
             })
-
-            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
-            })
-
         }
 
         setupPlaceSelectListener()
