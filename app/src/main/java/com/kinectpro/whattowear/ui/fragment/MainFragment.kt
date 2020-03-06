@@ -66,29 +66,20 @@ class MainFragment : Fragment() {
             viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.LOADING -> {
-                        mainFragmentBinding.progressIndicator.visibility = View.VISIBLE
-                        mainFragmentBinding.waitingImage.visibility = View.VISIBLE
-                        mainFragmentBinding.txtNightWeatherSummary.visibility = View.INVISIBLE
-                        mainFragmentBinding.txtDayWeatherSummary.visibility = View.INVISIBLE
+                        showDataUI(false)
                         Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                     }
                     Status.SUCCESS -> {
-                        mainFragmentBinding.progressIndicator.visibility = View.INVISIBLE
-                        mainFragmentBinding.waitingImage.visibility = View.INVISIBLE
-                        mainFragmentBinding.txtNightWeatherSummary.visibility = View.VISIBLE
-                        mainFragmentBinding.txtDayWeatherSummary.visibility = View.VISIBLE
+                        showDataUI(true)
 
-                        Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
-
+                        txtNightWeatherSummary.text = GetDummy().nightTemp.convertToReadableRange()
+                        txtDayWeatherSummary.text = GetDummy().dayTemp.convertToReadableRange()
                         wearList.apply {
                             layoutManager = LinearLayoutManager(context)
                             adapter = WeatherConditionsAdapter(GetDummy().conditionDates)
                         }
-                        txtNightWeatherSummary.text = GetDummy().nightTemp.convertToReadableRange()
-                        txtDayWeatherSummary.text = GetDummy().dayTemp.convertToReadableRange()
                     }
-                    Status.ERROR -> {
-                    }
+                    Status.ERROR -> TODO("error handling")
                 }
             })
         }
@@ -134,6 +125,19 @@ class MainFragment : Fragment() {
             setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
         }
+    }
+
+    private fun showDataUI(state: Boolean) {
+        mainFragmentBinding.progressIndicator.visibility =
+            if (state) View.INVISIBLE else View.VISIBLE
+        mainFragmentBinding.waitingImage.visibility =
+            if (state) View.INVISIBLE else View.VISIBLE
+        mainFragmentBinding.txtNightWeatherSummary.visibility =
+            if (state) View.VISIBLE else View.INVISIBLE
+        mainFragmentBinding.txtDayWeatherSummary.visibility =
+            if (state) View.VISIBLE else View.INVISIBLE
+        mainFragmentBinding.wearList.visibility =
+            if (state) View.VISIBLE else View.INVISIBLE
     }
 }
 

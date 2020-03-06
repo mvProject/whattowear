@@ -100,7 +100,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/wearList"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,14 +115,14 @@
             android:backgroundTint="@color/colorAccent"
             android:onClick="@{() -> mainViewModel.addNewCustomWear()}"
             android:src="@drawable/ic_add_custom_wear"
-            app:borderWidth="@dimen/fab_no_border"
+            app:borderWidth="@dimen/zero_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
         <ImageView
             android:id="@+id/waitingImage"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/zero_dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

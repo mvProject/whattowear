@@ -98,7 +98,8 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
 }
 
 /**
- *
+ * Extension to convert list of dates to specified short date united string
+ * @return single string value
  */
 fun List<Long>.convertToShortDateFormatString(): String {
     val result = StringBuilder()
@@ -113,7 +114,8 @@ fun List<Long>.convertToShortDateFormatString(): String {
 }
 
 /**
- *
+ * Extension convert temp summary to specified string
+ * @return single string value
  */
 fun TempSummary.convertToReadableRange(): String {
     return "  ${this.minValue} .. ${this.maxValue}"

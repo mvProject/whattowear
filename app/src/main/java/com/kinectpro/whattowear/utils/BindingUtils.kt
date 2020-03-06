@@ -66,8 +66,15 @@ fun GetDummy(): TripModel {
                 "clear-day",
                 listOf(1583704800, 1583791200, 1583877600, 1583964000, 1584050400)
             ),
-            WeatherCondition("wind", listOf(1583964000, 1584050400)),
-            WeatherCondition("rain", listOf(1584050400))
+            WeatherCondition("clear-night", listOf(1583704800, 1583791200, 1583877600, 1583964000)),
+            WeatherCondition("rain", listOf(1583704800, 1583791200, 1583877600)),
+            WeatherCondition("snow", listOf(1583704800, 1583791200)),
+            WeatherCondition("sleet", listOf(1583704800)),
+            WeatherCondition("wind", listOf(1583791200)),
+            WeatherCondition("fog", listOf(1583877600)),
+            WeatherCondition("cloudy", listOf(1583964000)),
+            WeatherCondition("partly-cloudy-day", listOf(1583964000, 1584050400)),
+            WeatherCondition("partly-cloudy-night", listOf(1584050400))
         )
     )
 }
