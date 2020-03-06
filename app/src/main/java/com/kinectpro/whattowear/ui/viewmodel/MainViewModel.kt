@@ -16,6 +16,7 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
+import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 
@@ -83,10 +84,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 )
                 selectedTripCondition.addSource(weatherList, Observer {
                     when (weatherList.value?.status) {
-                        com.kinectpro.whattowear.data.wrapper.Status.LOADING -> {
+                        RequestStatus.LOADING -> {
                             selectedTripCondition.postValue(ResourceWrapper.loading())
                         }
-                        com.kinectpro.whattowear.data.wrapper.Status.SUCCESS -> {
+                        RequestStatus.SUCCESS -> {
                             selectedTripCondition.postValue(
                                 ResourceWrapper.success(
                                     tripCondition.getTripWeatherCondition(
