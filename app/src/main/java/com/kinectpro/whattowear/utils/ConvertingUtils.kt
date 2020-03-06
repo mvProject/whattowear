@@ -97,6 +97,9 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
     return tempResultList.distinct()
 }
 
+/**
+ *
+ */
 fun List<Long>.convertToShortDateFormatString(): String {
     val result = StringBuilder()
     for (date in this) {
@@ -109,7 +112,9 @@ fun List<Long>.convertToShortDateFormatString(): String {
     return result.substring(0, result.length - 1).toString()
 }
 
-
+/**
+ *
+ */
 fun TempSummary.convertToReadableRange(): String {
     return "  ${this.minValue} .. ${this.maxValue}"
 }

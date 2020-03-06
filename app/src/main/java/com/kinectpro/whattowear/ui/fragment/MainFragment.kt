@@ -61,16 +61,6 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-
-            it.let {
-                wearList.apply {
-                    layoutManager = LinearLayoutManager(context)
-                    adapter = WeatherConditionsAdapter(GetDummy().conditionDates)
-                }
-                txtNightWeatherSummary.text = GetDummy().nightTemp.convertToReadableRange()
-                txtDayWeatherSummary.text = GetDummy().dayTemp.convertToReadableRange()
-            }
-
             viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.LOADING -> {
@@ -84,6 +74,13 @@ class MainFragment : Fragment() {
                         mainFragmentBinding.txtDayWeatherSummary.visibility = View.VISIBLE
 
                         Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+
+                        wearList.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            adapter = WeatherConditionsAdapter(GetDummy().conditionDates)
+                        }
+                        txtNightWeatherSummary.text = GetDummy().nightTemp.convertToReadableRange()
+                        txtDayWeatherSummary.text = GetDummy().dayTemp.convertToReadableRange()
                     }
                     Status.ERROR -> {
                     }

@@ -7,8 +7,6 @@ import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.data.model.trip.TempSummary
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.model.trip.WeatherCondition
-import com.squareup.picasso.Picasso
-
 
 /**
  * Binding adapter for Date TextView's
@@ -49,9 +47,13 @@ fun getProperTextForWeatherConditionDatesTextView(
  */
 @BindingAdapter(value = ["stateDrawable", "placeholder"], requireAll = false)
 fun loadImage(
-    view: ImageView, url: String?, placeHolder: Drawable
+    view: ImageView, iconType: String?, placeHolder: Drawable
 ) {
-    Picasso.get().load(url).placeholder(placeHolder).into(view)
+    if (iconType != null) {
+        view.setImageResource(iconType.convertIconToDrawable())
+    } else {
+        view.setImageDrawable(placeHolder)
+    }
 }
 
 fun GetDummy(): TripModel {
@@ -59,12 +61,12 @@ fun GetDummy(): TripModel {
         TempSummary(5f, 10f),
         TempSummary(-3f, -1f),
         listOf(
-            WeatherCondition("rain", getTestDateList()),
-            WeatherCondition("sun", getTestDateList())
+            WeatherCondition(
+                "clear-day",
+                listOf(1583704800, 1583791200, 1583877600, 1583964000, 1584050400)
+            ),
+            WeatherCondition("wind", listOf(1583964000, 1584050400)),
+            WeatherCondition("rain", listOf(1584050400))
         )
     )
-}
-
-private fun getTestDateList(): List<Long> {
-    return listOf(1583704800, 1583791200, 1583877600, 1583964000, 1584050400)
 }

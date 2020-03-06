@@ -20,7 +20,7 @@
             android:layout_height="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            stateDrawable="@{null}"
+            stateDrawable="@{weatherState.condition}"
             placeholder="@{@drawable/ic_weather_placeholder}" />
 
         <com.google.android.material.textview.MaterialTextView
