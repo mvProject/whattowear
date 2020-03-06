@@ -10,10 +10,12 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.kinectpro.whattowear.BuildConfig
+import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
@@ -65,11 +67,14 @@ class MainFragment : Fragment() {
                 when (it.status) {
                     Status.LOADING -> {
                         mainFragmentBinding.progressIndicator.visibility = View.VISIBLE
+                        mainFragmentBinding.waitingImage.visibility = View.VISIBLE
                         mainFragmentBinding.txtNightWeatherSummary.visibility = View.INVISIBLE
                         mainFragmentBinding.txtDayWeatherSummary.visibility = View.INVISIBLE
+                        Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                     }
                     Status.SUCCESS -> {
                         mainFragmentBinding.progressIndicator.visibility = View.INVISIBLE
+                        mainFragmentBinding.waitingImage.visibility = View.INVISIBLE
                         mainFragmentBinding.txtNightWeatherSummary.visibility = View.VISIBLE
                         mainFragmentBinding.txtDayWeatherSummary.visibility = View.VISIBLE
 

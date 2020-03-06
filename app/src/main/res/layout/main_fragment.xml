@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mainViewModel"
             type="com.kinectpro.whattowear.ui.viewmodel.MainViewModel" />
@@ -117,6 +118,16 @@
             app:borderWidth="@dimen/fab_no_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/waitingImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
