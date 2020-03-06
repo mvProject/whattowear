@@ -69,6 +69,7 @@ class MainFragment : Fragment() {
                         Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                     }
                     Status.ERROR -> {
+                        TODO("possible error handling")
                     }
                 }
             })

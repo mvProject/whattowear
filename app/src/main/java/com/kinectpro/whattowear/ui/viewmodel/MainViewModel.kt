@@ -19,6 +19,7 @@ import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
+import java.lang.Error
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -104,7 +105,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     }
                     com.kinectpro.whattowear.data.wrapper.Status.ERROR -> {
-
+                        selectedTripCondition.postValue(ResourceWrapper.error(Error()))
                     }
                 }
             })
