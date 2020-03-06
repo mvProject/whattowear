@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear
+package com.kinectpro.whattowear.helper
 
 import androidx.annotation.MainThread
 import androidx.annotation.Nullable
