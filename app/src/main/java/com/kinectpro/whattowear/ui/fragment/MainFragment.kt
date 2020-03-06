@@ -20,6 +20,7 @@ import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
 import com.kinectpro.whattowear.utils.GetDummy
+import com.kinectpro.whattowear.utils.convertToReadableRange
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
 
@@ -66,6 +67,8 @@ class MainFragment : Fragment() {
                     layoutManager = LinearLayoutManager(context)
                     adapter = WeatherConditionsAdapter(GetDummy().conditionDates)
                 }
+                txtNightWeatherSummary.text = GetDummy().nightTemp.convertToReadableRange()
+                txtDayWeatherSummary.text = GetDummy().dayTemp.convertToReadableRange()
             }
 
             viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {

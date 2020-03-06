@@ -28,6 +28,11 @@ fun getProperTextForStartTextView(
     }
 }
 
+/**
+ * Binding adapter for weather conditions appearance date TextView's
+ * @param view type of view which adapter can be binded
+ * @param dates selected dates which will be converted to single string
+ */
 @BindingAdapter(value = ["conditionDates"])
 fun getProperTextForWeatherConditionDatesTextView(
     view: MaterialTextView,

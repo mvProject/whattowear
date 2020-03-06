@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.model.trip.TempSummary
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -108,6 +109,10 @@ fun List<Long>.convertToShortDateFormatString(): String {
     return result.substring(0, result.length - 1).toString()
 }
 
+
+fun TempSummary.convertToReadableRange(): String {
+    return "  ${this.minValue} .. ${this.maxValue}"
+}
 
 
 
