@@ -7,6 +7,7 @@ import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.math.roundToInt
 
 /**
  * Specified pattern to convert long variable timestamp
@@ -118,7 +119,7 @@ fun List<Long>.convertToShortDateFormatString(): String {
  * @return single string value
  */
 fun TempSummary.convertToReadableRange(): String {
-    return "  ${this.minValue} .. ${this.maxValue}"
+    return "  ${this.minValue.roundToInt()} .. ${this.maxValue.roundToInt()}"
 }
 
 
