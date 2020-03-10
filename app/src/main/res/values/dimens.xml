@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="padding_4dp">4dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
     <dimen name="padding_12dp">12dp</dimen>
-    <dimen name="list_margin_top">90dp</dimen>
+    <dimen name="list_margin_top">100dp</dimen>
     <dimen name="small_text_size">12sp</dimen>
     <dimen name="fab_margin_end">12dp</dimen>
     <dimen name="fab_margin_bottom">12dp</dimen>
-    <dimen name="fab_no_border">0dp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
     <dimen name="progress_bar_height_8dp">8dp</dimen>
-    <dimen name="progress_bar_height_12dp">12dp</dimen>
     <dimen name="ripple_padding_4dp">4dp</dimen>
     <dimen name="ripple_padding_12dp">12dp</dimen>
 </resources>

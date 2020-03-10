@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.model.trip.TempSummary
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -96,6 +97,10 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
     return tempResultList.distinct()
 }
 
+/**
+ * Extension to convert list of dates to specified short date united string
+ * @return single string value
+ */
 fun List<Long>.convertToShortDateFormatString(): String {
     val result = StringBuilder()
     for (date in this) {
@@ -108,6 +113,13 @@ fun List<Long>.convertToShortDateFormatString(): String {
     return result.substring(0, result.length - 1).toString()
 }
 
+/**
+ * Extension convert temp summary to specified string
+ * @return single string value
+ */
+fun TempSummary.convertToReadableRange(): String {
+    return "  ${this.minValue} .. ${this.maxValue}"
+}
 
 
 

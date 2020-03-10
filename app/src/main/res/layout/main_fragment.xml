@@ -67,21 +67,44 @@
             android:id="@+id/progress_indicator"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/progress_bar_height_12dp"
+            android:layout_height="@dimen/progress_bar_height_8dp"
             android:indeterminate="true"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnResetUserSelection" />
+            app:layout_constraintTop_toBottomOf="@id/btnSearchWear" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtNightWeatherSummary"
+            style="@style/WeatherSummaryViewStyle"
+            android:drawableStart="@drawable/ic_night_summary"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/txtDayWeatherSummary"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_indicator"
+            tools:text="-3..-1"
+            tools:visibility="visible" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtDayWeatherSummary"
+            style="@style/WeatherSummaryViewStyle"
+            android:drawableStart="@drawable/ic_day_summary"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtNightWeatherSummary"
+            app:layout_constraintTop_toBottomOf="@id/progress_indicator"
+            tools:text="3..5"
+            tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/wearList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/list_margin_top"
+            android:layout_height="@dimen/zero_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnResetUserSelection" />
+            app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddCustomWear"
@@ -92,9 +115,19 @@
             android:backgroundTint="@color/colorAccent"
             android:onClick="@{() -> mainViewModel.addNewCustomWear()}"
             android:src="@drawable/ic_add_custom_wear"
-            app:borderWidth="@dimen/fab_no_border"
+            app:borderWidth="@dimen/zero_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/waitingImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero_dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

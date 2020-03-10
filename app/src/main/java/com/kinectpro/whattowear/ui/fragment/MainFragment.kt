@@ -9,14 +9,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.kinectpro.whattowear.BuildConfig
+import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
+import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
+import com.kinectpro.whattowear.utils.convertToReadableRange
+import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
 
 class MainFragment : Fragment() {
@@ -62,14 +68,20 @@ class MainFragment : Fragment() {
             viewModel.selectedTripConditionEvent.observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.LOADING -> {
-                        mainFragmentBinding.progressIndicator.visibility = View.VISIBLE
+                        showDataUI(false)
+                        Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                     }
                     Status.SUCCESS -> {
-                        mainFragmentBinding.progressIndicator.visibility = View.INVISIBLE
-                        Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                        showDataUI(true)
+
+                        txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange()
+                        txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange()
+                        wearList.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
+                        }
                     }
                     Status.ERROR -> TODO("possible error handling")
-
                 }
             })
 
@@ -112,13 +124,26 @@ class MainFragment : Fragment() {
     private fun setupPlaceSelectListener() {
 
         val autoComplete =
-            childFragmentManager.findFragmentById(com.kinectpro.whattowear.R.id.autocompleteFragment) as AutocompleteSupportFragment
+            childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
 
         autoComplete.apply {
             retainInstance = true
             setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
         }
+    }
+
+    private fun showDataUI(state: Boolean) {
+        mainFragmentBinding.progressIndicator.visibility =
+            if (state) View.INVISIBLE else View.VISIBLE
+        mainFragmentBinding.waitingImage.visibility =
+            if (state) View.INVISIBLE else View.VISIBLE
+        mainFragmentBinding.txtNightWeatherSummary.visibility =
+            if (state) View.VISIBLE else View.INVISIBLE
+        mainFragmentBinding.txtDayWeatherSummary.visibility =
+            if (state) View.VISIBLE else View.INVISIBLE
+        mainFragmentBinding.wearList.visibility =
+            if (state) View.VISIBLE else View.INVISIBLE
     }
 }
 

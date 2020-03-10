@@ -11,19 +11,19 @@ class WearUtilsTest {
     @Test
     fun convertIconToEnumValue_PROPER_VALUE() {
         val state = "clear-day"
-        assertEquals(WeatherConditionState.CLEARDAY, state.convertIconToEnumValue())
+        assertEquals(WeatherConditionState.CLEARDAY, state.convertIconToDrawable())
     }
 
     @Test
     fun convertIconToEnumValue_RANDOM_VALUE() {
         val state = "random"
-        assertEquals(null, state.convertIconToEnumValue())
+        assertEquals(null, state.convertIconToDrawable())
     }
 
     @Test
     fun convertIconToEnumValue_NULL_VALUE() {
         val state = null
-        assertEquals(null, state.convertIconToEnumValue())
+        assertEquals(null, state.convertIconToDrawable())
     }
 
     @Test
