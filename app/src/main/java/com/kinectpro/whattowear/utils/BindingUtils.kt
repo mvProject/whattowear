@@ -4,9 +4,6 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textview.MaterialTextView
-import com.kinectpro.whattowear.data.model.trip.TempSummary
-import com.kinectpro.whattowear.data.model.trip.TripModel
-import com.kinectpro.whattowear.data.model.trip.WeatherCondition
 
 /**
  * Binding adapter for Date TextView's
@@ -42,7 +39,7 @@ fun getProperTextForWeatherConditionDatesTextView(
 /**
  * Binding adapter to state icon
  * @param view type of view which adapter can be binded
- * @param url drawable according state type
+ * @param iconType drawable according state type
  * @param placeHolder default drawable for view
  */
 @BindingAdapter(value = ["stateDrawable", "placeholder"], requireAll = false)
@@ -54,27 +51,4 @@ fun loadImage(
     } else {
         view.setImageDrawable(placeHolder)
     }
-}
-
-// Dummy Data
-fun GetDummy(): TripModel {
-    return TripModel(
-        TempSummary(5f, 10f),
-        TempSummary(-3f, -1f),
-        listOf(
-            WeatherCondition(
-                "clear-day",
-                listOf(1583704800, 1583791200, 1583877600, 1583964000, 1584050400)
-            ),
-            WeatherCondition("clear-night", listOf(1583704800, 1583791200, 1583877600, 1583964000)),
-            WeatherCondition("rain", listOf(1583704800, 1583791200, 1583877600)),
-            WeatherCondition("snow", listOf(1583704800, 1583791200)),
-            WeatherCondition("sleet", listOf(1583704800)),
-            WeatherCondition("wind", listOf(1583791200)),
-            WeatherCondition("fog", listOf(1583877600)),
-            WeatherCondition("cloudy", listOf(1583964000)),
-            WeatherCondition("partly-cloudy-day", listOf(1583964000, 1584050400)),
-            WeatherCondition("partly-cloudy-night", listOf(1584050400))
-        )
-    )
 }

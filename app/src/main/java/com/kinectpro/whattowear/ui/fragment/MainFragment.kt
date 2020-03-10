@@ -21,7 +21,6 @@ import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
-import com.kinectpro.whattowear.utils.GetDummy
 import com.kinectpro.whattowear.utils.convertToReadableRange
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
@@ -63,7 +62,6 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
 
             viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
 
@@ -76,19 +74,14 @@ class MainFragment : Fragment() {
                     Status.SUCCESS -> {
                         showDataUI(true)
 
-                        txtNightWeatherSummary.text = GetDummy().nightTemp.convertToReadableRange()
-                        txtDayWeatherSummary.text = GetDummy().dayTemp.convertToReadableRange()
+                        txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange()
+                        txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange()
                         wearList.apply {
                             layoutManager = LinearLayoutManager(context)
-                            adapter = WeatherConditionsAdapter(GetDummy().conditionDates)
+                            adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
                         }
                     }
-                    Status.ERROR -> TODO("error handling")
-                        mainFragmentBinding.progressIndicator.visibility = View.INVISIBLE
-                        Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
-                    }
                     Status.ERROR -> TODO("possible error handling")
-
                 }
             })
 
@@ -131,7 +124,7 @@ class MainFragment : Fragment() {
     private fun setupPlaceSelectListener() {
 
         val autoComplete =
-            childFragmentManager.findFragmentById(com.kinectpro.whattowear.R.id.autocompleteFragment) as AutocompleteSupportFragment
+            childFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
 
         autoComplete.apply {
             retainInstance = true
