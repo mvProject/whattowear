@@ -57,7 +57,9 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
 
-            viewModel.getSelectedPlaceWeatherData()?.observe(viewLifecycleOwner, Observer {
+            viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+
+            viewModel.selectedTripConditionEvent.observe(viewLifecycleOwner, Observer {
                 when (it.status) {
                     Status.LOADING -> {
                         mainFragmentBinding.progressIndicator.visibility = View.VISIBLE
@@ -66,9 +68,13 @@ class MainFragment : Fragment() {
                         mainFragmentBinding.progressIndicator.visibility = View.INVISIBLE
                         Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                     }
-                    Status.ERROR -> {
-                    }
+                    Status.ERROR -> TODO("possible error handling")
+
                 }
+            })
+
+            viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
+
             })
         }
 
