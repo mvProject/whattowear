@@ -8,7 +8,6 @@ import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.model.wear.WeatherTemp
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.network.service.ApiService
-import com.kinectpro.whattowear.repository.IWhatToWearRepository
 
 class WhatToWearRepository :
     IWhatToWearRepository {

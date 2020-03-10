@@ -5,22 +5,33 @@ import android.app.DatePickerDialog
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.kinectpro.whattowear.helper.SingleLiveEvent
+import com.kinectpro.whattowear.data.IWeatherRangeSummary
+import com.kinectpro.whattowear.data.TripWeatherCondition
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
-import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
+import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
+import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
+import java.lang.Error
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository =
-        WhatToWearRepository()
+    private val repository = WhatToWearRepository()
+    private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
+
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
+    val selectedTripConditionEvent =
+        SingleLiveEvent<ResourceWrapper<TripModel>>()
+    val selectedTripCondition = MediatorLiveData<ResourceWrapper<TripModel>>()
 
     val tripEndDateLive = MutableLiveData<Long>().apply {
         value = 0L
@@ -79,4 +90,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         return null
     }
+
+    fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
+        if (weatherList != null) {
+            selectedTripCondition.addSource(weatherList, Observer {
+                when (it.status) {
+                    RequestStatus.LOADING -> {
+                        selectedTripConditionEvent.value = ResourceWrapper.loading()
+                    }
+                    RequestStatus.SUCCESS -> {
+                        selectedTripConditionEvent.value = ResourceWrapper.success(
+                            tripCondition.getTripWeatherCondition(
+                                it.data!!
+                            )
+                        )
+                    }
+                    RequestStatus.ERROR -> {
+                        selectedTripConditionEvent.value = ResourceWrapper.error(Error())
+                    }
+                }
+            })
+        }
+    }
+
 }
