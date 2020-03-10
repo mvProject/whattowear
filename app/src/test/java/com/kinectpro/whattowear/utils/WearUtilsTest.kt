@@ -1,5 +1,6 @@
 package com.kinectpro.whattowear.utils
 
+import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.wear.WeatherConditionState
 import org.junit.Test
 
@@ -24,6 +25,25 @@ class WearUtilsTest {
         val state = null
         assertEquals(null, state.convertIconToEnumValue())
     }
+
+    @Test
+    fun convertIconToProperConditionName_PROPER_VALUE() {
+        val state = "clear-day"
+        assertEquals(R.string.weather_icon_type_clear_day, state.convertIconToProperConditionName())
+    }
+
+    @Test
+    fun convertIconToProperConditionName_RANDOM_VALUE() {
+        val state = "random"
+        assertEquals(null, state.convertIconToProperConditionName())
+    }
+
+    @Test
+    fun convertIconToProperConditionName_NULL_VALUE() {
+        val state = null
+        assertEquals(null, state.convertIconToProperConditionName())
+    }
+
 
     @Test
     fun checkProperConditionState_PROPER_VALUE() {
