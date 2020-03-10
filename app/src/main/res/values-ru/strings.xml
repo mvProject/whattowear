@@ -23,4 +23,5 @@
     <string name="weather_snow_recommendation">Одевайтесь теплее</string>
     <string name="weather_sleet_recommendation">Возьмите зонт и  одевайтесь теплее</string>
     <string name="weather_fog_recommendation">Будьте осторожны за рулем</string>
+    <string name="weather_default_state">defaultWeather</string>
 </resources>

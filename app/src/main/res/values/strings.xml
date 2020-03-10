@@ -23,4 +23,5 @@
     <string name="weather_snow_recommendation">Dress warmly</string>
     <string name="weather_sleet_recommendation">Take an umbrella and dress warmer</string>
     <string name="weather_fog_recommendation">Be careful while driving.</string>
+    <string name="weather_default_state">defaultWeather</string>
 </resources>

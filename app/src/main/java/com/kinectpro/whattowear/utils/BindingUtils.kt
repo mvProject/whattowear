@@ -52,6 +52,22 @@ fun getProperTextForWeatherConditionTextView(
 }
 
 /**
+ * Binding adapter for weather conditions name TextView's
+ * @param view type of view which adapter can be binded
+ * @param condition weather condition achieved from response
+ */
+@BindingAdapter(value = ["conditionRecommendation"])
+fun getProperTextForWeatherRecommendationTextView(
+    view: MaterialTextView,
+    condition: String?
+) {
+    val recommendation = condition.convertIconToWeatherRecommendation()
+    if (recommendation != null) {
+        view.text = view.context.getString(recommendation)
+    }
+}
+
+/**
  * Binding adapter to state icon
  * @param view type of view which adapter can be binded
  * @param iconType drawable according state type
