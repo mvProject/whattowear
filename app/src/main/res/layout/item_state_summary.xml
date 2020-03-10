@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_8dp"
             android:layout_marginTop="@dimen/padding_4dp"
-            android:text="@{weatherState.condition}"
+            conditionProperName="@{weatherState.condition}"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toEndOf="@id/iconWeatherState"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="rain" />

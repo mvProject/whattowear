@@ -37,6 +37,21 @@ fun getProperTextForWeatherConditionDatesTextView(
 }
 
 /**
+ * Binding adapter for weather conditions name TextView's
+ * @param view type of view which adapter can be binded
+ * @param condition weather condition achieved from response
+ */
+@BindingAdapter(value = ["conditionProperName"])
+fun getProperTextForWeatherConditionTextView(
+    view: MaterialTextView,
+    condition: String?
+) {
+    if (condition != null) {
+        view.text = view.context.getString(condition.convertIconToProperConditionName()!!)
+    }
+}
+
+/**
  * Binding adapter to state icon
  * @param view type of view which adapter can be binded
  * @param iconType drawable according state type

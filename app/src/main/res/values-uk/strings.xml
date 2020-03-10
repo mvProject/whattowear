@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">WhatToWear</string>
+    <string name="edt_where_to_go_hint">Місце призначення</string>
+    <string name="btn_reset_name">Скинути</string>
+    <string name="btn_select_name">Вибрати</string>
+    <string name="btn_start_date_name">початок</string>
+    <string name="btn_end_date_name">кінець</string>
+    <string name="wear_item_category">Wear Category</string>
+    <string name="wear_item_type">Wear Type</string>
+
+    <string name="weather_icon_type_clear_day">Ясно</string>
+    <string name="weather_icon_type_clear_night">Ніч,Ясно</string>
+    <string name="weather_icon_type_rain">Дощ</string>
+    <string name="weather_icon_type_snow">Сніг</string>
+    <string name="weather_icon_type_sleet">Мокрий сніг</string>
+    <string name="weather_icon_type_wind">Вітер</string>
+    <string name="weather_icon_type_fog">Туман</string>
+    <string name="weather_icon_type_cloudy">Хмарно</string>
+    <string name="weather_icon_type_partly_cloudy_day">Невелика хмарність</string>
+    <string name="weather_icon_type_partly_cloudy_night">Ніч,Невелика хмарність</string>
+</resources>
