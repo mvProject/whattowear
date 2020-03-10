@@ -4,6 +4,7 @@ import com.kinectpro.whattowear.data.model.response.Daily
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.response.Data
+import com.kinectpro.whattowear.data.model.trip.TempSummary
 import org.junit.Test
 import org.junit.Assert.*
 
@@ -225,4 +226,13 @@ class ConvertingUtilsTest {
             getTestDateList().convertToShortDateFormatString()
         )
     }
+
+    @Test
+    fun convertToReadableRange_Proper() {
+        assertEquals(
+            "  -3.0 .. -1.0",
+            TempSummary(-3f, -1f).convertToReadableRange()
+        )
+    }
+
 }

@@ -1,21 +1,21 @@
 package com.kinectpro.whattowear.utils
 
 
-import com.kinectpro.whattowear.data.model.wear.WeatherConditionState
+import com.kinectpro.whattowear.R
 
-fun String?.convertIconToEnumValue(): WeatherConditionState? {
+fun String?.convertIconToDrawable(): Int {
     return when (this) {
-        "clear-day" -> WeatherConditionState.CLEARDAY
-        "clear-night" -> WeatherConditionState.CLEARNIGHT
-        "rain" -> WeatherConditionState.RAIN
-        "snow" -> WeatherConditionState.SNOW
-        "sleet" -> WeatherConditionState.SLEET
-        "wind" -> WeatherConditionState.WIND
-        "fog" -> WeatherConditionState.FOG
-        "cloudy" -> WeatherConditionState.CLOUDY
-        "partly-cloudy-day" -> WeatherConditionState.PARTYCLOUDYDAY
-        "partly-cloudy-night" -> WeatherConditionState.PARTYCLOUDYNIGHT
-        else -> return null
+        "clear-day" -> R.drawable.ic_weather_clear_day
+        "clear-night" -> R.drawable.ic_weather_clear_night
+        "rain" -> R.drawable.ic_weather_rain
+        "snow" -> R.drawable.ic_weather_snow
+        "sleet" -> R.drawable.ic_weather_sleet
+        "wind" -> R.drawable.ic_weather_wind
+        "fog" -> R.drawable.ic_weather_fog
+        "cloudy" -> R.drawable.ic_weather_cloudy
+        "partly-cloudy-day" -> R.drawable.ic_weather_partly_cloudy_day
+        "partly-cloudy-night" -> R.drawable.ic_weather_party_cloudy_night
+        else -> R.drawable.ic_weather_placeholder
     }
 }
 
