@@ -61,33 +61,28 @@ class MainFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
-        mainFragmentBinding.btnSearchWear.setOnClickListener {
-
-            viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
-
-            viewModel.selectedTripConditionEvent.observe(viewLifecycleOwner, Observer {
-                when (it.status) {
-                    Status.LOADING -> {
-                        showDataUI(false)
-                        Glide.with(this).load(R.drawable.waiting).into(waitingImage)
-                    }
-                    Status.SUCCESS -> {
-                        showDataUI(true)
-
-                        txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange()
-                        txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange()
-                        wearList.apply {
-                            layoutManager = LinearLayoutManager(context)
-                            adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
-                        }
-                    }
-                    Status.ERROR -> TODO("possible error handling")
+        viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    showDataUI(false)
+                    Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                 }
-            })
+                Status.SUCCESS -> {
+                    showDataUI(true)
 
-            viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
+                    txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange()
+                    txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange()
+                    wearList.apply {
+                        layoutManager = LinearLayoutManager(context)
+                        adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
+                    }
+                }
+                Status.ERROR -> TODO("possible error handling")
+            }
+        })
 
-            })
+        mainFragmentBinding.btnSearchWear.setOnClickListener {
+            viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
         }
 
         setupPlaceSelectListener()

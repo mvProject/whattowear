@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.kinectpro.whattowear.helper.SingleLiveEvent
 import com.kinectpro.whattowear.data.IWeatherRangeSummary
 import com.kinectpro.whattowear.data.TripWeatherCondition
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
@@ -29,8 +28,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
-    val selectedTripConditionEvent =
-        SingleLiveEvent<ResourceWrapper<TripModel>>()
+
     val selectedTripCondition = MediatorLiveData<ResourceWrapper<TripModel>>()
 
     val tripEndDateLive = MutableLiveData<Long>().apply {
@@ -96,17 +94,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             selectedTripCondition.addSource(weatherList, Observer {
                 when (it.status) {
                     RequestStatus.LOADING -> {
-                        selectedTripConditionEvent.value = ResourceWrapper.loading()
+                        selectedTripCondition.value = ResourceWrapper.loading()
                     }
                     RequestStatus.SUCCESS -> {
-                        selectedTripConditionEvent.value = ResourceWrapper.success(
+                        selectedTripCondition.value = ResourceWrapper.success(
                             tripCondition.getTripWeatherCondition(
                                 it.data!!
                             )
                         )
                     }
                     RequestStatus.ERROR -> {
-                        selectedTripConditionEvent.value = ResourceWrapper.error(Error())
+                        selectedTripCondition.value = ResourceWrapper.error(Error())
                     }
                 }
             })
