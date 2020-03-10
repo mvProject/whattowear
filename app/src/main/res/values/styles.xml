@@ -20,7 +20,10 @@
         <item name="android:drawableStart">@drawable/ic_date_range</item>
         <item name="android:focusable">true</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:padding">@dimen/padding_12dp</item>
+        <item name="android:paddingEnd">@dimen/padding_4dp</item>
+        <item name="android:paddingStart">@dimen/padding_4dp</item>
+        <item name="android:paddingTop">@dimen/padding_12dp</item>
+        <item name="android:paddingBottom">@dimen/padding_12dp</item>
     </style>
 
     <style name="WeatherSummaryViewStyle">
