@@ -18,4 +18,5 @@
     <string name="weather_icon_type_cloudy">Облачно</string>
     <string name="weather_icon_type_partly_cloudy_day">Небольшая облачнось</string>
     <string name="weather_icon_type_partly_cloudy_night">Ночь,Небольшая облачнось</string>
+    <string name="message_nice_trip_wishes">"Счастливой поездки! "</string>
 </resources>
