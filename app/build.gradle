@@ -27,7 +27,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "GOOGLE_PLACE_API_KEY", '"AIzaSyAbiAj6LivbiUwyGh6YoU4sWiEd7Sfvrpk"'
@@ -36,20 +36,18 @@ android {
     buildTypes {
         debug {
             debuggable true
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
-                }
-            }
         }
         release {
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "${defaultConfig.applicationId}${defaultConfig.versionName}.apk"
-                }
-            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                def buildType = variant.variantData.variantConfiguration.buildType.name
+                if (buildType == "debug") outputFileName = "${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+                if (buildType == "release") outputFileName = "${defaultConfig.applicationId}${defaultConfig.versionName}.apk"
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.kinectpro.whattowear.utils
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.chip.Chip
@@ -37,7 +38,12 @@ fun getProperTextForWeatherConditionDatesTextView(
     view: MaterialTextView,
     dates: List<Long>
 ) {
-    view.text = dates.convertToShortDateFormatString()
+    if (dates.isNotEmpty()) {
+        view.text = dates.convertToShortDateFormatString()
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
+    }
 }
 
 /**
@@ -74,6 +80,25 @@ fun getProperTextForWeatherConditionTextView(
 ) {
     if (condition != null) {
         view.text = view.context.getString(condition.convertIconToProperConditionName()!!)
+    }
+}
+
+/**
+ * Binding adapter for weather conditions name TextView's
+ * @param view type of view which adapter can be binded
+ * @param condition weather condition achieved from response
+ */
+@BindingAdapter(value = ["conditionRecommendation"])
+fun getProperTextForWeatherRecommendationTextView(
+    view: MaterialTextView,
+    condition: String?
+) {
+    val recommendation = condition.convertIconToWeatherRecommendation()
+    if (recommendation != null) {
+        view.text = view.context.getString(recommendation)
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.GONE
     }
 }
 

@@ -7,12 +7,14 @@ import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.math.roundToInt
 
 /**
  * Specified pattern to convert long variable timestamp
  */
 const val STATE_DATE_READABLE_PATTERN = "dd.MM"
 const val DATE_READABLE_PATTERN = "dd/MM/yy"
+const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
 
 /**
  * Extension Method to response data class which
@@ -91,7 +93,11 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
     val tempResultList = mutableListOf<String>()
     for (temp in this) {
         temp.weatherState?.let {
-            tempResultList.add(it)
+            if (it.checkIconIsWeatherCondition()) {
+                tempResultList.add(it)
+            } else {
+                tempResultList.add(DEFAULT_WEATHER_STATE)
+            }
         }
     }
     return tempResultList.distinct()
@@ -110,7 +116,11 @@ fun List<Long>.convertToShortDateFormatString(): String {
             ) + ","
         )
     }
-    return result.substring(0, result.length - 1).toString()
+    return if (result.isNotEmpty()) {
+        result.substring(0, result.length - 1).toString()
+    } else {
+        result.toString()
+    }
 }
 
 /**
@@ -118,7 +128,7 @@ fun List<Long>.convertToShortDateFormatString(): String {
  * @return single string value
  */
 fun TempSummary.convertToReadableRange(): String {
-    return "  ${this.minValue} .. ${this.maxValue}"
+    return "  ${this.minValue.roundToInt()} .. ${this.maxValue.roundToInt()}"
 }
 
 

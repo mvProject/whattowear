@@ -125,20 +125,6 @@
             app:layout_constraintTop_toBottomOf="@id/wearList"
             tools:text="@string/message_nice_trip_wishes" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddCustomWear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin_end"
-            android:layout_marginBottom="@dimen/fab_margin_bottom"
-            android:backgroundTint="@color/colorAccent"
-            android:src="@drawable/ic_add_custom_wear"
-            app:borderWidth="@dimen/zero_dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-        <!--android:onClick="@{() -> mainViewModel.addNewCustomWear()}"-->
-
-
         <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
         <!--
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
