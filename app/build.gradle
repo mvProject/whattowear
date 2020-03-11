@@ -30,7 +30,20 @@ android {
         buildConfigField "String", "DARKSKY_API_KEY", '"f57d2fdbda2be1cf81a3dcf3526e7988"'
     }
     buildTypes {
+        debug {
+            debuggable true
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+                }
+            }
+        }
         release {
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${defaultConfig.applicationId}${defaultConfig.versionName}.apk"
+                }
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
