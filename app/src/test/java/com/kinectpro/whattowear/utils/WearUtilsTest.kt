@@ -26,16 +26,17 @@ class WearUtilsTest {
         assertEquals(null, state.convertIconToDrawable())
     }
 
+
     @Test
     fun convertIconToProperConditionName_PROPER_VALUE() {
-        val state = "clear-day"
-        assertEquals(R.string.weather_icon_type_clear_day, state.convertIconToProperConditionName())
+        val state = "rain"
+        assertEquals(R.string.weather_icon_type_rain, state.convertIconToProperConditionName())
     }
 
     @Test
     fun convertIconToProperConditionName_RANDOM_VALUE() {
         val state = "random"
-        assertEquals(null, state.convertIconToProperConditionName())
+        assertEquals(R.string.default_weather_description, state.convertIconToProperConditionName())
     }
 
     @Test

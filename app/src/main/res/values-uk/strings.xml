@@ -10,13 +10,19 @@
 
     <string name="weather_icon_type_clear_day">Ясно</string>
     <string name="weather_icon_type_clear_night">Ніч,Ясно</string>
-    <string name="weather_icon_type_rain">Дощ</string>
-    <string name="weather_icon_type_snow">Сніг</string>
-    <string name="weather_icon_type_sleet">Мокрий сніг</string>
-    <string name="weather_icon_type_wind">Вітер</string>
-    <string name="weather_icon_type_fog">Туман</string>
+    <string name="weather_icon_type_rain">очікується дощ</string>
+    <string name="weather_icon_type_snow">очікується снігопад</string>
+    <string name="weather_icon_type_sleet">очікується сніг з дощем</string>
+    <string name="weather_icon_type_wind">очікується вітряна погода</string>
+    <string name="weather_icon_type_fog">очікується туманна погода</string>
     <string name="weather_icon_type_cloudy">Хмарно</string>
     <string name="weather_icon_type_partly_cloudy_day">Невелика хмарність</string>
     <string name="weather_icon_type_partly_cloudy_night">Ніч,Невелика хмарність</string>
+    <string name="default_weather_description">Погода обіцяє бути прекрасною</string>
+    <string name="weather_rain_recommendation">Не забудьте взяти парасольку</string>
+    <string name="weather_snow_recommendation">Вдягайтесь тепліше</string>
+    <string name="weather_sleet_recommendation">Візьміть парасольку і одягайтеся тепліше</string>
+    <string name="weather_fog_recommendation">Будьте обережні за кермом</string>
+    <string name="weather_default_state">defaultWeather</string>
     <string name="message_nice_trip_wishes">Гарної подорожі!</string>
 </resources>

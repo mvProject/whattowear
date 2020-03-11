@@ -10,13 +10,19 @@
 
     <string name="weather_icon_type_clear_day">Clear Day</string>
     <string name="weather_icon_type_clear_night">Clear Night</string>
-    <string name="weather_icon_type_rain">Rain</string>
-    <string name="weather_icon_type_snow">Snow</string>
-    <string name="weather_icon_type_sleet">Sleet</string>
-    <string name="weather_icon_type_wind">Wind</string>
-    <string name="weather_icon_type_fog">Fog</string>
+    <string name="weather_icon_type_rain">rain expected</string>
+    <string name="weather_icon_type_snow">snowfall expected</string>
+    <string name="weather_icon_type_sleet">expected snow with rain</string>
+    <string name="weather_icon_type_wind">windy weather expected</string>
+    <string name="weather_icon_type_fog">foggy weather expected</string>
     <string name="weather_icon_type_cloudy">Cloudy</string>
     <string name="weather_icon_type_partly_cloudy_day">Partly cloudy day</string>
     <string name="weather_icon_type_partly_cloudy_night">Partly cloudy night</string>
+    <string name="default_weather_description">The weather promises to be beautiful</string>
+    <string name="weather_rain_recommendation">Do not forget to take an umbrella</string>
+    <string name="weather_snow_recommendation">Dress warmly</string>
+    <string name="weather_sleet_recommendation">Take an umbrella and dress warmer</string>
+    <string name="weather_fog_recommendation">Be careful while driving.</string>
+    <string name="weather_default_state">defaultWeather</string>
     <string name="message_nice_trip_wishes">Have a nice trip!</string>
 </resources>
