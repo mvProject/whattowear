@@ -35,6 +35,19 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="rain" />
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            conditionDatesChip="@{weatherState.dates}"
+            app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+            app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
+            app:layout_constraintBottom_toTopOf="@id/txtWeatherStateTypeDateRange"
+            android:background="#fafff7"
+            app:singleLine="true"
+            app:singleSelection="true" />
+
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtWeatherStateTypeDateRange"
             conditionDates="@{weatherState.dates}"
