@@ -21,25 +21,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnResetUserSelection"
-            style="@style/ButtonStyle"
-            android:text="@string/btn_reset_name"
-            app:layout_constraintEnd_toStartOf="@id/btnTripStartDateSelect"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
-
+        <!--
+                <Button
+                    android:id="@+id/btnResetUserSelection"
+                    style="@style/ButtonStyle"
+                    android:text="@string/btn_reset_name"
+                    app:layout_constraintEnd_toStartOf="@id/btnTripStartDateSelect"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
+        -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/btnTripStartDateSelect"
             style="@style/DateSelectViewStyle"
             placeholderText="@{@string/btn_start_date_name}"
             tripDate="@{mainViewModel.tripStartDateLive}"
             app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@id/btnResetUserSelection"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
             tools:text="25/02/20" />
 
@@ -49,7 +49,7 @@
             placeholderText="@{@string/btn_end_date_name}"
             tripDate="@{mainViewModel.tripEndDateLive}"
             app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
             tools:text="25/02/20" />
@@ -59,7 +59,7 @@
             style="@style/ButtonStyle"
             android:text="@string/btn_select_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
             app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
@@ -105,19 +105,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddCustomWear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin_end"
-            android:layout_marginBottom="@dimen/fab_margin_bottom"
-            android:backgroundTint="@color/colorAccent"
-            android:onClick="@{() -> mainViewModel.addNewCustomWear()}"
-            android:src="@drawable/ic_add_custom_wear"
-            app:borderWidth="@dimen/zero_dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+        <!--
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAddCustomWear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/fab_margin_end"
+                    android:layout_marginBottom="@dimen/fab_margin_bottom"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="@{() -> mainViewModel.addNewCustomWear()}"
+                    android:src="@drawable/ic_add_custom_wear"
+                    app:borderWidth="@dimen/zero_dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+        -->
 
         <ImageView
             android:id="@+id/waitingImage"

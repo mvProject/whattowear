@@ -71,10 +71,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             calendar.set(year, month, dayOfMonth)
             tripEndDateLive.value = calendar.timeInMillis
         }
-
+/*
     fun addNewCustomWear() {
         // TODO add new item feature
     }
+
+ */
 
     fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
