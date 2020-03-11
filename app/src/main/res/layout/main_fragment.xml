@@ -115,6 +115,7 @@
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
             android:text="@string/message_nice_trip_wishes"
+            android:background="@drawable/bg_good_trip_wish_message"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
