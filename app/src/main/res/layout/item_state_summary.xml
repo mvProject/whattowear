@@ -20,6 +20,7 @@
             android:layout_height="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             stateDrawable="@{weatherState.condition}"
             placeholder="@{@drawable/ic_weather_placeholder}" />
 
@@ -33,6 +34,7 @@
             android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toEndOf="@id/iconWeatherState"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/txtWeatherStateTypeDateRange"
             tools:text="rain" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -44,6 +46,7 @@
             android:layout_marginTop="@dimen/padding_4dp"
             app:layout_constraintStart_toEndOf="@id/iconWeatherState"
             app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
+            app:layout_constraintBottom_toTopOf="@id/txtWeatherStateRecommendation"
             tools:text="10.03,11.03,12.03" />
 
         <com.google.android.material.textview.MaterialTextView
