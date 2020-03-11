@@ -6,6 +6,10 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'com.google.firebase.crashlytics'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -30,7 +34,20 @@ android {
         buildConfigField "String", "DARKSKY_API_KEY", '"f57d2fdbda2be1cf81a3dcf3526e7988"'
     }
     buildTypes {
+        debug {
+            debuggable true
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${defaultConfig.applicationId}_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+                }
+            }
+        }
         release {
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${defaultConfig.applicationId}${defaultConfig.versionName}.apk"
+                }
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -78,4 +95,9 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    // Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    // Firebase Crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
+
 }
