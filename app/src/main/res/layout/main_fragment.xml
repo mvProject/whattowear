@@ -21,6 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
         <!--
                 <Button
                     android:id="@+id/btnResetUserSelection"
@@ -110,12 +112,12 @@
             android:id="@+id/txtGoodTripMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_good_trip_wish_message"
+            android:text="@string/message_nice_trip_wishes"
             android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/message_nice_trip_wishes"
-            android:background="@drawable/bg_good_trip_wish_message"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -130,11 +132,14 @@
             android:layout_marginEnd="@dimen/fab_margin_end"
             android:layout_marginBottom="@dimen/fab_margin_bottom"
             android:backgroundTint="@color/colorAccent"
-            android:onClick="@{() -> mainViewModel.addNewCustomWear()}"
             android:src="@drawable/ic_add_custom_wear"
             app:borderWidth="@dimen/zero_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+        <!--android:onClick="@{() -> mainViewModel.addNewCustomWear()}"-->
+
+
+        <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
         <!--
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fabAddCustomWear"

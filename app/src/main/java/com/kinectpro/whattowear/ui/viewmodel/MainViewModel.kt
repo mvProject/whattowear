@@ -73,7 +73,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 /*
     fun addNewCustomWear() {
-        // TODO add new item feature
+        // TODO commented in UncompleteUI feature,uncomment when functionality will be performed
     }
 
  */
