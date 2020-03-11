@@ -139,6 +139,8 @@ class MainFragment : Fragment() {
             if (state) View.VISIBLE else View.INVISIBLE
         mainFragmentBinding.wearList.visibility =
             if (state) View.VISIBLE else View.INVISIBLE
+        mainFragmentBinding.txtGoodTripMessage.visibility =
+            if (state) View.VISIBLE else View.INVISIBLE
     }
 }
 

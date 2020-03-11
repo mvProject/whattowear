@@ -101,10 +101,27 @@
             android:id="@+id/wearList"
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero_dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtGoodTripMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/message_nice_trip_wishes"
+            android:background="@drawable/bg_good_trip_wish_message"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtNightWeatherSummary"
+            app:layout_constraintTop_toBottomOf="@id/wearList"
+            tools:text="@string/message_nice_trip_wishes" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddCustomWear"
@@ -124,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero_dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
