@@ -127,8 +127,14 @@ fun List<Long>.convertToShortDateFormatString(): String {
  * Extension convert temp summary to specified string
  * @return single string value
  */
-fun TempSummary.convertToReadableRange(): String {
-    return "  ${this.minValue.roundToInt()} .. ${this.maxValue.roundToInt()}"
+fun TempSummary.convertToReadableRange(): StringBuilder {
+    return StringBuilder().apply {
+        append("Max:  ${maxValue.roundToInt()} ")
+        append("°C")
+        append("\n")
+        append("Min:  ${minValue.roundToInt()} ")
+        append("°C")
+    }
 }
 
 
