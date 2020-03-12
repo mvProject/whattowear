@@ -169,7 +169,7 @@ class MainFragment : Fragment() {
          mainFragmentBinding.txtDayWeatherSummary.visibility =
              if (state) View.VISIBLE else View.INVISIBLE
          */
-        mainFragmentBinding.cardDatesSummary!!.visibility =
+        mainFragmentBinding.cardDatesSummary.visibility =
             if (state) View.VISIBLE else View.INVISIBLE
         mainFragmentBinding.wearList.visibility =
             if (state) View.VISIBLE else View.INVISIBLE
