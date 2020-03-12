@@ -11,6 +11,8 @@ import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
 import java.util.concurrent.TimeUnit
 
+const val CHIP_DATE_STROKE_WIDTH = 0.5f
+const val CHIP_DATE_CORNER_SIZE = 10f
 
 /**
  * Binding adapter for Date TextView's
@@ -33,7 +35,7 @@ fun getProperTextForStartTextView(
 /**
  * Binding adapter for weather conditions appearance date TextView's
  * @param view type of view which adapter can be binded
- * @param dates selected dates which will be converted to single string
+ * @param dates selected dates which will be converted to decorated chip
  */
 @BindingAdapter(value = ["conditionDatesChip"])
 fun getProperTextForWeatherConditionDatesChipView(
@@ -44,8 +46,8 @@ fun getProperTextForWeatherConditionDatesChipView(
         val chip = Chip(view.context)
         chip.setChipBackgroundColorResource(R.color.colorAccent)
         chip.setChipStrokeColorResource(R.color.colorPrimary)
-        chip.shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(10f)
-        chip.chipStrokeWidth = 0.5f
+        chip.shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(CHIP_DATE_CORNER_SIZE)
+        chip.chipStrokeWidth = CHIP_DATE_STROKE_WIDTH
         chip.text = TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
             STATE_DATE_READABLE_PATTERN
         )
