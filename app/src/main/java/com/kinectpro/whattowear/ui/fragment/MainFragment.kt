@@ -89,7 +89,9 @@ class MainFragment : Fragment() {
                     getString(R.string.message_error_trip_destination),
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (!isProperDataRangeSelected(
+                return@setOnClickListener
+            }
+            if (!isProperDataRangeSelected(
                     viewModel.tripStartDateLive.value,
                     viewModel.tripEndDateLive.value
                 )
@@ -99,8 +101,8 @@ class MainFragment : Fragment() {
                     getString(R.string.message_error_trip_date_range),
                     Toast.LENGTH_SHORT
                 ).show()
+                return@setOnClickListener
             }
-
             viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
         }
 
