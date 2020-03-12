@@ -79,13 +79,13 @@
             android:id="@+id/cardDatesSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="@dimen/padding_4dp"
             android:layout_marginStart="@dimen/padding_8dp"
             android:layout_marginEnd="@dimen/padding_8dp"
+            android:visibility="invisible"
+            app:cardElevation="@dimen/padding_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progress_indicator"
-            android:visibility="invisible"
             tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout

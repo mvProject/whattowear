@@ -75,55 +75,72 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnSearchWear" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtNightWeatherSummary"
-            style="@style/WeatherSummaryViewStyle"
-            android:drawableStart="@drawable/ic_night_summary"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDatesSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_8dp"
+            android:layout_marginEnd="@dimen/padding_8dp"
             android:visibility="invisible"
-            app:layout_constraintEnd_toStartOf="@+id/txtDayWeatherSummary"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:cardElevation="@dimen/padding_4dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/progress_indicator"
-            tools:text="-3..-1"
-            tools:visibility="visible" />
+            tools:visibility="visible">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtDayWeatherSummary"
-            style="@style/WeatherSummaryViewStyle"
-            android:drawableStart="@drawable/ic_day_summary"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/txtNightWeatherSummary"
-            app:layout_constraintTop_toBottomOf="@id/progress_indicator"
-            tools:text="3..5"
-            tools:visibility="visible" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtNightWeatherSummary"
+                    style="@style/WeatherSummaryViewStyle"
+                    android:drawableStart="@drawable/ic_night_summary"
+                    android:maxLines="2"
+                    app:layout_constraintEnd_toStartOf="@id/txtDayWeatherSummary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="-3..-1" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtDayWeatherSummary"
+                    style="@style/WeatherSummaryViewStyle"
+                    android:drawableStart="@drawable/ic_day_summary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txtNightWeatherSummary"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="3..5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/wearList"
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero_dp"
+            android:layout_marginStart="@dimen/padding_8dp"
+            android:layout_marginTop="@dimen/padding_12dp"
+            android:layout_marginEnd="@dimen/padding_8dp"
             app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
+            app:layout_constraintTop_toBottomOf="@id/cardDatesSummary" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtGoodTripMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_good_trip_wish_message"
-            android:text="@string/message_nice_trip_wishes"
-            android:textAlignment="center"
             android:paddingTop="@dimen/padding_6dp"
             android:paddingBottom="@dimen/padding_6dp"
+            android:text="@string/message_nice_trip_wishes"
+            android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_22sp"
             android:textStyle="bold"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtNightWeatherSummary"
             app:layout_constraintTop_toBottomOf="@id/wearList"
             tools:text="@string/message_nice_trip_wishes" />
 
@@ -151,7 +168,7 @@
             app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtNightWeatherSummary" />
+            app:layout_constraintTop_toBottomOf="@id/cardDatesSummary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
