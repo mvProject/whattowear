@@ -115,9 +115,10 @@
             android:background="@drawable/bg_good_trip_wish_message"
             android:text="@string/message_nice_trip_wishes"
             android:textAlignment="center"
-
+            android:paddingTop="@dimen/padding_6dp"
+            android:paddingBottom="@dimen/padding_6dp"
             android:textColor="@color/colorPrimary"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_size_22sp"
             android:textStyle="bold"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"

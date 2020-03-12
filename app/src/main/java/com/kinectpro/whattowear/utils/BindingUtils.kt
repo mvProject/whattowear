@@ -12,7 +12,7 @@ import com.kinectpro.whattowear.R
 import java.util.concurrent.TimeUnit
 
 const val CHIP_DATE_STROKE_WIDTH = 0f
-const val CHIP_DATE_CORNER_SIZE = 10f
+const val CHIP_DATE_CORNER_SIZE = 30f
 
 /**
  * Binding adapter for Date TextView's
