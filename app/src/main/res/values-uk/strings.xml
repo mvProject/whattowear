@@ -25,4 +25,6 @@
     <string name="weather_fog_recommendation">Будьте обережні за кермом</string>
     <string name="weather_default_state">defaultWeather</string>
     <string name="message_nice_trip_wishes">Гарної подорожі!</string>
+    <string name="message_error_trip_date_range">Неправильно заданий інтервал поїздки!</string>
+    <string name="message_error_trip_destination">Не вибрано місце призначення!</string>
 </resources>

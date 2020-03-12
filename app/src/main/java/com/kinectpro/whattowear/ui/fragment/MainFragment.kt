@@ -22,6 +22,7 @@ import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
 import com.kinectpro.whattowear.utils.convertToReadableRange
+import com.kinectpro.whattowear.utils.isProperDataRangeSelected
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
 
@@ -82,6 +83,26 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
+            if (viewModel.selectedDestinationPlace.value == null) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.message_error_trip_destination),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            if (!isProperDataRangeSelected(
+                    viewModel.tripStartDateLive.value,
+                    viewModel.tripEndDateLive.value
+                )
+            ) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.message_error_trip_date_range),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
             viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
         }
 
