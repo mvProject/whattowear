@@ -11,7 +11,8 @@ import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
 import java.util.concurrent.TimeUnit
 
-const val CHIP_DATE_STROKE_WIDTH = 0f
+const val CHIP_DATE_TEXT_SIZE = 14f
+const val CHIP_DATE_MIN_HEIGHT = 16f
 const val CHIP_DATE_CORNER_SIZE = 30f
 
 /**
@@ -46,8 +47,9 @@ fun getProperTextForWeatherConditionDatesChipView(
         val chip = Chip(view.context)
         chip.setChipBackgroundColorResource(R.color.colorAccent)
         chip.setChipStrokeColorResource(R.color.colorPrimary)
+        chip.textSize = CHIP_DATE_TEXT_SIZE
+        chip.chipMinHeight = CHIP_DATE_MIN_HEIGHT
         chip.shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(CHIP_DATE_CORNER_SIZE)
-        chip.chipStrokeWidth = CHIP_DATE_STROKE_WIDTH
         chip.text = TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
             STATE_DATE_READABLE_PATTERN
         )
