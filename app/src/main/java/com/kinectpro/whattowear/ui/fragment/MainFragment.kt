@@ -56,7 +56,13 @@ class MainFragment : Fragment() {
         mainFragmentBinding.lifecycleOwner = this
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
-            // TODO weather achieve
+            if (isProperDataRangeSelected(
+                    viewModel.tripStartDateLive.value,
+                    viewModel.tripEndDateLive.value
+                )
+            ) {
+                viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+            }
         })
 
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
