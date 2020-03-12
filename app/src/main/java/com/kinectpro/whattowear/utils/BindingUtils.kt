@@ -11,7 +11,7 @@ import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
 import java.util.concurrent.TimeUnit
 
-const val CHIP_DATE_STROKE_WIDTH = 0.5f
+const val CHIP_DATE_STROKE_WIDTH = 0f
 const val CHIP_DATE_CORNER_SIZE = 10f
 
 /**

@@ -10,11 +10,11 @@
 
     <string name="weather_icon_type_clear_day">Ясно</string>
     <string name="weather_icon_type_clear_night">Ночь,Ясно</string>
-    <string name="weather_icon_type_rain">ожидается дождь</string>
-    <string name="weather_icon_type_snow">ожидается снегопад</string>
-    <string name="weather_icon_type_sleet">ожидается снег с дождем</string>
-    <string name="weather_icon_type_wind">ожидается ветреная погода</string>
-    <string name="weather_icon_type_fog">ожидается туманная погода</string>
+    <string name="weather_icon_type_rain">Ожидается дождь</string>
+    <string name="weather_icon_type_snow">Ожидается снегопад</string>
+    <string name="weather_icon_type_sleet">Ожидается снег с дождем</string>
+    <string name="weather_icon_type_wind">Ожидается ветреная погода</string>
+    <string name="weather_icon_type_fog">Ожидается туманная погода</string>
     <string name="weather_icon_type_cloudy">Облачно</string>
     <string name="weather_icon_type_partly_cloudy_day">Небольшая облачнось</string>
     <string name="weather_icon_type_partly_cloudy_night">Ночь,Небольшая облачнось</string>

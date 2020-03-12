@@ -10,11 +10,11 @@
 
     <string name="weather_icon_type_clear_day">Clear Day</string>
     <string name="weather_icon_type_clear_night">Clear Night</string>
-    <string name="weather_icon_type_rain">rain expected</string>
-    <string name="weather_icon_type_snow">snowfall expected</string>
-    <string name="weather_icon_type_sleet">expected snow with rain</string>
-    <string name="weather_icon_type_wind">windy weather expected</string>
-    <string name="weather_icon_type_fog">foggy weather expected</string>
+    <string name="weather_icon_type_rain">Rain expected</string>
+    <string name="weather_icon_type_snow">Snowfall expected</string>
+    <string name="weather_icon_type_sleet">Expected Snow with Rain</string>
+    <string name="weather_icon_type_wind">Windy weather expected</string>
+    <string name="weather_icon_type_fog">Foggy weather expected</string>
     <string name="weather_icon_type_cloudy">Cloudy</string>
     <string name="weather_icon_type_partly_cloudy_day">Partly cloudy day</string>
     <string name="weather_icon_type_partly_cloudy_night">Partly cloudy night</string>

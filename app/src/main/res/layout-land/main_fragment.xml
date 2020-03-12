@@ -120,8 +120,6 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:visibility="invisible"
-            android:paddingTop="@dimen/padding_12dp"
-            android:paddingBottom="@dimen/padding_12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtNightWeatherSummary"
