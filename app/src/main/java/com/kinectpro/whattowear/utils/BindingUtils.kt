@@ -4,7 +4,15 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textview.MaterialTextView
+import com.kinectpro.whattowear.R
+import java.util.concurrent.TimeUnit
+
+const val CHIP_DATE_STROKE_WIDTH = 0.5f
+const val CHIP_DATE_CORNER_SIZE = 10f
 
 /**
  * Binding adapter for Date TextView's
@@ -27,18 +35,23 @@ fun getProperTextForStartTextView(
 /**
  * Binding adapter for weather conditions appearance date TextView's
  * @param view type of view which adapter can be binded
- * @param dates selected dates which will be converted to single string
+ * @param dates selected dates which will be converted to decorated chip
  */
-@BindingAdapter(value = ["conditionDates"])
-fun getProperTextForWeatherConditionDatesTextView(
-    view: MaterialTextView,
+@BindingAdapter(value = ["conditionDatesChip"])
+fun getProperTextForWeatherConditionDatesChipView(
+    view: ChipGroup,
     dates: List<Long>
 ) {
-    if (dates.isNotEmpty()) {
-        view.text = dates.convertToShortDateFormatString()
-        view.visibility = View.VISIBLE
-    } else {
-        view.visibility = View.GONE
+    for (date in dates) {
+        val chip = Chip(view.context)
+        chip.setChipBackgroundColorResource(R.color.colorAccent)
+        chip.setChipStrokeColorResource(R.color.colorPrimary)
+        chip.shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(CHIP_DATE_CORNER_SIZE)
+        chip.chipStrokeWidth = CHIP_DATE_STROKE_WIDTH
+        chip.text = TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
+            STATE_DATE_READABLE_PATTERN
+        )
+        view.addView(chip)
     }
 }
 
