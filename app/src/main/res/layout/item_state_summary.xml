@@ -50,7 +50,7 @@
             android:layout_marginEnd="@dimen/padding_8dp"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@id/txtWeatherStateTypeDateRange"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iconWeatherState"
             app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="check umbrella" />
