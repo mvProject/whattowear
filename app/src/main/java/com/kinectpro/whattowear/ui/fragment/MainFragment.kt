@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
@@ -124,6 +125,7 @@ class MainFragment : Fragment() {
         autoComplete.apply {
             retainInstance = true
             setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+            setTypeFilter(TypeFilter.CITIES)
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
         }
     }
