@@ -25,6 +25,7 @@ data class Data(
     val time: Long?,
     val summary: String? = "",
     val icon: String? = "",
+    val sunsetTime: Long?,
     val nearestStormDistance: Int?,
     val nearestStormBearing: Int?,
     val precipIntensity: Double?,

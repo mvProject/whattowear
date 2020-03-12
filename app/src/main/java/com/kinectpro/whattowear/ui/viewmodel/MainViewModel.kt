@@ -20,6 +20,7 @@ import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import java.lang.Error
+import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -52,7 +53,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         place.id!!,
                         place.name!!,
                         place.latLng?.latitude.toString(),
-                        place.latLng?.longitude.toString()
+                        place.latLng?.longitude.toString(),
+                        TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
                     )
             }
         }
@@ -81,7 +83,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
-            getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
+            getDataRangeForTrip(
+                tripStartDateLive.value!! + place.offsetUTC,
+                tripEndDateLive.value!! + place.offsetUTC
+            )?.let {
                 return repository.getWeatherForecastForSelectedPlace(
                     place.latitude,
                     place.longitude,
