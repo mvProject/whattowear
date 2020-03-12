@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.*
@@ -20,6 +21,7 @@ import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import java.lang.Error
+import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -52,8 +54,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         place.id!!,
                         place.name!!,
                         place.latLng?.latitude.toString(),
-                        place.latLng?.longitude.toString()
+                        place.latLng?.longitude.toString(),
+                        TimeUnit.MINUTES.toSeconds(place.utcOffsetMinutes!!.toLong())
                     )
+                Log.d("Wear", selectedDestinationPlace.value.toString())
             }
         }
     }

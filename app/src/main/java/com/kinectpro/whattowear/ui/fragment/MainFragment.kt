@@ -124,7 +124,14 @@ class MainFragment : Fragment() {
 
         autoComplete.apply {
             retainInstance = true
-            setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+            setPlaceFields(
+                listOf(
+                    Place.Field.ID,
+                    Place.Field.NAME,
+                    Place.Field.LAT_LNG,
+                    Place.Field.UTC_OFFSET
+                )
+            )
             setTypeFilter(TypeFilter.CITIES)
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
         }
