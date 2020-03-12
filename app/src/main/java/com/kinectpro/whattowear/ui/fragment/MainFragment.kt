@@ -163,9 +163,13 @@ class MainFragment : Fragment() {
             if (state) View.INVISIBLE else View.VISIBLE
         mainFragmentBinding.waitingImage.visibility =
             if (state) View.INVISIBLE else View.VISIBLE
-        mainFragmentBinding.txtNightWeatherSummary.visibility =
-            if (state) View.VISIBLE else View.INVISIBLE
-        mainFragmentBinding.txtDayWeatherSummary.visibility =
+        /*
+         mainFragmentBinding.txtNightWeatherSummary.visibility =
+             if (state) View.VISIBLE else View.INVISIBLE
+         mainFragmentBinding.txtDayWeatherSummary.visibility =
+             if (state) View.VISIBLE else View.INVISIBLE
+         */
+        mainFragmentBinding.cardDatesSummary!!.visibility =
             if (state) View.VISIBLE else View.INVISIBLE
         mainFragmentBinding.wearList.visibility =
             if (state) View.VISIBLE else View.INVISIBLE
