@@ -119,14 +119,17 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero_dp"
             android:layout_marginStart="@dimen/padding_8dp"
-            android:padding="@dimen/padding_2dp"
-            android:layout_marginTop="@dimen/padding_12dp"
+            android:layout_marginTop="@dimen/padding_8dp"
             android:layout_marginEnd="@dimen/padding_8dp"
+            android:layout_marginBottom="@dimen/padding_4dp"
+            android:background="@drawable/bg_recyclerview"
             android:elevation="@dimen/padding_1dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardDatesSummary" />
+            app:layout_constraintTop_toBottomOf="@id/cardDatesSummary"
+            tools:visibility="visible" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtGoodTripMessage"
