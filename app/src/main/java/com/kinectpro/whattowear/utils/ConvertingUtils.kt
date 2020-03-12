@@ -22,9 +22,9 @@ const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
  * @return instance of WeatherData data class or null
  */
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
-    if ((this.daily.data.first().time != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureLow != null)) {
+    if ((this.daily.data.first().sunsetTime != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureLow != null)) {
         return WeatherData(
-            this.daily.data.first().time!!,
+            this.daily.data.first().sunsetTime!!,
             this.daily.data.first().apparentTemperatureHigh!!,
             this.daily.data.first().apparentTemperatureLow!!,
             this.daily.data.first().icon

@@ -83,7 +83,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
-            getDataRangeForTrip(tripStartDateLive.value!!, tripEndDateLive.value!!)?.let {
+            getDataRangeForTrip(
+                tripStartDateLive.value!! + place.offsetUTC,
+                tripEndDateLive.value!! + place.offsetUTC
+            )?.let {
                 return repository.getWeatherForecastForSelectedPlace(
                     place.latitude,
                     place.longitude,
