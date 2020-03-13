@@ -15,12 +15,26 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragment.MainFragment">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/autocompleteFragment"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:id="@+id/framePlace"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/autocompleteFragment"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/clear_button_view"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="end|center_vertical"
+                android:background="@android:color/transparent" />
+        </FrameLayout>
+
 
         <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
         <!--
@@ -42,7 +56,7 @@
             app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
+            app:layout_constraintTop_toBottomOf="@id/framePlace"
             tools:text="25/02/20" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -53,7 +67,7 @@
             app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
-            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
+            app:layout_constraintTop_toBottomOf="@id/framePlace"
             tools:text="25/02/20" />
 
         <Button
@@ -63,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
-            app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
+            app:layout_constraintTop_toBottomOf="@id/framePlace" />
 
         <ProgressBar
             android:id="@+id/progress_indicator"

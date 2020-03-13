@@ -162,6 +162,17 @@ class MainFragment : Fragment() {
             setTypeFilter(TypeFilter.CITIES)
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
         }
+
+        clear_button_view.setOnClickListener {
+            autoComplete.setText("")
+            viewModel.selectedDestinationPlace.value = null
+            viewModel.tripStartDateLive.value = 0L
+            viewModel.tripEndDateLive.value = 0L
+
+            mainFragmentBinding.wearList.visibility = View.INVISIBLE
+            mainFragmentBinding.cardDatesSummary.visibility = View.INVISIBLE
+            mainFragmentBinding.txtGoodTripMessage.visibility = View.INVISIBLE
+        }
     }
 
     private fun showDataUI(state: Boolean) {
@@ -172,8 +183,6 @@ class MainFragment : Fragment() {
         mainFragmentBinding.wearList.visibility =
             if (state) View.VISIBLE else View.INVISIBLE
         mainFragmentBinding.cardDatesSummary.visibility =
-            if (state) View.VISIBLE else View.INVISIBLE
-        mainFragmentBinding.wearList.visibility =
             if (state) View.VISIBLE else View.INVISIBLE
         mainFragmentBinding.txtGoodTripMessage.visibility =
             if (state) View.VISIBLE else View.INVISIBLE
