@@ -8,6 +8,7 @@ import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.model.wear.WeatherTemp
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.network.service.ApiService
+import java.lang.Error
 
 class WhatToWearRepository :
     IWhatToWearRepository {
@@ -21,8 +22,13 @@ class WhatToWearRepository :
         dataRange: List<Long>
     ): LiveData<ResourceWrapper<List<WeatherData>>> = liveData {
         emit(ResourceWrapper.loading())
-        val data = apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)
-        emit(ResourceWrapper.success(data))
+        try {
+            val data = apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)
+            emit(ResourceWrapper.success(data))
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            emit(ResourceWrapper.error(Error(ex.message)))
+        }
     }
 
     override fun getWearsAvailableForSelect(condition: List<WeatherTemp>): List<WearItem> {

@@ -82,7 +82,9 @@ class MainFragment : Fragment() {
                         adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
                     }
                 }
-                Status.ERROR -> TODO("possible error handling")
+                Status.ERROR -> {
+                    Toast.makeText(context, it.error?.message, Toast.LENGTH_SHORT).show()
+                }
             }
         })
 

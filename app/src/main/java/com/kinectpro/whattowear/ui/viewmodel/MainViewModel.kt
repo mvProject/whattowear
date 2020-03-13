@@ -104,7 +104,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
         if (weatherList != null) {
-            selectedTripCondition.addSource(weatherList, Observer {
+            selectedTripCondition.addSource(weatherList) {
                 when (it.status) {
                     RequestStatus.LOADING -> {
                         selectedTripCondition.value = ResourceWrapper.loading()
@@ -117,10 +117,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     }
                     RequestStatus.ERROR -> {
-                        selectedTripCondition.value = ResourceWrapper.error(Error())
+                        selectedTripCondition.value = ResourceWrapper.error(it.error)
                     }
                 }
-            })
+            }
         }
     }
 

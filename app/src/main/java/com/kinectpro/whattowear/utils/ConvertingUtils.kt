@@ -138,6 +138,15 @@ fun TempSummary.convertToReadableRange(): StringBuilder {
 }
 
 
+fun getProperLanguageValue(): String {
+    return when (Locale.getDefault().toString()) {
+        "ru_RU" -> "ru"
+        "uk_UA" -> "uk"
+        else -> "en"
+    }
+}
+
+
 
 
 
