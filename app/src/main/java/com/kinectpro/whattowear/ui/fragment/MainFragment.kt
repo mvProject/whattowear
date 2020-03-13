@@ -72,12 +72,9 @@ class MainFragment : Fragment() {
         viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    showDataUI(false)
                     Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                 }
                 Status.SUCCESS -> {
-                    showDataUI(true)
-
                     txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange()
                     txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange()
                     wearList.apply {
@@ -173,19 +170,6 @@ class MainFragment : Fragment() {
             mainFragmentBinding.cardDatesSummary.visibility = View.INVISIBLE
             mainFragmentBinding.txtGoodTripMessage.visibility = View.INVISIBLE
         }
-    }
-
-    private fun showDataUI(state: Boolean) {
-        mainFragmentBinding.progressIndicator.visibility =
-            if (state) View.INVISIBLE else View.VISIBLE
-        mainFragmentBinding.waitingImage.visibility =
-            if (state) View.INVISIBLE else View.VISIBLE
-        mainFragmentBinding.wearList.visibility =
-            if (state) View.VISIBLE else View.INVISIBLE
-        mainFragmentBinding.cardDatesSummary.visibility =
-            if (state) View.VISIBLE else View.INVISIBLE
-        mainFragmentBinding.txtGoodTripMessage.visibility =
-            if (state) View.VISIBLE else View.INVISIBLE
     }
 }
 
