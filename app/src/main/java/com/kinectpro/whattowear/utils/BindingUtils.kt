@@ -4,11 +4,16 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MediatorLiveData
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.trip.TripModel
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper.Companion.loading
+import com.kinectpro.whattowear.data.wrapper.Status
 import java.util.concurrent.TimeUnit
 
 const val CHIP_DATE_TEXT_SIZE = 14f
@@ -105,5 +110,37 @@ fun loadImage(
         view.setImageResource(iconType.convertIconToDrawable())
     } else {
         view.setImageDrawable(placeHolder)
+    }
+}
+
+/**
+ * Binding adapter changing view visibility according to loading state
+ * @param view type of view which adapter can be binded
+ * @param state current state type
+ */
+@BindingAdapter(value = ["checkLoadingVisibility"])
+fun setViewVisibilityAccordingLoadingStatus(
+    view: View,
+    state: Status?
+) {
+    when (state) {
+        Status.LOADING -> view.visibility = View.VISIBLE
+        else -> view.visibility = View.INVISIBLE
+    }
+}
+
+/**
+ * Binding adapter changing view visibility according to success data state
+ * @param view type of view which adapter can be binded
+ * @param state current state type
+ */
+@BindingAdapter(value = ["checkSuccessVisibility"])
+fun setViewVisibilityAccordingSuccessStatus(
+    view: View,
+    state: Status?
+) {
+    when (state) {
+        Status.SUCCESS -> view.visibility = View.VISIBLE
+        else -> view.visibility = View.INVISIBLE
     }
 }

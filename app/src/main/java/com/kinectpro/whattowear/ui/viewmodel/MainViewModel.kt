@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.*
@@ -48,14 +49,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onPlaceSelected(place: Place) {
-                selectedDestinationPlace.value =
-                    PlaceTrip(
-                        place.id!!,
-                        place.name!!,
-                        place.latLng?.latitude.toString(),
-                        place.latLng?.longitude.toString(),
-                        TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
-                    )
+                if (place.id != null) {
+                    selectedDestinationPlace.value =
+                        PlaceTrip(
+                            place.id!!,
+                            place.name!!,
+                            place.latLng?.latitude.toString(),
+                            place.latLng?.longitude.toString(),
+                            TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
+                        )
+                } else {
+                    Log.d("Wear", "cleared")
+                }
             }
         }
     }
