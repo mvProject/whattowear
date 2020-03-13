@@ -21,7 +21,6 @@ const val LOCALE_COUNTRY_US = "US"
 const val LOCALE_LANGUAGE_RU = "ru_RU"
 const val LOCALE_LANGUAGE_UA = "uk_UA"
 
-
 /**
  * Extension Method to response data class which
  * try to extract only specified non-null fields
