@@ -129,15 +129,18 @@ fun List<Long>.convertToShortDateFormatString(): String {
  */
 fun TempSummary.convertToReadableRange(): StringBuilder {
     return StringBuilder().apply {
-        append("Max:  ${maxValue.roundToInt()} ")
-        append("°C")
+        append("Max:  ${maxValue.getProperMetricTempValue()} ")
+        append(getProperMetricValue())
         append("\n")
-        append("Min:  ${minValue.roundToInt()} ")
-        append("°C")
+        append("Min:  ${minValue.getProperMetricTempValue()} ")
+        append(getProperMetricValue())
     }
 }
 
-
+/**
+ * Obtain response language according locale
+ * @return language for response
+ */
 fun getProperLanguageValue(): String {
     return when (Locale.getDefault().toString()) {
         "ru_RU" -> "ru"
@@ -145,6 +148,36 @@ fun getProperLanguageValue(): String {
         else -> "en"
     }
 }
+
+/**
+ * Extension obtaining unit according locale metric system
+ * @return temperature unit value
+ */
+fun getProperMetricValue(): String {
+    return when (Locale.getDefault().country) {
+        "US" -> "°F"
+        else -> "°C"
+    }
+}
+
+/**
+ * Extension obtaining temp according locale metric system
+ * @return temperature value
+ */
+fun Float.getProperMetricTempValue(): Int {
+    return when (Locale.getDefault().country) {
+        "US" -> this.convertCelsiusToFahrenheit().roundToInt()
+        else -> this.roundToInt()
+    }
+}
+
+/**
+ * Convert temperature value from Celsius to Fahrenheit metric
+ */
+fun Float.convertCelsiusToFahrenheit(): Float {
+    return (1.8f * this) + 32
+}
+
 
 
 

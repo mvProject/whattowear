@@ -242,4 +242,17 @@ class ConvertingUtilsTest {
     fun getProperLanguageValue_Proper() {
         assertEquals("ru", getProperLanguageValue())
     }
+
+    @Test
+    fun convertCelsiusToFahrenheit_Proper() {
+        val testCelsus = 15f
+        assertEquals(59.0f, testCelsus.convertCelsiusToFahrenheit())
+    }
+
+    @Test
+    fun convertCelsiusToFahrenheit_NotProper() {
+        val testCelsus = 15f
+        assertNotEquals(95.0f, testCelsus.convertCelsiusToFahrenheit())
+    }
+
 }
