@@ -9,12 +9,18 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
-/**
- * Specified pattern to convert long variable timestamp
- */
 const val STATE_DATE_READABLE_PATTERN = "dd.MM"
 const val DATE_READABLE_PATTERN = "dd/MM/yy"
 const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
+const val METRIC_TYPE_CELSIUS = "°C"
+const val METRIC_TYPE_FAHRENHEIT = "°F"
+const val LANGUAGE_RU = "ru"
+const val LANGUAGE_UA = "uk"
+const val LANGUAGE_EN = "en"
+const val LOCALE_COUNTRY_US = "US"
+const val LOCALE_LANGUAGE_RU = "ru_RU"
+const val LOCALE_LANGUAGE_UA = "uk_UA"
+
 
 /**
  * Extension Method to response data class which
@@ -143,9 +149,9 @@ fun TempSummary.convertToReadableRange(): StringBuilder {
  */
 fun getProperLanguageValue(): String {
     return when (Locale.getDefault().toString()) {
-        "ru_RU" -> "ru"
-        "uk_UA" -> "uk"
-        else -> "en"
+        LOCALE_LANGUAGE_RU -> LANGUAGE_RU
+        LOCALE_LANGUAGE_UA -> LANGUAGE_UA
+        else -> LANGUAGE_EN
     }
 }
 
@@ -155,8 +161,8 @@ fun getProperLanguageValue(): String {
  */
 fun getProperMetricValue(): String {
     return when (Locale.getDefault().country) {
-        "US" -> "°F"
-        else -> "°C"
+        LOCALE_COUNTRY_US -> METRIC_TYPE_FAHRENHEIT
+        else -> METRIC_TYPE_CELSIUS
     }
 }
 
@@ -166,7 +172,7 @@ fun getProperMetricValue(): String {
  */
 fun Float.getProperMetricTempValue(): Int {
     return when (Locale.getDefault().country) {
-        "US" -> this.convertCelsiusToFahrenheit().roundToInt()
+        LOCALE_COUNTRY_US -> this.convertCelsiusToFahrenheit().roundToInt()
         else -> this.roundToInt()
     }
 }
