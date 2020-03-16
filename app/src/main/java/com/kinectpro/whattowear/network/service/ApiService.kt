@@ -4,7 +4,7 @@ import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.network.api.DarkSkyWeatherApiService
 import com.kinectpro.whattowear.utils.convertToWeatherDataModel
-import com.kinectpro.whattowear.utils.getProperLanguageValue
+import com.kinectpro.whattowear.utils.convertCurrentLocaleLanguageToApiLanguageFormat
 
 class ApiService : IDarkSkyWeather {
 
@@ -22,7 +22,7 @@ class ApiService : IDarkSkyWeather {
             val current =
                 api.getSingleForecastAsync(
                     BuildConfig.DARKSKY_API_KEY, lat, lon, data.toString(),
-                    getProperLanguageValue()
+                    convertCurrentLocaleLanguageToApiLanguageFormat()
                 )
             current.let {
                 weatherList.add(current.convertToWeatherDataModel()!!)

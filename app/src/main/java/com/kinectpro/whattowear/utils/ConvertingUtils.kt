@@ -146,7 +146,7 @@ fun TempSummary.convertToReadableRange(): StringBuilder {
  * Obtain response language according locale
  * @return language for response
  */
-fun getProperLanguageValue(): String {
+fun convertCurrentLocaleLanguageToApiLanguageFormat(): String {
     return when (Locale.getDefault().toString()) {
         LOCALE_LANGUAGE_RU -> LANGUAGE_RU
         LOCALE_LANGUAGE_UA -> LANGUAGE_UA

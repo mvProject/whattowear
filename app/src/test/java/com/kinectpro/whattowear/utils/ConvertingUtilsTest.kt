@@ -240,7 +240,7 @@ class ConvertingUtilsTest {
 
     @Test
     fun getProperLanguageValue_Proper() {
-        assertEquals("ru", getProperLanguageValue())
+        assertEquals("ru", convertCurrentLocaleLanguageToApiLanguageFormat())
     }
 
     @Test
