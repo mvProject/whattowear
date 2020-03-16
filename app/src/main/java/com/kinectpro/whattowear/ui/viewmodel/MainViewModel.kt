@@ -15,7 +15,7 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
-import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
+import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import java.util.concurrent.TimeUnit
@@ -110,7 +110,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     }
                     RequestStatus.ERROR -> {
-                        selectedTripCondition.value = ResourceWrapper.error(it.error)
+                        selectedTripCondition.value = ResourceWrapper.error(it.errorCode!!, null)
                     }
                 }
             }

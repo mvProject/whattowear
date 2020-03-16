@@ -17,8 +17,9 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.enums.ErrorCodes
+import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
-import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
@@ -72,10 +73,10 @@ class MainFragment : Fragment() {
 
         viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
             when (it.status) {
-                Status.LOADING -> {
+                ResourceStatus.LOADING -> {
                     Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                 }
-                Status.SUCCESS -> {
+                ResourceStatus.SUCCESS -> {
                     txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange()
                     txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange()
                     wearList.apply {
@@ -83,8 +84,16 @@ class MainFragment : Fragment() {
                         adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
                     }
                 }
-                Status.ERROR -> {
-                    Toast.makeText(context, it.error?.message, Toast.LENGTH_SHORT).show()
+                ResourceStatus.ERROR -> {
+                    val errorMessage: String = when (it.errorCode) {
+                        ErrorCodes.SocketTimeOut.code -> getString(R.string.message_response_error_timeout)
+                        ErrorCodes.UnknownHostException.code -> getString(R.string.message_response_error_unknown_host)
+                        ErrorCodes.LanguageRequestException.code -> getString(R.string.message_response_error_invalid_lang)
+                        ErrorCodes.TargetRequestAccessException.code -> getString(R.string.message_response_error_access_denied)
+                        ErrorCodes.TargetRequestSourceException.code -> getString(R.string.message_response_error_request_target)
+                        else -> getString(R.string.message_response_error_unspecified)
+                    }
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })
