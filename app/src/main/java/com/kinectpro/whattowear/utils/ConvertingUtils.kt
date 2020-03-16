@@ -1,8 +1,13 @@
 package com.kinectpro.whattowear.utils
 
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
+import com.kinectpro.whattowear.helpers.RoundedBackgroundSpan
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,6 +20,13 @@ import kotlin.math.roundToInt
 const val STATE_DATE_READABLE_PATTERN = "dd.MM"
 const val DATE_READABLE_PATTERN = "dd/MM/yy"
 const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
+
+/**
+ *
+ */
+const val BACKGROUND_CORNER_RADIUS = 20
+const val HORIZONTAL_PADDING = 10
+const val VERTICAL_PADDING = 1
 
 /**
  * Extension Method to response data class which
@@ -113,14 +125,10 @@ fun List<Long>.convertToShortDateFormatString(): String {
         result.append(
             TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
                 STATE_DATE_READABLE_PATTERN
-            ) + ","
+            ) + " "
         )
     }
-    return if (result.isNotEmpty()) {
-        result.substring(0, result.length - 1).toString()
-    } else {
-        result.toString()
-    }
+    return result.toString()
 }
 
 /**
@@ -134,6 +142,34 @@ fun TempSummary.convertToReadableRange(): StringBuilder {
         append("\n")
         append("Min:  ${minValue.roundToInt()} ")
         append("°C")
+    }
+}
+
+fun roundedBackgroundSpannable(
+    resourceToSpan: String?,
+    backgroundColor: Int,
+    textColor: Int
+): SpannableString? {
+    if (resourceToSpan != null) {
+        val span = SpannableString(resourceToSpan)
+        for (i in span.indices step 6) {
+            span.setSpan(StyleSpan(Typeface.BOLD), i, i + 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            span.setSpan(
+                RoundedBackgroundSpan(
+                    backgroundColor,
+                    textColor,
+                    BACKGROUND_CORNER_RADIUS,
+                    HORIZONTAL_PADDING,
+                    VERTICAL_PADDING
+                ),
+                i,
+                i + 5,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        return span
+    } else {
+        return null
     }
 }
 
