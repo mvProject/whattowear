@@ -55,17 +55,16 @@
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="check umbrella" />
 
-        <com.google.android.material.chip.ChipGroup
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtWeatherStateTypeDateRange"
-            conditionDatesChip="@{weatherState.dates}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            conditionDates="@{weatherState.dates}"
             android:layout_marginStart="@dimen/padding_8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iconWeatherState"
             app:layout_constraintTop_toBottomOf="@id/txtWeatherStateRecommendation"
             app:layout_constraintVertical_chainStyle="packed"
-            app:singleLine="true"
-            app:singleSelection="true" />
+            tools:text="13.12" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

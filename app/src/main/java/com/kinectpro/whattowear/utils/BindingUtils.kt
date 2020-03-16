@@ -1,18 +1,23 @@
 package com.kinectpro.whattowear.utils
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.MediatorLiveData
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.trip.TripModel
-import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
-import com.kinectpro.whattowear.data.wrapper.ResourceWrapper.Companion.loading
 import com.kinectpro.whattowear.data.wrapper.Status
 import java.util.concurrent.TimeUnit
 
@@ -37,6 +42,37 @@ fun getProperTextForStartTextView(
         false -> placeholderText
     }
 }
+
+/**
+ * Binding adapter for weather conditions appearance date TextView's
+ * @param view type of view which adapter can be binded
+ * @param dates selected dates which will be converted to single string
+ */
+@BindingAdapter(value = ["conditionDates"])
+fun getProperTextForWeatherConditionDatesTextView(
+    view: MaterialTextView,
+    dates: List<Long>
+) {
+    view.text = dates.convertToShortDateFormatString().asSpannable(view.context)
+}
+
+fun String.asSpannable(context: Context): SpannableStringBuilder {
+    val dates = this.split(",")
+    val spannable = SpannableStringBuilder()
+    val boldSpan = StyleSpan(Typeface.BOLD)
+    val colorSpan = ForegroundColorSpan(ContextCompat.getColor(context, R.color.colorPrimary))
+    val backgroundSpan = BackgroundColorSpan(ContextCompat.getColor(context, R.color.colorAccent))
+    val spanType = Spanned.SPAN_INCLUSIVE_INCLUSIVE
+    spannable.setSpan(boldSpan, 0, spannable.length, spanType)
+    spannable.setSpan(colorSpan, 0, spannable.length, spanType)
+    spannable.setSpan(backgroundSpan, 0, spannable.length, spanType)
+    for (item in dates) {
+        spannable.insert(spannable.length, item)
+        spannable.insert(spannable.length, "-")
+    }
+    return spannable
+}
+
 
 /**
  * Binding adapter for weather conditions appearance date TextView's
