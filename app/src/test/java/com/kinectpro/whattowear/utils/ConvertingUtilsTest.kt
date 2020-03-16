@@ -7,6 +7,7 @@ import com.kinectpro.whattowear.data.model.response.Data
 import com.kinectpro.whattowear.data.model.trip.TempSummary
 import org.junit.Test
 import org.junit.Assert.*
+import java.lang.StringBuilder
 
 class ConvertingUtilsTest {
 
@@ -60,7 +61,7 @@ class ConvertingUtilsTest {
     }
 
     private fun getExpectedStatesTempList(): List<String> {
-        return listOf("rain", "wind", "clear-day")
+        return listOf("rain", "wind", "defaultWeatherState")
     }
 
 
@@ -80,11 +81,7 @@ class ConvertingUtilsTest {
 
     private fun getTestData(time: Long?, tempHigh: Float?, tempLow: Float?, state: String?): Data {
         return Data(
-            null, null, state, time, null, null,
-            null, null, null, null, tempHigh,
-            tempLow, null, null, null, null,
-            null, null, null, null, null, null,
-            null, null, null, null
+            state, time, tempHigh, tempLow
         )
     }
 
@@ -106,7 +103,6 @@ class ConvertingUtilsTest {
         state: String?
     ): Daily {
         return Daily(
-            "summary",
             "icon",
             getTestListData(time, tempHigh, tempLow, state)
         )
@@ -121,10 +117,18 @@ class ConvertingUtilsTest {
         return DarkSkyWeather(
             1.5,
             2.5,
-            "timezone",
-            getTestData(time, tempHigh, tempLow, state),
             getTestDaily(time, tempHigh, tempLow, state)
         )
+    }
+
+    private fun getExpectedTempSummary(): StringBuilder {
+        return StringBuilder().apply {
+            append("Max:  -1 ")
+            append(getProperMetricValue())
+            append("\n")
+            append("Min:  -3 ")
+            append(getProperMetricValue())
+        }
     }
 
     @Test
@@ -225,7 +229,7 @@ class ConvertingUtilsTest {
     @Test
     fun convertToShortDateFormatString() {
         assertEquals(
-            "09.03,10.03,11.03,12.03,13.03",
+            "09.03 10.03 11.03 12.03 13.03 ",
             getTestDateList().convertToShortDateFormatString()
         )
     }
@@ -233,8 +237,7 @@ class ConvertingUtilsTest {
     @Test
     fun convertToReadableRange_Proper() {
         assertEquals(
-            "  -3.0 .. -1.0",
-            TempSummary(-3f, -1f).convertToReadableRange()
+            getExpectedTempSummary(), TempSummary(-3f, -1f).convertToReadableRange()
         )
     }
 
@@ -244,15 +247,45 @@ class ConvertingUtilsTest {
     }
 
     @Test
+    fun getProperMetricTempValue_Proper_Round_High() {
+        val testCelsius = 36.7f
+        assertEquals(37, testCelsius.getProperMetricTempValue())
+    }
+
+    @Test
+    fun getProperMetricTempValue_Proper_Round_Low() {
+        val testCelsius = 36.2f
+        assertEquals(36, testCelsius.getProperMetricTempValue())
+    }
+
+    @Test
+    fun getProperMetricTempValue_ifNullSource() {
+        val testCelsius = null
+        assertEquals(null, testCelsius.getProperMetricTempValue())
+    }
+
+    @Test
     fun convertCelsiusToFahrenheit_Proper() {
-        val testCelsus = 15f
-        assertEquals(59.0f, testCelsus.convertCelsiusToFahrenheit())
+        val testCelsius = 15f
+        assertEquals(59.0f, testCelsius.convertCelsiusToFahrenheit())
+    }
+
+    @Test
+    fun convertCelsiusToFahrenheit_Proper_Less_Zero() {
+        val testCelsius = -15f
+        assertEquals(5.0f, testCelsius.convertCelsiusToFahrenheit())
     }
 
     @Test
     fun convertCelsiusToFahrenheit_NotProper() {
-        val testCelsus = 15f
-        assertNotEquals(95.0f, testCelsus.convertCelsiusToFahrenheit())
+        val testCelsius = 15f
+        assertNotEquals(95.0f, testCelsius.convertCelsiusToFahrenheit())
+    }
+
+    @Test
+    fun convertCelsiusToFahrenheit_ifNull() {
+        val testCelsius = null
+        assertEquals(null, testCelsius.convertCelsiusToFahrenheit())
     }
 
 }

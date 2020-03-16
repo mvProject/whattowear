@@ -56,6 +56,7 @@ class MainFragment : Fragment() {
         mainFragmentBinding.lifecycleOwner = this
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
+
             if (isProperDataRangeSelected(
                     viewModel.tripStartDateLive.value,
                     viewModel.tripEndDateLive.value

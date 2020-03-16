@@ -118,14 +118,10 @@ fun List<Long>.convertToShortDateFormatString(): String {
         result.append(
             TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
                 STATE_DATE_READABLE_PATTERN
-            ) + ","
+            ) + " "
         )
     }
-    return if (result.isNotEmpty()) {
-        result.substring(0, result.length - 1).toString()
-    } else {
-        result.toString()
-    }
+    return result.toString()
 }
 
 /**
@@ -134,10 +130,10 @@ fun List<Long>.convertToShortDateFormatString(): String {
  */
 fun TempSummary.convertToReadableRange(): StringBuilder {
     return StringBuilder().apply {
-        append("Max:  ${maxValue.getProperMetricTempValue()} ")
+        append("Max:  ${maxValue.getProperMetricTempValue() ?: "n/a"} ")
         append(getProperMetricValue())
         append("\n")
-        append("Min:  ${minValue.getProperMetricTempValue()} ")
+        append("Min:  ${minValue.getProperMetricTempValue() ?: "n/a"} ")
         append(getProperMetricValue())
     }
 }
@@ -169,18 +165,27 @@ fun getProperMetricValue(): String {
  * Extension obtaining temp according locale metric system
  * @return temperature value
  */
-fun Float.getProperMetricTempValue(): Int {
-    return when (Locale.getDefault().country) {
-        LOCALE_COUNTRY_US -> this.convertCelsiusToFahrenheit().roundToInt()
-        else -> this.roundToInt()
+fun Float?.getProperMetricTempValue(): Int? {
+    return if (this != null) {
+        when (Locale.getDefault().country) {
+            LOCALE_COUNTRY_US -> this.convertCelsiusToFahrenheit()!!.roundToInt()
+            else -> this.roundToInt()
+        }
+    } else {
+        null
     }
 }
 
 /**
  * Convert temperature value from Celsius to Fahrenheit metric
  */
-fun Float.convertCelsiusToFahrenheit(): Float {
-    return (1.8f * this) + 32
+fun Float?.convertCelsiusToFahrenheit(): Float? {
+    return if (this != null) {
+        (1.8f * this) + 32
+    } else {
+        null
+    }
+
 }
 
 
