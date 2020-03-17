@@ -1,6 +1,7 @@
 package com.kinectpro.whattowear.data.wrapper
 
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
+import com.kinectpro.whattowear.network.exceptions.NoInternetException
 import retrofit2.HttpException
 import java.lang.Exception
 import java.net.SocketTimeoutException
@@ -16,6 +17,7 @@ open class ResponseWrapper {
 
     fun <T : Any> handleException(e: Exception): ResourceWrapper<T> {
         return when (e) {
+            is NoInternetException -> ResourceWrapper.error(ErrorCodes.NoInternetConnectionException.code, null)
             is HttpException -> ResourceWrapper.error(e.code(), null)
             is SocketTimeoutException -> ResourceWrapper.error(ErrorCodes.SocketTimeOut.code, null)
             is UnknownHostException -> ResourceWrapper.error(

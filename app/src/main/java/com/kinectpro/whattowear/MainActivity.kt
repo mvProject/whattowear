@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         networkStatus.registerNetworkCallback()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         networkStatus.unregisterNetworkCallback()
     }
 }

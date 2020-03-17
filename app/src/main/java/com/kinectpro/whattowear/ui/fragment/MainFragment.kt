@@ -86,6 +86,7 @@ class MainFragment : Fragment() {
                 }
                 ResourceStatus.ERROR -> {
                     val errorMessage: String = when (it.errorCode) {
+                        ErrorCodes.NoInternetConnectionException.code -> getString(R.string.message_response_error_no_internet)
                         ErrorCodes.SocketTimeOut.code -> getString(R.string.message_response_error_timeout)
                         ErrorCodes.UnknownHostException.code -> getString(R.string.message_response_error_unknown_host)
                         ErrorCodes.LanguageRequestException.code -> getString(R.string.message_response_error_invalid_lang)
