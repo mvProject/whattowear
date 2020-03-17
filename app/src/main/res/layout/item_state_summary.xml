@@ -61,6 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_56dp"
             android:scrollbars="none"
+            android:paddingStart="@dimen/padding_8dp"
+            android:paddingEnd="@dimen/padding_8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iconWeatherState"
             app:layout_constraintTop_toBottomOf="@id/txtWeatherStateRecommendation"
@@ -71,8 +73,6 @@
                 conditionDatesChip="@{weatherState.dates}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_8dp"
-                app:singleLine="true"
                 app:singleSelection="true" />
 
         </HorizontalScrollView>
