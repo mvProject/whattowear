@@ -4,12 +4,12 @@ import com.kinectpro.whattowear.R
 
 fun String?.convertIconToDrawable(): Int {
     return when (this) {
-        "rain" -> R.drawable.ic_weather_rain
-        "snow" -> R.drawable.ic_weather_snow
-        "sleet" -> R.drawable.ic_weather_sleet
-        "wind" -> R.drawable.ic_weather_wind
+        "rain" -> R.drawable.ic_rain
+        "snow" -> R.drawable.ic_snow
+        "sleet" -> R.drawable.ic_sleet
+        "wind" -> R.drawable.ic_wind
         "fog" -> R.drawable.ic_weather_fog
-        else -> R.drawable.ic_weather_clear_day
+        else -> R.drawable.ic_clear_day
     }
 }
 
