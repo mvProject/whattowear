@@ -22,8 +22,7 @@ import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
-import com.kinectpro.whattowear.utils.convertToReadableRange
-import com.kinectpro.whattowear.utils.isProperDataRangeSelected
+import com.kinectpro.whattowear.utils.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
 
@@ -56,12 +55,20 @@ class MainFragment : Fragment() {
         mainFragmentBinding.lifecycleOwner = this
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
-            if (isProperDataRangeSelected(
+            if (it != null) {
+                when (isProperDataRangeSelected(
                     viewModel.tripStartDateLive.value,
                     viewModel.tripEndDateLive.value
-                )
-            ) {
-                viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+                )) {
+                    DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.message_error_trip_to_long_range),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    null -> viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+                }
             }
         })
 
@@ -95,17 +102,34 @@ class MainFragment : Fragment() {
                 ).show()
                 return@setOnClickListener
             }
-            if (!isProperDataRangeSelected(
-                    viewModel.tripStartDateLive.value,
-                    viewModel.tripEndDateLive.value
-                )
-            ) {
-                Toast.makeText(
-                    context,
-                    getString(R.string.message_error_trip_date_range),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
+            when (isProperDataRangeSelected(
+                viewModel.tripStartDateLive.value,
+                viewModel.tripEndDateLive.value
+            )) {
+                DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.message_error_trip_to_long_range),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.message_error_trip_date_not_select),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                DATE_ERROR_INVALID_RANGE -> {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.message_error_trip_date_range),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
             }
             viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
         }

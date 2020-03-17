@@ -81,10 +81,10 @@ class ConvertingUtilsTest {
     private fun getTestData(time: Long?, tempHigh: Float?, tempLow: Float?, state: String?): Data {
         return Data(
             time, null, state, null, null,
-            null, null, null, null, tempHigh,
-            tempLow, null, null, null, null,
+            null, null, null, null, null,
+            tempHigh, tempLow, null, null, null,
             null, null, null, null, null, null,
-            null, null, null, null
+            null, null, null, null,null
         )
     }
 
