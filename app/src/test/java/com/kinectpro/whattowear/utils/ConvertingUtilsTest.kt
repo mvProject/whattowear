@@ -242,7 +242,7 @@ class ConvertingUtilsTest {
         val expectedSingleSpan = SpannableString("15.03 ")
         assertEquals(
             expectedSingleSpan.toString(),
-            roundedBackgroundSpannable("15.03 ", Color.RED, Color.WHITE).toString()
+            getDatesListAsRoundedBackgroundSpannable("15.03 ", Color.RED, Color.WHITE).toString()
         )
     }
 
@@ -251,12 +251,12 @@ class ConvertingUtilsTest {
         val expectedSingleSpan = SpannableString("15.03 16.03 17.03 ")
         assertEquals(
             expectedSingleSpan.toString(),
-            roundedBackgroundSpannable("15.03 16.03 17.03 ", Color.RED, Color.WHITE).toString()
+            getDatesListAsRoundedBackgroundSpannable("15.03 16.03 17.03 ", Color.RED, Color.WHITE).toString()
         )
     }
 
     @Test
     fun roundedBackgroundSpannable_Proper_Null_String() {
-        assertEquals(null, roundedBackgroundSpannable(null, Color.RED, Color.WHITE))
+        assertEquals(null, getDatesListAsRoundedBackgroundSpannable(null, Color.RED, Color.WHITE))
     }
 }

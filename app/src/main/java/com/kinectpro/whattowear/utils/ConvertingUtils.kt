@@ -7,7 +7,6 @@ import android.text.style.StyleSpan
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
-import com.kinectpro.whattowear.helpers.RoundedBackgroundSpan
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,6 +26,9 @@ const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
 const val BACKGROUND_CORNER_RADIUS = 20
 const val HORIZONTAL_PADDING = 10
 const val VERTICAL_PADDING = 1
+
+const val DATE_PADDING = 5
+const val DATE_PADDING_SEPARATOR = 5
 
 /**
  * Extension Method to response data class which
@@ -145,13 +147,13 @@ fun TempSummary.convertToReadableRange(): StringBuilder {
     }
 }
 
-fun roundedBackgroundSpannable(
-    resourceToSpan: String?,
+fun getDatesListAsRoundedBackgroundSpannable(
+    datesStringResourceToSpan: String?,
     backgroundColor: Int,
     textColor: Int
 ): SpannableString? {
-    if (resourceToSpan != null) {
-        val span = SpannableString(resourceToSpan)
+    if (datesStringResourceToSpan != null) {
+        val span = SpannableString(datesStringResourceToSpan)
         for (i in span.indices step 6) {
             span.setSpan(StyleSpan(Typeface.BOLD), i, i + 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             span.setSpan(

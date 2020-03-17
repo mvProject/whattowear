@@ -39,7 +39,7 @@ fun getProperTextForWeatherConditionDatesTextView(
 ) {
     val backGroundColor = ContextCompat.getColor(view.context, R.color.colorAccent)
     val textColor = ContextCompat.getColor(view.context, R.color.colorPrimary)
-    view.text = roundedBackgroundSpannable(
+    view.text = getDatesListAsRoundedBackgroundSpannable(
         dates.convertToShortDateFormatString(),
         backGroundColor,
         textColor

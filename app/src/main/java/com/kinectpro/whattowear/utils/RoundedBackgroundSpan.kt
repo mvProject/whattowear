@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear.helpers
+package com.kinectpro.whattowear.utils
 
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -7,17 +7,12 @@ import android.text.style.ReplacementSpan
 import kotlin.math.roundToInt
 
 class RoundedBackgroundSpan(
-    backgroundColor: Int,
-    textColor: Int,
-    cornerRadius: Int,
-    horizontalPadding: Int,
-    verticalPadding: Int
+    private var backgroundColor: Int,
+    private var textColor: Int,
+    private var cornerRadius: Int = 8,
+    private var horizontalPadding: Int = 0,
+    private var verticalPadding: Int = 0
 ) : ReplacementSpan() {
-    private var cornerRadius = 8
-    private var backgroundColor = 0
-    private var textColor = 0
-    private var horizontalPadding = 0
-    private var verticalPadding = 0
 
     override fun draw(
         canvas: Canvas,
@@ -33,7 +28,7 @@ class RoundedBackgroundSpan(
         val rect = RectF(
             x,
             top + verticalPadding.toFloat(),
-            x + measureText(paint, text, start, end) + 2 * horizontalPadding,
+            x + horizontalPadding + measureText(paint, text, start, end) + horizontalPadding,
             bottom + verticalPadding.toFloat()
         )
         paint.color = backgroundColor
@@ -42,7 +37,6 @@ class RoundedBackgroundSpan(
         canvas.drawText(text, start, end, x + horizontalPadding, y.toFloat(), paint)
     }
 
-
     override fun getSize(
         paint: Paint,
         text: CharSequence,
@@ -50,20 +44,14 @@ class RoundedBackgroundSpan(
         end: Int,
         fm: Paint.FontMetricsInt?
     ): Int {
-        return 2 * horizontalPadding + paint.measureText(text, start, end).roundToInt()
+        return horizontalPadding + paint.measureText(
+            text,
+            start,
+            end
+        ).roundToInt() + horizontalPadding
     }
-
 
     private fun measureText(paint: Paint, text: CharSequence, start: Int, end: Int): Float {
         return paint.measureText(text, start, end)
-    }
-
-
-    init {
-        this.backgroundColor = backgroundColor
-        this.cornerRadius = cornerRadius
-        this.textColor = textColor
-        this.verticalPadding = verticalPadding
-        this.horizontalPadding = horizontalPadding
     }
 }
