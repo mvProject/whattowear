@@ -27,8 +27,8 @@ const val BACKGROUND_CORNER_RADIUS = 20
 const val HORIZONTAL_PADDING = 10
 const val VERTICAL_PADDING = 1
 
-const val DATE_PADDING = 5
-const val DATE_PADDING_SEPARATOR = 5
+const val DATE_FORMAT_LENGTH = 5
+const val DATE_FORMAT_LENGTH_WITH_SEPARATOR = 6
 
 /**
  * Extension Method to response data class which
@@ -122,6 +122,7 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
  * @return single string value
  */
 fun List<Long>.convertToShortDateFormatString(): String {
+
     val result = StringBuilder()
     for (date in this) {
         result.append(
@@ -154,8 +155,8 @@ fun getDatesListAsRoundedBackgroundSpannable(
 ): SpannableString? {
     if (datesStringResourceToSpan != null) {
         val span = SpannableString(datesStringResourceToSpan)
-        for (i in span.indices step 6) {
-            span.setSpan(StyleSpan(Typeface.BOLD), i, i + 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        for (i in span.indices step DATE_FORMAT_LENGTH_WITH_SEPARATOR) {
+            span.setSpan(StyleSpan(Typeface.BOLD), i, i + DATE_FORMAT_LENGTH, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             span.setSpan(
                 RoundedBackgroundSpan(
                     backgroundColor,
@@ -174,8 +175,3 @@ fun getDatesListAsRoundedBackgroundSpannable(
         return null
     }
 }
-
-
-
-
-
