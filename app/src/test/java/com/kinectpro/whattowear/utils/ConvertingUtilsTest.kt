@@ -1,12 +1,9 @@
 package com.kinectpro.whattowear.utils
 
-import android.graphics.Color
-import android.text.SpannableString
 import com.kinectpro.whattowear.data.model.response.Daily
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.response.Data
-import com.kinectpro.whattowear.data.model.trip.TempSummary
 import org.junit.Test
 import org.junit.Assert.*
 
@@ -221,42 +218,4 @@ class ConvertingUtilsTest {
         )
     }
 
-    @Test
-    fun convertToShortDateFormatString() {
-        assertEquals(
-            "09.03 10.03 11.03 12.03 13.03 ",
-            getTestDateList().convertToShortDateFormatString()
-        )
-    }
-
-    @Test
-    fun convertToReadableRange_Proper() {
-        assertEquals(
-            "  -3.0 .. -1.0",
-            TempSummary(-3f, -1f).convertToReadableRange()
-        )
-    }
-
-    @Test
-    fun roundedBackgroundSpannable_Proper_Single_Date() {
-        val expectedSingleSpan = SpannableString("15.03 ")
-        assertEquals(
-            expectedSingleSpan.toString(),
-            getDatesListAsRoundedBackgroundSpannable("15.03 ", Color.RED, Color.WHITE).toString()
-        )
-    }
-
-    @Test
-    fun roundedBackgroundSpannable_Proper_Multi_Date() {
-        val expectedSingleSpan = SpannableString("15.03 16.03 17.03 ")
-        assertEquals(
-            expectedSingleSpan.toString(),
-            getDatesListAsRoundedBackgroundSpannable("15.03 16.03 17.03 ", Color.RED, Color.WHITE).toString()
-        )
-    }
-
-    @Test
-    fun roundedBackgroundSpannable_Proper_Null_String() {
-        assertEquals(null, getDatesListAsRoundedBackgroundSpannable(null, Color.RED, Color.WHITE))
-    }
 }

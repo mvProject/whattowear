@@ -11,7 +11,6 @@ import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
