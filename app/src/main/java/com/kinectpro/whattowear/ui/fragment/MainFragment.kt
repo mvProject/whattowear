@@ -55,11 +55,8 @@ class MainFragment : Fragment() {
         mainFragmentBinding.lifecycleOwner = this
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
-            if (it != null) {
-                when (isProperDataRangeSelected(
-                    viewModel.tripStartDateLive.value,
-                    viewModel.tripEndDateLive.value
-                )) {
+            it?.let {
+                when (viewModel.obtainMatchAllConditionsForWeatherRequest()) {
                     DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
                         Toast.makeText(
                             context,
@@ -102,10 +99,8 @@ class MainFragment : Fragment() {
                 ).show()
                 return@setOnClickListener
             }
-            when (isProperDataRangeSelected(
-                viewModel.tripStartDateLive.value,
-                viewModel.tripEndDateLive.value
-            )) {
+
+            when (viewModel.obtainMatchAllConditionsForWeatherRequest()) {
                 DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
                     Toast.makeText(
                         context,

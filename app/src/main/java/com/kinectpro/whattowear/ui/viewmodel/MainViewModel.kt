@@ -10,16 +10,17 @@ import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.IWeatherRangeSummary
 import com.kinectpro.whattowear.data.TripWeatherCondition
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.trip.TripModel
-import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
+import com.kinectpro.whattowear.utils.*
 import java.lang.Error
 import java.util.concurrent.TimeUnit
 
@@ -124,4 +125,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun obtainMatchAllConditionsForWeatherRequest(): Int? {
+        return isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)
+    }
 }
