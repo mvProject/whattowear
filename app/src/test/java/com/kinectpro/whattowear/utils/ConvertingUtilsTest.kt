@@ -7,6 +7,7 @@ import com.kinectpro.whattowear.data.model.response.Data
 import com.kinectpro.whattowear.data.model.trip.TempSummary
 import org.junit.Test
 import org.junit.Assert.*
+import java.lang.StringBuilder
 
 class ConvertingUtilsTest {
 
@@ -60,7 +61,7 @@ class ConvertingUtilsTest {
     }
 
     private fun getExpectedStatesTempList(): List<String> {
-        return listOf("rain", "wind", "clear-day")
+        return listOf("rain", "wind", "defaultWeatherState")
     }
 
 
@@ -80,11 +81,7 @@ class ConvertingUtilsTest {
 
     private fun getTestData(time: Long?, tempHigh: Float?, tempLow: Float?, state: String?): Data {
         return Data(
-            time, null, state, null, null,
-            null, null, null, null, tempHigh,
-            tempLow, null, null, null, null,
-            null, null, null, null, null, null,
-            null, null, null, null
+            state, time, tempHigh, tempLow
         )
     }
 
@@ -106,7 +103,6 @@ class ConvertingUtilsTest {
         state: String?
     ): Daily {
         return Daily(
-            "summary",
             "icon",
             getTestListData(time, tempHigh, tempLow, state)
         )
@@ -121,10 +117,18 @@ class ConvertingUtilsTest {
         return DarkSkyWeather(
             1.5,
             2.5,
-            "timezone",
-            getTestData(time, tempHigh, tempLow, state),
             getTestDaily(time, tempHigh, tempLow, state)
         )
+    }
+
+    private fun getExpectedTempSummary(): StringBuilder {
+        return StringBuilder().apply {
+            append("Max:  -1 ")
+            append(getProperMetricValue())
+            append("\n")
+            append("Min:  -3 ")
+            append(getProperMetricValue())
+        }
     }
 
     @Test
@@ -150,7 +154,10 @@ class ConvertingUtilsTest {
 
     @Test
     fun convertToWeatherDataModel_Test_HighTime_Is_Null() {
-        assertEquals(null, getTestValue(1583704800, 12.5f, null, "rain").convertToWeatherDataModel())
+        assertEquals(
+            null,
+            getTestValue(1583704800, 12.5f, null, "rain").convertToWeatherDataModel()
+        )
     }
 
     @Test
@@ -222,7 +229,7 @@ class ConvertingUtilsTest {
     @Test
     fun convertToShortDateFormatString() {
         assertEquals(
-            "09.03,10.03,11.03,12.03,13.03",
+            "09.03 10.03 11.03 12.03 13.03 ",
             getTestDateList().convertToShortDateFormatString()
         )
     }
@@ -230,9 +237,7 @@ class ConvertingUtilsTest {
     @Test
     fun convertToReadableRange_Proper() {
         assertEquals(
-            "  -3.0 .. -1.0",
-            TempSummary(-3f, -1f).convertToReadableRange()
+            getExpectedTempSummary(), TempSummary(-3f, -1f).convertToReadableRange()
         )
     }
-
 }

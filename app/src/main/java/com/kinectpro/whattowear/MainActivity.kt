@@ -7,7 +7,6 @@ import com.kinectpro.whattowear.ui.fragment.MainFragment
 class MainActivity : AppCompatActivity() {
 
     private val TAG_MAIN_FRAGMENT = "main_fragment"
-
     private var mainFragment: MainFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

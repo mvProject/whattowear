@@ -9,12 +9,17 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
-/**
- * Specified pattern to convert long variable timestamp
- */
 const val STATE_DATE_READABLE_PATTERN = "dd.MM"
 const val DATE_READABLE_PATTERN = "dd/MM/yy"
 const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
+const val METRIC_TYPE_CELSIUS = "°C"
+const val METRIC_TYPE_FAHRENHEIT = "°F"
+const val LANGUAGE_RU = "ru"
+const val LANGUAGE_UA = "uk"
+const val LANGUAGE_EN = "en"
+const val LOCALE_COUNTRY_US = "US"
+const val LOCALE_LANGUAGE_RU = "ru_RU"
+const val LOCALE_LANGUAGE_UA = "uk_UA"
 
 /**
  * Extension Method to response data class which
@@ -113,14 +118,10 @@ fun List<Long>.convertToShortDateFormatString(): String {
         result.append(
             TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
                 STATE_DATE_READABLE_PATTERN
-            ) + ","
+            ) + " "
         )
     }
-    return if (result.isNotEmpty()) {
-        result.substring(0, result.length - 1).toString()
-    } else {
-        result.toString()
-    }
+    return result.toString()
 }
 
 /**
@@ -129,13 +130,59 @@ fun List<Long>.convertToShortDateFormatString(): String {
  */
 fun TempSummary.convertToReadableRange(): StringBuilder {
     return StringBuilder().apply {
-        append("Max:  ${maxValue.roundToInt()} ")
-        append("°C")
+        append("Max:  ${maxValue.getProperMetricTempValue() ?: "n/a"} ")
+        append(getProperMetricValue())
         append("\n")
-        append("Min:  ${minValue.roundToInt()} ")
-        append("°C")
+        append("Min:  ${minValue.getProperMetricTempValue() ?: "n/a"} ")
+        append(getProperMetricValue())
     }
 }
+
+/**
+ * Obtain response language according locale
+ * @return language for response
+ */
+fun convertCurrentLocaleLanguageToApiLanguageFormat(): String {
+    return when (Locale.getDefault().toString()) {
+        LOCALE_LANGUAGE_RU -> LANGUAGE_RU
+        LOCALE_LANGUAGE_UA -> LANGUAGE_UA
+        else -> LANGUAGE_EN
+    }
+}
+
+/**
+ * Extension obtaining unit according locale metric system
+ * @return temperature unit value
+ */
+fun getProperMetricValue(): String {
+    return when (Locale.getDefault().country) {
+        LOCALE_COUNTRY_US -> METRIC_TYPE_FAHRENHEIT
+        else -> METRIC_TYPE_CELSIUS
+    }
+}
+
+/**
+ * Extension obtaining temp according locale metric system
+ * @return temperature value
+ */
+fun Float?.getProperMetricTempValue(): Int? {
+    return this?.let {
+        when (Locale.getDefault().country) {
+            LOCALE_COUNTRY_US -> this.convertCelsiusToFahrenheit()!!.roundToInt()
+            else -> this.roundToInt()
+        }
+    }
+}
+
+/**
+ * Convert temperature value from Celsius to Fahrenheit metric
+ */
+fun Float?.convertCelsiusToFahrenheit(): Float? {
+    return this?.let{
+        (1.8f * this) + 32
+    }
+}
+
 
 
 

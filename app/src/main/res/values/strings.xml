@@ -27,4 +27,11 @@
     <string name="message_nice_trip_wishes">Have a nice trip!</string>
     <string name="message_error_trip_date_range">Incorrect trip interval!</string>
     <string name="message_error_trip_destination">Destination not selected!</string>
+    <string name="message_response_error_timeout">Timeout</string>
+    <string name="message_response_error_unknown_host">No address associated with hostname</string>
+    <string name="message_response_error_invalid_lang">An invalid language was provided</string>
+    <string name="message_response_error_access_denied">Access denied</string>
+    <string name="message_response_error_request_target">Target resource not found</string>
+    <string name="message_response_error_unspecified">Unknown Error</string>
+    <string name="message_response_error_no_internet">" No internet connection"</string>
 </resources>

@@ -17,11 +17,13 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.enums.ErrorCodes
+import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
-import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
+import com.kinectpro.whattowear.utils.CheckNetwork
 import com.kinectpro.whattowear.utils.convertToReadableRange
 import com.kinectpro.whattowear.utils.isProperDataRangeSelected
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -30,6 +32,7 @@ import java.util.*
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
+    private lateinit var networkStatus: CheckNetwork
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,9 @@ class MainFragment : Fragment() {
             Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
         }
         mainFragmentBinding = MainFragmentBinding.inflate(inflater, container, false)
+        networkStatus = CheckNetwork(context).apply {
+            registerNetworkCallback()
+        }
         return mainFragmentBinding.root
     }
 
@@ -56,6 +62,7 @@ class MainFragment : Fragment() {
         mainFragmentBinding.lifecycleOwner = this
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
+
             if (isProperDataRangeSelected(
                     viewModel.tripStartDateLive.value,
                     viewModel.tripEndDateLive.value
@@ -71,10 +78,10 @@ class MainFragment : Fragment() {
 
         viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
             when (it.status) {
-                Status.LOADING -> {
+                ResourceStatus.LOADING -> {
                     Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                 }
-                Status.SUCCESS -> {
+                ResourceStatus.SUCCESS -> {
                     txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange()
                     txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange()
                     wearList.apply {
@@ -82,7 +89,17 @@ class MainFragment : Fragment() {
                         adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
                     }
                 }
-                Status.ERROR -> TODO("possible error handling")
+                ResourceStatus.ERROR -> {
+                    val errorMessage: String = when (it.errorCode) {
+                        ErrorCodes.SocketTimeOut.code -> getString(R.string.message_response_error_timeout)
+                        ErrorCodes.UnknownHostException.code -> getString(R.string.message_response_error_unknown_host)
+                        ErrorCodes.LanguageRequestException.code -> getString(R.string.message_response_error_invalid_lang)
+                        ErrorCodes.TargetRequestAccessException.code -> getString(R.string.message_response_error_access_denied)
+                        ErrorCodes.TargetRequestSourceException.code -> getString(R.string.message_response_error_request_target)
+                        else -> getString(R.string.message_response_error_unspecified)
+                    }
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                }
             }
         })
 
@@ -107,7 +124,15 @@ class MainFragment : Fragment() {
                 ).show()
                 return@setOnClickListener
             }
-            viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+            if (networkStatus.isInternetConnected()) {
+                viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+            } else {
+                Toast.makeText(
+                    context,
+                    getString(R.string.message_response_error_no_internet),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         setupPlaceSelectListener()
@@ -170,6 +195,11 @@ class MainFragment : Fragment() {
             mainFragmentBinding.cardDatesSummary.visibility = View.INVISIBLE
             mainFragmentBinding.txtGoodTripMessage.visibility = View.INVISIBLE
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        networkStatus.unregisterNetworkCallback()
     }
 }
 

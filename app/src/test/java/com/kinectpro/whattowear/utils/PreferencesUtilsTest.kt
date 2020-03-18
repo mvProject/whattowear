@@ -12,7 +12,8 @@ class PreferencesUtilsTest {
         "1",
         "PlaceName",
         "PlaceLat",
-        "PlaceLon"
+        "PlaceLon",
+        7200
     )
     private val jsonPlace =
         """{"id":"1","name":"PlaceName","latitude":"PlaceLat","longitude":"PlaceLon"}"""

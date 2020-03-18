@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.*
-import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
@@ -17,16 +16,17 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
-import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
+import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
-import java.lang.Error
+import com.kinectpro.whattowear.utils.CheckNetwork
 import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WhatToWearRepository()
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
+    private val networkChecker = CheckNetwork(getApplication())
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
@@ -49,18 +49,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onPlaceSelected(place: Place) {
-                if (place.id != null) {
-                    selectedDestinationPlace.value =
-                        PlaceTrip(
-                            place.id!!,
-                            place.name!!,
-                            place.latLng?.latitude.toString(),
-                            place.latLng?.longitude.toString(),
-                            TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
-                        )
-                } else {
-                    Log.d("Wear", "cleared")
-                }
+                selectedDestinationPlace.value =
+                    PlaceTrip(
+                        place.id!!,
+                        place.name!!,
+                        place.latLng?.latitude.toString(),
+                        place.latLng?.longitude.toString(),
+                        TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
+                    )
             }
         }
     }
@@ -104,7 +100,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
         if (weatherList != null) {
-            selectedTripCondition.addSource(weatherList, Observer {
+            selectedTripCondition.addSource(weatherList) {
                 when (it.status) {
                     RequestStatus.LOADING -> {
                         selectedTripCondition.value = ResourceWrapper.loading()
@@ -117,11 +113,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     }
                     RequestStatus.ERROR -> {
-                        selectedTripCondition.value = ResourceWrapper.error(Error())
+                        selectedTripCondition.value = ResourceWrapper.error(it.errorCode!!, null)
                     }
                 }
-            })
+            }
         }
     }
-
 }
