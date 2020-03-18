@@ -1,8 +1,10 @@
 package com.kinectpro.whattowear.utils
 
-import android.graphics.Typeface
+import android.graphics.Typeface.BOLD
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
 import android.text.style.StyleSpan
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
@@ -24,12 +26,8 @@ const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
  *
  */
 const val BACKGROUND_CORNER_RADIUS = 20
-const val HORIZONTAL_PADDING = 10
+const val HORIZONTAL_PADDING = 15
 const val VERTICAL_PADDING = 1
-
-const val DATE_FORMAT_LENGTH = 5
-const val DATE_FORMAT_LENGTH_WITH_SEPARATOR = 6
-
 /**
  * Extension Method to response data class which
  * try to extract only specified non-null fields
@@ -118,20 +116,23 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
 }
 
 /**
- * Extension to convert list of dates to specified short date united string
- * @return single string value
+ * Extension to convert list of dates to specified short date united spanned string
+ * @return single spanned string value
  */
-fun List<Long>.convertToShortDateFormatString(): String {
-
-    val result = StringBuilder()
-    for (date in this) {
-        result.append(
-            TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
-                STATE_DATE_READABLE_PATTERN
-            ) + " "
-        )
+fun List<Long>.convertToShortDateFormatSpannedString(backgroundColor : Int,foregroundColor : Int): SpannedString {
+    return this.joinToSpannedString(" ") {
+        TimeUnit.SECONDS.toMillis(it).convertDateToReadableFormat(
+            STATE_DATE_READABLE_PATTERN
+        ).convertToRoundedBackgroundSpannable(backgroundColor,foregroundColor)
     }
-    return result.toString()
+}
+
+/**
+ * Extension for joining spanned strings
+ * @return SpannableStringBuilder
+ */
+private fun <T> Iterable<T>.joinToSpannedString(separator: CharSequence = ", ", prefix: CharSequence = "", postfix: CharSequence = "", limit: Int = -1, truncated: CharSequence = "...", transform: ((T) -> CharSequence)? = null): SpannedString {
+    return SpannedString(joinTo(SpannableStringBuilder(), separator, prefix, postfix, limit, truncated, transform))
 }
 
 /**
@@ -148,30 +149,13 @@ fun TempSummary.convertToReadableRange(): StringBuilder {
     }
 }
 
-fun getDatesListAsRoundedBackgroundSpannable(
-    datesStringResourceToSpan: String?,
-    backgroundColor: Int,
-    textColor: Int
-): SpannableString? {
-    if (datesStringResourceToSpan != null) {
-        val span = SpannableString(datesStringResourceToSpan)
-        for (i in span.indices step DATE_FORMAT_LENGTH_WITH_SEPARATOR) {
-            span.setSpan(StyleSpan(Typeface.BOLD), i, i + DATE_FORMAT_LENGTH, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            span.setSpan(
-                RoundedBackgroundSpan(
-                    backgroundColor,
-                    textColor,
-                    BACKGROUND_CORNER_RADIUS,
-                    HORIZONTAL_PADDING,
-                    VERTICAL_PADDING
-                ),
-                i,
-                i + 5,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-        }
-        return span
-    } else {
-        return null
-    }
+/**
+ * Extension converting any single string to spannable with predefined decoration
+ */
+fun String.convertToRoundedBackgroundSpannable(backgroundColor : Int,foregroundColor : Int) : SpannableString{
+    val span = SpannableString("$this ")
+    span.setSpan(StyleSpan(BOLD), 0, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    span.setSpan(RoundedBackgroundSpan(backgroundColor,foregroundColor,BACKGROUND_CORNER_RADIUS,HORIZONTAL_PADDING,
+        VERTICAL_PADDING), 0, span.length-1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    return span
 }

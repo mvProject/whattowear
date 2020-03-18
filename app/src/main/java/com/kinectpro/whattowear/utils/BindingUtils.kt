@@ -30,7 +30,7 @@ fun getProperTextForStartTextView(
 /**
  * Binding adapter for weather conditions appearance date TextView's
  * @param view type of view which adapter can be binded
- * @param dates selected dates which will be converted to single string
+ * @param dates selected dates which will be converted to single spanned string
  */
 @BindingAdapter(value = ["conditionDates"])
 fun getProperTextForWeatherConditionDatesTextView(
@@ -39,11 +39,7 @@ fun getProperTextForWeatherConditionDatesTextView(
 ) {
     val backGroundColor = ContextCompat.getColor(view.context, R.color.colorAccent)
     val textColor = ContextCompat.getColor(view.context, R.color.colorPrimary)
-    view.text = getDatesListAsRoundedBackgroundSpannable(
-        dates.convertToShortDateFormatString(),
-        backGroundColor,
-        textColor
-    )
+    view.text = dates.convertToShortDateFormatSpannedString(backGroundColor,textColor)
 }
 
 /**
