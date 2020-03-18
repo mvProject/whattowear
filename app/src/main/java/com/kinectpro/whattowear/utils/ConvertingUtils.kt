@@ -166,13 +166,11 @@ fun getProperMetricValue(): String {
  * @return temperature value
  */
 fun Float?.getProperMetricTempValue(): Int? {
-    return if (this != null) {
+    return this?.let {
         when (Locale.getDefault().country) {
             LOCALE_COUNTRY_US -> this.convertCelsiusToFahrenheit()!!.roundToInt()
             else -> this.roundToInt()
         }
-    } else {
-        null
     }
 }
 
@@ -180,12 +178,9 @@ fun Float?.getProperMetricTempValue(): Int? {
  * Convert temperature value from Celsius to Fahrenheit metric
  */
 fun Float?.convertCelsiusToFahrenheit(): Float? {
-    return if (this != null) {
+    return this?.let{
         (1.8f * this) + 32
-    } else {
-        null
     }
-
 }
 
 
