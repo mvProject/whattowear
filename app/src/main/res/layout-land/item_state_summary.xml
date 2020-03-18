@@ -20,9 +20,11 @@
             stateDrawable="@{weatherState.condition}"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_weather_placeholder"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtWeatherStateType"
