@@ -3,16 +3,11 @@ package com.kinectpro.whattowear
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kinectpro.whattowear.ui.fragment.MainFragment
-import com.kinectpro.whattowear.utils.CheckNetwork
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG_MAIN_FRAGMENT = "main_fragment"
-
     private var mainFragment: MainFragment? = null
-
-    lateinit var networkStatus: CheckNetwork
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +23,5 @@ class MainActivity : AppCompatActivity() {
                 MainFragment(), TAG_MAIN_FRAGMENT
             ).commit()
         }
-
-        networkStatus = CheckNetwork(this)
-        networkStatus.registerNetworkCallback()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        networkStatus.unregisterNetworkCallback()
     }
 }

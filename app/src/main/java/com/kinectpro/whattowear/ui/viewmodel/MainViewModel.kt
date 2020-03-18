@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.*
@@ -18,12 +19,14 @@ import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
+import com.kinectpro.whattowear.utils.CheckNetwork
 import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WhatToWearRepository()
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
+    private val networkChecker = CheckNetwork(getApplication())
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
@@ -116,5 +119,4 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
-
 }

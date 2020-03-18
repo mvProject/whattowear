@@ -6,7 +6,6 @@ package com.kinectpro.whattowear.data.model.enums
 enum class ErrorCodes(val code: Int) {
     SocketTimeOut(-1),
     UnknownHostException(-2),
-    NoInternetConnectionException(-3),
     LanguageRequestException(400),
     TargetRequestAccessException(403),
     TargetRequestSourceException(404)
