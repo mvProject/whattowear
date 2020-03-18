@@ -1,11 +1,13 @@
 package com.kinectpro.whattowear.utils
 
+import android.content.Context
 import android.graphics.Typeface.BOLD
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.SpannedString
 import android.text.style.StyleSpan
+import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
@@ -139,14 +141,8 @@ private fun <T> Iterable<T>.joinToSpannedString(separator: CharSequence = ", ", 
  * Extension convert temp summary to specified string
  * @return single string value
  */
-fun TempSummary.convertToReadableRange(): StringBuilder {
-    return StringBuilder().apply {
-        append("Max:  ${maxValue.roundToInt()} ")
-        append("°C")
-        append("\n")
-        append("Min:  ${minValue.roundToInt()} ")
-        append("°C")
-    }
+fun TempSummary.convertToReadableRange(context : Context): String {
+    return String.format(context.getString(R.string.temperature_max_value_description),maxValue.roundToInt()) + "\n" + String.format(context.getString(R.string.temperature_min_value_description),minValue.roundToInt())
 }
 
 /**
