@@ -117,7 +117,7 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
 }
 
 /**
- * Extension to convert list of dates to specified short date united spanned string
+ * Extension to сreate a spannable string from all the elements of list of dates
  * @return single spanned string value
  */
 fun List<Long>.convertToShortDateFormatSpannedString(
@@ -174,7 +174,7 @@ fun String.convertToRoundedBackgroundSpannable(
     backgroundColor: Int,
     foregroundColor: Int
 ): SpannableString {
-    val span = SpannableString("$this ")
+    val span = SpannableString(this)
     span.setSpan(StyleSpan(BOLD), 0, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     span.setSpan(
         RoundedBackgroundSpan(
@@ -183,7 +183,7 @@ fun String.convertToRoundedBackgroundSpannable(
             BACKGROUND_CORNER_RADIUS,
             HORIZONTAL_PADDING,
             VERTICAL_PADDING
-        ), 0, span.length - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        ), 0, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     return span
 }
