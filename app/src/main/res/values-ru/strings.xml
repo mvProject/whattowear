@@ -27,6 +27,5 @@
     <string name="message_nice_trip_wishes">"Счастливой поездки! "</string>
     <string name="message_error_trip_date_range">Неправильно задан интервал поездки!</string>
     <string name="message_error_trip_destination">Не выбрано место назначения!</string>
-    <string name="temperature_max_value_description">Макс: %d °C</string>
-    <string name="temperature_min_value_description">Мин: %4d °C</string>
+    <string name="temperature_value_description">Макс: %d °C "\n"Мин: %4d °C</string>
 </resources>
