@@ -22,7 +22,6 @@ import kotlin.math.roundToInt
 const val STATE_DATE_READABLE_PATTERN = "dd.MM"
 const val DATE_READABLE_PATTERN = "dd/MM/yy"
 const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
-
 /**
  *
  */
