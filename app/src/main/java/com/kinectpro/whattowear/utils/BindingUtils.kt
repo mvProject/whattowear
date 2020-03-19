@@ -7,13 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
-import java.util.concurrent.TimeUnit
-
-const val CHIP_DATE_TEXT_SIZE = 14f
-const val CHIP_DATE_MIN_HEIGHT = 16f
-const val CHIP_DATE_CORNER_SIZE = 30f
 
 /**
  * Binding adapter for Date TextView's

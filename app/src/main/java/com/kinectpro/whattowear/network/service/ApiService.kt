@@ -34,25 +34,18 @@ class ApiService : IDarkSkyWeather {
                     weatherList.add(current.convertToWeatherDataModel()!!)
                 }
             }
-            return handleSuccess(weatherList)
+            return ResourceWrapper.success(weatherList)
         } catch (e: Exception) {
-            handleException(e)
+            ResourceWrapper.error(handleException(e), null)
         }
     }
 
-    private fun <T : Any> handleSuccess(data: T): ResourceWrapper<T> {
-        return ResourceWrapper.success(data)
-    }
-
-    private fun <T : Any> handleException(e: java.lang.Exception): ResourceWrapper<T> {
+    private fun handleException(e: java.lang.Exception): Int {
         return when (e) {
-            is HttpException -> ResourceWrapper.error(e.code(), null)
-            is SocketTimeoutException -> ResourceWrapper.error(ErrorCodes.SocketTimeOut.code, null)
-            is UnknownHostException -> ResourceWrapper.error(
-                ErrorCodes.UnknownHostException.code,
-                null
-            )
-            else -> ResourceWrapper.error(Int.MAX_VALUE, null)
+            is HttpException -> e.code()
+            is SocketTimeoutException -> ErrorCodes.SocketTimeOut.code
+            is UnknownHostException -> ErrorCodes.UnknownHostException.code
+            else -> Int.MAX_VALUE
         }
     }
 }

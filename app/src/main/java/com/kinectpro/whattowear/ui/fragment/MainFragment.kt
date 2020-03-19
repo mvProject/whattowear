@@ -80,12 +80,10 @@ class MainFragment : Fragment() {
                 ResourceStatus.LOADING -> {
                     Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                 }
-                Status.SUCCESS -> {
-                    txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange(context!!)
-                    txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange(context!!)
                 ResourceStatus.SUCCESS -> {
-                    txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange()
-                    txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange()
+                    txtNightWeatherSummary.text =
+                        it.data?.nightTemp?.convertToReadableRange(context!!)
+                    txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange(context!!)
                     wearList.apply {
                         layoutManager = LinearLayoutManager(context)
                         adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
