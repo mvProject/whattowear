@@ -23,7 +23,6 @@ import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
-import com.kinectpro.whattowear.utils.CheckNetwork
 import com.kinectpro.whattowear.utils.convertToReadableRange
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
@@ -31,7 +30,6 @@ import java.util.*
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
-    private lateinit var networkChecker: CheckNetwork
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +45,6 @@ class MainFragment : Fragment() {
             Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
         }
         mainFragmentBinding = MainFragmentBinding.inflate(inflater, container, false)
-        networkChecker = CheckNetwork(context).apply {
-            registerNetworkCallback()
-        }
         return mainFragmentBinding.root
     }
 
@@ -170,13 +165,9 @@ class MainFragment : Fragment() {
             ErrorCodes.EmptyDatesException.code -> getString(R.string.message_error_trip_date_not_select)
             ErrorCodes.InvalidDatesRangeException.code -> getString(R.string.message_error_trip_date_range)
             ErrorCodes.TooLongDateRangeIntervalException.code -> getString(R.string.message_error_trip_to_long_range)
+            ErrorCodes.NoInternetConnectionException.code -> getString(R.string.message_response_error_no_internet)
             else -> getString(R.string.message_response_error_unspecified)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        networkChecker.unregisterNetworkCallback()
     }
 }
 

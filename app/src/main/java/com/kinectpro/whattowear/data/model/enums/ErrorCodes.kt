@@ -10,6 +10,7 @@ enum class ErrorCodes(val code: Int) {
     EmptyDestinationException(-5),
     TooLongDateRangeIntervalException(-4),
     InvalidDatesRangeException(-5),
+    NoInternetConnectionException(-6),
     LanguageRequestException(400),
     TargetRequestAccessException(403),
     TargetRequestSourceException(404)

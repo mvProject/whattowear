@@ -30,6 +30,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
 
+    private val networkChecker = CheckNetwork(getApplication()).apply {
+        registerNetworkCallback()
+    }
+
     val selectedTripCondition = MediatorLiveData<ResourceWrapper<TripModel>>()
 
     val tripEndDateLive = MutableLiveData<Long>().apply {
@@ -128,22 +132,40 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
                 ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
-        } else when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
-            DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
-            }
-            DATE_ERROR_INVALID_RANGE -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
-            }
-            DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(ErrorCodes.TooLongDateRangeIntervalException.code, null)
-            }
-            null -> {
-                convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+        } else {
+            when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
+                DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
+                }
+                DATE_ERROR_INVALID_RANGE -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
+                }
+                DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(
+                            ErrorCodes.TooLongDateRangeIntervalException.code,
+                            null
+                        )
+                }
+                null -> {
+                    if (networkChecker.isInternetConnected()) {
+                        convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+                    } else {
+                        selectedTripCondition.value =
+                            ResourceWrapper.error(
+                                ErrorCodes.NoInternetConnectionException.code,
+                                null
+                            )
+                    }
+                }
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        networkChecker.unregisterNetworkCallback()
     }
 }
