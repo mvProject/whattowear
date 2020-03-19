@@ -1,9 +1,16 @@
 package com.kinectpro.whattowear.utils
 
+import android.content.Context
+import android.graphics.Typeface.BOLD
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
+import android.text.style.StyleSpan
+import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -15,7 +22,12 @@ import kotlin.math.roundToInt
 const val STATE_DATE_READABLE_PATTERN = "dd.MM"
 const val DATE_READABLE_PATTERN = "dd/MM/yy"
 const val DEFAULT_WEATHER_STATE = "defaultWeatherState"
-
+/**
+ *
+ */
+const val BACKGROUND_CORNER_RADIUS = 20
+const val HORIZONTAL_PADDING = 15
+const val VERTICAL_PADDING = 1
 /**
  * Extension Method to response data class which
  * try to extract only specified non-null fields
@@ -104,40 +116,73 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
 }
 
 /**
- * Extension to convert list of dates to specified short date united string
- * @return single string value
+ * Extension to сreate a spannable string from all the elements of list of dates
+ * @return single spanned string value
  */
-fun List<Long>.convertToShortDateFormatString(): String {
-    val result = StringBuilder()
-    for (date in this) {
-        result.append(
-            TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
-                STATE_DATE_READABLE_PATTERN
-            ) + ","
+fun List<Long>.convertToShortDateFormatSpannedString(
+    backgroundColor: Int,
+    foregroundColor: Int
+): SpannedString {
+    return this.joinToSpannedString(" ") {
+        TimeUnit.SECONDS.toMillis(it).convertDateToReadableFormat(
+            STATE_DATE_READABLE_PATTERN
+        ).convertToRoundedBackgroundSpannable(backgroundColor, foregroundColor)
+    }
+}
+
+/**
+ * Extension for joining spanned strings
+ * @return SpannableStringBuilder
+ */
+private fun <T> Iterable<T>.joinToSpannedString(
+    separator: CharSequence = ", ",
+    prefix: CharSequence = "",
+    postfix: CharSequence = " ",
+    limit: Int = -1,
+    truncated: CharSequence = "...",
+    transform: ((T) -> CharSequence)? = null
+): SpannedString {
+    return SpannedString(
+        joinTo(
+            SpannableStringBuilder(),
+            separator,
+            prefix,
+            postfix,
+            limit,
+            truncated,
+            transform
         )
-    }
-    return if (result.isNotEmpty()) {
-        result.substring(0, result.length - 1).toString()
-    } else {
-        result.toString()
-    }
+    )
 }
 
 /**
  * Extension convert temp summary to specified string
  * @return single string value
  */
-fun TempSummary.convertToReadableRange(): StringBuilder {
-    return StringBuilder().apply {
-        append("Max:  ${maxValue.roundToInt()} ")
-        append("°C")
-        append("\n")
-        append("Min:  ${minValue.roundToInt()} ")
-        append("°C")
-    }
+fun TempSummary.convertToReadableRange(context: Context): String {
+    return String.format(
+        context.getString(R.string.temperature_value_description),
+        maxValue.roundToInt(), minValue.roundToInt()
+    )
 }
 
-
-
-
-
+/**
+ * Extension converting any single string to spannable with predefined decoration
+ */
+fun String.convertToRoundedBackgroundSpannable(
+    backgroundColor: Int,
+    foregroundColor: Int
+): SpannableString {
+    val span = SpannableString(this)
+    span.setSpan(StyleSpan(BOLD), 0, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    span.setSpan(
+        RoundedBackgroundSpan(
+            backgroundColor,
+            foregroundColor,
+            BACKGROUND_CORNER_RADIUS,
+            HORIZONTAL_PADDING,
+            VERTICAL_PADDING
+        ), 0, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    return span
+}
