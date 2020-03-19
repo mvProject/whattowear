@@ -56,7 +56,7 @@ class MainFragment : Fragment() {
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
             it?.let {
-                viewModel.obtainReselectedSelectedDestinationWeatherRequest(viewModel.getSelectedPlaceWeatherData())
+                viewModel.obtainReselectedSelectedDestinationWeatherRequest()
             }
         })
 
@@ -86,7 +86,7 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.obtainSelectedDestinationWeatherRequest(viewModel.getSelectedPlaceWeatherData())
+            viewModel.obtainSelectedDestinationWeatherRequest()
         }
 
         setupPlaceSelectListener()

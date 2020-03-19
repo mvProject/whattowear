@@ -125,7 +125,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
-    fun obtainSelectedDestinationWeatherRequest(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
+    fun obtainSelectedDestinationWeatherRequest() {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
                 ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_destination)))
@@ -143,7 +143,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_to_long_range)))
             }
             null -> {
-                convertWeatherListToWeatherCondition(weatherList)
+                convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
             }
         }
     }
@@ -151,14 +151,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Check only for range length, cause it calls when only destination change,all other conditions are same
      */
-    fun obtainReselectedSelectedDestinationWeatherRequest(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
+    fun obtainReselectedSelectedDestinationWeatherRequest() {
         when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
             DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
                 selectedTripCondition.value =
                     ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_to_long_range)))
             }
             null -> {
-                convertWeatherListToWeatherCondition(weatherList)
+                convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
             }
         }
     }
