@@ -85,19 +85,10 @@ class MainFragment : Fragment() {
                     }
                 }
                 ResourceStatus.ERROR -> {
-                    val errorMessage: String = when (it.errorCode) {
-                        ErrorCodes.SocketTimeOut.code -> getString(R.string.message_response_error_timeout)
-                        ErrorCodes.UnknownHostException.code -> getString(R.string.message_response_error_unknown_host)
-                        ErrorCodes.LanguageRequestException.code -> getString(R.string.message_response_error_invalid_lang)
-                        ErrorCodes.TargetRequestAccessException.code -> getString(R.string.message_response_error_access_denied)
-                        ErrorCodes.TargetRequestSourceException.code -> getString(R.string.message_response_error_request_target)
-                        ErrorCodes.EmptyDestinationException.code -> getString(R.string.message_error_trip_destination)
-                        ErrorCodes.EmptyDatesException.code -> getString(R.string.message_error_trip_date_not_select)
-                        ErrorCodes.InvalidDatesRangeException.code -> getString(R.string.message_error_trip_date_range)
-                        ErrorCodes.TooLongDateRangeIntervalException.code -> getString(R.string.message_error_trip_to_long_range)
-                        else -> getString(R.string.message_response_error_unspecified)
+                    it.errorCode?.let { error ->
+                        Toast.makeText(context, error.getProperErrorMessage(), Toast.LENGTH_SHORT)
+                            .show()
                     }
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -165,6 +156,21 @@ class MainFragment : Fragment() {
             mainFragmentBinding.wearList.visibility = View.INVISIBLE
             mainFragmentBinding.cardDatesSummary.visibility = View.INVISIBLE
             mainFragmentBinding.txtGoodTripMessage.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun Int.getProperErrorMessage(): String {
+        return when (this) {
+            ErrorCodes.SocketTimeOut.code -> getString(R.string.message_response_error_timeout)
+            ErrorCodes.UnknownHostException.code -> getString(R.string.message_response_error_unknown_host)
+            ErrorCodes.LanguageRequestException.code -> getString(R.string.message_response_error_invalid_lang)
+            ErrorCodes.TargetRequestAccessException.code -> getString(R.string.message_response_error_access_denied)
+            ErrorCodes.TargetRequestSourceException.code -> getString(R.string.message_response_error_request_target)
+            ErrorCodes.EmptyDestinationException.code -> getString(R.string.message_error_trip_destination)
+            ErrorCodes.EmptyDatesException.code -> getString(R.string.message_error_trip_date_not_select)
+            ErrorCodes.InvalidDatesRangeException.code -> getString(R.string.message_error_trip_date_range)
+            ErrorCodes.TooLongDateRangeIntervalException.code -> getString(R.string.message_error_trip_to_long_range)
+            else -> getString(R.string.message_response_error_unspecified)
         }
     }
 

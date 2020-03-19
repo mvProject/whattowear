@@ -20,8 +20,6 @@ import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
-import java.lang.Error
-import com.kinectpro.whattowear.utils.CheckNetwork
 import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
