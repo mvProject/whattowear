@@ -26,6 +26,7 @@ import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
 import com.kinectpro.whattowear.utils.CheckNetwork
 import com.kinectpro.whattowear.utils.convertToReadableRange
 import com.kinectpro.whattowear.utils.isProperDataRangeSelected
+import com.kinectpro.whattowear.utils.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
 
@@ -62,12 +63,8 @@ class MainFragment : Fragment() {
         mainFragmentBinding.lifecycleOwner = this
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
-            if (isProperDataRangeSelected(
-                    viewModel.tripStartDateLive.value,
-                    viewModel.tripEndDateLive.value
-                )
-            ) {
-                viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+            it?.let {
+                viewModel.obtainSelectedDestinationWeatherRequest()
             }
         })
 
@@ -112,27 +109,10 @@ class MainFragment : Fragment() {
                 ).show()
                 return@setOnClickListener
             }
-            if (!isProperDataRangeSelected(
-                    viewModel.tripStartDateLive.value,
-                    viewModel.tripEndDateLive.value
-                )
-            ) {
-                Toast.makeText(
-                    context,
-                    getString(R.string.message_error_trip_date_range),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
-            if (networkChecker.isInternetConnected()) {
-                viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
-            } else {
-                Toast.makeText(
-                    context,
-                    getString(R.string.message_response_error_no_internet),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        })
+
+        mainFragmentBinding.btnSearchWear.setOnClickListener {
+            viewModel.obtainSelectedDestinationWeatherRequest()
         }
 
         setupPlaceSelectListener()
