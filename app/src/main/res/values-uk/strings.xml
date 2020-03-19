@@ -27,5 +27,7 @@
     <string name="message_nice_trip_wishes">Гарної подорожі!</string>
     <string name="message_error_trip_date_range">Неправильно заданий інтервал поїздки!</string>
     <string name="message_error_trip_destination">Не вибрано місце призначення!</string>
+    <string name="message_error_trip_to_long_range">Інтервал не повинен перевищувати 90 днів</string>
+    <string name="message_error_trip_date_not_select">Дата не повинна бути порожньою</string>
     <string name="temperature_value_description">Макс: %d °C "\n"Мін: %5d °C</string>
 </resources>
