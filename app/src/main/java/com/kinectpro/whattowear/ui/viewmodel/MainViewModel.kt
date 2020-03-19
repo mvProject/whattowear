@@ -122,8 +122,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
+     */
     fun obtainSelectedDestinationWeatherRequest(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
-        when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
+        if (selectedDestinationPlace.value == null) {
+            selectedTripCondition.value =
+                ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_destination)))
+        } else when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
             DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
                 selectedTripCondition.value =
                     ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_date_not_select)))
@@ -142,6 +148,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     * Check only for range length, cause it calls when only destination change,all other conditions are same
+     */
     fun obtainReselectedSelectedDestinationWeatherRequest(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
         when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
             DATE_ERROR_MAX_LENGTH_EXCEEDED -> {

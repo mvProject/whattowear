@@ -86,15 +86,6 @@ class MainFragment : Fragment() {
         })
 
         mainFragmentBinding.btnSearchWear.setOnClickListener {
-            if (viewModel.selectedDestinationPlace.value == null) {
-                Toast.makeText(
-                    context,
-                    getString(R.string.message_error_trip_destination),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
-
             viewModel.obtainSelectedDestinationWeatherRequest(viewModel.getSelectedPlaceWeatherData())
         }
 
