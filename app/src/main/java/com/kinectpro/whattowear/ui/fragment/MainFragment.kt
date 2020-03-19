@@ -25,8 +25,6 @@ import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
 import com.kinectpro.whattowear.utils.CheckNetwork
 import com.kinectpro.whattowear.utils.convertToReadableRange
-import com.kinectpro.whattowear.utils.isProperDataRangeSelected
-import com.kinectpro.whattowear.utils.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
 
@@ -93,21 +91,14 @@ class MainFragment : Fragment() {
                         ErrorCodes.LanguageRequestException.code -> getString(R.string.message_response_error_invalid_lang)
                         ErrorCodes.TargetRequestAccessException.code -> getString(R.string.message_response_error_access_denied)
                         ErrorCodes.TargetRequestSourceException.code -> getString(R.string.message_response_error_request_target)
+                        ErrorCodes.EmptyDestinationException.code -> getString(R.string.message_error_trip_destination)
+                        ErrorCodes.EmptyDatesException.code -> getString(R.string.message_error_trip_date_not_select)
+                        ErrorCodes.InvalidDatesRangeException.code -> getString(R.string.message_error_trip_date_range)
+                        ErrorCodes.TooLongDateRangeIntervalException.code -> getString(R.string.message_error_trip_to_long_range)
                         else -> getString(R.string.message_response_error_unspecified)
                     }
                     Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 }
-            }
-        })
-
-        mainFragmentBinding.btnSearchWear.setOnClickListener {
-            if (viewModel.selectedDestinationPlace.value == null) {
-                Toast.makeText(
-                    context,
-                    getString(R.string.message_error_trip_destination),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
             }
         })
 
