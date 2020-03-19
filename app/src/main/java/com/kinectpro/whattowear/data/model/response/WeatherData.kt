@@ -31,7 +31,7 @@ data class Data(
     val precipIntensity: Double?,
     val precipProbability: Double?,
     val temperature: Double?,
-    val apparentTemperature: Double?,
+    val apparentTemperature: Float?,
     val apparentTemperatureHigh: Float?,
     val apparentTemperatureLow: Float?,
     val apparentTemperatureHighTime: Long?,

@@ -16,7 +16,7 @@ class PreferencesUtilsTest {
         7200
     )
     private val jsonPlace =
-        """{"id":"1","name":"PlaceName","latitude":"PlaceLat","longitude":"PlaceLon"}"""
+        """{"id":"1","name":"PlaceName","latitude":"PlaceLat","longitude":"PlaceLon","offsetUTC":7200}"""
 
     private val dateRange = listOf<Long>(1234567L, 1472589L, 9876543L)
     private val jsonDateRange = "[1234567,1472589,9876543]"
