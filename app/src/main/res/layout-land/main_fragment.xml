@@ -159,6 +159,7 @@
                     checkLoadingVisibility="@{mainViewModel.selectedTripCondition.status}"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/view_size_150dp"
+                    android:contentDescription="@string/image_loading_description"
                     android:scaleType="fitCenter"
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"

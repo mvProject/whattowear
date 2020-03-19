@@ -27,4 +27,5 @@
     <string name="message_nice_trip_wishes">Have a nice trip!</string>
     <string name="message_error_trip_date_range">Incorrect trip interval!</string>
     <string name="message_error_trip_destination">Destination not selected!</string>
+    <string name="image_loading_description">Show load animation</string>
 </resources>
