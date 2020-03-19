@@ -32,7 +32,7 @@ import java.util.*
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
-    private lateinit var networkStatus: CheckNetwork
+    private lateinit var networkChecker: CheckNetwork
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
             Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
         }
         mainFragmentBinding = MainFragmentBinding.inflate(inflater, container, false)
-        networkStatus = CheckNetwork(context).apply {
+        networkChecker = CheckNetwork(context).apply {
             registerNetworkCallback()
         }
         return mainFragmentBinding.root
@@ -124,7 +124,7 @@ class MainFragment : Fragment() {
                 ).show()
                 return@setOnClickListener
             }
-            if (networkStatus.isInternetConnected()) {
+            if (networkChecker.isInternetConnected()) {
                 viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
             } else {
                 Toast.makeText(
@@ -199,7 +199,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        networkStatus.unregisterNetworkCallback()
+        networkChecker.unregisterNetworkCallback()
     }
 }
 

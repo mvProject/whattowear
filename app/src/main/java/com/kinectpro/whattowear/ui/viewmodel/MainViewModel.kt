@@ -26,7 +26,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WhatToWearRepository()
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
-    private val networkChecker = CheckNetwork(getApplication())
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
