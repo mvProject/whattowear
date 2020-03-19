@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.utils
 
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Paint.FontMetricsInt
 import android.graphics.RectF
 import android.text.style.ReplacementSpan
 import kotlin.math.roundToInt
@@ -42,7 +43,7 @@ class RoundedBackgroundSpan(
         text: CharSequence,
         start: Int,
         end: Int,
-        fm: Paint.FontMetricsInt?
+        fm: FontMetricsInt?
     ): Int {
         return horizontalPadding + paint.measureText(
             text,
