@@ -10,188 +10,200 @@
             type="com.kinectpro.whattowear.ui.viewmodel.MainViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.fragment.MainFragment">
+        android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/framePlace"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/autocompleteFragment"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            <FrameLayout
+                android:id="@+id/framePlace"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="@dimen/view_size_45dp"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <View
-                android:id="@+id/clear_button_view"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="end|center_vertical"
-                android:background="@android:color/transparent" />
-        </FrameLayout>
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/autocompleteFragment"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
-        <!--
+                <View
+                    android:id="@+id/clear_button_view"
+                    android:layout_width="@dimen/view_size_45dp"
+                    android:layout_height="@dimen/view_size_45dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:background="@android:color/transparent" />
+            </FrameLayout>
+
+            <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
+            <!--
+                    <Button
+                        android:id="@+id/btnResetUserSelection"
+                        style="@style/ButtonStyle"
+                        android:text="@string/btn_reset_name"
+                        app:layout_constraintEnd_toStartOf="@id/btnTripStartDateSelect"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
+            -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_size_45dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/btnTripStartDateSelect"
+                    style="@style/DateSelectViewStyle"
+                    placeholderText="@{@string/btn_start_date_name}"
+                    tripDate="@{mainViewModel.tripStartDateLive}"
+                    android:layout_toStartOf="@id/btnTripEndDateSelect"
+                    tools:text="25/02/20" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/btnTripEndDateSelect"
+                    style="@style/DateSelectViewStyle"
+                    placeholderText="@{@string/btn_end_date_name}"
+                    tripDate="@{mainViewModel.tripEndDateLive}"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="@dimen/padding_16dp"
+                    android:layout_marginEnd="@dimen/padding_16dp"
+                    tools:text="25/02/20" />
+
                 <Button
-                    android:id="@+id/btnResetUserSelection"
+                    android:id="@+id/btnSearchWear"
                     style="@style/ButtonStyle"
-                    android:text="@string/btn_reset_name"
-                    app:layout_constraintEnd_toStartOf="@id/btnTripStartDateSelect"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
-        -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/btnTripStartDateSelect"
-            style="@style/DateSelectViewStyle"
-            placeholderText="@{@string/btn_start_date_name}"
-            tripDate="@{mainViewModel.tripStartDateLive}"
-            app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/framePlace"
-            tools:text="25/02/20" />
+                    android:layout_toEndOf="@id/btnTripEndDateSelect"
+                    android:text="@string/btn_select_name" />
+            </RelativeLayout>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/btnTripEndDateSelect"
-            style="@style/DateSelectViewStyle"
-            placeholderText="@{@string/btn_end_date_name}"
-            tripDate="@{mainViewModel.tripEndDateLive}"
-            app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
-            app:layout_constraintTop_toBottomOf="@id/framePlace"
-            tools:text="25/02/20" />
 
-        <Button
-            android:id="@+id/btnSearchWear"
-            style="@style/ButtonStyle"
-            android:text="@string/btn_select_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
-            app:layout_constraintTop_toBottomOf="@id/framePlace" />
+            <ProgressBar
+                android:id="@+id/progress_indicator"
+                style="?android:attr/progressBarStyleHorizontal"
+                checkLoadingVisibility="@{mainViewModel.selectedTripCondition.status}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/progress_bar_height_8dp"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSearchWear" />
 
-        <ProgressBar
-            android:id="@+id/progress_indicator"
-            style="?android:attr/progressBarStyleHorizontal"
-            checkLoadingVisibility="@{mainViewModel.selectedTripCondition.status}"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/progress_bar_height_8dp"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSearchWear" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDatesSummary"
+                checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_size_45dp"
+                android:layout_marginStart="@dimen/padding_8dp"
+                android:layout_marginEnd="@dimen/padding_8dp"
+                android:visibility="invisible"
+                app:cardElevation="@dimen/padding_4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/progress_indicator"
+                tools:visibility="visible">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardDatesSummary"
-            checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_8dp"
-            android:layout_marginEnd="@dimen/padding_8dp"
-            android:visibility="invisible"
-            app:cardElevation="@dimen/padding_4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_indicator"
-            tools:visibility="visible">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_size_45dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txtNightWeatherSummary"
+                        style="@style/WeatherSummaryViewStyle"
+                        android:layout_marginTop="@dimen/padding_6dp"
+                        android:drawableStart="@drawable/ic_night_summary"
+                        android:maxLines="2"
+                        app:layout_constraintEnd_toStartOf="@id/txtDayWeatherSummary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="-3..-1" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txtDayWeatherSummary"
+                        style="@style/WeatherSummaryViewStyle"
+                        android:layout_marginTop="@dimen/padding_6dp"
+                        android:drawableStart="@drawable/ic_day_summary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/txtNightWeatherSummary"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="3..5" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtNightWeatherSummary"
-                    style="@style/WeatherSummaryViewStyle"
-                    android:drawableStart="@drawable/ic_night_summary"
-                    android:maxLines="2"
-                    app:layout_constraintEnd_toStartOf="@id/txtDayWeatherSummary"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/wearList"
+                    checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_size_300dp"
+                    android:layout_marginStart="@dimen/padding_8dp"
+                    android:layout_marginTop="@dimen/padding_8dp"
+                    android:layout_marginEnd="@dimen/padding_8dp"
+                    android:layout_marginBottom="@dimen/padding_4dp"
+                    android:background="@drawable/bg_recyclerview"
+                    android:elevation="@dimen/padding_1dp"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="-3..-1" />
+                    tools:visibility="visible" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtDayWeatherSummary"
-                    style="@style/WeatherSummaryViewStyle"
-                    android:drawableStart="@drawable/ic_day_summary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/txtNightWeatherSummary"
+                <ImageView
+                    android:id="@+id/waitingImage"
+                    checkLoadingVisibility="@{mainViewModel.selectedTripCondition.status}"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_size_150dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="3..5" />
+                    tools:visibility="visible" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/wearList"
-            checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/zero_dp"
-            android:layout_marginStart="@dimen/padding_8dp"
-            android:layout_marginTop="@dimen/padding_8dp"
-            android:layout_marginEnd="@dimen/padding_8dp"
-            android:layout_marginBottom="@dimen/padding_4dp"
-            android:background="@drawable/bg_recyclerview"
-            android:elevation="@dimen/padding_1dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardDatesSummary"
-            tools:visibility="visible" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtGoodTripMessage"
+                checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_good_trip_wish_message"
+                android:paddingTop="@dimen/padding_6dp"
+                android:paddingBottom="@dimen/padding_6dp"
+                android:text="@string/message_nice_trip_wishes"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_22sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wearList"
+                tools:text="@string/message_nice_trip_wishes" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtGoodTripMessage"
-            checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_good_trip_wish_message"
-            android:paddingTop="@dimen/padding_6dp"
-            android:paddingBottom="@dimen/padding_6dp"
-            android:text="@string/message_nice_trip_wishes"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_size_22sp"
-            android:textStyle="bold"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wearList"
-            tools:text="@string/message_nice_trip_wishes" />
+            <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
+            <!--
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabAddCustomWear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/fab_margin_end"
+                        android:layout_marginBottom="@dimen/fab_margin_bottom"
+                        android:backgroundTint="@color/colorAccent"
+                        android:onClick="@{() -> mainViewModel.addNewCustomWear()}"
+                        android:src="@drawable/ic_add_custom_wear"
+                        app:borderWidth="@dimen/zero_dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
+            -->
 
-        <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
-        <!--
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabAddCustomWear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/fab_margin_end"
-                    android:layout_marginBottom="@dimen/fab_margin_bottom"
-                    android:backgroundTint="@color/colorAccent"
-                    android:onClick="@{() -> mainViewModel.addNewCustomWear()}"
-                    android:src="@drawable/ic_add_custom_wear"
-                    app:borderWidth="@dimen/zero_dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
-        -->
 
-        <ImageView
-            android:id="@+id/waitingImage"
-            checkLoadingVisibility="@{mainViewModel.selectedTripCondition.status}"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/zero_dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardDatesSummary" />
+        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
