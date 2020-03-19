@@ -60,7 +60,7 @@
             android:id="@+id/scrollDates"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_56dp"
+            android:layout_marginStart="@dimen/padding_64dp"
             android:layout_marginTop="@dimen/padding_4dp"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
