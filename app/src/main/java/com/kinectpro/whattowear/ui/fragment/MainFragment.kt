@@ -56,7 +56,7 @@ class MainFragment : Fragment() {
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
             it?.let {
-                viewModel.obtainReselectedSelectedDestinationWeatherRequest()
+                viewModel.obtainSelectedDestinationWeatherRequest()
             }
         })
 
@@ -70,7 +70,8 @@ class MainFragment : Fragment() {
                     Glide.with(this).load(R.drawable.waiting).into(waitingImage)
                 }
                 Status.SUCCESS -> {
-                    txtNightWeatherSummary.text = it.data?.nightTemp?.convertToReadableRange(context!!)
+                    txtNightWeatherSummary.text =
+                        it.data?.nightTemp?.convertToReadableRange(context!!)
                     txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange(context!!)
                     wearList.apply {
                         layoutManager = LinearLayoutManager(context)

@@ -147,19 +147,4 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
-
-    /**
-     * Check only for range length, cause it calls when only destination change,all other conditions are same
-     */
-    fun obtainReselectedSelectedDestinationWeatherRequest() {
-        when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
-            DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_to_long_range)))
-            }
-            null -> {
-                convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
-            }
-        }
-    }
 }
