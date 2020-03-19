@@ -4,7 +4,6 @@ import com.kinectpro.whattowear.data.model.response.Daily
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.response.Data
-import com.kinectpro.whattowear.data.model.trip.TempSummary
 import org.junit.Test
 import org.junit.Assert.*
 
@@ -60,7 +59,7 @@ class ConvertingUtilsTest {
     }
 
     private fun getExpectedStatesTempList(): List<String> {
-        return listOf("rain", "wind", "clear-day")
+        return listOf("rain", "wind", "defaultWeatherState")
     }
 
 
@@ -80,11 +79,11 @@ class ConvertingUtilsTest {
 
     private fun getTestData(time: Long?, tempHigh: Float?, tempLow: Float?, state: String?): Data {
         return Data(
-            time, null, state, null, null,
+            null, null, state, time, null,
             null, null, null, null, tempHigh,
             tempLow, null, null, null, null,
             null, null, null, null, null, null,
-            null, null, null, null
+            null, null, null, null, null
         )
     }
 
@@ -216,22 +215,6 @@ class ConvertingUtilsTest {
         assertEquals(
             getExpectedStatesTempList(),
             getExpectedWeatherList().getWeatherStatesUniqueAsList()
-        )
-    }
-
-    @Test
-    fun convertToShortDateFormatString() {
-        assertEquals(
-            "09.03,10.03,11.03,12.03,13.03",
-            getTestDateList().convertToShortDateFormatString()
-        )
-    }
-
-    @Test
-    fun convertToReadableRange_Proper() {
-        assertEquals(
-            "  -3.0 .. -1.0",
-            TempSummary(-3f, -1f).convertToReadableRange()
         )
     }
 
