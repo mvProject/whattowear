@@ -56,19 +56,7 @@ class MainFragment : Fragment() {
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
             it?.let {
-              /*
-                when (viewModel.obtainMatchAllConditionsForWeatherRequest()) {
-                    DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
-                        Toast.makeText(
-                            context,
-                            getString(R.string.message_error_trip_to_long_range),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    null -> viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
-                }
-
-               */
+                viewModel.obtainReselectedSelectedDestinationWeatherRequest(viewModel.getSelectedPlaceWeatherData())
             }
         })
 
@@ -89,7 +77,11 @@ class MainFragment : Fragment() {
                         adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
                     }
                 }
-                Status.ERROR -> Toast.makeText(context,it.error?.message,Toast.LENGTH_SHORT).show()
+                Status.ERROR -> Toast.makeText(
+                    context,
+                    it.error?.message,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 

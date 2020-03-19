@@ -141,4 +141,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun obtainReselectedSelectedDestinationWeatherRequest(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
+        when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
+            DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+                selectedTripCondition.value =
+                    ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_to_long_range)))
+            }
+            null -> {
+                convertWeatherListToWeatherCondition(weatherList)
+            }
+        }
+    }
 }
