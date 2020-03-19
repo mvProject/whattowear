@@ -56,6 +56,7 @@ class MainFragment : Fragment() {
 
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
             it?.let {
+              /*
                 when (viewModel.obtainMatchAllConditionsForWeatherRequest()) {
                     DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
                         Toast.makeText(
@@ -66,6 +67,8 @@ class MainFragment : Fragment() {
                     }
                     null -> viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
                 }
+
+               */
             }
         })
 
@@ -86,7 +89,7 @@ class MainFragment : Fragment() {
                         adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
                     }
                 }
-                Status.ERROR -> TODO("possible error handling")
+                Status.ERROR -> Toast.makeText(context,it.error?.message,Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -100,33 +103,7 @@ class MainFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            when (viewModel.obtainMatchAllConditionsForWeatherRequest()) {
-                DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.message_error_trip_to_long_range),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-                DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.message_error_trip_date_not_select),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-                DATE_ERROR_INVALID_RANGE -> {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.message_error_trip_date_range),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-            }
-            viewModel.convertWeatherListToWeatherCondition(viewModel.getSelectedPlaceWeatherData())
+            viewModel.obtainSelectedDestinationWeatherRequest(viewModel.getSelectedPlaceWeatherData())
         }
 
         setupPlaceSelectListener()

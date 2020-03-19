@@ -2,7 +2,6 @@ package com.kinectpro.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.*
@@ -59,8 +58,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             place.latLng?.longitude.toString(),
                             TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
                         )
-                } else {
-                    Log.d("Wear", "cleared")
                 }
             }
         }
@@ -103,7 +100,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return null
     }
 
-    fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
+    private fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
         if (weatherList != null) {
             selectedTripCondition.addSource(weatherList, Observer {
                 when (it.status) {
@@ -125,7 +122,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun obtainMatchAllConditionsForWeatherRequest(): Int? {
-        return isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)
+    fun obtainSelectedDestinationWeatherRequest(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
+        when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
+            DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
+                selectedTripCondition.value =
+                    ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_date_not_select)))
+            }
+            DATE_ERROR_INVALID_RANGE -> {
+                selectedTripCondition.value =
+                    ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_date_range)))
+            }
+            DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+                selectedTripCondition.value =
+                    ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_to_long_range)))
+            }
+            null -> {
+                convertWeatherListToWeatherCondition(weatherList)
+            }
+        }
     }
 }
