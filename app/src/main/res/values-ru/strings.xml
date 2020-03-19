@@ -34,4 +34,5 @@
     <string name="message_response_error_unspecified">Неизвестная ошибка</string>
     <string name="message_response_error_access_denied">Доступ запрещен</string>
     <string name="message_response_error_no_internet">Нет соединения с интернетом</string>
+    <string name="temperature_value_description">Макс: %d °C "\n"Мин: %4d °C</string>
 </resources>

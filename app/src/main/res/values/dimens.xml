@@ -16,5 +16,6 @@
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_14sp">14sp</dimen>
     <dimen name="text_size_22sp">22sp</dimen>
-    <dimen name="padding_56dp">56dp</dimen>
+    <dimen name="padding_64dp">64dp</dimen>
+    <dimen name="weather_icon_size_56dp">56dp</dimen>
 </resources>

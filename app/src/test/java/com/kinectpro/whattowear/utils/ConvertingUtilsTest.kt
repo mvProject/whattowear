@@ -4,10 +4,8 @@ import com.kinectpro.whattowear.data.model.response.Daily
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.response.Data
-import com.kinectpro.whattowear.data.model.trip.TempSummary
 import org.junit.Test
 import org.junit.Assert.*
-import java.lang.StringBuilder
 
 class ConvertingUtilsTest {
 
@@ -121,16 +119,6 @@ class ConvertingUtilsTest {
         )
     }
 
-    private fun getExpectedTempSummary(): StringBuilder {
-        return StringBuilder().apply {
-            append("Max:  -1 ")
-            append(getProperMetricValue())
-            append("\n")
-            append("Min:  -3 ")
-            append(getProperMetricValue())
-        }
-    }
-
     @Test
     fun convertToWeatherDataModel_Test() {
         assertEquals(
@@ -223,21 +211,6 @@ class ConvertingUtilsTest {
         assertEquals(
             getExpectedStatesTempList(),
             getExpectedWeatherList().getWeatherStatesUniqueAsList()
-        )
-    }
-
-    @Test
-    fun convertToShortDateFormatString() {
-        assertEquals(
-            "09.03 10.03 11.03 12.03 13.03 ",
-            getTestDateList().convertToShortDateFormatString()
-        )
-    }
-
-    @Test
-    fun convertToReadableRange_Proper() {
-        assertEquals(
-            getExpectedTempSummary(), TempSummary(-3f, -1f).convertToReadableRange()
         )
     }
 }

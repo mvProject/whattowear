@@ -3,12 +3,11 @@ package com.kinectpro.whattowear.utils
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
-import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.wrapper.Status
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 import java.util.concurrent.TimeUnit
 
@@ -37,25 +36,16 @@ fun getProperTextForStartTextView(
 /**
  * Binding adapter for weather conditions appearance date TextView's
  * @param view type of view which adapter can be binded
- * @param dates selected dates which will be converted to decorated chip
+ * @param dates selected dates which will be converted to single spanned string
  */
-@BindingAdapter(value = ["conditionDatesChip"])
-fun getProperTextForWeatherConditionDatesChipView(
-    view: ChipGroup,
+@BindingAdapter(value = ["conditionDates"])
+fun getProperTextForWeatherConditionDatesTextView(
+    view: MaterialTextView,
     dates: List<Long>
 ) {
-    for (date in dates) {
-        val chip = Chip(view.context)
-        chip.setChipBackgroundColorResource(R.color.colorAccent)
-        chip.setChipStrokeColorResource(R.color.colorPrimary)
-        chip.textSize = CHIP_DATE_TEXT_SIZE
-        chip.chipMinHeight = CHIP_DATE_MIN_HEIGHT
-        chip.shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(CHIP_DATE_CORNER_SIZE)
-        chip.text = TimeUnit.SECONDS.toMillis(date).convertDateToReadableFormat(
-            STATE_DATE_READABLE_PATTERN
-        )
-        view.addView(chip)
-    }
+    val backGroundColor = ContextCompat.getColor(view.context, R.color.colorAccent)
+    val textColor = ContextCompat.getColor(view.context, R.color.colorPrimary)
+    view.text = dates.convertToShortDateFormatSpannedString(backGroundColor,textColor)
 }
 
 /**
