@@ -14,30 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            tools:context=".ui.fragment.MainFragment">
 
-            <FrameLayout
-                android:id="@+id/framePlace"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/autocompleteFragment"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/view_size_45dp"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/autocompleteFragment"
-                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:id="@+id/clear_button_view"
-                    android:layout_width="@dimen/view_size_45dp"
-                    android:layout_height="@dimen/view_size_45dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:background="@android:color/transparent" />
-            </FrameLayout>
+            <View
+                android:id="@+id/clear_button_view"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
             <!--
@@ -51,35 +46,36 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
             -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/view_size_45dp">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/btnTripStartDateSelect"
+                style="@style/DateSelectViewStyle"
+                placeholderText="@{@string/btn_start_date_name}"
+                tripDate="@{mainViewModel.tripStartDateLive}"
+                app:layout_constraintEnd_toStartOf="@id/btnTripEndDateSelect"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
+                tools:text="25/02/20" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/btnTripStartDateSelect"
-                    style="@style/DateSelectViewStyle"
-                    placeholderText="@{@string/btn_start_date_name}"
-                    tripDate="@{mainViewModel.tripStartDateLive}"
-                    android:layout_toStartOf="@id/btnTripEndDateSelect"
-                    tools:text="25/02/20" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/btnTripEndDateSelect"
+                style="@style/DateSelectViewStyle"
+                placeholderText="@{@string/btn_end_date_name}"
+                tripDate="@{mainViewModel.tripEndDateLive}"
+                app:layout_constraintEnd_toStartOf="@id/btnSearchWear"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
+                app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
+                tools:text="25/02/20" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/btnTripEndDateSelect"
-                    style="@style/DateSelectViewStyle"
-                    placeholderText="@{@string/btn_end_date_name}"
-                    tripDate="@{mainViewModel.tripEndDateLive}"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="@dimen/padding_16dp"
-                    android:layout_marginEnd="@dimen/padding_16dp"
-                    tools:text="25/02/20" />
-
-                <Button
-                    android:id="@+id/btnSearchWear"
-                    style="@style/ButtonStyle"
-                    android:layout_toEndOf="@id/btnTripEndDateSelect"
-                    android:text="@string/btn_select_name" />
-            </RelativeLayout>
-
+            <Button
+                android:id="@+id/btnSearchWear"
+                style="@style/ButtonStyle"
+                android:text="@string/btn_select_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
+                app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
 
             <ProgressBar
                 android:id="@+id/progress_indicator"
@@ -96,11 +92,11 @@
                 android:id="@+id/cardDatesSummary"
                 checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/view_size_45dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_8dp"
                 android:layout_marginEnd="@dimen/padding_8dp"
                 android:visibility="invisible"
-                app:cardElevation="@dimen/padding_4dp"
+                app:cardElevation="@dimen/padding_2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/progress_indicator"
@@ -108,12 +104,11 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/view_size_45dp">
+                    android:layout_height="wrap_content">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/txtNightWeatherSummary"
                         style="@style/WeatherSummaryViewStyle"
-                        android:layout_marginTop="@dimen/padding_6dp"
                         android:drawableStart="@drawable/ic_night_summary"
                         android:maxLines="2"
                         app:layout_constraintEnd_toStartOf="@id/txtDayWeatherSummary"
@@ -124,49 +119,31 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/txtDayWeatherSummary"
                         style="@style/WeatherSummaryViewStyle"
-                        android:layout_marginTop="@dimen/padding_6dp"
                         android:drawableStart="@drawable/ic_day_summary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/txtNightWeatherSummary"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="3..5" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/wearList"
+                checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/wearList"
-                    checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/view_size_300dp"
-                    android:layout_marginStart="@dimen/padding_8dp"
-                    android:layout_marginTop="@dimen/padding_8dp"
-                    android:layout_marginEnd="@dimen/padding_8dp"
-                    android:layout_marginBottom="@dimen/padding_4dp"
-                    android:background="@drawable/bg_recyclerview"
-                    android:elevation="@dimen/padding_1dp"
-                    android:visibility="invisible"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/waitingImage"
-                    checkLoadingVisibility="@{mainViewModel.selectedTripCondition.status}"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/view_size_150dp"
-                    android:contentDescription="@string/image_loading_description"
-                    android:scaleType="fitCenter"
-                    android:visibility="visible"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="visible" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+                android:layout_height="@dimen/view_size_300dp"
+                android:layout_marginStart="@dimen/padding_8dp"
+                android:layout_marginTop="@dimen/padding_8dp"
+                android:layout_marginEnd="@dimen/padding_8dp"
+                android:layout_marginBottom="@dimen/padding_4dp"
+                android:background="@drawable/bg_recyclerview"
+                android:elevation="@dimen/padding_1dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardDatesSummary"
+                tools:visibility="visible" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtGoodTripMessage"
@@ -174,8 +151,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_good_trip_wish_message"
-                android:paddingTop="@dimen/padding_6dp"
-                android:paddingBottom="@dimen/padding_6dp"
+                android:paddingTop="@dimen/padding_12dp"
+                android:paddingBottom="@dimen/padding_12dp"
                 android:text="@string/message_nice_trip_wishes"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
@@ -203,8 +180,16 @@
                         app:layout_constraintRight_toRightOf="parent" />
             -->
 
-
-        </LinearLayout>
-
+            <ImageView
+                android:id="@+id/waitingImage"
+                checkLoadingVisibility="@{mainViewModel.selectedTripCondition.status}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_size_150dp"
+                android:contentDescription="@string/image_loading_description"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardDatesSummary" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
