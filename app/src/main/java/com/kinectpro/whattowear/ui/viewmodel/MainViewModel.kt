@@ -24,15 +24,11 @@ import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = WhatToWearRepository()
+    private val repository = WhatToWearRepository(NetworkChecker(getApplication()))
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
-
-    private val networkChecker = CheckNetwork(getApplication()).apply {
-        registerNetworkCallback()
-    }
 
     val selectedTripCondition = MediatorLiveData<ResourceWrapper<TripModel>>()
 
@@ -149,23 +145,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             null
                         )
                 }
-                null -> {
-                    if (networkChecker.isInternetConnected()) {
-                        convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
-                    } else {
-                        selectedTripCondition.value =
-                            ResourceWrapper.error(
-                                ErrorCodes.NoInternetConnectionException.code,
-                                null
-                            )
-                    }
-                }
+                null -> convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
             }
         }
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        networkChecker.unregisterNetworkCallback()
-    }
 }
+

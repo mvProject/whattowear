@@ -6,7 +6,7 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.os.Build
 
-class CheckNetwork(var context: Context?) {
+class NetworkChecker(var context: Context?) {
 
     private val connectivityManager =
         context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -18,11 +18,12 @@ class CheckNetwork(var context: Context?) {
     }
 
     fun registerNetworkCallback() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             connectivityManager.registerDefaultNetworkCallback(networkCallback)
         } else {
-            val activeNetwork = connectivityManager.activeNetworkInfo
-            isNetworkConnected = activeNetwork != null && activeNetwork.isConnected
+            isNetworkConnected =
+                connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected
         }
     }
 
@@ -36,10 +37,6 @@ class CheckNetwork(var context: Context?) {
                 isNetworkConnected = false
             }
         }
-    }
-
-    fun unregisterNetworkCallback() {
-        connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 }
 
