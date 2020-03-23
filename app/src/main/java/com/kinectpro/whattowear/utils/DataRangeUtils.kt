@@ -7,7 +7,7 @@ const val DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS = 1
 const val DATE_ERROR_INVALID_RANGE = 2
 const val DATE_ERROR_MAX_LENGTH_EXCEEDED = 3
 
-const val DATE_RANGE_MAX_LENGTH_ALLOWED = 90L
+const val DATE_RANGE_MAX_LENGTH_ALLOWED = 60L
 /**
  * Method which try to generate list of timestamps from start to end date
  *  @param startDate first date of a range
