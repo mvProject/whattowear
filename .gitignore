@@ -12,16 +12,9 @@
 
 # Intellij
 *.iml
-.idea/workspace.xml
-.idea/libraries
-.idea/assetWizardSettings.xml
-.idea/gradle.xml
-
+.idea/*.xml
 # Android Studio 3 in .gitignore file.
-.idea/caches
-.idea/modules.xml
-/.idea/navEditor.xml
-
+.idea/*
 
 # OS-specific files
 .DS_Store
