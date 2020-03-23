@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
+import android.net.NetworkRequest
 import android.os.Build
 
 class NetworkChecker(var context: Context?) {
@@ -12,18 +13,22 @@ class NetworkChecker(var context: Context?) {
         context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val networkCallback = getNetworkCallback()
     private var isNetworkConnected = false
+    private var isCallbackRegistered = false
 
     fun isInternetConnected(): Boolean {
         return isNetworkConnected
     }
 
     fun registerNetworkCallback() {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            connectivityManager.registerDefaultNetworkCallback(networkCallback)
+            if (!isCallbackRegistered) {
+                connectivityManager.registerDefaultNetworkCallback(networkCallback)
+                isCallbackRegistered = true
+            }
         } else {
+            val networkInfo = connectivityManager.activeNetworkInfo
             isNetworkConnected =
-                connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected
+                networkInfo != null && networkInfo.isConnectedOrConnecting
         }
     }
 
@@ -36,6 +41,13 @@ class NetworkChecker(var context: Context?) {
             override fun onLost(network: Network?) {
                 isNetworkConnected = false
             }
+        }
+    }
+
+    fun unRegisterNetworkCallback() {
+        if (isCallbackRegistered) {
+            connectivityManager.unregisterNetworkCallback(networkCallback)
+            isCallbackRegistered = false
         }
     }
 }

@@ -22,15 +22,18 @@ class WhatToWearRepository(private val networkChecker: NetworkChecker) :
         lon: String,
         dataRange: List<Long>
     ): LiveData<ResourceWrapper<List<WeatherData>>> = liveData {
-
         networkChecker.registerNetworkCallback()
 
         if (networkChecker.isInternetConnected()) {
             emit(ResourceWrapper.loading())
-            emit(apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange))
+            emit(apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)).apply {
+
+            }
         } else {
             emit(ResourceWrapper.error(ErrorCodes.NoInternetConnectionException.code, null))
         }
+    }.also {
+        networkChecker.unRegisterNetworkCallback()
     }
 
     override fun getWearsAvailableForSelect(condition: List<WeatherTemp>): List<WearItem> {
