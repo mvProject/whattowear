@@ -188,6 +188,7 @@
             checkLoadingVisibility="@{mainViewModel.selectedTripCondition.status}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero_dp"
+            android:contentDescription="@string/image_loading_description"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
             app:layout_constraintEnd_toEndOf="parent"
