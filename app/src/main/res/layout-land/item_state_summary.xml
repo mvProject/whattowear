@@ -20,6 +20,7 @@
             stateDrawable="@{weatherState.condition}"
             android:layout_width="@dimen/weather_icon_size_56dp"
             android:layout_height="@dimen/weather_icon_size_56dp"
+            android:layout_marginStart="@dimen/padding_4dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
