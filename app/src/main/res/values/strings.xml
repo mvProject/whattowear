@@ -27,7 +27,7 @@
     <string name="message_nice_trip_wishes">Have a nice trip!</string>
     <string name="message_error_trip_date_range">Incorrect trip interval!</string>
     <string name="message_error_trip_destination">Destination not selected!</string>
-    <string name="message_error_trip_to_long_range">The interval should not exceed 90 days</string>
+    <string name="message_error_trip_to_long_range">The interval should not exceed 60 days</string>
     <string name="message_error_trip_date_not_select">Date must not be empty</string>
     <string name="message_response_error_timeout">Timeout</string>
     <string name="message_response_error_unknown_host">No address associated with hostname</string>

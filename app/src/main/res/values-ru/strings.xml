@@ -36,6 +36,6 @@
     <string name="message_response_error_no_internet">Нет соединения с интернетом</string>
     <string name="image_loading_description">Показать анимацию загрузки</string>
     <string name="temperature_value_description">Макс: %d °C "\n"Мин: %4d °C</string>
-    <string name="message_error_trip_to_long_range">Интервал не должен превышать 90 дней</string>
+    <string name="message_error_trip_to_long_range">Интервал не должен превышать 60 дней</string>
     <string name="message_error_trip_date_not_select">Дата не должна быть пустой</string>
 </resources>
