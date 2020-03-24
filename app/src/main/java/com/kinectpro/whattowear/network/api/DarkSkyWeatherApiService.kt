@@ -9,7 +9,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val TIMEOUT_SECONDS_TEN = 10L
 class DarkSkyWeatherApiService {
 
     fun initApi(): DarkSkyEndPoint {
@@ -17,8 +16,6 @@ class DarkSkyWeatherApiService {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(getLoggingInterceptor())
             .addInterceptor(getRequestSettingsInterceptor())
-            .connectTimeout(TIMEOUT_SECONDS_TEN, TimeUnit.SECONDS)
-            .readTimeout(TIMEOUT_SECONDS_TEN, TimeUnit.SECONDS)
             .build()
         return Retrofit.Builder().apply {
             baseUrl(BASE_URL)
