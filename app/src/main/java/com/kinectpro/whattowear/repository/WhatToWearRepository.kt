@@ -2,16 +2,14 @@ package com.kinectpro.whattowear.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.model.wear.WeatherTemp
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.network.service.ApiService
-import com.kinectpro.whattowear.utils.NetworkChecker
 
-class WhatToWearRepository(private val networkChecker: NetworkChecker) :
+class WhatToWearRepository :
     IWhatToWearRepository {
 
     private val apiManager =
@@ -22,18 +20,8 @@ class WhatToWearRepository(private val networkChecker: NetworkChecker) :
         lon: String,
         dataRange: List<Long>
     ): LiveData<ResourceWrapper<List<WeatherData>>> = liveData {
-        networkChecker.registerNetworkCallback()
-
-        if (networkChecker.isInternetConnected()) {
-            emit(ResourceWrapper.loading())
-            emit(apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)).apply {
-
-            }
-        } else {
-            emit(ResourceWrapper.error(ErrorCodes.NoInternetConnectionException.code, null))
-        }
-    }.also {
-        networkChecker.unRegisterNetworkCallback()
+        emit(ResourceWrapper.loading())
+        emit(apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange))
     }
 
     override fun getWearsAvailableForSelect(condition: List<WeatherTemp>): List<WearItem> {
