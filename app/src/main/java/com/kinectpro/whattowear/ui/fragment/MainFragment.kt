@@ -103,7 +103,11 @@ class MainFragment : Fragment() {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
-                it.datePicker.minDate = calendar.timeInMillis
+                if (viewModel.tripStartDateLive.value!! == 0L) {
+                    it.datePicker.minDate = calendar.timeInMillis
+                } else {
+                    it.datePicker.minDate = viewModel.tripStartDateLive.value!!
+                }
             }
             tripStartDateSelectionDialog.show()
         }
