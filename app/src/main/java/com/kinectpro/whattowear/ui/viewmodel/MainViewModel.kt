@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = WhatToWearRepository()
+    private val repository = WhatToWearRepository(NetworkChecker(getApplication()))
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
