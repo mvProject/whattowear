@@ -6,7 +6,7 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.os.Build
 
-class NetworkChecker(var context: Context?) {
+class NetworkChecker(context: Context?) {
 
     private val connectivityManager =
         context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

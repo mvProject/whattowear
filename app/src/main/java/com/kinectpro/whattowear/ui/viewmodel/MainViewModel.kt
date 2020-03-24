@@ -24,7 +24,8 @@ import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = WhatToWearRepository(NetworkChecker(getApplication()))
+    private val networkChecker = NetworkChecker(getApplication())
+    private val repository = WhatToWearRepository(networkChecker)
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
@@ -149,5 +150,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun initNetworkCallback() {
+        networkChecker.registerNetworkCallback()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        networkChecker.unRegisterNetworkCallback()
+    }
+
 }
 

@@ -55,6 +55,8 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
+        viewModel.initNetworkCallback()
+
         viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
             it?.let {
                 viewModel.obtainSelectedDestinationWeatherRequest()
