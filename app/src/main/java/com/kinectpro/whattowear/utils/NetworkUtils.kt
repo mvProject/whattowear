@@ -12,9 +12,8 @@ fun getRequestSettingsInterceptor(): Interceptor {
     return object : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
             val url = chain.request().url.newBuilder()
-                .addQueryParameter("units", "auto")
+                .addQueryParameter("units", "si")
                 .addQueryParameter("exclude", "currently,hourly,minutely,alerts")
-                .addQueryParameter("lang", "uk")
                 .build()
             return chain.proceed(chain.request().newBuilder().url(url).build())
         }

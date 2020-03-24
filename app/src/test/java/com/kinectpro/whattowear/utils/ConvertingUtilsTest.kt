@@ -79,11 +79,7 @@ class ConvertingUtilsTest {
 
     private fun getTestData(time: Long?, tempHigh: Float?, tempLow: Float?, state: String?): Data {
         return Data(
-            null, null, state, time, null,
-            null, null, null, null, tempHigh,
-            tempLow, null, null, null, null,
-            null, null, null, null, null, null,
-            null, null, null, null, null
+            state, time, tempHigh, tempLow
         )
     }
 
@@ -105,7 +101,6 @@ class ConvertingUtilsTest {
         state: String?
     ): Daily {
         return Daily(
-            "summary",
             "icon",
             getTestListData(time, tempHigh, tempLow, state)
         )
@@ -120,8 +115,6 @@ class ConvertingUtilsTest {
         return DarkSkyWeather(
             1.5,
             2.5,
-            "timezone",
-            getTestData(time, tempHigh, tempLow, state),
             getTestDaily(time, tempHigh, tempLow, state)
         )
     }
@@ -149,7 +142,10 @@ class ConvertingUtilsTest {
 
     @Test
     fun convertToWeatherDataModel_Test_HighTime_Is_Null() {
-        assertEquals(null, getTestValue(1583704800, 12.5f, null, "rain").convertToWeatherDataModel())
+        assertEquals(
+            null,
+            getTestValue(1583704800, 12.5f, null, "rain").convertToWeatherDataModel()
+        )
     }
 
     @Test
@@ -217,5 +213,4 @@ class ConvertingUtilsTest {
             getExpectedWeatherList().getWeatherStatesUniqueAsList()
         )
     }
-
 }

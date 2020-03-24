@@ -29,6 +29,13 @@
     <string name="message_error_trip_destination">Destination not selected!</string>
     <string name="message_error_trip_to_long_range">The interval should not exceed 60 days</string>
     <string name="message_error_trip_date_not_select">Date must not be empty</string>
+    <string name="message_response_error_timeout">Timeout</string>
+    <string name="message_response_error_unknown_host">No address associated with hostname</string>
+    <string name="message_response_error_invalid_lang">An invalid language was provided</string>
+    <string name="message_response_error_access_denied">Access denied</string>
+    <string name="message_response_error_request_target">Target resource not found</string>
+    <string name="message_response_error_unspecified">Unknown Error</string>
+    <string name="message_response_error_no_internet">No internet connection</string>
     <string name="image_loading_description">Show load animation</string>
     <string name="temperature_value_description">Max: %d °C "\n"Min: %3d °C</string>
 </resources>

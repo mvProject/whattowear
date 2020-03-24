@@ -21,8 +21,7 @@ class WhatToWearRepository :
         dataRange: List<Long>
     ): LiveData<ResourceWrapper<List<WeatherData>>> = liveData {
         emit(ResourceWrapper.loading())
-        val data = apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange)
-        emit(ResourceWrapper.success(data))
+        emit(apiManager.getDarkSkyWeatherDataForDateRange(lat, lon, dataRange))
     }
 
     override fun getWearsAvailableForSelect(condition: List<WeatherTemp>): List<WearItem> {

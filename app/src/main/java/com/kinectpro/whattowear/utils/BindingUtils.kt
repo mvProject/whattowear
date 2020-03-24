@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.wrapper.Status
+import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 
 /**
  * Binding adapter for Date TextView's
@@ -101,10 +101,10 @@ fun loadImage(
 @BindingAdapter(value = ["checkLoadingVisibility"])
 fun setViewVisibilityAccordingLoadingStatus(
     view: View,
-    state: Status?
+    state: ResourceStatus?
 ) {
     when (state) {
-        Status.LOADING -> view.visibility = View.VISIBLE
+        ResourceStatus.LOADING -> view.visibility = View.VISIBLE
         else -> view.visibility = View.INVISIBLE
     }
 }
@@ -117,10 +117,10 @@ fun setViewVisibilityAccordingLoadingStatus(
 @BindingAdapter(value = ["checkSuccessVisibility"])
 fun setViewVisibilityAccordingSuccessStatus(
     view: View,
-    state: Status?
+    state: ResourceStatus?
 ) {
     when (state) {
-        Status.SUCCESS -> view.visibility = View.VISIBLE
+        ResourceStatus.SUCCESS -> view.visibility = View.VISIBLE
         else -> view.visibility = View.INVISIBLE
     }
 }

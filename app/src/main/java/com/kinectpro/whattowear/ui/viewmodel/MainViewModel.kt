@@ -5,22 +5,21 @@ import android.app.DatePickerDialog
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.*
-import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.IWeatherRangeSummary
 import com.kinectpro.whattowear.data.TripWeatherCondition
+import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.trip.TripModel
-import com.kinectpro.whattowear.data.wrapper.Status as RequestStatus
+import com.kinectpro.whattowear.utils.getDataRangeForTrip
+import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 import java.util.*
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
-import java.lang.Error
 import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -84,7 +83,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
  */
 
-    fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
+    private fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(
                 tripStartDateLive.value!! + place.offsetUTC,
@@ -102,7 +101,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
         if (weatherList != null) {
-            selectedTripCondition.addSource(weatherList, Observer {
+            selectedTripCondition.addSource(weatherList) {
                 when (it.status) {
                     RequestStatus.LOADING -> {
                         selectedTripCondition.value = ResourceWrapper.loading()
@@ -115,10 +114,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     }
                     RequestStatus.ERROR -> {
-                        selectedTripCondition.value = ResourceWrapper.error(Error())
+                        selectedTripCondition.value = ResourceWrapper.error(it.errorCode!!, null)
                     }
                 }
-            })
+            }
         }
     }
 
@@ -128,23 +127,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun obtainSelectedDestinationWeatherRequest() {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
-                ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_destination)))
-        } else when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
-            DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_date_not_select)))
-            }
-            DATE_ERROR_INVALID_RANGE -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_date_range)))
-            }
-            DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(Error(getApplication<Application>().resources.getString(R.string.message_error_trip_to_long_range)))
-            }
-            null -> {
-                convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+                ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
+        } else {
+            when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
+                DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
+                }
+                DATE_ERROR_INVALID_RANGE -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
+                }
+                DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(
+                            ErrorCodes.TooLongDateRangeIntervalException.code,
+                            null
+                        )
+                }
+                null -> convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
             }
         }
     }
 }
+

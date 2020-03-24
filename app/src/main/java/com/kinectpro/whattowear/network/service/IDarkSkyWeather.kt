@@ -1,6 +1,7 @@
 package com.kinectpro.whattowear.network.service
 
 import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 
 /**
  * Interface contain method for getting weather list which must be launching async
@@ -14,5 +15,5 @@ interface IDarkSkyWeather {
         lat: String,
         lon: String,
         dataRange: List<Long>
-    ): List<WeatherData>
+    ): ResourceWrapper<List<WeatherData>>
 }
