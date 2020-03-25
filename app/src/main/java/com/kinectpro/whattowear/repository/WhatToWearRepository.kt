@@ -31,6 +31,10 @@ class WhatToWearRepository(private val networkChecker: NetworkChecker) :
         }
     }
 
+    fun unregisterCallback() {
+        networkChecker.unregisterNetworkCallback()
+    }
+
     override fun getWearsAvailableForSelect(condition: List<WeatherTemp>): List<WearItem> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
