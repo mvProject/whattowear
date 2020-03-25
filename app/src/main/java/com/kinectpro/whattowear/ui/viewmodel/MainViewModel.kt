@@ -68,7 +68,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
             tripStartDateLive.value = calendar.timeInMillis
-            tripEndDateLive.value = calendar.timeInMillis
+            if (tripEndDateLive.value == 0L) {
+                tripEndDateLive.value = calendar.timeInMillis
+            }
+            if (tripStartDateLive.value!! >= tripEndDateLive.value!!) {
+                tripEndDateLive.value = tripStartDateLive.value
+            }
         }
 
     var tripEndDateSelectionDialogListener =
