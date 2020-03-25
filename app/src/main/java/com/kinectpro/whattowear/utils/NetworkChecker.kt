@@ -4,9 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
-import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import android.os.Build
 
 class NetworkChecker(context: Context?) {
 
@@ -27,19 +25,10 @@ class NetworkChecker(context: Context?) {
     }
 
     private fun registerNetworkCallback() {
-        networkRequest.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!isCallbackRegistered) {
-                connectivityManager.registerNetworkCallback(networkRequest.build(), networkCallback)
-                isCallbackRegistered = true
-            }
-        } else {
-            val networkInfo = connectivityManager.activeNetworkInfo
-            isNetworkConnected =
-                networkInfo != null && networkInfo.isConnectedOrConnecting
+        if (!isCallbackRegistered) {
+            connectivityManager.registerNetworkCallback(networkRequest.build(), networkCallback)
+            isCallbackRegistered = true
         }
-
     }
 
     private fun getNetworkCallback(): NetworkCallback {
