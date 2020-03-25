@@ -151,13 +151,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun initNetworkCallback() {
-        networkChecker.registerNetworkCallback()
-    }
-
     override fun onCleared() {
         super.onCleared()
-        networkChecker.unRegisterNetworkCallback()
+        networkChecker.unregisterNetworkCallback()
     }
 
 }

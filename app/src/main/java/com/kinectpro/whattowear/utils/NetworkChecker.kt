@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Build
 
 class NetworkChecker(context: Context?) {
@@ -14,14 +16,22 @@ class NetworkChecker(context: Context?) {
     private var isNetworkConnected = false
     private var isCallbackRegistered = false
 
+    private val networkRequest = NetworkRequest.Builder()
+
+    init {
+        registerNetworkCallback()
+    }
+
     fun isInternetConnected(): Boolean {
         return isNetworkConnected
     }
 
-    fun registerNetworkCallback() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+    private fun registerNetworkCallback() {
+        networkRequest.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!isCallbackRegistered) {
-                connectivityManager.registerDefaultNetworkCallback(networkCallback)
+                connectivityManager.registerNetworkCallback(networkRequest.build(), networkCallback)
                 isCallbackRegistered = true
             }
         } else {
@@ -29,24 +39,27 @@ class NetworkChecker(context: Context?) {
             isNetworkConnected =
                 networkInfo != null && networkInfo.isConnectedOrConnecting
         }
+
     }
 
     private fun getNetworkCallback(): NetworkCallback {
         return object : NetworkCallback() {
             override fun onAvailable(network: Network?) {
-                isNetworkConnected = true
+                isNetworkConnected = connectivityManager.bindProcessToNetwork(network)
             }
 
             override fun onLost(network: Network?) {
                 isNetworkConnected = false
+                connectivityManager.bindProcessToNetwork(null)
             }
         }
     }
 
-    fun unRegisterNetworkCallback() {
+    fun unregisterNetworkCallback() {
         if (isCallbackRegistered) {
             connectivityManager.unregisterNetworkCallback(networkCallback)
             isCallbackRegistered = false
         }
     }
 }
+
