@@ -23,9 +23,11 @@ import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
+import com.kinectpro.whattowear.utils.DATE_START_MAX_LENGTH_ALLOWED
 import com.kinectpro.whattowear.utils.convertToReadableRange
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
@@ -108,6 +110,8 @@ class MainFragment : Fragment() {
                 } else {
                     it.datePicker.minDate = viewModel.tripStartDateLive.value!!
                 }
+                it.datePicker.maxDate =
+                    calendar.timeInMillis + TimeUnit.DAYS.toMillis(DATE_START_MAX_LENGTH_ALLOWED)
             }
             tripStartDateSelectionDialog.show()
         }
