@@ -51,7 +51,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             override fun onPlaceSelected(place: Place) {
                 if (place.id != null) {
-                    isCityOnlyChanged = checkIfDestinationChanged(place)
+                    isCityOnlyChanged = isCheckForDestinationChanged(place)
                 }
             }
         }
@@ -125,7 +125,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
     fun obtainSelectedDestinationWeatherRequest() {
-        if (checkAllConditionsForSendingRequest(isCityOnlyChanged)) {
+        if (isCheckAllConditionsForSendingRequest(isCityOnlyChanged)) {
             convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
         }
     }
@@ -136,7 +136,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * @param place selected destination
      * @return true if current destination not empty and new destination selected otherwise false
      */
-    private fun checkIfDestinationChanged(place: Place): Boolean {
+    private fun isCheckForDestinationChanged(place: Place): Boolean {
         val selectedDestination = PlaceTrip(
             place.id!!,
             place.name!!,
@@ -158,7 +158,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      *
      */
-    private fun checkAllConditionsForSendingRequest(destinationChanged: Boolean): Boolean {
+    private fun isCheckAllConditionsForSendingRequest(destinationChanged: Boolean): Boolean {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
                 ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
