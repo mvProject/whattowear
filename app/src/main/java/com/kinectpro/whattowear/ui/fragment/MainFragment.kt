@@ -63,6 +63,14 @@ class MainFragment : Fragment() {
             }
         })
 
+        viewModel.tripStartDateLive.observe(viewLifecycleOwner, Observer {
+            viewModel.obtainSelectedDestinationWeatherRequest()
+        })
+
+        viewModel.tripEndDateLive.observe(viewLifecycleOwner, Observer {
+            viewModel.obtainSelectedDestinationWeatherRequest()
+        })
+
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })

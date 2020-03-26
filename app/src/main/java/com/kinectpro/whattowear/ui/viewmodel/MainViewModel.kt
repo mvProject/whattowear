@@ -39,8 +39,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         value = 0L
     }
 
-    private var isCityOnlyChanged = false
-
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
 
@@ -51,7 +49,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             override fun onPlaceSelected(place: Place) {
                 if (place.id != null) {
-                    isCityOnlyChanged = isCheckForDestinationChanged(place)
+                    selectedDestinationPlace.value = PlaceTrip(
+                        place.id!!,
+                        place.name!!,
+                        place.latLng?.latitude.toString(),
+                        place.latLng?.longitude.toString(),
+                        TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
+                    )
                 }
             }
         }
@@ -125,40 +129,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
     fun obtainSelectedDestinationWeatherRequest() {
-        if (isCheckAllConditionsForSendingRequest(isCityOnlyChanged)) {
-            convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+        if ((tripStartDateLive.value!! > 0) and (tripEndDateLive.value!! > 0)) {
+            if (isCheckAllConditionsForSendingRequest()) {
+                convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+            }
         }
-    }
-
-
-    /**
-     * Check if destination is just selected or changed
-     * @param place selected destination
-     * @return true if current destination not empty and new destination selected otherwise false
-     */
-    private fun isCheckForDestinationChanged(place: Place): Boolean {
-        val selectedDestination = PlaceTrip(
-            place.id!!,
-            place.name!!,
-            place.latLng?.latitude.toString(),
-            place.latLng?.longitude.toString(),
-            TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
-        )
-        if (selectedDestinationPlace.value == null) {
-            selectedDestinationPlace.value = selectedDestination
-            return false
-        }
-        if (selectedDestinationPlace.value?.id != place.id) {
-            selectedDestinationPlace.value = selectedDestination
-            return true
-        }
-        return false
     }
 
     /**
      *
      */
-    private fun isCheckAllConditionsForSendingRequest(destinationChanged: Boolean): Boolean {
+    private fun isCheckAllConditionsForSendingRequest(): Boolean {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
                 ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
@@ -166,17 +147,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
             DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                if (destinationChanged) {
-                    selectedTripCondition.value =
-                        ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
-                }
+                selectedTripCondition.value =
+                    ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
                 return false
             }
             DATE_ERROR_INVALID_RANGE -> {
-                if (destinationChanged) {
-                    selectedTripCondition.value =
-                        ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
-                }
+                selectedTripCondition.value =
+                    ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
                 return false
             }
             DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
@@ -190,7 +167,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         return true
     }
-
 
     override fun onCleared() {
         super.onCleared()
