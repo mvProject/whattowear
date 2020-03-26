@@ -8,6 +8,7 @@ const val DATE_ERROR_INVALID_RANGE = 2
 const val DATE_ERROR_MAX_LENGTH_EXCEEDED = 3
 
 const val DATE_RANGE_MAX_LENGTH_ALLOWED = 60L
+const val DATE_START_MAX_LENGTH_ALLOWED = 30L
 /**
  * Method which try to generate list of timestamps from start to end date
  *  @param startDate first date of a range
