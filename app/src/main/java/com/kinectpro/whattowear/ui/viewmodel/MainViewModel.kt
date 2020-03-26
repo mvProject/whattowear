@@ -39,6 +39,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         value = 0L
     }
 
+    private var isCityOnlyChanged = false
+
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
 
@@ -49,14 +51,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             override fun onPlaceSelected(place: Place) {
                 if (place.id != null) {
-                    selectedDestinationPlace.value =
-                        PlaceTrip(
-                            place.id!!,
-                            place.name!!,
-                            place.latLng?.latitude.toString(),
-                            place.latLng?.longitude.toString(),
-                            TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
-                        )
+                    isCityOnlyChanged = checkIfDestinationChanged(place)
                 }
             }
         }
@@ -129,40 +124,78 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
-    fun obtainSelectedDestinationWeatherRequest(isCityOnlyChanged: Boolean) {
+    fun obtainSelectedDestinationWeatherRequest() {
+        if (checkAllConditionsForSendingRequest(isCityOnlyChanged)) {
+            convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+        }
+    }
+
+
+    /**
+     * Check if destination is just selected or changed
+     * @param place selected destination
+     * @return true if current destination not empty and new destination selected otherwise false
+     */
+    private fun checkIfDestinationChanged(place: Place): Boolean {
+        val selectedDestination = PlaceTrip(
+            place.id!!,
+            place.name!!,
+            place.latLng?.latitude.toString(),
+            place.latLng?.longitude.toString(),
+            TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
+        )
+        if (selectedDestinationPlace.value == null) {
+            selectedDestinationPlace.value = selectedDestination
+            return false
+        }
+        if (selectedDestinationPlace.value?.id != place.id) {
+            selectedDestinationPlace.value = selectedDestination
+            return true
+        }
+        return false
+    }
+
+    /**
+     *
+     */
+    private fun checkAllConditionsForSendingRequest(destinationChanged: Boolean): Boolean {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
                 ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
-        } else {
-            when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
-                DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                    if (!isCityOnlyChanged) {
-                        selectedTripCondition.value =
-                            ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
-                    }
-                }
-                DATE_ERROR_INVALID_RANGE -> {
-                    if (!isCityOnlyChanged) {
-                        selectedTripCondition.value =
-                            ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
-                    }
-                }
-                DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+            return false
+        }
+        when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
+            DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
+                if (destinationChanged) {
                     selectedTripCondition.value =
-                        ResourceWrapper.error(
-                            ErrorCodes.TooLongDateRangeIntervalException.code,
-                            null
-                        )
+                        ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
                 }
-                null -> convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+                return false
+            }
+            DATE_ERROR_INVALID_RANGE -> {
+                if (destinationChanged) {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
+                }
+                return false
+            }
+            DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+                selectedTripCondition.value =
+                    ResourceWrapper.error(
+                        ErrorCodes.TooLongDateRangeIntervalException.code,
+                        null
+                    )
+                return false
             }
         }
+        return true
     }
+
 
     override fun onCleared() {
         super.onCleared()
         repository.unregisterCallback()
     }
-
 }
+
 
