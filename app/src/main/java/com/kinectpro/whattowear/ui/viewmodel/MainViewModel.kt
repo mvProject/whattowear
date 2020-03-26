@@ -129,19 +129,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
-    fun obtainSelectedDestinationWeatherRequest() {
+    fun obtainSelectedDestinationWeatherRequest(isCityOnlyChanged: Boolean) {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
                 ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
         } else {
             when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
                 DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                    selectedTripCondition.value =
-                        ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
+                    if (!isCityOnlyChanged) {
+                        selectedTripCondition.value =
+                            ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
+                    }
                 }
                 DATE_ERROR_INVALID_RANGE -> {
-                    selectedTripCondition.value =
-                        ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
+                    if (!isCityOnlyChanged) {
+                        selectedTripCondition.value =
+                            ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
+                    }
                 }
                 DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
                     selectedTripCondition.value =
