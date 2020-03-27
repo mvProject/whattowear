@@ -55,17 +55,7 @@
                 app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
                 app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
                 tools:text="25/02/20" />
-            <!-- TODO remove action from button to auto refresh,button not necessary now-->
-            <!--
-            <Button
-                android:id="@+id/btnSearchWear"
-                style="@style/ButtonStyle"
-                android:text="@string/btn_select_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toEndOf="@id/btnTripEndDateSelect"
-                app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
--->
+
             <ProgressBar
                 android:id="@+id/progress_indicator"
                 style="?android:attr/progressBarStyleHorizontal"
