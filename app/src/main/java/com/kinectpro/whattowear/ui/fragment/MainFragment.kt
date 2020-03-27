@@ -63,11 +63,11 @@ class MainFragment : Fragment() {
             }
         })
 
-        viewModel.tripStartDateLive.observe(viewLifecycleOwner, Observer {
+        viewModel.tripRangeStartDateValue.observe(viewLifecycleOwner, Observer {
             viewModel.obtainSelectedDestinationWeatherRequest()
         })
 
-        viewModel.tripEndDateLive.observe(viewLifecycleOwner, Observer {
+        viewModel.tripRangeEndDateValue.observe(viewLifecycleOwner, Observer {
             viewModel.obtainSelectedDestinationWeatherRequest()
         })
 
@@ -107,8 +107,8 @@ class MainFragment : Fragment() {
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
             val currentDate = calendar.timeInMillis
-            if (viewModel.tripStartDateLive.value!! > 0) {
-                calendar.timeInMillis = viewModel.tripStartDateLive.value!!
+            if (viewModel.tripRangeStartDateValue.value!! > 0) {
+                calendar.timeInMillis = viewModel.tripRangeStartDateValue.value!!
             }
             val tripStartDateSelectionDialog = DatePickerDialog(
                 context!!,
@@ -126,8 +126,8 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            if (viewModel.tripEndDateLive.value!! > 0) {
-                calendar.timeInMillis = viewModel.tripEndDateLive.value!!
+            if (viewModel.tripRangeEndDateValue.value!! > 0) {
+                calendar.timeInMillis = viewModel.tripRangeEndDateValue.value!!
             }
             val tripEndDateSelectionDialog = DatePickerDialog(
                 context!!,
@@ -136,7 +136,7 @@ class MainFragment : Fragment() {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
-                it.datePicker.minDate = viewModel.tripStartDateLive.value!!
+                it.datePicker.minDate = viewModel.tripRangeStartDateValue.value!!
             }
             tripEndDateSelectionDialog.show()
         }
@@ -152,7 +152,6 @@ class MainFragment : Fragment() {
             setPlaceFields(
                 listOf(
                     Place.Field.ID,
-                    Place.Field.NAME,
                     Place.Field.LAT_LNG,
                     Place.Field.UTC_OFFSET
                 )
@@ -164,8 +163,8 @@ class MainFragment : Fragment() {
         clear_button_view.setOnClickListener {
             autoComplete.setText("")
             viewModel.selectedDestinationPlace.value = null
-            viewModel.tripStartDateLive.value = 0L
-            viewModel.tripEndDateLive.value = 0L
+            viewModel.tripRangeStartDateValue.value = 0L
+            viewModel.tripRangeEndDateValue.value = 0L
 
             mainFragmentBinding.wearList.visibility = View.INVISIBLE
             mainFragmentBinding.cardDatesSummary.visibility = View.INVISIBLE
