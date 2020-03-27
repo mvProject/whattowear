@@ -40,14 +40,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     val selectedTrip = MediatorLiveData<Long>().apply {
+        addSource(selectedDestinationPlace) {
+            it?.let {
+                obtainSelectedDestinationWeatherRequest()
+            }
+        }
         addSource(tripRangeStartDateValue) {
-            obtainSelectedDestinationWeatherRequest()
+            it?.let {
+                obtainSelectedDestinationWeatherRequest()
+            }
         }
         addSource(tripRangeEndDateValue) {
-            obtainSelectedDestinationWeatherRequest()
-        }
-        addSource(selectedDestinationPlace) {
-            obtainSelectedDestinationWeatherRequest()
+            it?.let {
+                obtainSelectedDestinationWeatherRequest()
+            }
         }
     }
 
@@ -94,7 +100,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun addNewCustomWear() {
         // TODO commented in UncompleteUI feature,uncomment when functionality will be performed
     }
-
  */
 
     private fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
@@ -164,11 +169,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
                 selectedTripCondition.value =
                     ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
-                return false
-            }
-            DATE_ERROR_INVALID_RANGE -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
                 return false
             }
             DATE_ERROR_MAX_LENGTH_EXCEEDED -> {

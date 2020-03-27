@@ -130,7 +130,6 @@ class MainFragment : Fragment() {
                 viewModel.tripRangeStartDateValue.value?.let { date ->
                     it.datePicker.minDate = date
                 }
-
             }
             tripEndDateSelectionDialog.show()
         }
