@@ -34,14 +34,30 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val selectedTripCondition = MediatorLiveData<ResourceWrapper<TripModel>>()
 
-    val tripEndDateLive = MutableLiveData<Long>().apply {
+    val tripRangeEndDateValue = MutableLiveData<Long>().apply {
         value = 0L
     }
-    val tripStartDateLive = MutableLiveData<Long>().apply {
+    val tripRangeStartDateValue = MutableLiveData<Long>().apply {
         value = 0L
     }
 
-    private var isCityOnlyChanged = false
+    val selectedTrip = MediatorLiveData<Long>().apply {
+        addSource(selectedDestinationPlace) {
+            it?.let {
+                obtainSelectedDestinationWeatherRequest()
+            }
+        }
+        addSource(tripRangeStartDateValue) {
+            it?.let {
+                obtainSelectedDestinationWeatherRequest()
+            }
+        }
+        addSource(tripRangeEndDateValue) {
+            it?.let {
+                obtainSelectedDestinationWeatherRequest()
+            }
+        }
+    }
 
     init {
         val place = storageRepository.getLastSelectedPlace()
@@ -60,7 +76,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             override fun onPlaceSelected(place: Place) {
                 if (place.id != null) {
-                    isCityOnlyChanged = isCheckForDestinationChanged(place)
+                    selectedDestinationPlace.value = PlaceTrip(
+                        place.id!!,
+                        place.latLng?.latitude.toString(),
+                        place.latLng?.longitude.toString(),
+                        TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
+                    )
                 }
             }
         }
@@ -70,12 +91,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
-            tripStartDateLive.value = calendar.timeInMillis
-            if (tripEndDateLive.value == 0L) {
-                tripEndDateLive.value = calendar.timeInMillis
-            }
-            if (tripStartDateLive.value!! >= tripEndDateLive.value!!) {
-                tripEndDateLive.value = tripStartDateLive.value
+            tripRangeStartDateValue.value = calendar.timeInMillis
+            if ((tripRangeStartDateValue.value != null) and (tripRangeEndDateValue.value != null)) {
+                if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
+                    tripRangeEndDateValue.value = tripRangeStartDateValue.value
+                }
             }
         }
 
@@ -83,20 +103,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
-            tripEndDateLive.value = calendar.timeInMillis
+            tripRangeEndDateValue.value = calendar.timeInMillis
         }
 /*
     fun addNewCustomWear() {
         // TODO commented in UncompleteUI feature,uncomment when functionality will be performed
     }
-
  */
 
     private fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(
-                tripStartDateLive.value!! + place.offsetUTC,
-                tripEndDateLive.value!! + place.offsetUTC
+                tripRangeStartDateValue.value!! + place.offsetUTC,
+                tripRangeEndDateValue.value!! + place.offsetUTC
             )?.let {
                 return repository.getWeatherForecastForSelectedPlace(
                     place.latitude,
@@ -134,58 +153,31 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
     fun obtainSelectedDestinationWeatherRequest() {
-        if (isCheckAllConditionsForSendingRequest(isCityOnlyChanged)) {
-            convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+        if ((tripRangeStartDateValue.value != null) and (tripRangeEndDateValue.value != null)) {
+            if ((tripRangeStartDateValue.value!! > 0) and (tripRangeEndDateValue.value!! > 0)) {
+                if (isConditionsValidBeforeSendingRequest()) {
+                    convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
+                }
+            }
         }
-    }
-
-
-    /**
-     * Check if destination is just selected or changed
-     * @param place selected destination
-     * @return true if current destination not empty and new destination selected otherwise false
-     */
-    private fun isCheckForDestinationChanged(place: Place): Boolean {
-        val selectedDestination = PlaceTrip(
-            place.id!!,
-            place.name!!,
-            place.latLng?.latitude.toString(),
-            place.latLng?.longitude.toString(),
-            TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
-        )
-        if (selectedDestinationPlace.value == null) {
-            selectedDestinationPlace.value = selectedDestination
-            return false
-        }
-        if (selectedDestinationPlace.value?.id != place.id) {
-            selectedDestinationPlace.value = selectedDestination
-            return true
-        }
-        return false
     }
 
     /**
      *
      */
-    private fun isCheckAllConditionsForSendingRequest(destinationChanged: Boolean): Boolean {
+    private fun isConditionsValidBeforeSendingRequest(): Boolean {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
                 ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
             return false
         }
-        when (isProperDataRangeSelected(tripStartDateLive.value, tripEndDateLive.value)) {
+        when (isProperDataRangeSelected(
+            tripRangeStartDateValue.value,
+            tripRangeEndDateValue.value
+        )) {
             DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                if (destinationChanged) {
-                    selectedTripCondition.value =
-                        ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
-                }
-                return false
-            }
-            DATE_ERROR_INVALID_RANGE -> {
-                if (destinationChanged) {
-                    selectedTripCondition.value =
-                        ResourceWrapper.error(ErrorCodes.InvalidDatesRangeException.code, null)
-                }
+                selectedTripCondition.value =
+                    ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
                 return false
             }
             DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
@@ -199,7 +191,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         return true
     }
-
 
     override fun onCleared() {
         super.onCleared()
