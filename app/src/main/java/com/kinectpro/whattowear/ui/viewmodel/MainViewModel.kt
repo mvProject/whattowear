@@ -39,6 +39,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         value = 0L
     }
 
+    val selectedTrip = MediatorLiveData<Long>().apply {
+        addSource(tripRangeStartDateValue) {
+            obtainSelectedDestinationWeatherRequest()
+        }
+        addSource(tripRangeEndDateValue) {
+            obtainSelectedDestinationWeatherRequest()
+        }
+        addSource(selectedDestinationPlace) {
+            obtainSelectedDestinationWeatherRequest()
+        }
+    }
+
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
 
@@ -66,10 +78,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             calendar.set(year, month, dayOfMonth)
             tripRangeStartDateValue.value = calendar.timeInMillis
             if ((tripRangeStartDateValue.value != null) and (tripRangeEndDateValue.value != null)) {
-                if (tripRangeEndDateValue.value == 0L) {
-                    tripRangeEndDateValue.value = calendar.timeInMillis
-                }
-                if (tripRangeStartDateValue.value!! >= tripRangeEndDateValue.value!!) {
+                if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
                     tripRangeEndDateValue.value = tripRangeStartDateValue.value
                 }
             }

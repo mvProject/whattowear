@@ -19,7 +19,6 @@ import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
-import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
@@ -57,19 +56,7 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
-            it?.let {
-                viewModel.obtainSelectedDestinationWeatherRequest()
-            }
-        })
-
-        viewModel.tripRangeStartDateValue.observe(viewLifecycleOwner, Observer {
-            viewModel.obtainSelectedDestinationWeatherRequest()
-        })
-
-        viewModel.tripRangeEndDateValue.observe(viewLifecycleOwner, Observer {
-            viewModel.obtainSelectedDestinationWeatherRequest()
-        })
+        viewModel.selectedTrip.observe(viewLifecycleOwner, Observer { })
 
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -107,8 +94,10 @@ class MainFragment : Fragment() {
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
             val currentDate = calendar.timeInMillis
-            if (viewModel.tripRangeStartDateValue.value!! > 0) {
-                calendar.timeInMillis = viewModel.tripRangeStartDateValue.value!!
+            viewModel.tripRangeStartDateValue.value?.let {
+                if (it > 0) {
+                    calendar.timeInMillis = it
+                }
             }
             val tripStartDateSelectionDialog = DatePickerDialog(
                 context!!,
@@ -126,8 +115,10 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            if (viewModel.tripRangeEndDateValue.value!! > 0) {
-                calendar.timeInMillis = viewModel.tripRangeEndDateValue.value!!
+            viewModel.tripRangeEndDateValue.value?.let {
+                if (it > 0) {
+                    calendar.timeInMillis = it
+                }
             }
             val tripEndDateSelectionDialog = DatePickerDialog(
                 context!!,
@@ -136,7 +127,10 @@ class MainFragment : Fragment() {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
-                it.datePicker.minDate = viewModel.tripRangeStartDateValue.value!!
+                viewModel.tripRangeStartDateValue.value?.let { date ->
+                    it.datePicker.minDate = date
+                }
+
             }
             tripEndDateSelectionDialog.show()
         }
@@ -152,6 +146,7 @@ class MainFragment : Fragment() {
             setPlaceFields(
                 listOf(
                     Place.Field.ID,
+                    Place.Field.NAME,
                     Place.Field.LAT_LNG,
                     Place.Field.UTC_OFFSET
                 )
