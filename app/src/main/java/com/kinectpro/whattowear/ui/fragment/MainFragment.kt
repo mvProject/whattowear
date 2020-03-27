@@ -19,7 +19,6 @@ import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
-import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
@@ -57,11 +56,10 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.selectedDestinationPlace.observe(viewLifecycleOwner, Observer<PlaceTrip> {
-            it?.let {
-                viewModel.obtainSelectedDestinationWeatherRequest()
-            }
-        })
+        /**
+         * Observes destination and date range and obtain new forecast on changing
+         */
+        viewModel.selectedTrip.observe(viewLifecycleOwner, Observer {})
 
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -99,8 +97,10 @@ class MainFragment : Fragment() {
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
             val currentDate = calendar.timeInMillis
-            if (viewModel.tripStartDateLive.value!! > 0) {
-                calendar.timeInMillis = viewModel.tripStartDateLive.value!!
+            viewModel.tripRangeStartDateValue.value?.let {
+                if (it > 0) {
+                    calendar.timeInMillis = it
+                }
             }
             val tripStartDateSelectionDialog = DatePickerDialog(
                 context!!,
@@ -118,8 +118,10 @@ class MainFragment : Fragment() {
 
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            if (viewModel.tripEndDateLive.value!! > 0) {
-                calendar.timeInMillis = viewModel.tripEndDateLive.value!!
+            viewModel.tripRangeEndDateValue.value?.let {
+                if (it > 0) {
+                    calendar.timeInMillis = it
+                }
             }
             val tripEndDateSelectionDialog = DatePickerDialog(
                 context!!,
@@ -128,7 +130,9 @@ class MainFragment : Fragment() {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
-                it.datePicker.minDate = viewModel.tripStartDateLive.value!!
+                viewModel.tripRangeStartDateValue.value?.let { date ->
+                    it.datePicker.minDate = date
+                }
             }
             tripEndDateSelectionDialog.show()
         }
@@ -156,8 +160,8 @@ class MainFragment : Fragment() {
         clear_button_view.setOnClickListener {
             autoComplete.setText("")
             viewModel.selectedDestinationPlace.value = null
-            viewModel.tripStartDateLive.value = 0L
-            viewModel.tripEndDateLive.value = 0L
+            viewModel.tripRangeStartDateValue.value = 0L
+            viewModel.tripRangeEndDateValue.value = 0L
 
             mainFragmentBinding.wearList.visibility = View.INVISIBLE
             mainFragmentBinding.cardDatesSummary.visibility = View.INVISIBLE
@@ -174,7 +178,6 @@ class MainFragment : Fragment() {
             ErrorCodes.TargetRequestSourceException.code -> getString(R.string.message_response_error_request_target)
             ErrorCodes.EmptyDestinationException.code -> getString(R.string.message_error_trip_destination)
             ErrorCodes.EmptyDatesException.code -> getString(R.string.message_error_trip_date_not_select)
-            ErrorCodes.InvalidDatesRangeException.code -> getString(R.string.message_error_trip_date_range)
             ErrorCodes.TooLongDateRangeIntervalException.code -> getString(R.string.message_error_trip_to_long_range)
             ErrorCodes.NoInternetConnectionException.code -> getString(R.string.message_response_error_no_internet)
             else -> getString(R.string.message_response_error_unspecified)
