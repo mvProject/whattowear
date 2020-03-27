@@ -88,10 +88,6 @@ class MainFragment : Fragment() {
             }
         })
 
-        mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.obtainSelectedDestinationWeatherRequest()
-        }
-
         setupPlaceSelectListener()
 
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
