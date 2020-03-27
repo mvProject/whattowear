@@ -22,7 +22,8 @@ class WhatToWearCache(context: Context) :
         return place?.jsonToPlace()
     }
 
-    override fun setLastSelectedPlace(selectedPlace: PlaceTrip) {
-        sharedPreferences.edit().putString(TRIP_SELECTED_PLACE, selectedPlace.placeToJson()).apply()
+    override fun setLastSelectedPlace(selectedPlace: PlaceTrip?) {
+        sharedPreferences.edit().putString(TRIP_SELECTED_PLACE, selectedPlace?.placeToJson())
+            .apply()
     }
 }

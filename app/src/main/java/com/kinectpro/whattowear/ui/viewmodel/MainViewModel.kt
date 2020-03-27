@@ -196,9 +196,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     override fun onCleared() {
         super.onCleared()
         repository.unregisterCallback()
-        selectedDestinationPlace.value?.let {
-            storageRepository.setLastSelectedPlace(it)
-        }
+        storageRepository.setLastSelectedPlace(selectedDestinationPlace.value)
     }
 }
 

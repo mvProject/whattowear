@@ -5,5 +5,5 @@ import com.kinectpro.whattowear.data.model.wear.WearItem
 
 interface ICache {
     fun getLastSelectedPlace(): PlaceTrip?
-    fun setLastSelectedPlace(selectedPlace: PlaceTrip)
+    fun setLastSelectedPlace(selectedPlace: PlaceTrip?)
 }
