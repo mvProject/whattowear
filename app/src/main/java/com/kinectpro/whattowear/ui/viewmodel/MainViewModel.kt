@@ -75,9 +75,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onPlaceSelected(place: Place) {
-                if (place.id != null) {
+                if ((place.id != null) and (place.name != null)) {
                     selectedDestinationPlace.value = PlaceTrip(
                         place.id!!,
+                        place.name!!,
                         place.latLng?.latitude.toString(),
                         place.latLng?.longitude.toString(),
                         TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
