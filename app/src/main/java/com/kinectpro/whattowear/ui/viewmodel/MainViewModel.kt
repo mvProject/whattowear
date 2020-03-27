@@ -15,6 +15,7 @@ import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.trip.TripModel
+import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.utils.getDataRangeForTrip
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 import java.util.*
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WhatToWearRepository(NetworkChecker(getApplication()))
+    private val storageRepository = WhatToWearCache(getApplication())
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
@@ -40,6 +42,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private var isCityOnlyChanged = false
+
+    init {
+        val place = storageRepository.getLastSelectedPlace()
+        place?.let {
+            selectedDestinationPlace.value = it
+        }
+    }
 
     fun getTripDestinationPlaceSelected(): PlaceSelectionListener {
         return object : PlaceSelectionListener {
@@ -195,6 +204,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     override fun onCleared() {
         super.onCleared()
         repository.unregisterCallback()
+        selectedDestinationPlace.value?.let {
+            storageRepository.setLastSelectedPlace(it)
+        }
     }
 }
 

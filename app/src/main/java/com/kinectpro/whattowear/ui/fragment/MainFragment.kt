@@ -151,6 +151,9 @@ class MainFragment : Fragment() {
             )
             setTypeFilter(TypeFilter.CITIES)
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
+            viewModel.selectedDestinationPlace.value?.let {
+                autoComplete.setText(it.name)
+            }
         }
 
         clear_button_view.setOnClickListener {
