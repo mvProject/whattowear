@@ -34,18 +34,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--TODO commented in UncompleteUI feature,uncomment when functionality will be performed-->
-            <!--
-                    <Button
-                        android:id="@+id/btnResetUserSelection"
-                        style="@style/ButtonStyle"
-                        android:text="@string/btn_reset_name"
-                        app:layout_constraintEnd_toStartOf="@id/btnTripStartDateSelect"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/autocompleteFragment" />
-            -->
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/btnTripStartDateSelect"
                 style="@style/DateSelectViewStyle"
