@@ -90,9 +90,9 @@ class MainFragment : Fragment() {
             }
         })
 
-        mainFragmentBinding.btnSearchWear.setOnClickListener {
-            viewModel.obtainSelectedDestinationWeatherRequest()
-        }
+        // mainFragmentBinding.btnSearchWear.setOnClickListener {
+        //     viewModel.obtainSelectedDestinationWeatherRequest()
+        // }
 
         setupPlaceSelectListener()
 
