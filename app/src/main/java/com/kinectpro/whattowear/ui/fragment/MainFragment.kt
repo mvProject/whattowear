@@ -56,7 +56,10 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        viewModel.selectedTrip.observe(viewLifecycleOwner, Observer { })
+        /**
+         * Observes destination and date range and obtain new forecast on changing
+         */
+        viewModel.selectedTrip.observe(viewLifecycleOwner, Observer {})
 
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -175,7 +178,6 @@ class MainFragment : Fragment() {
             ErrorCodes.TargetRequestSourceException.code -> getString(R.string.message_response_error_request_target)
             ErrorCodes.EmptyDestinationException.code -> getString(R.string.message_error_trip_destination)
             ErrorCodes.EmptyDatesException.code -> getString(R.string.message_error_trip_date_not_select)
-            ErrorCodes.InvalidDatesRangeException.code -> getString(R.string.message_error_trip_date_range)
             ErrorCodes.TooLongDateRangeIntervalException.code -> getString(R.string.message_error_trip_to_long_range)
             ErrorCodes.NoInternetConnectionException.code -> getString(R.string.message_response_error_no_internet)
             else -> getString(R.string.message_response_error_unspecified)
