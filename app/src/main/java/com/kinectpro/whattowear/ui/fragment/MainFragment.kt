@@ -182,6 +182,11 @@ class MainFragment : Fragment() {
             else -> getString(R.string.message_response_error_unspecified)
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.saveLastSelectedPlaceToLocalStorage()
+    }
 }
 
 

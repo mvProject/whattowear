@@ -25,8 +25,8 @@ import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = WhatToWearRepository(NetworkChecker(getApplication()))
-    private val storageRepository = WhatToWearCache(getApplication())
+    private val repository =
+        WhatToWearRepository(NetworkChecker(getApplication()), WhatToWearCache(getApplication()))
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
@@ -60,8 +60,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     init {
-        val place = storageRepository.getLastSelectedPlace()
-        place?.let {
+        repository.getLastSelectedPlace().let {
             selectedDestinationPlace.value = it
         }
     }
@@ -75,7 +74,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onPlaceSelected(place: Place) {
-                if ((place.id != null) and (place.name != null)) {
+                if ((place.id != null) && (place.name != null)) {
                     selectedDestinationPlace.value = PlaceTrip(
                         place.id!!,
                         place.name!!,
@@ -93,7 +92,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
             tripRangeStartDateValue.value = calendar.timeInMillis
-            if ((tripRangeStartDateValue.value != null) and (tripRangeEndDateValue.value != null)) {
+            if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
                 if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
                     tripRangeEndDateValue.value = tripRangeStartDateValue.value
                 }
@@ -153,9 +152,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
-    fun obtainSelectedDestinationWeatherRequest() {
-        if ((tripRangeStartDateValue.value != null) and (tripRangeEndDateValue.value != null)) {
-            if ((tripRangeStartDateValue.value!! > 0) and (tripRangeEndDateValue.value!! > 0)) {
+    private fun obtainSelectedDestinationWeatherRequest() {
+        if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
+            if ((tripRangeStartDateValue.value!! > 0) && (tripRangeEndDateValue.value!! > 0)) {
                 if (isConditionsValidBeforeSendingRequest()) {
                     convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
                 }
@@ -193,10 +192,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return true
     }
 
+    fun saveLastSelectedPlaceToLocalStorage() {
+        repository.setLastSelectedPlace(selectedDestinationPlace.value)
+    }
+
     override fun onCleared() {
         super.onCleared()
         repository.unregisterCallback()
-        storageRepository.setLastSelectedPlace(selectedDestinationPlace.value)
     }
 }
 
