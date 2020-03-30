@@ -28,6 +28,9 @@ class PreferencesUtilsTest {
     private val jsonSecondPlace =
         """{"id":"1","name":"SecondPlaceName","latitude":"PlaceLat","longitude":"PlaceLon","offsetUTC":7200}"""
 
+    private val jsonNotValid =
+        """{"id":"1","name":"SecondPlaceName"}"""
+
     private val dateRange = listOf<Long>(1234567L, 1472589L, 9876543L)
     private val jsonDateRange = "[1234567,1472589,9876543]"
 
@@ -51,6 +54,11 @@ class PreferencesUtilsTest {
     @Test
     fun placeToJson_WrongJsonString() {
         assertNotEquals(jsonSecondPlace, testPlace.placeToJson())
+    }
+
+    @Test
+    fun placeToJson_NotValidJsonString() {
+        assertNotEquals(jsonNotValid, testPlace.placeToJson())
     }
 
     @Test
