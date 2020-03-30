@@ -153,6 +153,9 @@ class MainFragment : Fragment() {
             )
             setTypeFilter(TypeFilter.CITIES)
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
+            viewModel.selectedDestinationPlace.value?.let {
+                autoComplete.setText(it.name)
+            }
         }
 
         clear_button_view.setOnClickListener {
@@ -180,6 +183,11 @@ class MainFragment : Fragment() {
             ErrorCodes.NoInternetConnectionException.code -> getString(R.string.message_response_error_no_internet)
             else -> getString(R.string.message_response_error_unspecified)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.saveLastSelectedPlaceToLocalStorage()
     }
 }
 
