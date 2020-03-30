@@ -28,9 +28,9 @@
     <string name="message_error_trip_date_range">Неправильно заданий інтервал поїздки!</string>
     <string name="message_error_trip_destination">Не вибрано місце призначення!</string>
     <string name="image_loading_description">"Показати анімацію завантаження"</string>
-    <string name="message_error_trip_to_long_range">Інтервал не повинен перевищувати 60 днів</string>
+    <string name="message_error_trip_to_long_range">Інтервал не повинен перевищувати 30 днів</string>
     <string name="message_error_trip_date_not_select">Дата не повинна бути порожньою</string>
-    <string name="message_response_error_timeout">Timeout</string>
+    <string name="message_response_error_timeout">" Перевищено час очікування"</string>
     <string name="message_response_error_unknown_host">Немає адреси, пов’язаної з іменем хоста</string>
     <string name="message_response_error_invalid_lang">Надано недійсну мову</string>
     <string name="message_response_error_request_target">Цільовий ресурс не знайдено</string>
