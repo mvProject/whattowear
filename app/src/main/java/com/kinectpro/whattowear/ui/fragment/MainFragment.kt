@@ -22,7 +22,7 @@ import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 import com.kinectpro.whattowear.databinding.MainFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
-import com.kinectpro.whattowear.utils.DATE_START_MAX_LENGTH_ALLOWED
+import com.kinectpro.whattowear.utils.DATE_RANGE_MAX_LENGTH_ALLOWED
 import com.kinectpro.whattowear.utils.convertToReadableRange
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.util.*
@@ -107,7 +107,7 @@ class MainFragment : Fragment() {
             ).also {
                 it.datePicker.minDate = currentDate
                 it.datePicker.maxDate =
-                    calendar.timeInMillis + TimeUnit.DAYS.toMillis(DATE_START_MAX_LENGTH_ALLOWED)
+                    calendar.timeInMillis + TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED)
             }
             tripStartDateSelectionDialog.show()
         }
@@ -128,6 +128,8 @@ class MainFragment : Fragment() {
             ).also {
                 viewModel.tripRangeStartDateValue.value?.let { date ->
                     it.datePicker.minDate = date
+                    it.datePicker.maxDate =
+                        date + TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED)
                 }
             }
             tripEndDateSelectionDialog.show()
