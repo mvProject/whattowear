@@ -39,13 +39,23 @@ class PreferencesUtilsTest {
     }
 
     @Test
+    fun placeToJson_Null() {
+        assertNull(null?.placeToJson())
+    }
+
+    @Test
     fun jsonToPlace() {
         assertEquals(testPlace, jsonPlace.jsonToPlace())
     }
 
     @Test
+    fun jsonToPlace_Type() {
+        assertTrue(jsonPlace.jsonToPlace() is PlaceTrip)
+    }
+
+    @Test
     fun jsonToPlace_JsonNull() {
-        assertEquals(null, null.jsonToPlace())
+        assertNull(null.jsonToPlace())
     }
 
     @Test
