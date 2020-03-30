@@ -90,6 +90,11 @@ class MainFragment : Fragment() {
 
         setupPlaceSelectListener()
 
+        /**
+         * Function to set up trip range start date
+         * Current date is suggested as default if not already set
+         * max range for start date is 30 days from current date
+         */
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
             val currentDate = calendar.timeInMillis
@@ -112,6 +117,12 @@ class MainFragment : Fragment() {
             tripStartDateSelectionDialog.show()
         }
 
+        /**
+         * Function to set up trip range end date
+         * if trip start date is already set,it will be set as min value for end date
+         * and suggest as default if end date was not set before
+         * max range for end date is 30 days from start date
+         */
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
             viewModel.tripRangeEndDateValue.value?.let {
@@ -127,9 +138,14 @@ class MainFragment : Fragment() {
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
                 viewModel.tripRangeStartDateValue.value?.let { date ->
-                    it.datePicker.minDate = date
-                    it.datePicker.maxDate =
-                        date + TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED)
+                    if (date > 0) {
+                        it.datePicker.minDate = date
+                        it.datePicker.maxDate =
+                            date + TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED)
+                    } else {
+                        it.datePicker.minDate = calendar.timeInMillis
+                    }
+
                 }
             }
             tripEndDateSelectionDialog.show()
