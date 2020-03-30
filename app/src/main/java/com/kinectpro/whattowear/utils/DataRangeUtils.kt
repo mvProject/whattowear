@@ -7,8 +7,7 @@ const val DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS = 1
 const val DATE_ERROR_INVALID_RANGE = 2
 const val DATE_ERROR_MAX_LENGTH_EXCEEDED = 3
 
-const val DATE_RANGE_MAX_LENGTH_ALLOWED = 60L
-const val DATE_START_MAX_LENGTH_ALLOWED = 30L
+const val DATE_RANGE_MAX_LENGTH_ALLOWED = 30L
 /**
  * Method which try to generate list of timestamps from start to end date
  *  @param startDate first date of a range
@@ -39,7 +38,7 @@ fun isProperDataRangeSelected(startDate: Long?, endDate: Long?): Int? {
         (startDate == null) or (endDate == null) -> DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS
         (startDate!! <= 0L) or (endDate!! <= 0L) -> DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS
         startDate > endDate -> DATE_ERROR_INVALID_RANGE
-        endDate - startDate >= TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED) -> DATE_ERROR_MAX_LENGTH_EXCEEDED
+        endDate - startDate > TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED) -> DATE_ERROR_MAX_LENGTH_EXCEEDED
         else -> null
     }
 }

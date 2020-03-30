@@ -27,7 +27,7 @@
     <string name="message_nice_trip_wishes">"Счастливой поездки! "</string>
     <string name="message_error_trip_date_range">Неправильно задан интервал поездки!</string>
     <string name="message_error_trip_destination">Не выбрано место назначения!</string>
-    <string name="message_response_error_timeout">Timeout</string>
+    <string name="message_response_error_timeout">Превышено время ожидания</string>
     <string name="message_response_error_unknown_host">Нет адреса, связанного с именем хоста</string>
     <string name="message_response_error_invalid_lang">Был указан неверный язык</string>
     <string name="message_response_error_request_target">Целевой ресурс не найден</string>
@@ -36,6 +36,6 @@
     <string name="message_response_error_no_internet">Нет соединения с интернетом</string>
     <string name="image_loading_description">Показать анимацию загрузки</string>
     <string name="temperature_value_description">Макс: %d °C "\n"Мин: %4d °C</string>
-    <string name="message_error_trip_to_long_range">Интервал не должен превышать 60 дней</string>
+    <string name="message_error_trip_to_long_range">Интервал не должен превышать 30 дней</string>
     <string name="message_error_trip_date_not_select">Дата не должна быть пустой</string>
 </resources>
