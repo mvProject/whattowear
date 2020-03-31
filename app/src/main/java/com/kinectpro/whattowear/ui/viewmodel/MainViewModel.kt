@@ -87,6 +87,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /*
+     Set selected date value as trip range start date
+     also if selected start date bigger then current end date value
+     make end date equal start date
+     */
     var tripStartDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
@@ -99,6 +104,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
+    /*
+    Set selected date value as trip range end date
+     */
     var tripEndDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
