@@ -166,9 +166,13 @@ private fun <T> Iterable<T>.joinToSpannedString(
  * @return single string value
  */
 fun TempSummary.convertToReadableRange(context: Context): String {
+    val currentMetricFormat = getProperMetricValue()
     return String.format(
         context.getString(R.string.temperature_value_description),
-        maxValue.roundToInt(), minValue.roundToInt()
+        maxValue.getProperMetricTempValue(),
+        currentMetricFormat,
+        minValue.getProperMetricTempValue(),
+        currentMetricFormat
     )
 }
 
@@ -212,7 +216,7 @@ fun Float?.getProperMetricTempValue(): Int? {
  * Convert temperature value from Celsius to Fahrenheit metric
  */
 fun Float?.convertCelsiusToFahrenheit(): Float? {
-    return this?.let{
+    return this?.let {
         (1.8f * this) + 32
     }
 }
