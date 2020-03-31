@@ -5,16 +5,15 @@ import com.google.gson.reflect.TypeToken
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 
 /**
- * Convert instance of PlaceTrip to json string
- * @return string value
+ * Return equivalent Json representation for PlaceTrip object
  */
 fun PlaceTrip.placeToJson(): String {
     return Gson().toJson(this)
 }
 
 /**
- * Convert json string to PlaceTrip instance if json not null
- * @return PlaceTrip object or null
+ * Return Placetrip from deserialized json
+ * Return null if 'this' is null or empty
  */
 fun String?.jsonToPlace(): PlaceTrip? {
     if (!this.isNullOrEmpty()) {
@@ -24,16 +23,15 @@ fun String?.jsonToPlace(): PlaceTrip? {
 }
 
 /**
- * Convert list of long values to json string
- * @return string value
+ * Return equivalent Json representation for List<Long> object
  */
 fun List<Long>.dateRangeToJson(): String {
     return Gson().toJson(this)
 }
 
 /**
- * Convert json string to list of long values if json not null
- * @return list<Long> or null
+ * Return List<Long> from deserialized json
+ * Return null if 'this' is null or empty
  */
 fun String?.jsonToDateRange(): List<Long>? {
     val sType = object : TypeToken<List<Long>>() {}.type

@@ -12,7 +12,7 @@ const val DATE_RANGE_MAX_LENGTH_ALLOWED = 30L
  * Method which try to generate list of timestamps from start to end date
  *  @param startDate first date of a range
  *  @param endDate last date of a range
- *  @return list of timestamps otherwise null
+ *  @return list of timestamps if proper dates were selected otherwise null
  */
 fun getDataRangeForTrip(startDate: Long?, endDate: Long?): List<Long>? {
     return when (isProperDataRangeSelected(startDate, endDate)) {
