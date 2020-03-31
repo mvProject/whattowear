@@ -114,8 +114,8 @@ class TripWeatherConditionTest {
             listOf(1583791200, 1584050400)
         ),
         WeatherCondition(
-            "clear-day",
-            listOf(1583877600)
+            "defaultWeatherState",
+            listOf()
         )
     )
     private val conditionTestZero = listOf(
@@ -138,8 +138,8 @@ class TripWeatherConditionTest {
             listOf(1583791200)
         ),
         WeatherCondition(
-            "clear-day",
-            listOf(1583877600, 1583964000)
+            "defaultWeatherState",
+            listOf()
         )
     )
 

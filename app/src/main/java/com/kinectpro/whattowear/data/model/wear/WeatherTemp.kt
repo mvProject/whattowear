@@ -7,4 +7,3 @@ enum class WeatherTemp {
     WARM,
     HOT
 }
-
