@@ -46,10 +46,6 @@ class ConvertingUtilsTest {
         )
     }
 
-    private fun getTestDateList(): List<Long> {
-        return listOf(1583704800, 1583791200, 1583877600, 1583964000, 1584050400)
-    }
-
     private fun getExpectedDayTempList(): List<Float> {
         return listOf(11f, 10.5f, 10f, 9f, 8f)
     }

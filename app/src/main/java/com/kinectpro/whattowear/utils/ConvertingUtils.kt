@@ -37,7 +37,8 @@ const val VERTICAL_PADDING = 1
 /**
  * Extension Method to response data class which
  * try to extract only specified non-null fields
- * @return instance of WeatherData data class or null
+ * Return instance of WeatherData data class
+ * Return null if sunsetTime is null or apparentTemperatureHigh is null or apparentTemperatureLow is null
  */
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     if ((this.daily.data.first().sunsetTime != null) and (this.daily.data.first().apparentTemperatureHigh != null) and (this.daily.data.first().apparentTemperatureLow != null)) {
@@ -162,8 +163,7 @@ private fun <T> Iterable<T>.joinToSpannedString(
 }
 
 /**
- * Extension convert temp summary to specified string
- * @return single string value
+ * Return temp summary converted to specified string template
  */
 fun TempSummary.convertToReadableRange(context: Context): String {
     val currentMetricFormat = getProperMetricValue()

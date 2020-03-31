@@ -1,7 +1,6 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.wear.WeatherConditionState
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -10,20 +9,20 @@ class WearUtilsTest {
 
     @Test
     fun convertIconToEnumValue_PROPER_VALUE() {
-        val state = "clear-day"
-        assertEquals(WeatherConditionState.CLEARDAY, state.convertIconToDrawable())
+        val state = "rain"
+        assertEquals(2131165335, state.convertIconToDrawable())
     }
 
     @Test
     fun convertIconToEnumValue_RANDOM_VALUE() {
         val state = "random"
-        assertEquals(null, state.convertIconToDrawable())
+        assertEquals(2131165320, state.convertIconToDrawable())
     }
 
     @Test
     fun convertIconToEnumValue_NULL_VALUE() {
         val state = null
-        assertEquals(null, state.convertIconToDrawable())
+        assertEquals(2131165320, state.convertIconToDrawable())
     }
 
 
@@ -48,7 +47,7 @@ class WearUtilsTest {
 
     @Test
     fun checkProperConditionState_PROPER_VALUE() {
-        val state = "clear-day"
+        val state = "rain"
         assertEquals(true, state.checkProperConditionState())
     }
 
