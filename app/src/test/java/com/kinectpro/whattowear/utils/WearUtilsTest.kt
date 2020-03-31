@@ -42,6 +42,7 @@ class WearUtilsTest {
         val stateSnow = "snow"
         val stateSleet = "sleet"
         val stateFog = "fog"
+        val stateWind = "wind"
         assertEquals(R.string.weather_icon_type_rain, stateRain.convertIconToProperConditionName())
         assertEquals(R.string.weather_icon_type_snow, stateSnow.convertIconToProperConditionName())
         assertEquals(
@@ -49,6 +50,7 @@ class WearUtilsTest {
             stateSleet.convertIconToProperConditionName()
         )
         assertEquals(R.string.weather_icon_type_fog, stateFog.convertIconToProperConditionName())
+        assertEquals(R.string.weather_icon_type_wind, stateWind.convertIconToProperConditionName())
     }
 
     @Test
@@ -80,5 +82,41 @@ class WearUtilsTest {
     fun checkProperConditionState_NULL_VALUE() {
         val state = null
         assertEquals(false, state.checkProperConditionState())
+    }
+
+    @Test
+    fun convertIconToWeatherRecommendation_PROPER_VALUE() {
+        val stateRain = "rain"
+        val stateSnow = "snow"
+        val stateSleet = "sleet"
+        val stateFog = "fog"
+        assertEquals(
+            R.string.weather_rain_recommendation,
+            stateRain.convertIconToWeatherRecommendation()
+        )
+        assertEquals(
+            R.string.weather_snow_recommendation,
+            stateSnow.convertIconToWeatherRecommendation()
+        )
+        assertEquals(
+            R.string.weather_sleet_recommendation,
+            stateSleet.convertIconToWeatherRecommendation()
+        )
+        assertEquals(
+            R.string.weather_fog_recommendation,
+            stateFog.convertIconToWeatherRecommendation()
+        )
+    }
+
+    @Test
+    fun convertIconToWeatherRecommendation_NULL_VALUE() {
+        val state = null
+        assertEquals(null, state.convertIconToWeatherRecommendation())
+    }
+
+    @Test
+    fun convertIconToWeatherRecommendation_NOT_PROPER_VALUE() {
+        val state = "weather"
+        assertEquals(null, state.convertIconToWeatherRecommendation())
     }
 }
