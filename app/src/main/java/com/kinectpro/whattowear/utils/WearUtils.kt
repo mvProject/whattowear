@@ -2,6 +2,11 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
 
+/**
+ * Extension for String variable to convert
+ * adjusted weather condition from string icon to appropriate drawable icon
+ * @return id of proper drawable resource
+ */
 fun String?.convertIconToDrawable(): Int {
     return when (this) {
         "rain" -> R.drawable.ic_rain
@@ -13,6 +18,11 @@ fun String?.convertIconToDrawable(): Int {
     }
 }
 
+/**
+ * Extension for String variable to convert
+ * adjusted weather condition from string icon to appropriate condition expectation
+ * @return id of proper string resource
+ */
 fun String?.convertIconToProperConditionName(): Int? {
     return when (this) {
         "rain" -> R.string.weather_icon_type_rain
@@ -25,6 +35,11 @@ fun String?.convertIconToProperConditionName(): Int? {
     }
 }
 
+/**
+ * Extension for String variable to convert
+ * adjusted weather condition from string icon to appropriate wear recommendation
+ * @return id of proper string resource
+ */
 fun String?.convertIconToWeatherRecommendation(): Int? {
     return when (this) {
         "rain" -> R.string.weather_rain_recommendation
@@ -35,6 +50,11 @@ fun String?.convertIconToWeatherRecommendation(): Int? {
     }
 }
 
+/**
+ * Extension for String variable to check
+ * is api given weather condition is different from predefined default weather conditions
+ * @return true when different, false when matched
+ */
 fun String?.checkIconIsWeatherCondition(): Boolean {
     val default =
         listOf("clear-day", "clear-night", "cloudy", "partly-cloudy-day", "partly-cloudy-night")
@@ -44,6 +64,11 @@ fun String?.checkIconIsWeatherCondition(): Boolean {
     }
 }
 
+/**
+ * Extension for String variable to check
+ * is given weather condition is match predefined weather conditions
+ * @return true when match, otherwise false
+ */
 fun String?.checkProperConditionState(): Boolean {
     val condition = listOf(
         DEFAULT_WEATHER_STATE,
