@@ -9,8 +9,18 @@ class WearUtilsTest {
 
     @Test
     fun convertIconToEnumValue_PROPER_VALUE() {
-        val state = "rain"
-        assertEquals(2131165335, state.convertIconToDrawable())
+        val stateRain = "rain"
+        val stateSnow = "snow"
+        val stateSleet = "sleet"
+        val stateWind = "wind"
+        val stateFog = "fog"
+        val state = "else"
+        assertEquals(2131165335, stateRain.convertIconToDrawable())
+        assertEquals(2131165337, stateSnow.convertIconToDrawable())
+        assertEquals(2131165336, stateSleet.convertIconToDrawable())
+        assertEquals(2131165340, stateWind.convertIconToDrawable())
+        assertEquals(2131165338, stateFog.convertIconToDrawable())
+        assertEquals(2131165320, state.convertIconToDrawable())
     }
 
     @Test
@@ -28,8 +38,17 @@ class WearUtilsTest {
 
     @Test
     fun convertIconToProperConditionName_PROPER_VALUE() {
-        val state = "rain"
-        assertEquals(R.string.weather_icon_type_rain, state.convertIconToProperConditionName())
+        val stateRain = "rain"
+        val stateSnow = "snow"
+        val stateSleet = "sleet"
+        val stateFog = "fog"
+        assertEquals(R.string.weather_icon_type_rain, stateRain.convertIconToProperConditionName())
+        assertEquals(R.string.weather_icon_type_snow, stateSnow.convertIconToProperConditionName())
+        assertEquals(
+            R.string.weather_icon_type_sleet,
+            stateSleet.convertIconToProperConditionName()
+        )
+        assertEquals(R.string.weather_icon_type_fog, stateFog.convertIconToProperConditionName())
     }
 
     @Test

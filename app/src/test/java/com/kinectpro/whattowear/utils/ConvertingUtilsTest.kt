@@ -209,4 +209,14 @@ class ConvertingUtilsTest {
             getExpectedWeatherList().getWeatherStatesUniqueAsList()
         )
     }
+
+    @Test
+    fun isDateConvertible() {
+        val testNull = null
+        val testZero = 0L
+        val testLong = 12345L
+        assertTrue(isDateConvertible(testLong))
+        assertFalse(isDateConvertible(testZero))
+        assertFalse(isDateConvertible(testNull))
+    }
 }
