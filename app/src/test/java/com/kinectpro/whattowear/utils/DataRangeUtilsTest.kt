@@ -15,6 +15,7 @@ class DataRangeUtilsTest {
     private val dateErrorNull = 1
     private val dateErrorInvalidRange = 2
     private val dateErrorInvalidRangeLength = 3
+
     @Test
     fun getDataRangeForTrip_Is_Not_Null() {
         val result = getDataRangeForTrip(testStartDate, testEndDate)
