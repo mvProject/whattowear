@@ -90,10 +90,14 @@ class MainFragment : Fragment() {
 
         setupPlaceSelectListener()
 
+        /*
+         * Show calendar to select start date on TripStartDateSelect button click
+         */
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
             val currentDate = calendar.timeInMillis
             viewModel.tripRangeStartDateValue.value?.let {
+                // if start date was already selected, it will be init value for calendar
                 if (it > 0) {
                     calendar.timeInMillis = it
                 }
@@ -105,16 +109,22 @@ class MainFragment : Fragment() {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
+                // Current date as default for minDate
                 it.datePicker.minDate = currentDate
+                // maxDate for selecting date is 30 days from current date
                 it.datePicker.maxDate =
                     calendar.timeInMillis + TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED)
             }
             tripStartDateSelectionDialog.show()
         }
 
+        /*
+          *Show calendar to select end date on TripEndDateSelect button click
+         */
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
             viewModel.tripRangeEndDateValue.value?.let {
+                // if end date was already selected, it will be init value for calendar
                 if (it > 0) {
                     calendar.timeInMillis = it
                 }
@@ -127,9 +137,16 @@ class MainFragment : Fragment() {
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
                 viewModel.tripRangeStartDateValue.value?.let { date ->
-                    it.datePicker.minDate = date
-                    it.datePicker.maxDate =
-                        date + TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED)
+                    // if trip start date is already set,it will be set as minDate value for date select suggestion
+                    if (date > 0) {
+                        it.datePicker.minDate = date
+                        // maxDate for selecting date is 30 days from minDate value
+                        it.datePicker.maxDate =
+                            date + TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED)
+                    } else {
+                        // else set current date as minDate
+                        it.datePicker.minDate = calendar.timeInMillis
+                    }
                 }
             }
             tripEndDateSelectionDialog.show()
