@@ -27,7 +27,6 @@
     <string name="message_nice_trip_wishes">Гарної подорожі!</string>
     <string name="message_error_trip_date_range">Неправильно заданий інтервал поїздки!</string>
     <string name="message_error_trip_destination">Не вибрано місце призначення!</string>
-    <string name="image_loading_description">"Показати анімацію завантаження"</string>
     <string name="message_error_trip_to_long_range">Інтервал не повинен перевищувати 30 днів</string>
     <string name="message_error_trip_date_not_select">Дата не повинна бути порожньою</string>
     <string name="message_response_error_timeout">" Перевищено час очікування"</string>
@@ -37,5 +36,6 @@
     <string name="message_response_error_unspecified">Невідома помилка</string>
     <string name="message_response_error_access_denied">У доступі відмовлено</string>
     <string name="message_response_error_no_internet">Немає з\'єднання з інтернетом</string>
-    <string name="temperature_value_description">Макс: %d °C "\n"Мін: %5d °C</string>
+    <string name="image_loading_description">"Показати анімацію завантаження"</string>
+    <string name="temperature_value_description">Макс: %d %s "\n"Мін: %5d %s</string>
 </resources>
