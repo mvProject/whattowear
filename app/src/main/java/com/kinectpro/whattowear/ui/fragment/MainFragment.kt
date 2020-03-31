@@ -90,10 +90,10 @@ class MainFragment : Fragment() {
 
         setupPlaceSelectListener()
 
-        /**
-         * Function to set up trip range start date
+        /*
+         * Function to set up calendar to select start date
          * Current date is suggested as default if not already set
-         * max range for start date is 30 days from current date
+         * maxDate for selecting date is 30 days from current date
          */
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -117,11 +117,11 @@ class MainFragment : Fragment() {
             tripStartDateSelectionDialog.show()
         }
 
-        /**
-         * Function to set up trip range end date
-         * if trip start date is already set,it will be set as min value for end date
+        /*
+         * Function to set up calendar to select end date
+         * if trip start date is already set,it will be set as minDate value for date suggestion
          * and suggest as default if end date was not set before
-         * max range for end date is 30 days from start date
+         * maxDate for selecting date is 30 days from minDate value
          */
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
