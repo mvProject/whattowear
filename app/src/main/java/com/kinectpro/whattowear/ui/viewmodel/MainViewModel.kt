@@ -113,11 +113,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             calendar.set(year, month, dayOfMonth)
             tripRangeEndDateValue.value = calendar.timeInMillis
         }
-/*
-    fun addNewCustomWear() {
-        // TODO commented in UncompleteUI feature,uncomment when functionality will be performed
-    }
- */
 
     private fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
