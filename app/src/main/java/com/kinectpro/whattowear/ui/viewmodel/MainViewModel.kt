@@ -41,6 +41,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         value = 0L
     }
 
+    /*
+
+     */
     val selectedTrip = MediatorLiveData<Long>().apply {
         addSource(selectedDestinationPlace) {
             it?.let {
@@ -105,7 +108,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     /*
-    Set selected date value as trip range end date
+     Set selected date value as trip range end date
      */
     var tripEndDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -114,6 +117,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             tripRangeEndDateValue.value = calendar.timeInMillis
         }
 
+    /*
+     Obtain weather forecast for selected conditions
+     */
     private fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(
@@ -130,6 +136,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return null
     }
 
+    /*
+     Convert weather forecast to trip model
+     */
     private fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
         if (weatherList != null) {
             selectedTripCondition.addSource(weatherList) {
@@ -152,7 +161,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    /**
+    /*
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
     private fun obtainSelectedDestinationWeatherRequest() {
@@ -165,8 +174,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    /**
-     *
+    /*
+     * Returns true when place and both dates properly selected
+     * otherwise return false and apply error state with error code
      */
     private fun isConditionsValidBeforeSendingRequest(): Boolean {
         if (selectedDestinationPlace.value == null) {
@@ -195,6 +205,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return true
     }
 
+    /*
+    Clear trip condition values
+     */
+    fun clearTripSelection() {
+        selectedDestinationPlace.value = null
+        tripRangeStartDateValue.value = 0L
+        tripRangeEndDateValue.value = 0L
+    }
+
+    /*
+    Save selected place to local storage
+     */
     fun saveLastSelectedPlaceToLocalStorage() {
         repository.setLastSelectedPlace(selectedDestinationPlace.value)
     }
