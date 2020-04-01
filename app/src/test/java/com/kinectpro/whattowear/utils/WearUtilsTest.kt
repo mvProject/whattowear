@@ -1,9 +1,8 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class WearUtilsTest {
 

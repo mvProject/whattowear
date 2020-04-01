@@ -3,8 +3,9 @@ package com.kinectpro.whattowear.ui.viewmodel
 import android.app.Application
 import android.app.DatePickerDialog
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
@@ -13,15 +14,14 @@ import com.kinectpro.whattowear.data.TripWeatherCondition
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
-import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
-import com.kinectpro.whattowear.utils.getDataRangeForTrip
-import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
-import java.util.*
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
+import java.util.*
 import java.util.concurrent.TimeUnit
+import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 

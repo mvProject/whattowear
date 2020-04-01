@@ -4,7 +4,10 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.model.trip.WeatherCondition
-import com.kinectpro.whattowear.utils.*
+import com.kinectpro.whattowear.utils.checkProperConditionState
+import com.kinectpro.whattowear.utils.getDayTemperatureAsList
+import com.kinectpro.whattowear.utils.getNightTemperatureAsList
+import com.kinectpro.whattowear.utils.getWeatherStatesUniqueAsList
 
 class TripWeatherCondition :
     IWeatherRangeSummary {

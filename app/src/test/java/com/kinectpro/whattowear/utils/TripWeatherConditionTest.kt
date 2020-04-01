@@ -1,13 +1,12 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.TripWeatherCondition
+import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.model.trip.WeatherCondition
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class TripWeatherConditionTest {
 

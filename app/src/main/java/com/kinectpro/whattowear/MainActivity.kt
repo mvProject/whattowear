@@ -1,7 +1,7 @@
 package com.kinectpro.whattowear
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.kinectpro.whattowear.ui.fragment.MainFragment
 
 class MainActivity : AppCompatActivity() {

@@ -2,10 +2,11 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.response.Daily
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
-import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.response.Data
+import com.kinectpro.whattowear.data.model.response.WeatherData
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import org.junit.Assert.*
 
 class ConvertingUtilsTest {
 

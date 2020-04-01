@@ -5,8 +5,8 @@ import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.network.api.DarkSkyWeatherApiService
-import com.kinectpro.whattowear.utils.convertToWeatherDataModel
 import com.kinectpro.whattowear.utils.convertCurrentLocaleLanguageToApiLanguageFormat
+import com.kinectpro.whattowear.utils.convertToWeatherDataModel
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
