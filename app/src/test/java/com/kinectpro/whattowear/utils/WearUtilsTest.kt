@@ -1,9 +1,8 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class WearUtilsTest {
 
@@ -15,24 +14,24 @@ class WearUtilsTest {
         val stateWind = "wind"
         val stateFog = "fog"
         val state = "else"
-        assertEquals(2131165335, stateRain.convertIconToDrawable())
-        assertEquals(2131165337, stateSnow.convertIconToDrawable())
-        assertEquals(2131165336, stateSleet.convertIconToDrawable())
-        assertEquals(2131165340, stateWind.convertIconToDrawable())
-        assertEquals(2131165338, stateFog.convertIconToDrawable())
-        assertEquals(2131165320, state.convertIconToDrawable())
+        assertEquals(R.drawable.ic_rain, stateRain.convertIconToDrawable())
+        assertEquals(R.drawable.ic_snow, stateSnow.convertIconToDrawable())
+        assertEquals(R.drawable.ic_sleet, stateSleet.convertIconToDrawable())
+        assertEquals(R.drawable.ic_wind, stateWind.convertIconToDrawable())
+        assertEquals(R.drawable.ic_weather_fog, stateFog.convertIconToDrawable())
+        assertEquals(R.drawable.ic_clear_day, state.convertIconToDrawable())
     }
 
     @Test
     fun convertIconToEnumValue_RANDOM_VALUE() {
         val state = "random"
-        assertEquals(2131165320, state.convertIconToDrawable())
+        assertEquals(R.drawable.ic_clear_day, state.convertIconToDrawable())
     }
 
     @Test
     fun convertIconToEnumValue_NULL_VALUE() {
         val state = null
-        assertEquals(2131165320, state.convertIconToDrawable())
+        assertEquals(R.drawable.ic_clear_day, state.convertIconToDrawable())
     }
 
 

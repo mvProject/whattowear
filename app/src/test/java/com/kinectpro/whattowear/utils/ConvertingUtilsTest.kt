@@ -2,10 +2,10 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.response.Daily
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
-import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.response.Data
-import org.junit.Test
+import com.kinectpro.whattowear.data.model.response.WeatherData
 import org.junit.Assert.*
+import org.junit.Test
 
 class ConvertingUtilsTest {
 
@@ -211,12 +211,20 @@ class ConvertingUtilsTest {
     }
 
     @Test
-    fun isDateConvertible() {
-        val testNull = null
-        val testZero = 0L
+    fun isDateConvertible_ProperLong() {
         val testLong = 12345L
         assertTrue(isDateConvertible(testLong))
+    }
+
+    @Test
+    fun isDateConvertible_ZeroDate() {
+        val testZero = 0L
         assertFalse(isDateConvertible(testZero))
+    }
+
+    @Test
+    fun isDateConvertible_NullDate() {
+        val testNull = null
         assertFalse(isDateConvertible(testNull))
     }
 }
