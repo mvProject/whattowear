@@ -21,6 +21,8 @@
     <string name="message_error_trip_destination">Не выбрано место назначения!</string>
     <string name="message_error_trip_to_long_range">Интервал не должен превышать 30 дней</string>
     <string name="message_error_trip_date_not_select">Дата не должна быть пустой</string>
+    <string name="message_error_trip_start_date_empty">Дата начала не должна быть пустой</string>
+    <string name="message_error_trip_start_date_is_greater_than_end_date">Дата начала не должна быть больше даты окончания</string>
 
     <string name="message_response_error_timeout">Превышено время ожидания</string>
     <string name="message_response_error_unknown_host">Нет адреса, связанного с именем хоста</string>

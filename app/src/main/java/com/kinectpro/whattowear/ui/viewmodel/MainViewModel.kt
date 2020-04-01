@@ -42,7 +42,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /*
-
+     Obtain forecast when destination or end date change
      */
     val selectedTrip = MediatorLiveData<Long>().apply {
         addSource(selectedDestinationPlace) {
@@ -50,11 +50,32 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 obtainSelectedDestinationWeatherRequest()
             }
         }
+
         addSource(tripRangeStartDateValue) {
             it?.let {
-                obtainSelectedDestinationWeatherRequest()
+                if ((tripRangeEndDateValue.value != null) && (tripRangeEndDateValue.value!! > 0)) {
+                    // if start and end dates are the same day,set them equal with millis
+                    if (isDaysAreSame(
+                            it,
+                            tripRangeEndDateValue.value!!
+
+                        )
+                    ) {
+                        tripRangeEndDateValue.value = tripRangeStartDateValue.value
+                    } else
+                    // if start date is greater than end date set proper error state
+                        if (it > tripRangeEndDateValue.value!!) {
+                            selectedTripCondition.value =
+                                ResourceWrapper.error(
+                                    ErrorCodes.StartDateIsGreaterException.code,
+                                    null
+                                )
+                        }
+
+                }
             }
         }
+
         addSource(tripRangeEndDateValue) {
             it?.let {
                 obtainSelectedDestinationWeatherRequest()
@@ -92,19 +113,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /*
      Set selected date value as trip range start date
-     also if selected start date bigger then current end date value
-     make end date equal start date
      */
     var tripStartDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
             tripRangeStartDateValue.value = calendar.timeInMillis
-            if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
-                if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
-                    tripRangeEndDateValue.value = tripRangeStartDateValue.value
-                }
-            }
         }
 
     /*
@@ -166,7 +180,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      */
     private fun obtainSelectedDestinationWeatherRequest() {
         if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
-            if ((tripRangeStartDateValue.value!! > 0) && (tripRangeEndDateValue.value!! > 0)) {
+            if (tripRangeEndDateValue.value!! > 0) {
                 if (isConditionsValidBeforeSendingRequest()) {
                     convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
                 }
@@ -191,6 +205,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
                 selectedTripCondition.value =
                     ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
+                return false
+            }
+            START_DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
+                selectedTripCondition.value =
+                    ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
+                tripRangeEndDateValue.value = 0L
                 return false
             }
             DATE_ERROR_MAX_LENGTH_EXCEEDED -> {

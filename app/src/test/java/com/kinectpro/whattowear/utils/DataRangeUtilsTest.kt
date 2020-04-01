@@ -13,8 +13,8 @@ class DataRangeUtilsTest {
     private val testEndNull = null
     private val testEndZero = 0L
     private val dateErrorNull = 1
-    private val dateErrorInvalidRange = 2
-    private val dateErrorInvalidRangeLength = 3
+    private val dateErrorInvalidRangeLength = 2
+    private val dateErrorStartDateZero = 3
 
     @Test
     fun getDataRangeForTrip_Is_Not_Null() {
@@ -25,7 +25,7 @@ class DataRangeUtilsTest {
     @Test
     fun getDataRangeForTrip_Is_Null() {
         val result = getDataRangeForTrip(testEndDate, testStartDate)
-        assertEquals(null, result)
+        assertEquals(listOf<Long>(), result)
     }
 
     @Test
@@ -62,25 +62,25 @@ class DataRangeUtilsTest {
     @Test
     fun isProperDataRangeSelected_StartDate_Zero() {
         val result = isProperDataRangeSelected(testStartZero, testEndDate)
-        assertEquals(dateErrorNull, result)
+        assertEquals(dateErrorStartDateZero, result)
     }
 
     @Test
     fun isProperDataRangeSelected_End_Zero() {
         val result = isProperDataRangeSelected(testStartDate, testEndZero)
-        assertEquals(dateErrorNull, result)
+        assertEquals(null, result)
     }
 
     @Test
     fun isProperDataRangeSelected_BothDate_Zero() {
         val result = isProperDataRangeSelected(testStartZero, testEndZero)
-        assertEquals(dateErrorNull, result)
+        assertEquals(dateErrorStartDateZero, result)
     }
 
     @Test
     fun isProperDataRangeSelected_EndDateEarlier() {
         val result = isProperDataRangeSelected(testEndDate, testStartDate)
-        assertEquals(dateErrorInvalidRange, result)
+        assertEquals(null, result)
     }
 
     @Test
@@ -99,5 +99,28 @@ class DataRangeUtilsTest {
     fun isProperDataRangeSelected_Length_Proper() {
         val result = isProperDataRangeSelected(testStartDate, testEndDate)
         assertEquals(null, result)
+    }
+
+    @Test
+    fun isDaysAreSame_Proper() {
+        val date = 1583056884000L
+        val result = isDaysAreSame(date, date)
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun isDaysAreSame_StartDateGreater() {
+        val start = 1583229684000L //03.03.2020
+        val end = 1583056884000L //01.03.2020
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isDaysAreSame_EndDateGreater() {
+        val start = 1583056884000L //01.03.2020
+        val end = 1583229684000L //03.03.2020
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
     }
 }
