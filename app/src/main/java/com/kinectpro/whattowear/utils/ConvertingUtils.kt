@@ -1,19 +1,9 @@
 package com.kinectpro.whattowear.utils
 
-import android.content.Context
-import android.graphics.Typeface.BOLD
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.SpannedString
-import android.text.style.StyleSpan
-import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
-import com.kinectpro.whattowear.data.model.trip.TempSummary
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
 const val STATE_DATE_READABLE_PATTERN = "dd.MM"
@@ -123,60 +113,6 @@ fun List<WeatherData>.getWeatherStatesUniqueAsList(): List<String> {
 }
 
 /**
- * Extension to сreate a spannable string from all the elements of list of dates
- * @return single spanned string value
- */
-fun List<Long>.convertToShortDateFormatSpannedString(
-    backgroundColor: Int,
-    foregroundColor: Int
-): SpannedString {
-    return this.joinToSpannedString(" ") {
-        TimeUnit.SECONDS.toMillis(it).convertDateToReadableFormat(
-            STATE_DATE_READABLE_PATTERN
-        ).convertToRoundedBackgroundSpannable(backgroundColor, foregroundColor)
-    }
-}
-
-/**
- * Extension for joining spanned strings
- * @return SpannableStringBuilder
- */
-private fun <T> Iterable<T>.joinToSpannedString(
-    separator: CharSequence = ", ",
-    prefix: CharSequence = "",
-    postfix: CharSequence = " ",
-    limit: Int = -1,
-    truncated: CharSequence = "...",
-    transform: ((T) -> CharSequence)? = null
-): SpannedString {
-    return SpannedString(
-        joinTo(
-            SpannableStringBuilder(),
-            separator,
-            prefix,
-            postfix,
-            limit,
-            truncated,
-            transform
-        )
-    )
-}
-
-/**
- * Return temp summary converted to specified string template
- */
-fun TempSummary.convertToReadableRange(context: Context): String {
-    val currentMetricFormat = getProperMetricValue()
-    return String.format(
-        context.getString(R.string.temperature_value_description),
-        maxValue.getProperMetricTempValue(),
-        currentMetricFormat,
-        minValue.getProperMetricTempValue(),
-        currentMetricFormat
-    )
-}
-
-/**
  * Obtain response language according locale
  * @return language for response
  */
@@ -185,17 +121,6 @@ fun convertCurrentLocaleLanguageToApiLanguageFormat(): String {
         LOCALE_LANGUAGE_RU -> LANGUAGE_RU
         LOCALE_LANGUAGE_UA -> LANGUAGE_UA
         else -> LANGUAGE_EN
-    }
-}
-
-/**
- * Extension obtaining unit according locale metric system
- * @return temperature unit value
- */
-fun getProperMetricValue(): String {
-    return when (Locale.getDefault().country) {
-        LOCALE_COUNTRY_US -> METRIC_TYPE_FAHRENHEIT
-        else -> METRIC_TYPE_CELSIUS
     }
 }
 
@@ -219,26 +144,4 @@ fun Float?.convertCelsiusToFahrenheit(): Float? {
     return this?.let {
         (1.8f * this) + 32
     }
-}
-
-
-/**
- * Extension converting any single string to spannable with predefined decoration
- */
-fun String.convertToRoundedBackgroundSpannable(
-    backgroundColor: Int,
-    foregroundColor: Int
-): SpannableString {
-    val span = SpannableString(this)
-    span.setSpan(StyleSpan(BOLD), 0, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    span.setSpan(
-        RoundedBackgroundSpan(
-            backgroundColor,
-            foregroundColor,
-            BACKGROUND_CORNER_RADIUS,
-            HORIZONTAL_PADDING,
-            VERTICAL_PADDING
-        ), 0, span.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-    )
-    return span
 }

@@ -210,4 +210,22 @@ class ConvertingUtilsTest {
             getExpectedWeatherList().getWeatherStatesUniqueAsList()
         )
     }
+
+    @Test
+    fun isDateConvertible_ProperLong() {
+        val testLong = 12345L
+        assertTrue(isDateConvertible(testLong))
+    }
+
+    @Test
+    fun isDateConvertible_ZeroDate() {
+        val testZero = 0L
+        assertFalse(isDateConvertible(testZero))
+    }
+
+    @Test
+    fun isDateConvertible_NullDate() {
+        val testNull = null
+        assertFalse(isDateConvertible(testNull))
+    }
 }
