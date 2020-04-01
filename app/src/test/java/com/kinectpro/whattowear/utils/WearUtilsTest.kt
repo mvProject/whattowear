@@ -1,35 +1,55 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class WearUtilsTest {
 
     @Test
     fun convertIconToEnumValue_PROPER_VALUE() {
-        val state = "rain"
-        assertEquals(2131165335, state.convertIconToDrawable())
+        val stateRain = "rain"
+        val stateSnow = "snow"
+        val stateSleet = "sleet"
+        val stateWind = "wind"
+        val stateFog = "fog"
+        val state = "else"
+        assertEquals(R.drawable.ic_rain, stateRain.convertIconToDrawable())
+        assertEquals(R.drawable.ic_snow, stateSnow.convertIconToDrawable())
+        assertEquals(R.drawable.ic_sleet, stateSleet.convertIconToDrawable())
+        assertEquals(R.drawable.ic_wind, stateWind.convertIconToDrawable())
+        assertEquals(R.drawable.ic_weather_fog, stateFog.convertIconToDrawable())
+        assertEquals(R.drawable.ic_clear_day, state.convertIconToDrawable())
     }
 
     @Test
     fun convertIconToEnumValue_RANDOM_VALUE() {
         val state = "random"
-        assertEquals(2131165320, state.convertIconToDrawable())
+        assertEquals(R.drawable.ic_clear_day, state.convertIconToDrawable())
     }
 
     @Test
     fun convertIconToEnumValue_NULL_VALUE() {
         val state = null
-        assertEquals(2131165320, state.convertIconToDrawable())
+        assertEquals(R.drawable.ic_clear_day, state.convertIconToDrawable())
     }
 
 
     @Test
     fun convertIconToProperConditionName_PROPER_VALUE() {
-        val state = "rain"
-        assertEquals(R.string.weather_icon_type_rain, state.convertIconToProperConditionName())
+        val stateRain = "rain"
+        val stateSnow = "snow"
+        val stateSleet = "sleet"
+        val stateFog = "fog"
+        val stateWind = "wind"
+        assertEquals(R.string.weather_icon_type_rain, stateRain.convertIconToProperConditionName())
+        assertEquals(R.string.weather_icon_type_snow, stateSnow.convertIconToProperConditionName())
+        assertEquals(
+            R.string.weather_icon_type_sleet,
+            stateSleet.convertIconToProperConditionName()
+        )
+        assertEquals(R.string.weather_icon_type_fog, stateFog.convertIconToProperConditionName())
+        assertEquals(R.string.weather_icon_type_wind, stateWind.convertIconToProperConditionName())
     }
 
     @Test
@@ -61,5 +81,41 @@ class WearUtilsTest {
     fun checkProperConditionState_NULL_VALUE() {
         val state = null
         assertEquals(false, state.checkProperConditionState())
+    }
+
+    @Test
+    fun convertIconToWeatherRecommendation_PROPER_VALUE() {
+        val stateRain = "rain"
+        val stateSnow = "snow"
+        val stateSleet = "sleet"
+        val stateFog = "fog"
+        assertEquals(
+            R.string.weather_rain_recommendation,
+            stateRain.convertIconToWeatherRecommendation()
+        )
+        assertEquals(
+            R.string.weather_snow_recommendation,
+            stateSnow.convertIconToWeatherRecommendation()
+        )
+        assertEquals(
+            R.string.weather_sleet_recommendation,
+            stateSleet.convertIconToWeatherRecommendation()
+        )
+        assertEquals(
+            R.string.weather_fog_recommendation,
+            stateFog.convertIconToWeatherRecommendation()
+        )
+    }
+
+    @Test
+    fun convertIconToWeatherRecommendation_NULL_VALUE() {
+        val state = null
+        assertEquals(null, state.convertIconToWeatherRecommendation())
+    }
+
+    @Test
+    fun convertIconToWeatherRecommendation_NOT_PROPER_VALUE() {
+        val state = "weather"
+        assertEquals(null, state.convertIconToWeatherRecommendation())
     }
 }
