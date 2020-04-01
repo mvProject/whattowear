@@ -1,6 +1,7 @@
 package com.kinectpro.whattowear.data.wrapper
 
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper.Companion.error
 
 /**
  *  Helper class for wrap data

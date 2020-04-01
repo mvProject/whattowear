@@ -1,9 +1,8 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
 
 class PreferencesUtilsTest {
     private val testPlace = PlaceTrip(

@@ -35,8 +35,8 @@ fun getDataRangeForTrip(startDate: Long?, endDate: Long?): List<Long>? {
  */
 fun isProperDataRangeSelected(startDate: Long?, endDate: Long?): Int? {
     return when {
-        (startDate == null) or (endDate == null) -> DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS
-        (startDate!! <= 0L) or (endDate!! <= 0L) -> DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS
+        (startDate == null) || (endDate == null) -> DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS
+        (startDate <= 0L) || (endDate <= 0L) -> DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS
         startDate > endDate -> DATE_ERROR_INVALID_RANGE
         endDate - startDate > TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED) -> DATE_ERROR_MAX_LENGTH_EXCEEDED
         else -> null

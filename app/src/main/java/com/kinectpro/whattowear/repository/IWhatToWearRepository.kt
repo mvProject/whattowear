@@ -1,10 +1,7 @@
 package com.kinectpro.whattowear.repository
 
 import androidx.lifecycle.LiveData
-import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
-import com.kinectpro.whattowear.data.model.wear.WearItem
-import com.kinectpro.whattowear.data.model.wear.WeatherTemp
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 
 interface IWhatToWearRepository {
@@ -13,9 +10,4 @@ interface IWhatToWearRepository {
         lon: String,
         dataRange: List<Long>
     ): LiveData<ResourceWrapper<List<WeatherData>>>?
-
-    fun getWearsAvailableForSelect(condition: List<WeatherTemp>): List<WearItem>
-    fun getLastSaveSelectedPlace(): PlaceTrip
-    fun getLastSaveSelectedDateRange(): List<Long>
-    fun getLastSaveSelectedWears(): List<WearItem>
 }

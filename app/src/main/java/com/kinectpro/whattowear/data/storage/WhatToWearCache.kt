@@ -3,7 +3,8 @@ package com.kinectpro.whattowear.data.storage
 import android.content.Context
 import android.content.SharedPreferences
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
-import com.kinectpro.whattowear.utils.*
+import com.kinectpro.whattowear.utils.jsonToPlace
+import com.kinectpro.whattowear.utils.placeToJson
 
 class WhatToWearCache(context: Context) :
     ICache {

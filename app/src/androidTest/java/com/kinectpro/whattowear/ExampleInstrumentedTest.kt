@@ -1,12 +1,13 @@
 package com.kinectpro.whattowear
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kinectpro.whattowear.data.model.trip.TempSummary
 import com.kinectpro.whattowear.utils.convertToReadableRange
 import com.kinectpro.whattowear.utils.getProperMetricTempValue
 import com.kinectpro.whattowear.utils.getProperMetricValue
 
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 

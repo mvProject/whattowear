@@ -1,34 +1,27 @@
 <resources>
     <string name="app_name">WhatToWear</string>
-    <string name="edt_where_to_go_hint">Where to go</string>
-    <string name="btn_reset_name">Reset</string>
-    <string name="btn_select_name">Select</string>
     <string name="btn_start_date_name">start</string>
     <string name="btn_end_date_name">finish</string>
-    <string name="wear_item_category">Wear Category</string>
-    <string name="wear_item_type">Wear Type</string>
 
-    <string name="weather_icon_type_clear_day">Clear Day</string>
-    <string name="weather_icon_type_clear_night">Clear Night</string>
     <string name="weather_icon_type_rain">Rain expected</string>
     <string name="weather_icon_type_snow">Snowfall expected</string>
     <string name="weather_icon_type_sleet">Expected Snow with Rain</string>
     <string name="weather_icon_type_wind">Windy weather expected</string>
     <string name="weather_icon_type_fog">Foggy weather expected</string>
-    <string name="weather_icon_type_cloudy">Cloudy</string>
-    <string name="weather_icon_type_partly_cloudy_day">Partly cloudy day</string>
-    <string name="weather_icon_type_partly_cloudy_night">Partly cloudy night</string>
     <string name="default_weather_description">The weather promises to be beautiful</string>
+
     <string name="weather_rain_recommendation">Do not forget to take an umbrella</string>
     <string name="weather_snow_recommendation">Dress warmly</string>
     <string name="weather_sleet_recommendation">Take an umbrella and dress warmer</string>
     <string name="weather_fog_recommendation">Be careful while driving.</string>
-    <string name="weather_default_state">defaultWeather</string>
+
     <string name="message_nice_trip_wishes">Have a nice trip!</string>
+
     <string name="message_error_trip_date_range">Incorrect trip interval!</string>
     <string name="message_error_trip_destination">Destination not selected!</string>
     <string name="message_error_trip_to_long_range">The interval should not exceed 30 days</string>
     <string name="message_error_trip_date_not_select">Date must not be empty</string>
+
     <string name="message_response_error_timeout">Timeout</string>
     <string name="message_response_error_unknown_host">No address associated with hostname</string>
     <string name="message_response_error_invalid_lang">An invalid language was provided</string>
@@ -36,6 +29,8 @@
     <string name="message_response_error_request_target">Target resource not found</string>
     <string name="message_response_error_unspecified">Unknown Error</string>
     <string name="message_response_error_no_internet">No internet connection</string>
+
     <string name="image_loading_description">Show load animation</string>
+
     <string name="temperature_value_description">Max: %d %s "\n"Min: %3d %s</string>
 </resources>

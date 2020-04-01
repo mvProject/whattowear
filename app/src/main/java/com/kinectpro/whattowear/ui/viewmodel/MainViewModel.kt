@@ -3,8 +3,9 @@ package com.kinectpro.whattowear.ui.viewmodel
 import android.app.Application
 import android.app.DatePickerDialog
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
@@ -13,15 +14,14 @@ import com.kinectpro.whattowear.data.TripWeatherCondition
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
-import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
-import com.kinectpro.whattowear.utils.getDataRangeForTrip
-import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
-import java.util.*
+import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
+import java.util.*
 import java.util.concurrent.TimeUnit
+import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -41,6 +41,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         value = 0L
     }
 
+    /*
+
+     */
     val selectedTrip = MediatorLiveData<Long>().apply {
         addSource(selectedDestinationPlace) {
             it?.let {
@@ -105,7 +108,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     /*
-    Set selected date value as trip range end date
+     Set selected date value as trip range end date
      */
     var tripEndDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -113,12 +116,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             calendar.set(year, month, dayOfMonth)
             tripRangeEndDateValue.value = calendar.timeInMillis
         }
-/*
-    fun addNewCustomWear() {
-        // TODO commented in UncompleteUI feature,uncomment when functionality will be performed
-    }
- */
 
+    /*
+     Obtain weather forecast for selected conditions
+     */
     private fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(
@@ -135,6 +136,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return null
     }
 
+    /*
+     Convert weather forecast to trip model
+     */
     private fun convertWeatherListToWeatherCondition(weatherList: LiveData<ResourceWrapper<List<WeatherData>>>?) {
         if (weatherList != null) {
             selectedTripCondition.addSource(weatherList) {
@@ -157,7 +161,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    /**
+    /*
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
     private fun obtainSelectedDestinationWeatherRequest() {
@@ -170,8 +174,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    /**
-     *
+    /*
+     * Returns true when place and both dates properly selected
+     * otherwise return false and apply error state with error code
      */
     private fun isConditionsValidBeforeSendingRequest(): Boolean {
         if (selectedDestinationPlace.value == null) {
@@ -200,6 +205,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return true
     }
 
+    /*
+    Clear trip condition values
+     */
+    fun clearTripSelection() {
+        selectedDestinationPlace.value = null
+        tripRangeStartDateValue.value = 0L
+        tripRangeEndDateValue.value = 0L
+    }
+
+    /*
+    Save selected place to local storage
+     */
     fun saveLastSelectedPlaceToLocalStorage() {
         repository.setLastSelectedPlace(selectedDestinationPlace.value)
     }

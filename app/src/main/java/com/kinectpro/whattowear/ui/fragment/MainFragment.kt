@@ -2,11 +2,11 @@ package com.kinectpro.whattowear.ui.fragment
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,15 +56,23 @@ class MainFragment : Fragment() {
         mainFragmentBinding.mainViewModel = viewModel
         mainFragmentBinding.lifecycleOwner = this
 
-        /**
-         * Observes destination and date range and obtain new forecast on changing
+        /*
+         Observes destination and date range and obtain new forecast on changing
          */
         viewModel.selectedTrip.observe(viewLifecycleOwner, Observer {})
 
+        /*
+         Observes status of selecting place
+         Show status message if error appears
+         */
         viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
+        /*
+         Observes selected trip status
+         Display weather forecast on success or or proper message on error
+         */
         viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 ResourceStatus.LOADING -> {
@@ -91,7 +99,7 @@ class MainFragment : Fragment() {
         setupPlaceSelectListener()
 
         /*
-         * Show calendar to select start date on TripStartDateSelect button click
+         Show calendar to select start date on TripStartDateSelect button click
          */
         mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -119,7 +127,7 @@ class MainFragment : Fragment() {
         }
 
         /*
-          *Show calendar to select end date on TripEndDateSelect button click
+         Show calendar to select end date on TripEndDateSelect button click
          */
         mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -170,6 +178,7 @@ class MainFragment : Fragment() {
             )
             setTypeFilter(TypeFilter.CITIES)
             setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
+            // Set place if it was previously saved
             viewModel.selectedDestinationPlace.value?.let {
                 autoComplete.setText(it.name)
             }
@@ -177,13 +186,13 @@ class MainFragment : Fragment() {
 
         clear_button_view.setOnClickListener {
             autoComplete.setText("")
-            viewModel.selectedDestinationPlace.value = null
-            viewModel.tripRangeStartDateValue.value = 0L
-            viewModel.tripRangeEndDateValue.value = 0L
+            viewModel.clearTripSelection()
 
-            mainFragmentBinding.wearList.visibility = View.INVISIBLE
-            mainFragmentBinding.cardDatesSummary.visibility = View.INVISIBLE
-            mainFragmentBinding.txtGoodTripMessage.visibility = View.INVISIBLE
+            mainFragmentBinding.apply {
+                wearList.visibility = View.INVISIBLE
+                cardDatesSummary.visibility = View.INVISIBLE
+                txtGoodTripMessage.visibility = View.INVISIBLE
+            }
         }
     }
 

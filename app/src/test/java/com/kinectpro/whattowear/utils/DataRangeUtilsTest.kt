@@ -1,8 +1,8 @@
 package com.kinectpro.whattowear.utils
 
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class DataRangeUtilsTest {
     private val testStartNull = null

@@ -1,34 +1,27 @@
 <resources>
     <string name="app_name">WhatToWear</string>
-    <string name="edt_where_to_go_hint">Місце призначення</string>
-    <string name="btn_reset_name">Скинути</string>
-    <string name="btn_select_name">Вибрати</string>
     <string name="btn_start_date_name">початок</string>
     <string name="btn_end_date_name">кінець</string>
-    <string name="wear_item_category">Wear Category</string>
-    <string name="wear_item_type">Wear Type</string>
 
-    <string name="weather_icon_type_clear_day">Ясно</string>
-    <string name="weather_icon_type_clear_night">Ніч,Ясно</string>
     <string name="weather_icon_type_rain">Очікується дощ</string>
     <string name="weather_icon_type_snow">Очікується снігопад</string>
     <string name="weather_icon_type_sleet">Очікується сніг з дощем</string>
     <string name="weather_icon_type_wind">Очікується вітряна погода</string>
     <string name="weather_icon_type_fog">Очікується туманна погода</string>
-    <string name="weather_icon_type_cloudy">Хмарно</string>
-    <string name="weather_icon_type_partly_cloudy_day">Невелика хмарність</string>
-    <string name="weather_icon_type_partly_cloudy_night">Ніч,Невелика хмарність</string>
     <string name="default_weather_description">Погода обіцяє бути прекрасною</string>
+
     <string name="weather_rain_recommendation">Не забудьте взяти парасольку</string>
     <string name="weather_snow_recommendation">Вдягайтесь тепліше</string>
     <string name="weather_sleet_recommendation">Візьміть парасольку і одягайтеся тепліше</string>
     <string name="weather_fog_recommendation">Будьте обережні за кермом</string>
-    <string name="weather_default_state">defaultWeather</string>
+
     <string name="message_nice_trip_wishes">Гарної подорожі!</string>
+
     <string name="message_error_trip_date_range">Неправильно заданий інтервал поїздки!</string>
     <string name="message_error_trip_destination">Не вибрано місце призначення!</string>
     <string name="message_error_trip_to_long_range">Інтервал не повинен перевищувати 30 днів</string>
     <string name="message_error_trip_date_not_select">Дата не повинна бути порожньою</string>
+
     <string name="message_response_error_timeout">" Перевищено час очікування"</string>
     <string name="message_response_error_unknown_host">Немає адреси, пов’язаної з іменем хоста</string>
     <string name="message_response_error_invalid_lang">Надано недійсну мову</string>
@@ -36,6 +29,8 @@
     <string name="message_response_error_unspecified">Невідома помилка</string>
     <string name="message_response_error_access_denied">У доступі відмовлено</string>
     <string name="message_response_error_no_internet">Немає з\'єднання з інтернетом</string>
+
     <string name="image_loading_description">"Показати анімацію завантаження"</string>
+
     <string name="temperature_value_description">Макс: %d %s "\n"Мін: %5d %s</string>
 </resources>
