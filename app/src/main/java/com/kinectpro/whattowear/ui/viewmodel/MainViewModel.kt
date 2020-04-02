@@ -53,19 +53,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         addSource(tripRangeStartDateValue) {
             it?.let {
+                // if start and end dates are the same day,set them equal with millis
                 if ((tripRangeEndDateValue.value != null) && (tripRangeEndDateValue.value!! > 0)) {
                     when {
                         // if start and end dates are the same day,set them equal with millis
-                        isDaysAreSame(it, tripRangeEndDateValue.value!!) -> {
+                        isDaysAreSame(
+                            tripRangeStartDateValue.value!!,
+                            tripRangeEndDateValue.value!!
+                        ) -> {
                             tripRangeEndDateValue.value = tripRangeStartDateValue.value
-                        }
-                        // if start date is greater than end date set proper error state
-                        it > tripRangeEndDateValue.value!! -> {
-                            selectedTripCondition.value =
-                                ResourceWrapper.error(
-                                    ErrorCodes.StartDateIsGreaterException.code,
-                                    null
-                                )
                         }
                         // start date is smaller than end date so obtain new forecast
                         else -> {
@@ -119,6 +115,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
             tripRangeStartDateValue.value = calendar.timeInMillis
+
         }
 
     /*
@@ -196,6 +193,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if (selectedDestinationPlace.value == null) {
             selectedTripCondition.value =
                 ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
+            return false
+        }
+        // if start date is greater than end date set proper error state
+        if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
+            selectedTripCondition.value =
+                ResourceWrapper.error(
+                    ErrorCodes.StartDateIsGreaterException.code,
+                    null
+                )
             return false
         }
         when (isProperDataRangeSelected(
