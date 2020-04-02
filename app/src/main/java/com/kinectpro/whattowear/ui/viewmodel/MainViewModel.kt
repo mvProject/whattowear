@@ -54,22 +54,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         addSource(tripRangeStartDateValue) {
             it?.let {
                 if ((tripRangeEndDateValue.value != null) && (tripRangeEndDateValue.value!! > 0)) {
-                    // if start and end dates are the same day,set them equal with millis
-                    if (isDaysAreSame(
-                            it,
-                            tripRangeEndDateValue.value!!
-                        )
-                    ) {
-                        tripRangeEndDateValue.value = tripRangeStartDateValue.value
-                    } else
-                    // if start date is greater than end date set proper error state
-                        if (it > tripRangeEndDateValue.value!!) {
+                    when {
+                        // if start and end dates are the same day,set them equal with millis
+                        isDaysAreSame(it, tripRangeEndDateValue.value!!) -> {
+                            tripRangeEndDateValue.value = tripRangeStartDateValue.value
+                        }
+                        // if start date is greater than end date set proper error state
+                        it > tripRangeEndDateValue.value!! -> {
                             selectedTripCondition.value =
                                 ResourceWrapper.error(
                                     ErrorCodes.StartDateIsGreaterException.code,
                                     null
                                 )
                         }
+                        // start date is smaller than end date so obtain new forecast
+                        else -> {
+                            obtainSelectedDestinationWeatherRequest()
+                        }
+                    }
                 }
             }
         }
