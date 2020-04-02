@@ -34,6 +34,27 @@ class WearUtilsTest {
         assertEquals(R.drawable.ic_clear_day, state.convertIconToDrawable())
     }
 
+    @Test
+    fun convertIconToDrawableBackground_PROPER_VALUE() {
+        val stateRain = "rain"
+        val stateWind = "wind"
+        val state = "else"
+        assertEquals(R.drawable.bg_rainy, stateRain.convertIconToDrawableBackground())
+        assertEquals(R.drawable.bg_windy, stateWind.convertIconToDrawableBackground())
+        assertEquals(R.drawable.bg_sunny, state.convertIconToDrawableBackground())
+    }
+
+    @Test
+    fun convertIconToDrawableBackground_RANDOM_VALUE() {
+        val state = "random"
+        assertEquals(R.drawable.bg_sunny, state.convertIconToDrawableBackground())
+    }
+
+    @Test
+    fun convertIconToDrawableBackground_NULL_VALUE() {
+        val state = null
+        assertEquals(R.drawable.bg_sunny, state.convertIconToDrawableBackground())
+    }
 
     @Test
     fun convertIconToProperConditionName_PROPER_VALUE() {

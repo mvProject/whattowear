@@ -20,6 +20,19 @@ fun String?.convertIconToDrawable(): Int {
 
 /**
  * Extension for String variable to convert
+ * adjusted weather condition from string icon to appropriate background
+ * @return id of proper drawable resource
+ */
+fun String?.convertIconToDrawableBackground(): Int {
+    return when (this) {
+        "rain" -> R.drawable.bg_rainy
+        "wind" -> R.drawable.bg_windy
+        else -> R.drawable.bg_sunny
+    }
+}
+
+/**
+ * Extension for String variable to convert
  * adjusted weather condition from string icon to appropriate condition expectation
  * @return id of proper string resource
  */
