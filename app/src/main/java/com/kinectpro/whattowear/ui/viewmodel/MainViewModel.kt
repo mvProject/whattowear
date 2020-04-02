@@ -58,7 +58,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     if (isDaysAreSame(
                             it,
                             tripRangeEndDateValue.value!!
-
                         )
                     ) {
                         tripRangeEndDateValue.value = tripRangeStartDateValue.value
@@ -71,7 +70,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                                     null
                                 )
                         }
-
                 }
             }
         }

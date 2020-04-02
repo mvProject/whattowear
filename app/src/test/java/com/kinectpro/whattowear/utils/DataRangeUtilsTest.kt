@@ -123,4 +123,20 @@ class DataRangeUtilsTest {
         val result = isDaysAreSame(start, end)
         assertEquals(false, result)
     }
+
+    @Test
+    fun isDaysAreSame_OneDayEndHourGreater() {
+        val start = 1585811281000L //02.04.2020 7h
+        val end = 1585829281000L //02.04.2020 12h
+        val result = isDaysAreSame(start, end)
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun isDaysAreSame_OneDayStartHourGreater() {
+        val start = 1585829281000L //02.04.2020 12h
+        val end = 1585811281000L //02.04.2020 7h
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
 }

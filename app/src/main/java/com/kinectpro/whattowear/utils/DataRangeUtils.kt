@@ -53,7 +53,8 @@ fun isDaysAreSame(startDate: Long, endDate: Long): Boolean {
     val start = Calendar.getInstance().apply { timeInMillis = startDate }
     val end = Calendar.getInstance().apply { timeInMillis = endDate }
     if (start.get(Calendar.DAY_OF_MONTH) == end.get(Calendar.DAY_OF_MONTH)) {
-        return true
+        if (start.get(Calendar.HOUR_OF_DAY) <= end.get(Calendar.HOUR_OF_DAY))
+            return true
     }
     return false
 }
