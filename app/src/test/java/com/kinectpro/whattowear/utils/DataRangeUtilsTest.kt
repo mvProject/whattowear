@@ -171,4 +171,37 @@ class DataRangeUtilsTest {
         val result = isStartHourGreaterThenEndHour(start, end)
         assertEquals(true, result)
     }
+
+    @Test
+    fun isSingleDayHoursProperSelected_DifferentDaysStartHourGreater() {
+        val start = 1585824269000L //02.04.2020 11h
+        val end = 1585903469000L //03.04.2020 9h
+        val result = isSingleDayHoursProperSelected(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isSingleDayHoursProperSelected_DifferentDaysEndHourGreater() {
+        val start = 1585903469000L //03.04.2020 9h
+        val end = 1585824269000L //02.04.2020 11h
+        val result = isSingleDayHoursProperSelected(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isSingleDayHoursProperSelected_OneDayStartHourGreater() {
+        val start = 1585829281000L //02.04.2020 12h
+        val end = 1585811281000L //02.04.2020 7h
+        val result = isSingleDayHoursProperSelected(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isSingleDayHoursProperSelected_OneDayEndHourGreater() {
+        val start = 1585811281000L //02.04.2020 7h
+        val end = 1585829281000L //02.04.2020 12h
+        val result = isSingleDayHoursProperSelected(start, end)
+        assertEquals(true, result)
+    }
+
 }

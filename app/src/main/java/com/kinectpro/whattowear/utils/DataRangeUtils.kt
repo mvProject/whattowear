@@ -47,7 +47,7 @@ fun isProperDataRangeSelected(startDate: Long?, endDate: Long?): Int? {
  * Method for check selected start & end dates are same day
  * @param startDate first date of a range
  * @param endDate last date of a range
- * @return true if selected dates are same day otherwise return false
+ * @return true if selected dates are same day, otherwise return false
  */
 fun isDaysAreSame(startDate: Long, endDate: Long): Boolean {
     val start = Calendar.getInstance().apply { timeInMillis = startDate }
@@ -58,6 +58,12 @@ fun isDaysAreSame(startDate: Long, endDate: Long): Boolean {
     return false
 }
 
+/**
+ * Method comparing selected start date hour and end date hour
+ * @param startDate first date of a range
+ * @param endDate last date of a range
+ * @return true if start date hour is less or equal end date hour, otherwise return false
+ */
 fun isStartHourGreaterThenEndHour(startDate: Long, endDate: Long): Boolean {
     val start = Calendar.getInstance().apply { timeInMillis = startDate }
     val end = Calendar.getInstance().apply { timeInMillis = endDate }
@@ -65,4 +71,14 @@ fun isStartHourGreaterThenEndHour(startDate: Long, endDate: Long): Boolean {
         return true
     }
     return false
+}
+
+/**
+ * Method comparing selected start date and end date for both is same date and start is not greater than end
+ * @param startDate first date of a range
+ * @param endDate last date of a range
+ * @return true if both dates are same day and start date hour is less or equal end date hour, otherwise return false
+ */
+fun isSingleDayHoursProperSelected(startDate: Long, endDate: Long): Boolean {
+    return isDaysAreSame(startDate, endDate) && isStartHourGreaterThenEndHour(startDate, endDate)
 }
