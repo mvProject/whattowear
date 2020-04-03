@@ -15,6 +15,7 @@ class DataRangeUtilsTest {
     private val dateErrorNull = 1
     private val dateErrorInvalidRangeLength = 2
     private val dateErrorStartDateZero = 3
+    private val dateErrorStartDateGreater = 4
 
     @Test
     fun getDataRangeForTrip_Is_Not_Null() {
@@ -25,7 +26,7 @@ class DataRangeUtilsTest {
     @Test
     fun getDataRangeForTrip_Is_Null() {
         val result = getDataRangeForTrip(testEndDate, testStartDate)
-        assertEquals(listOf<Long>(), result)
+        assertEquals(null, result)
     }
 
     @Test
@@ -68,7 +69,7 @@ class DataRangeUtilsTest {
     @Test
     fun isProperDataRangeSelected_End_Zero() {
         val result = isProperDataRangeSelected(testStartDate, testEndZero)
-        assertEquals(null, result)
+        assertEquals(dateErrorStartDateGreater, result)
     }
 
     @Test
@@ -78,9 +79,9 @@ class DataRangeUtilsTest {
     }
 
     @Test
-    fun isProperDataRangeSelected_EndDateEarlier() {
+    fun isProperDataRangeSelected_StartDateGreater() {
         val result = isProperDataRangeSelected(testEndDate, testStartDate)
-        assertEquals(null, result)
+        assertEquals(dateErrorStartDateGreater, result)
     }
 
     @Test

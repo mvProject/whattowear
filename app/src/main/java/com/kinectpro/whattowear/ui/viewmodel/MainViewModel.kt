@@ -180,16 +180,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * otherwise return false and apply error state with error code
      */
     private fun isConditionsValidBeforeSendingRequest(): Boolean {
-        if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
-            if (tripRangeEndDateValue.value!! > 0) {
-                if (selectedDestinationPlace.value == null) {
+        if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null) && (tripRangeEndDateValue.value!! > 0)) {
+            // return false and set error if place not selected
+            when (selectedDestinationPlace.value) {
+                null -> {
                     selectedTripCondition.value =
                         ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
                     return false
                 }
-
-                // if start date is greater than end date set proper error state
-                if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
+            }
+            // compare trip dates
+            when (isProperDataRangeSelected(
+                tripRangeStartDateValue.value,
+                tripRangeEndDateValue.value
+            )) {
+                // return false and set error if place not selected
+                ERROR_START_DATE_GREATER -> {
                     selectedTripCondition.value =
                         ResourceWrapper.error(
                             ErrorCodes.StartDateIsGreaterException.code,
@@ -197,34 +203,29 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     return false
                 }
-
-                when (isProperDataRangeSelected(
-                    tripRangeStartDateValue.value,
-                    tripRangeEndDateValue.value
-                )) {
-                    DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                        selectedTripCondition.value =
-                            ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
-                        return false
-                    }
-                    START_DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                        selectedTripCondition.value =
-                            ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
-                        tripRangeEndDateValue.value = 0L
-                        return false
-                    }
-                    DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
-                        selectedTripCondition.value =
-                            ResourceWrapper.error(
-                                ErrorCodes.TooLongDateRangeIntervalException.code,
-                                null
-                            )
-                        return false
-                    }
+                // return false and set error if place not selected
+                ERROR_DATE_FIELD_NULL -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
+                    return false
                 }
-                return true
+                // return false and set error if place not selected
+                ERROR_START_DATE_FIELD_ZERO_OR_LESS -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
+                    tripRangeEndDateValue.value = 0L
+                    return false
+                }
+                ERROR_DATE_MAX_LENGTH_EXCEEDED -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(
+                            ErrorCodes.TooLongDateRangeIntervalException.code,
+                            null
+                        )
+                    return false
+                }
             }
-            return false
+            return true
         }
         return false
     }

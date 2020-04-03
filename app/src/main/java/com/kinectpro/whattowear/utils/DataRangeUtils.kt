@@ -4,9 +4,11 @@ import android.text.format.DateUtils
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-const val DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS = 1
-const val DATE_ERROR_MAX_LENGTH_EXCEEDED = 2
-const val START_DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS = 3
+const val ERROR_DATE_FIELD_NULL = 1
+const val ERROR_DATE_MAX_LENGTH_EXCEEDED = 2
+const val ERROR_START_DATE_FIELD_ZERO_OR_LESS = 3
+const val ERROR_START_DATE_GREATER = 4
+
 
 const val DATE_RANGE_MAX_LENGTH_ALLOWED = 30L
 
@@ -42,9 +44,10 @@ fun getDataRangeForTrip(startDate: Long?, endDate: Long?): List<Long>? {
  */
 fun isProperDataRangeSelected(startDate: Long?, endDate: Long?): Int? {
     return when {
-        (startDate == null) || (endDate == null) -> DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS
-        startDate <= 0L -> START_DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS
-        endDate - startDate > TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED) -> DATE_ERROR_MAX_LENGTH_EXCEEDED
+        (startDate == null) || (endDate == null) -> ERROR_DATE_FIELD_NULL
+        startDate <= 0L -> ERROR_START_DATE_FIELD_ZERO_OR_LESS
+        startDate > endDate -> ERROR_START_DATE_GREATER
+        endDate - startDate > TimeUnit.DAYS.toMillis(DATE_RANGE_MAX_LENGTH_ALLOWED) -> ERROR_DATE_MAX_LENGTH_EXCEEDED
         else -> null
     }
 }
