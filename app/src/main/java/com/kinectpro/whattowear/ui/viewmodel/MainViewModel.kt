@@ -42,7 +42,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /*
-     Obtain forecast when destination or end date change
+     Obtain forecast when destination or start or end date change
      */
     val selectedTrip = MediatorLiveData<Long>().apply {
         addSource(selectedDestinationPlace) {
@@ -194,7 +194,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 tripRangeStartDateValue.value,
                 tripRangeEndDateValue.value
             )) {
-                // return false and set error if place not selected
+                // return false and set error if start date is greater than end date
                 ERROR_START_DATE_GREATER -> {
                     selectedTripCondition.value =
                         ResourceWrapper.error(
@@ -203,19 +203,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     return false
                 }
-                // return false and set error if place not selected
+                // return false and set error if start or end date not initialized
                 ERROR_DATE_FIELD_NULL -> {
                     selectedTripCondition.value =
                         ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
                     return false
                 }
-                // return false and set error if place not selected
+                // return false and set error if start date not selected
                 ERROR_START_DATE_FIELD_ZERO_OR_LESS -> {
                     selectedTripCondition.value =
                         ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
-                    tripRangeEndDateValue.value = 0L
+                    //    tripRangeEndDateValue.value = 0L
                     return false
                 }
+                // return false and set error if selected date range greater than max granted
                 ERROR_DATE_MAX_LENGTH_EXCEEDED -> {
                     selectedTripCondition.value =
                         ResourceWrapper.error(
@@ -225,8 +226,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     return false
                 }
             }
+            // if all condition is matched
             return true
         }
+        // if one of date not initialized or end date not selected
         return false
     }
 
