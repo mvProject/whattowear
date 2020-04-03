@@ -28,6 +28,7 @@
     <string name="message_response_error_request_target">Целевой ресурс не найден</string>
     <string name="message_response_error_unspecified">Неизвестная ошибка</string>
     <string name="message_response_error_access_denied">Доступ запрещен</string>
+    <string name="message_response_error_daily_limit_exceeded">Превышен дневной лимит использования</string>
     <string name="message_response_error_no_internet">Нет соединения с интернетом</string>
 
     <string name="image_loading_description">Показать анимацию загрузки</string>

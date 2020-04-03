@@ -203,6 +203,7 @@ class MainFragment : Fragment() {
             ErrorCodes.LanguageRequestException.code -> getString(R.string.message_response_error_invalid_lang)
             ErrorCodes.TargetRequestAccessException.code -> getString(R.string.message_response_error_access_denied)
             ErrorCodes.TargetRequestSourceException.code -> getString(R.string.message_response_error_request_target)
+            ErrorCodes.TargetDailyUsageLimitException.code -> getString(R.string.message_response_error_daily_limit_exceeded)
             ErrorCodes.EmptyDestinationException.code -> getString(R.string.message_error_trip_destination)
             ErrorCodes.EmptyDatesException.code -> getString(R.string.message_error_trip_date_not_select)
             ErrorCodes.TooLongDateRangeIntervalException.code -> getString(R.string.message_error_trip_to_long_range)
