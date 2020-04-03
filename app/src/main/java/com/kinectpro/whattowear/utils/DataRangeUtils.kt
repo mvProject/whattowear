@@ -50,10 +50,12 @@ fun isProperDataRangeSelected(startDate: Long?, endDate: Long?): Int? {
  * @return true if selected dates are same day, otherwise return false
  */
 fun isDaysAreSame(startDate: Long, endDate: Long): Boolean {
-    val start = Calendar.getInstance().apply { timeInMillis = startDate }
-    val end = Calendar.getInstance().apply { timeInMillis = endDate }
-    if (start.get(Calendar.DAY_OF_MONTH) == end.get(Calendar.DAY_OF_MONTH)) {
+    if ((startDate > 0) && (endDate > 0)) {
+        val start = Calendar.getInstance().apply { timeInMillis = startDate }
+        val end = Calendar.getInstance().apply { timeInMillis = endDate }
+        if (start.get(Calendar.DAY_OF_MONTH) == end.get(Calendar.DAY_OF_MONTH)) {
             return true
+        }
     }
     return false
 }

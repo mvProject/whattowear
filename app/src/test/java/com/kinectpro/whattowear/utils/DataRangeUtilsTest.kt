@@ -139,4 +139,28 @@ class DataRangeUtilsTest {
         val result = isDaysAreSame(start, end)
         assertEquals(true, result)
     }
+
+    @Test
+    fun isDaysAreSame_OneDayEndHourZero() {
+        val start = 1585829281000L //02.04.2020 12h
+        val end = 0L
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isDaysAreSame_OneDayStartHourZero() {
+        val start = 0L
+        val end = 1585811281000L //02.04.2020 7h
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isDaysAreSame_OneDayBothZero() {
+        val start = 0L
+        val end = 0L //02.04.2020 7h
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
 }
