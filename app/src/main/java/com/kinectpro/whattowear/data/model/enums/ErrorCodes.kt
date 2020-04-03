@@ -11,6 +11,7 @@ enum class ErrorCodes(val code: Int) {
     TooLongDateRangeIntervalException(-5),
     NoInternetConnectionException(-6),
     LanguageRequestException(400),
-    TargetRequestAccessException(403),
+    TargetRequestAccessException(401),
+    TargetDailyUsageLimitException(403),
     TargetRequestSourceException(404)
 }

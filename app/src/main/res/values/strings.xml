@@ -26,6 +26,7 @@
     <string name="message_response_error_unknown_host">No address associated with hostname</string>
     <string name="message_response_error_invalid_lang">An invalid language was provided</string>
     <string name="message_response_error_access_denied">Access denied</string>
+    <string name="message_response_error_daily_limit_exceeded">Daily usage limit exceeded</string>
     <string name="message_response_error_request_target">Target resource not found</string>
     <string name="message_response_error_unspecified">Unknown Error</string>
     <string name="message_response_error_no_internet">No internet connection</string>
