@@ -13,6 +13,7 @@ enum class ErrorCodes(val code: Int) {
     NoInternetConnectionException(-7),
     StartDateIsGreaterException(-8),
     LanguageRequestException(400),
-    TargetRequestAccessException(403),
+    TargetRequestAccessException(401),
+    TargetDailyUsageLimitException(403),
     TargetRequestSourceException(404)
 }
