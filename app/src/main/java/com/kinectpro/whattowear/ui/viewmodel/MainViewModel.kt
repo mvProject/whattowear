@@ -170,12 +170,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
      */
     private fun obtainSelectedDestinationWeatherRequest() {
-        if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
-            if (tripRangeEndDateValue.value!! > 0) {
-                if (isConditionsValidBeforeSendingRequest()) {
-                    convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
-                }
-            }
+        if (isConditionsValidBeforeSendingRequest()) {
+            convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
         }
     }
 
@@ -184,45 +180,53 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * otherwise return false and apply error state with error code
      */
     private fun isConditionsValidBeforeSendingRequest(): Boolean {
-        if (selectedDestinationPlace.value == null) {
-            selectedTripCondition.value =
-                ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
+        if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
+            if (tripRangeEndDateValue.value!! > 0) {
+                if (selectedDestinationPlace.value == null) {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
+                    return false
+                }
+
+                // if start date is greater than end date set proper error state
+                if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(
+                            ErrorCodes.StartDateIsGreaterException.code,
+                            null
+                        )
+                    return false
+                }
+
+                when (isProperDataRangeSelected(
+                    tripRangeStartDateValue.value,
+                    tripRangeEndDateValue.value
+                )) {
+                    DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
+                        selectedTripCondition.value =
+                            ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
+                        return false
+                    }
+                    START_DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
+                        selectedTripCondition.value =
+                            ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
+                        tripRangeEndDateValue.value = 0L
+                        return false
+                    }
+                    DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
+                        selectedTripCondition.value =
+                            ResourceWrapper.error(
+                                ErrorCodes.TooLongDateRangeIntervalException.code,
+                                null
+                            )
+                        return false
+                    }
+                }
+                return true
+            }
             return false
         }
-        // if start date is greater than end date set proper error state
-        if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
-            selectedTripCondition.value =
-                ResourceWrapper.error(
-                    ErrorCodes.StartDateIsGreaterException.code,
-                    null
-                )
-            return false
-        }
-        when (isProperDataRangeSelected(
-            tripRangeStartDateValue.value,
-            tripRangeEndDateValue.value
-        )) {
-            DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
-                return false
-            }
-            START_DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
-                tripRangeEndDateValue.value = 0L
-                return false
-            }
-            DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(
-                        ErrorCodes.TooLongDateRangeIntervalException.code,
-                        null
-                    )
-                return false
-            }
-        }
-        return true
+        return false
     }
 
     /*
