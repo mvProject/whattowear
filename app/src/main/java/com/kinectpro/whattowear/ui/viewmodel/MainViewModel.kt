@@ -167,7 +167,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /*
-     * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
+     * If all conditions are checked and approved get weather forecast
      */
     private fun obtainSelectedDestinationWeatherRequest() {
         if (isConditionsValidBeforeSendingRequest()) {
@@ -176,6 +176,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /*
+     * Check for proper destination and range conditions
      * Returns true when place and both dates properly selected
      * otherwise return false and apply error state with error code
      */
