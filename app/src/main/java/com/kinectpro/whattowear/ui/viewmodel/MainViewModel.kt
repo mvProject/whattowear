@@ -99,9 +99,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             val currentDate = Calendar.getInstance()
-            if (isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
-                calendar.set(year, month, dayOfMonth)
-            } else {
+            calendar.set(year, month, dayOfMonth)
+            if (!isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
                 calendar.set(
                     year, month, dayOfMonth,
                     START_DATE_HOURS_DEFAULT, MINUTES_DEFAULT, SECONDS_DEFAULT
