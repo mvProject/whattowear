@@ -53,22 +53,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         addSource(tripRangeStartDateValue) {
             it?.let {
-                // if start and end dates are the same day,set them equal with millis
-                if ((tripRangeEndDateValue.value != null) && (tripRangeEndDateValue.value!! > 0)) {
-                    when {
-                        // if start and end dates are the same day,set them equal with millis
-                        isDaysAreSame(
-                            tripRangeStartDateValue.value!!,
-                            tripRangeEndDateValue.value!!
-                        ) -> {
-                            tripRangeEndDateValue.value = tripRangeStartDateValue.value
-                        }
-                        // start date is smaller than end date so obtain new forecast
-                        else -> {
-                            obtainSelectedDestinationWeatherRequest()
-                        }
-                    }
-                }
+                obtainSelectedDestinationWeatherRequest()
             }
         }
 
