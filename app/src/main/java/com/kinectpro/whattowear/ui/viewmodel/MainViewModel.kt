@@ -98,9 +98,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var tripStartDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
+            val currentDate = Calendar.getInstance()
+            if (isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
+                calendar.set(year, month, dayOfMonth)
+            } else {
+                calendar.set(
+                    year, month, dayOfMonth,
+                    START_DATE_HOURS_DEFAULT, MINUTES_DEFAULT, SECONDS_DEFAULT
+                )
+            }
             tripRangeStartDateValue.value = calendar.timeInMillis
-
         }
 
     /*
@@ -109,7 +116,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var tripEndDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
+            calendar.set(
+                year, month, dayOfMonth,
+                END_DATE_HOURS_DEFAULT, MINUTES_DEFAULT, SECONDS_DEFAULT
+            )
             tripRangeEndDateValue.value = calendar.timeInMillis
         }
 
