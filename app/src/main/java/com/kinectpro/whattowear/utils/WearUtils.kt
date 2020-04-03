@@ -27,6 +27,7 @@ fun String?.convertIconToDrawableBackground(): Int {
     return when (this) {
         "rain" -> R.drawable.bg_rainy
         "wind" -> R.drawable.bg_windy
+        "snow" -> R.drawable.bg_snowy
         else -> R.drawable.bg_sunny
     }
 }

@@ -38,9 +38,11 @@ class WearUtilsTest {
     fun convertIconToDrawableBackground_PROPER_VALUE() {
         val stateRain = "rain"
         val stateWind = "wind"
+        val stateSnow = "snow"
         val state = "else"
         assertEquals(R.drawable.bg_rainy, stateRain.convertIconToDrawableBackground())
         assertEquals(R.drawable.bg_windy, stateWind.convertIconToDrawableBackground())
+        assertEquals(R.drawable.bg_snowy, stateSnow.convertIconToDrawableBackground())
         assertEquals(R.drawable.bg_sunny, state.convertIconToDrawableBackground())
     }
 

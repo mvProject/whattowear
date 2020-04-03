@@ -98,8 +98,8 @@ fun loadImage(
  * @param view type of view which adapter can be binded
  * @param iconType drawable according state type
  */
-@BindingAdapter(value = ["roundedDrawable"], requireAll = false)
-fun loadRoundedImage(
+@BindingAdapter(value = ["stateBackground"], requireAll = false)
+fun loadImageBackground(
     view: ImageView, iconType: String?
 ) {
     if (iconType != null) {
