@@ -10,72 +10,82 @@
             type="com.kinectpro.whattowear.data.model.trip.WeatherCondition" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_2dp"
+        app:cardCornerRadius="@dimen/padding_4dp">
 
-        <ImageView
-            android:id="@+id/iconWeatherState"
-            placeholder="@{@drawable/ic_weather_placeholder}"
-            stateDrawable="@{weatherState.condition}"
-            android:layout_width="@dimen/weather_icon_size_56dp"
-            android:layout_height="@dimen/weather_icon_size_56dp"
-            android:layout_marginStart="@dimen/padding_4dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_weather_placeholder"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtWeatherStateType"
-            conditionProperName="@{weatherState.condition}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_8dp"
-            android:layout_marginTop="@dimen/padding_4dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_size_14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/txtWeatherStateRecommendation"
-            app:layout_constraintStart_toEndOf="@id/iconWeatherState"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginBottom="@dimen/padding_8dp"
-            tools:text="rain" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtWeatherStateRecommendation"
-            conditionRecommendation="@{weatherState.condition}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_8dp"
-            android:layout_marginTop="@dimen/padding_4dp"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@id/scrollDates"
-            app:layout_constraintStart_toEndOf="@id/iconWeatherState"
-            app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
-            app:layout_goneMarginBottom="@dimen/padding_8dp"
-            tools:text="check umbrella" />
-
-        <HorizontalScrollView
-            android:id="@+id/scrollDates"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            stateBackground="@{weatherState.condition}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_64dp"
-            android:layout_marginTop="@dimen/padding_4dp"
-            android:scrollbars="none"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iconWeatherState"
-            app:layout_constraintTop_toBottomOf="@id/txtWeatherStateRecommendation">
+            android:paddingBottom="@dimen/padding_2dp">
+
+            <ImageView
+                android:id="@+id/iconWeatherState"
+                placeholder="@{@drawable/ic_weather_placeholder}"
+                stateDrawable="@{weatherState.condition}"
+                android:layout_width="@dimen/weather_icon_size_56dp"
+                android:layout_height="@dimen/weather_icon_size_56dp"
+                android:layout_marginStart="@dimen/padding_4dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_weather_placeholder" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/txtWeatherStateTypeDateRange"
-                conditionDates="@{weatherState.dates}"
+                android:id="@+id/txtWeatherStateType"
+                conditionProperName="@{weatherState.condition}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="13.12" />
+                android:layout_marginStart="@dimen/padding_8dp"
+                android:layout_marginTop="@dimen/padding_4dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/txtWeatherStateRecommendation"
+                app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginBottom="@dimen/padding_8dp"
+                tools:text="rain" />
 
-        </HorizontalScrollView>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtWeatherStateRecommendation"
+                conditionRecommendation="@{weatherState.condition}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_8dp"
+                android:layout_marginTop="@dimen/padding_4dp"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toTopOf="@id/scrollDates"
+                app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+                app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
+                app:layout_goneMarginBottom="@dimen/padding_8dp"
+                tools:text="check umbrella" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <HorizontalScrollView
+                android:id="@+id/scrollDates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_64dp"
+                android:layout_marginTop="@dimen/padding_4dp"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+                app:layout_constraintTop_toBottomOf="@id/txtWeatherStateRecommendation">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtWeatherStateTypeDateRange"
+                    conditionDates="@{weatherState.dates}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="13.12" />
+
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -94,6 +94,21 @@ fun loadImage(
 }
 
 /**
+ * Binding adapter to weather state background image
+ * @param view type of view which adapter can be binded
+ * @param iconType drawable according state type
+ */
+@BindingAdapter(value = ["stateBackground"], requireAll = false)
+fun loadImageBackground(
+    view: View, iconType: String?
+) {
+    if (iconType != null) {
+        view.background =
+            view.resources.getDrawable(iconType.convertIconToDrawableBackground(), null)
+    }
+}
+
+/**
  * Binding adapter changing view visibility according to loading state
  * @param view type of view which adapter can be binded
  * @param state current state type
