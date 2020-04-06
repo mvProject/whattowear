@@ -208,6 +208,8 @@ class MainFragment : Fragment() {
             ErrorCodes.EmptyDatesException.code -> getString(R.string.message_error_trip_date_not_select)
             ErrorCodes.TooLongDateRangeIntervalException.code -> getString(R.string.message_error_trip_to_long_range)
             ErrorCodes.NoInternetConnectionException.code -> getString(R.string.message_response_error_no_internet)
+            ErrorCodes.EmptyStartDateException.code -> getString(R.string.message_error_trip_start_date_empty)
+            ErrorCodes.StartDateIsGreaterException.code -> getString(R.string.message_error_trip_start_date_is_greater_than_end_date)
             else -> getString(R.string.message_response_error_unspecified)
         }
     }

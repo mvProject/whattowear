@@ -13,8 +13,9 @@ class DataRangeUtilsTest {
     private val testEndNull = null
     private val testEndZero = 0L
     private val dateErrorNull = 1
-    private val dateErrorInvalidRange = 2
-    private val dateErrorInvalidRangeLength = 3
+    private val dateErrorInvalidRangeLength = 2
+    private val dateErrorStartDateZero = 3
+    private val dateErrorStartDateGreater = 4
 
     @Test
     fun getDataRangeForTrip_Is_Not_Null() {
@@ -62,25 +63,25 @@ class DataRangeUtilsTest {
     @Test
     fun isProperDataRangeSelected_StartDate_Zero() {
         val result = isProperDataRangeSelected(testStartZero, testEndDate)
-        assertEquals(dateErrorNull, result)
+        assertEquals(dateErrorStartDateZero, result)
     }
 
     @Test
     fun isProperDataRangeSelected_End_Zero() {
         val result = isProperDataRangeSelected(testStartDate, testEndZero)
-        assertEquals(dateErrorNull, result)
+        assertEquals(dateErrorStartDateGreater, result)
     }
 
     @Test
     fun isProperDataRangeSelected_BothDate_Zero() {
         val result = isProperDataRangeSelected(testStartZero, testEndZero)
-        assertEquals(dateErrorNull, result)
+        assertEquals(dateErrorStartDateZero, result)
     }
 
     @Test
-    fun isProperDataRangeSelected_EndDateEarlier() {
+    fun isProperDataRangeSelected_StartDateGreater() {
         val result = isProperDataRangeSelected(testEndDate, testStartDate)
-        assertEquals(dateErrorInvalidRange, result)
+        assertEquals(dateErrorStartDateGreater, result)
     }
 
     @Test
@@ -99,5 +100,92 @@ class DataRangeUtilsTest {
     fun isProperDataRangeSelected_Length_Proper() {
         val result = isProperDataRangeSelected(testStartDate, testEndDate)
         assertEquals(null, result)
+    }
+
+    @Test
+    fun isDaysAreSame_Proper() {
+        val date = 1583056884000L
+        val result = isDaysAreSame(date, date)
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun isDaysAreSame_StartDateGreater() {
+        val start = 1583229684000L //03.03.2020
+        val end = 1583056884000L //01.03.2020
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isDaysAreSame_EndDateGreater() {
+        val start = 1583056884000L //01.03.2020
+        val end = 1583229684000L //03.03.2020
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isDaysAreSame_OneDayEndHourGreater() {
+        val start = 1585811281000L //02.04.2020 7h
+        val end = 1585829281000L //02.04.2020 12h
+        val result = isDaysAreSame(start, end)
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun isDaysAreSame_OneDayStartHourGreater() {
+        val start = 1585829281000L //02.04.2020 12h
+        val end = 1585811281000L //02.04.2020 7h
+        val result = isDaysAreSame(start, end)
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun isDaysAreSame_OneDayEndHourZero() {
+        val start = 1585829281000L //02.04.2020 12h
+        val end = 0L
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isDaysAreSame_OneDayStartHourZero() {
+        val start = 0L
+        val end = 1585811281000L //02.04.2020 7h
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun isDaysAreSame_OneDayBothZero() {
+        val start = 0L
+        val end = 0L
+        val result = isDaysAreSame(start, end)
+        assertEquals(true, result)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun isDaysAreSame_StartLessZero() {
+        val start = -50L
+        val end = 1585811281000L //02.04.2020 7h
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun isDaysAreSame_EndLessZero() {
+        val start = 1585811281000L //02.04.2020 7h
+        val end = -50L
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun isDaysAreSame_BothLessZero() {
+        val start = -50L
+        val end = -100L
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
     }
 }

@@ -19,6 +19,7 @@ import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
+import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
@@ -42,7 +43,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /*
-
+     Obtain forecast when destination or start or end date change
      */
     val selectedTrip = MediatorLiveData<Long>().apply {
         addSource(selectedDestinationPlace) {
@@ -50,11 +51,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 obtainSelectedDestinationWeatherRequest()
             }
         }
+
         addSource(tripRangeStartDateValue) {
             it?.let {
                 obtainSelectedDestinationWeatherRequest()
             }
         }
+
         addSource(tripRangeEndDateValue) {
             it?.let {
                 obtainSelectedDestinationWeatherRequest()
@@ -92,19 +95,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /*
      Set selected date value as trip range start date
-     also if selected start date bigger then current end date value
-     make end date equal start date
      */
     var tripStartDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
+            val currentDate = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
-            tripRangeStartDateValue.value = calendar.timeInMillis
-            if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
-                if (tripRangeStartDateValue.value!! > tripRangeEndDateValue.value!!) {
-                    tripRangeEndDateValue.value = tripRangeStartDateValue.value
-                }
+            if (!isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
+                calendar.set(
+                    year,
+                    month,
+                    dayOfMonth,
+                    START_DATE_HOURS_DEFAULT,
+                    START_DATE_MINUTES_DEFAULT,
+                    START_DATE_SECONDS_DEFAULT
+                )
             }
+            tripRangeStartDateValue.value = calendar.timeInMillis
         }
 
     /*
@@ -113,7 +120,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var tripEndDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
+            calendar.set(
+                year, month, dayOfMonth,
+                END_DATE_HOURS_DEFAULT, END_DATE_MINUTES_DEFAULT, END_DATE_SECONDS_DEFAULT
+            )
             tripRangeEndDateValue.value = calendar.timeInMillis
         }
 
@@ -162,47 +172,70 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /*
-     * Check for proper destination and range conditions and get weather forecast, otherwise send proper error message
+     * If all conditions are checked and approved get weather forecast
      */
     private fun obtainSelectedDestinationWeatherRequest() {
-        if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null)) {
-            if ((tripRangeStartDateValue.value!! > 0) && (tripRangeEndDateValue.value!! > 0)) {
-                if (isConditionsValidBeforeSendingRequest()) {
-                    convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
-                }
-            }
+        if (isConditionsValidBeforeSendingRequest()) {
+            convertWeatherListToWeatherCondition(getSelectedPlaceWeatherData())
         }
     }
 
     /*
+     * Check for proper destination and range conditions
      * Returns true when place and both dates properly selected
      * otherwise return false and apply error state with error code
      */
     private fun isConditionsValidBeforeSendingRequest(): Boolean {
-        if (selectedDestinationPlace.value == null) {
-            selectedTripCondition.value =
-                ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
-            return false
-        }
-        when (isProperDataRangeSelected(
-            tripRangeStartDateValue.value,
-            tripRangeEndDateValue.value
-        )) {
-            DATE_ERROR_FIELD_EMPTY_OR_ZERO_LESS -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
-                return false
+        if ((tripRangeStartDateValue.value != null) && (tripRangeEndDateValue.value != null) && (tripRangeEndDateValue.value!! > 0)) {
+            // return false and set error if place not selected
+            when (selectedDestinationPlace.value) {
+                null -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.EmptyDestinationException.code, null)
+                    return false
+                }
             }
-            DATE_ERROR_MAX_LENGTH_EXCEEDED -> {
-                selectedTripCondition.value =
-                    ResourceWrapper.error(
-                        ErrorCodes.TooLongDateRangeIntervalException.code,
-                        null
-                    )
-                return false
+            // compare trip dates
+            when (isProperDataRangeSelected(
+                tripRangeStartDateValue.value,
+                tripRangeEndDateValue.value
+            )) {
+                // return false and set error if start date is greater than end date
+                ERROR_START_DATE_GREATER -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(
+                            ErrorCodes.StartDateIsGreaterException.code,
+                            null
+                        )
+                    return false
+                }
+                // return false and set error if start or end date not initialized
+                ERROR_DATE_FIELD_NULL -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.EmptyDatesException.code, null)
+                    return false
+                }
+                // return false and set error if start date not selected
+                ERROR_START_DATE_FIELD_ZERO -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
+                    return false
+                }
+                // return false and set error if selected date range greater than max granted
+                ERROR_DATE_MAX_LENGTH_EXCEEDED -> {
+                    selectedTripCondition.value =
+                        ResourceWrapper.error(
+                            ErrorCodes.TooLongDateRangeIntervalException.code,
+                            null
+                        )
+                    return false
+                }
             }
+            // if all condition is matched
+            return true
         }
-        return true
+        // if one of date not initialized or end date not selected
+        return false
     }
 
     /*
