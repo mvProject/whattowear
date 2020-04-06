@@ -19,6 +19,7 @@ import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
+import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
@@ -100,13 +101,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val calendar = Calendar.getInstance()
             val currentDate = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
-            if (!isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
-                calendar.set(
-                    year, month, dayOfMonth,
-                    START_DATE_HOURS_DEFAULT, START_DATE_MINUTES_DEFAULT, START_DATE_SECONDS_DEFAULT
-                )
+            try {
+                if (!isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
+                    calendar.set(
+                        year,
+                        month,
+                        dayOfMonth,
+                        START_DATE_HOURS_DEFAULT,
+                        START_DATE_MINUTES_DEFAULT,
+                        START_DATE_SECONDS_DEFAULT
+                    )
+                }
+                tripRangeStartDateValue.value = calendar.timeInMillis
+            } catch (ex: IllegalArgumentException) {
+                ex.printStackTrace()
             }
-            tripRangeStartDateValue.value = calendar.timeInMillis
         }
 
     /*
@@ -211,7 +220,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     return false
                 }
                 // return false and set error if start date not selected
-                ERROR_START_DATE_FIELD_ZERO_OR_LESS -> {
+                ERROR_START_DATE_FIELD_ZERO -> {
                     selectedTripCondition.value =
                         ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
                     return false
