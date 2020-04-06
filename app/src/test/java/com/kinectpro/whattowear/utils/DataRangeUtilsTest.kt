@@ -164,4 +164,28 @@ class DataRangeUtilsTest {
         val result = isDaysAreSame(start, end)
         assertEquals(false, result)
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun isDaysAreSame_StartLessZero() {
+        val start = -50L
+        val end = 1585811281000L //02.04.2020 7h
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun isDaysAreSame_EndLessZero() {
+        val start = 1585811281000L //02.04.2020 7h
+        val end = -50L
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun isDaysAreSame_BothLessZero() {
+        val start = -50L
+        val end = -100L
+        val result = isDaysAreSame(start, end)
+        assertEquals(false, result)
+    }
 }

@@ -1,6 +1,7 @@
 package com.kinectpro.whattowear.utils
 
 import android.text.format.DateUtils
+import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -61,6 +62,9 @@ fun isProperDataRangeSelected(startDate: Long?, endDate: Long?): Int? {
  * @return true if selected dates are same day, otherwise return false
  */
 fun isDaysAreSame(startDate: Long, endDate: Long): Boolean {
+    if ((startDate < 0) || (endDate < 0)) {
+        throw IllegalArgumentException()
+    }
     if ((startDate > 0) && (endDate > 0)) {
         val start = Calendar.getInstance().apply { timeInMillis = startDate }
         val end = Calendar.getInstance().apply { timeInMillis = endDate }
