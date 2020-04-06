@@ -160,7 +160,7 @@ class DataRangeUtilsTest {
     @Test
     fun isDaysAreSame_OneDayBothZero() {
         val start = 0L
-        val end = 0L //02.04.2020 7h
+        val end = 0L
         val result = isDaysAreSame(start, end)
         assertEquals(false, result)
     }
