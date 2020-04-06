@@ -103,7 +103,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if (!isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
                 calendar.set(
                     year, month, dayOfMonth,
-                    START_DATE_HOURS_DEFAULT, MINUTES_DEFAULT, SECONDS_DEFAULT
+                    START_DATE_HOURS_DEFAULT, START_DATE_MINUTES_DEFAULT, START_DATE_SECONDS_DEFAULT
                 )
             }
             tripRangeStartDateValue.value = calendar.timeInMillis
@@ -117,7 +117,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val calendar = Calendar.getInstance()
             calendar.set(
                 year, month, dayOfMonth,
-                END_DATE_HOURS_DEFAULT, MINUTES_DEFAULT, SECONDS_DEFAULT
+                END_DATE_HOURS_DEFAULT, END_DATE_MINUTES_DEFAULT, END_DATE_SECONDS_DEFAULT
             )
             tripRangeEndDateValue.value = calendar.timeInMillis
         }
@@ -214,7 +214,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 ERROR_START_DATE_FIELD_ZERO_OR_LESS -> {
                     selectedTripCondition.value =
                         ResourceWrapper.error(ErrorCodes.EmptyStartDateException.code, null)
-                    //    tripRangeEndDateValue.value = 0L
                     return false
                 }
                 // return false and set error if selected date range greater than max granted
