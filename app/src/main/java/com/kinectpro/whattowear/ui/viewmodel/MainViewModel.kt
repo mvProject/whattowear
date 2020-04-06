@@ -101,21 +101,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val calendar = Calendar.getInstance()
             val currentDate = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
-            try {
-                if (!isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
-                    calendar.set(
-                        year,
-                        month,
-                        dayOfMonth,
-                        START_DATE_HOURS_DEFAULT,
-                        START_DATE_MINUTES_DEFAULT,
-                        START_DATE_SECONDS_DEFAULT
-                    )
-                }
-                tripRangeStartDateValue.value = calendar.timeInMillis
-            } catch (ex: IllegalArgumentException) {
-                ex.printStackTrace()
+            if (!isDaysAreSame(currentDate.timeInMillis, calendar.timeInMillis)) {
+                calendar.set(
+                    year,
+                    month,
+                    dayOfMonth,
+                    START_DATE_HOURS_DEFAULT,
+                    START_DATE_MINUTES_DEFAULT,
+                    START_DATE_SECONDS_DEFAULT
+                )
             }
+            tripRangeStartDateValue.value = calendar.timeInMillis
         }
 
     /*
