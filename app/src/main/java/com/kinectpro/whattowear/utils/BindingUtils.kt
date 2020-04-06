@@ -100,10 +100,11 @@ fun loadImage(
  */
 @BindingAdapter(value = ["stateBackground"], requireAll = false)
 fun loadImageBackground(
-    view: ImageView, iconType: String?
+    view: View, iconType: String?
 ) {
     if (iconType != null) {
-        view.setImageResource(iconType.convertIconToDrawableBackground())
+        view.background =
+            view.resources.getDrawable(iconType.convertIconToDrawableBackground(), null)
     }
 }
 

@@ -11,17 +11,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        stateBackground="@{weatherState.condition}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/backgroundImage"
-            stateBackground="@{weatherState.condition}"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/view_size_72dp"
-            android:scaleType="fitXY"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_2dp">
 
         <ImageView
             android:id="@+id/iconWeatherState"
