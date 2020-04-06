@@ -162,7 +162,7 @@ class DataRangeUtilsTest {
         val start = 0L
         val end = 0L
         val result = isDaysAreSame(start, end)
-        assertEquals(false, result)
+        assertEquals(true, result)
     }
 
     @Test(expected = IllegalArgumentException::class)
