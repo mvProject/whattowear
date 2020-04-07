@@ -19,7 +19,6 @@ import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
-import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
