@@ -19,9 +19,7 @@ import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
-import java.lang.IllegalArgumentException
 import java.util.*
-import java.util.concurrent.TimeUnit
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -85,8 +83,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         place.id!!,
                         place.name!!,
                         place.latLng?.latitude.toString(),
-                        place.latLng?.longitude.toString(),
-                        TimeUnit.MINUTES.toMillis(place.utcOffsetMinutes!!.toLong())
+                        place.latLng?.longitude.toString()
                     )
                 }
             }
@@ -133,8 +130,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
             getDataRangeForTrip(
-                tripRangeStartDateValue.value!! + place.offsetUTC,
-                tripRangeEndDateValue.value!! + place.offsetUTC
+                tripRangeStartDateValue.value!!,
+                tripRangeEndDateValue.value!!
             )?.let {
                 return repository.getWeatherForecastForSelectedPlace(
                     place.latitude,

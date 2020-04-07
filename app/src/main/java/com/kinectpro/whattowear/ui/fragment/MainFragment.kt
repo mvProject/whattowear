@@ -172,8 +172,7 @@ class MainFragment : Fragment() {
                 listOf(
                     Place.Field.ID,
                     Place.Field.NAME,
-                    Place.Field.LAT_LNG,
-                    Place.Field.UTC_OFFSET
+                    Place.Field.LAT_LNG
                 )
             )
             setTypeFilter(TypeFilter.CITIES)
