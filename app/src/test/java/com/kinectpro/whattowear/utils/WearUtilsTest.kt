@@ -59,6 +59,24 @@ class WearUtilsTest {
     }
 
     @Test
+    fun convertIconToFontColor_PROPER_VALUE() {
+        val stateRain = "rain"
+        assertEquals(R.color.colorPrimaryLight, stateRain.convertIconToFontColor())
+    }
+
+    @Test
+    fun convertIconToFontColor_RANDOM_VALUE() {
+        val state = "wind"
+        assertEquals(R.color.colorPrimary, state.convertIconToFontColor())
+    }
+
+    @Test
+    fun convertIconToFontColor_NULL_VALUE() {
+        val state = null
+        assertEquals(R.color.colorPrimary, state.convertIconToFontColor())
+    }
+
+    @Test
     fun convertIconToProperConditionName_PROPER_VALUE() {
         val stateRain = "rain"
         val stateSnow = "snow"
