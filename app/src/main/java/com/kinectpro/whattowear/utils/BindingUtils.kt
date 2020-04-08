@@ -109,6 +109,20 @@ fun loadImageBackground(
 }
 
 /**
+ * Binding adapter for font color according to weather state
+ * @param view type of view which adapter can be binded
+ * @param iconType weather state
+ */
+@BindingAdapter(value = ["stateTextColor"], requireAll = false)
+fun loadFontColor(
+    view: MaterialTextView, iconType: String?
+) {
+    if (iconType != null) {
+        view.setTextColor(view.resources.getColor(iconType.convertIconToFontColor(), null))
+    }
+}
+
+/**
  * Binding adapter changing view visibility according to loading state
  * @param view type of view which adapter can be binded
  * @param state current state type
