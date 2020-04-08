@@ -114,7 +114,7 @@ fun loadImageBackground(
  * @param iconType weather state
  */
 @BindingAdapter(value = ["stateTextColor"], requireAll = false)
-fun loadIFontColor(
+fun loadFontColor(
     view: MaterialTextView, iconType: String?
 ) {
     if (iconType != null) {
