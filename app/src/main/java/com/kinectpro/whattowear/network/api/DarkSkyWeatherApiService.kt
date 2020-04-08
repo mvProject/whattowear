@@ -17,8 +17,8 @@ class DarkSkyWeatherApiService {
 
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(getLoggingInterceptor())
             .addInterceptor(getRequestSettingsInterceptor())
+            .addInterceptor(getLoggingInterceptor())
             .build()
         return Retrofit.Builder().apply {
             baseUrl(BASE_URL)
