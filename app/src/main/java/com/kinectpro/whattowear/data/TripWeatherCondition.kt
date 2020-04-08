@@ -4,10 +4,7 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.model.trip.WeatherCondition
-import com.kinectpro.whattowear.utils.checkProperConditionState
-import com.kinectpro.whattowear.utils.getDayTemperatureAsList
-import com.kinectpro.whattowear.utils.getNightTemperatureAsList
-import com.kinectpro.whattowear.utils.getWeatherStatesUniqueAsList
+import com.kinectpro.whattowear.utils.*
 
 class TripWeatherCondition :
     IWeatherRangeSummary {
@@ -64,6 +61,7 @@ class TripWeatherCondition :
                 )
             }
         }
+        // if no weather state in conditions, add default one
         if (conditions.isEmpty()) {
             conditions.add(WeatherCondition(DEFAULT_WEATHER_STATE, listOf()))
         }
