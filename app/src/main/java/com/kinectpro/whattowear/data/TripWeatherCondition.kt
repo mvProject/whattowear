@@ -4,13 +4,11 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TempSummary
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.model.trip.WeatherCondition
-import com.kinectpro.whattowear.utils.checkProperConditionState
-import com.kinectpro.whattowear.utils.getDayTemperatureAsList
-import com.kinectpro.whattowear.utils.getNightTemperatureAsList
-import com.kinectpro.whattowear.utils.getWeatherStatesUniqueAsList
+import com.kinectpro.whattowear.utils.*
 
 class TripWeatherCondition :
     IWeatherRangeSummary {
+
     /**
      * Returns TripModel object for given forecast
      * @param weatherForecast list of weather data items`
@@ -19,7 +17,7 @@ class TripWeatherCondition :
     override fun getTripWeatherCondition(weatherForecast: List<WeatherData>): TripModel? {
         val dayMinMax = getTempMinMaxValue(weatherForecast.getDayTemperatureAsList())
         val nightMinMax = getTempMinMaxValue(weatherForecast.getNightTemperatureAsList())
-        val conditions = getWeatherStateConditionAppearances(weatherForecast)
+        val conditions = getWeatherStateConditionAppearances(weatherForecast) as MutableList
         if ((dayMinMax != null) && (nightMinMax != null)) {
             return TripModel(
                 dayMinMax,
@@ -62,6 +60,10 @@ class TripWeatherCondition :
                         stateDates.filter { it.time > 0 }.map { it.time })
                 )
             }
+        }
+        // if no weather state in conditions, add default one
+        if (conditions.isEmpty()) {
+            conditions.add(WeatherCondition(DEFAULT_WEATHER_STATE, listOf()))
         }
         return conditions
     }
