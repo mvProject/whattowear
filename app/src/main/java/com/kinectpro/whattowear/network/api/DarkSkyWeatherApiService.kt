@@ -22,8 +22,8 @@ class DarkSkyWeatherApiService {
             .build()
         return Retrofit.Builder().apply {
             baseUrl(BASE_URL)
-            addCallAdapterFactory(CoroutineCallAdapterFactory())
             addConverterFactory(GsonConverterFactory.create())
+            addCallAdapterFactory(CoroutineCallAdapterFactory())
             client(okHttpClient)
         }
             .build()
