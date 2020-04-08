@@ -4,6 +4,7 @@ import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
 const val STATE_DATE_READABLE_PATTERN = "dd.MM"
@@ -32,8 +33,10 @@ const val VERTICAL_PADDING = 1
  */
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     if ((this.daily.data.first().sunsetTime != null) && (this.daily.data.first().apparentTemperatureHigh != null) && (this.daily.data.first().apparentTemperatureLow != null)) {
+        val timeWithOffset =
+            this.daily.data.first().sunsetTime!! + TimeUnit.HOURS.toSeconds(this.offset)
         return WeatherData(
-            this.daily.data.first().sunsetTime!!,
+            timeWithOffset,
             this.daily.data.first().apparentTemperatureHigh!!,
             this.daily.data.first().apparentTemperatureLow!!,
             this.daily.data.first().icon
@@ -41,6 +44,7 @@ fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     }
     return null
 }
+
 
 /**
  * Extension Method to non-null long variable which

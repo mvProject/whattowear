@@ -10,7 +10,8 @@ data class WeatherData(
 data class DarkSkyWeather(
     val latitude: Double,
     val longitude: Double,
-    val daily: Daily
+    val daily: Daily,
+    val offset: Long
 )
 
 data class Daily(
