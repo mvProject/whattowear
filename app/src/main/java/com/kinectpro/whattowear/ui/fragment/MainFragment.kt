@@ -209,6 +209,7 @@ class MainFragment : Fragment() {
             ErrorCodes.NoInternetConnectionException.code -> getString(R.string.message_response_error_no_internet)
             ErrorCodes.EmptyStartDateException.code -> getString(R.string.message_error_trip_start_date_empty)
             ErrorCodes.StartDateIsGreaterException.code -> getString(R.string.message_error_trip_start_date_is_greater_than_end_date)
+            ErrorCodes.NoForecastException.code -> getString(R.string.message_response_error_no_forecast)
             else -> getString(R.string.message_response_error_unspecified)
         }
     }

@@ -32,6 +32,7 @@
     <string name="message_response_error_request_target">Target resource not found</string>
     <string name="message_response_error_unspecified">Unknown Error</string>
     <string name="message_response_error_no_internet">No internet connection</string>
+    <string name="message_response_error_no_forecast">No forecast for this place in this range</string>
 
     <string name="image_loading_description">Show load animation</string>
 

@@ -8,6 +8,7 @@ import com.kinectpro.whattowear.network.api.DarkSkyWeatherApiService
 import com.kinectpro.whattowear.utils.convertCurrentLocaleLanguageToApiLanguageFormat
 import com.kinectpro.whattowear.utils.convertToWeatherDataModel
 import retrofit2.HttpException
+import java.lang.NullPointerException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -36,7 +37,12 @@ class ApiService : IDarkSkyWeather {
             }
             return ResourceWrapper.success(weatherList)
         } catch (e: Exception) {
-            ResourceWrapper.error(handleException(e), null)
+            // show partially forecast if it exists
+            if (weatherList.size > 0) {
+                ResourceWrapper.success(weatherList)
+            } else {
+                ResourceWrapper.error(handleException(e), null)
+            }
         }
     }
 
@@ -45,6 +51,7 @@ class ApiService : IDarkSkyWeather {
             is HttpException -> e.code()
             is SocketTimeoutException -> ErrorCodes.SocketTimeOut.code
             is UnknownHostException -> ErrorCodes.UnknownHostException.code
+            is NullPointerException -> ErrorCodes.NoForecastException.code
             else -> Int.MAX_VALUE
         }
     }
