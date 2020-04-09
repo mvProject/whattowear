@@ -39,4 +39,5 @@
     <string name="temperature_value_description">Макс: %d %s "\n"Мін: %5d %s</string>
     <string name="navigation_title_main">Main</string>
     <string name="navigation_title_second">Second</string>
+    <string name="message_add_trip">Додати подорож</string>
 </resources>

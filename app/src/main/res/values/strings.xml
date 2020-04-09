@@ -39,4 +39,5 @@
     <string name="temperature_value_description">Max: %d %s "\n"Min: %3d %s</string>
     <string name="navigation_title_main">Main</string>
     <string name="navigation_title_second">Second</string>
+    <string name="message_add_trip">Add a trip</string>
 </resources>
