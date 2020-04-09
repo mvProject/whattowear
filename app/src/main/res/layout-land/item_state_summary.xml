@@ -21,19 +21,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_2dp">
-
-            <ImageView
-                android:id="@+id/iconWeatherState"
-                placeholder="@{@drawable/ic_weather_placeholder}"
-                stateDrawable="@{weatherState.condition}"
-                android:layout_width="@dimen/weather_icon_size_56dp"
-                android:layout_height="@dimen/weather_icon_size_56dp"
-                android:layout_marginStart="@dimen/padding_4dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_weather_placeholder" />
+            <!--
+                        <ImageView
+                            android:id="@+id/iconWeatherState"
+                            placeholder="@{@drawable/ic_weather_placeholder}"
+                            stateDrawable="@{weatherState.condition}"
+                            android:layout_width="@dimen/weather_icon_size_56dp"
+                            android:layout_height="@dimen/weather_icon_size_56dp"
+                            android:layout_marginStart="@dimen/padding_4dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@drawable/ic_weather_placeholder" />
+                            -->
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtWeatherStateType"
@@ -46,7 +47,7 @@
                 android:textSize="@dimen/text_size_14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/txtWeatherStateRecommendation"
-                app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_goneMarginBottom="@dimen/padding_4dp"
                 tools:text="rain" />
@@ -60,7 +61,7 @@
                 android:layout_marginTop="@dimen/padding_4dp"
                 stateTextColor="@{weatherState.condition}"
                 app:layout_constraintBottom_toTopOf="@id/scrollDates"
-                app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
                 app:layout_goneMarginBottom="@dimen/padding_4dp"
                 tools:text="check umbrella" />
@@ -74,7 +75,7 @@
                 android:layout_marginTop="@dimen/padding_4dp"
                 android:scrollbars="none"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iconWeatherState"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtWeatherStateRecommendation">
 
                 <com.google.android.material.textview.MaterialTextView
