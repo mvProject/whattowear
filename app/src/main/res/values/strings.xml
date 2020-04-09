@@ -3,17 +3,17 @@
     <string name="btn_start_date_name">start</string>
     <string name="btn_end_date_name">finish</string>
 
-    <string name="weather_icon_type_rain">Rain expected</string>
-    <string name="weather_icon_type_snow">Snowfall expected</string>
-    <string name="weather_icon_type_sleet">Expected Snow with Rain</string>
+    <string name="weather_icon_type_rain">Rain expected. Do not forget to take an umbrella!</string>
+    <string name="weather_icon_type_snow">Snowfall expected. Dress warmly!</string>
+    <string name="weather_icon_type_sleet">Expected Snow with Rain. Take an umbrella and dress warmer!</string>
     <string name="weather_icon_type_wind">Windy weather expected</string>
-    <string name="weather_icon_type_fog">Foggy weather expected</string>
+    <string name="weather_icon_type_fog">Foggy weather expected. Be careful while driving!</string>
     <string name="default_weather_description">The weather promises to be beautiful</string>
 
     <string name="weather_rain_recommendation">Do not forget to take an umbrella</string>
     <string name="weather_snow_recommendation">Dress warmly</string>
     <string name="weather_sleet_recommendation">Take an umbrella and dress warmer</string>
-    <string name="weather_fog_recommendation">Be careful while driving.</string>
+    <string name="weather_fog_recommendation">Be careful while driving</string>
 
     <string name="message_nice_trip_wishes">Have a nice trip!</string>
 

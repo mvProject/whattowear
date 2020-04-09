@@ -3,16 +3,16 @@
     <string name="btn_start_date_name">начало</string>
     <string name="btn_end_date_name">конец</string>
 
-    <string name="weather_icon_type_rain">Ожидается дождь</string>
-    <string name="weather_icon_type_snow">Ожидается снегопад</string>
-    <string name="weather_icon_type_sleet">Ожидается снег с дождем</string>
+    <string name="weather_icon_type_rain">Ожидается дождь. Не забудьте взять зонт!</string>
+    <string name="weather_icon_type_snow">Ожидается снегопад. Одевайтесь теплее</string>
+    <string name="weather_icon_type_sleet">Ожидается снег с дождем. Возьмите зонт и одевайтесь теплее!</string>
     <string name="weather_icon_type_wind">Ожидается ветреная погода</string>
-    <string name="weather_icon_type_fog">Ожидается туманная погода</string>
+    <string name="weather_icon_type_fog">Ожидается туманная погода. Будьте осторожны за рулем!</string>
     <string name="default_weather_description">Погода обещает быть прекрасной</string>
 
     <string name="weather_rain_recommendation">Не забудьте взять зонт</string>
     <string name="weather_snow_recommendation">Одевайтесь теплее</string>
-    <string name="weather_sleet_recommendation">Возьмите зонт и  одевайтесь теплее</string>
+    <string name="weather_sleet_recommendation">Возьмите зонт и одевайтесь теплее</string>
     <string name="weather_fog_recommendation">Будьте осторожны за рулем</string>
 
     <string name="message_nice_trip_wishes">"Счастливой поездки! "</string>
