@@ -39,33 +39,34 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtWeatherStateType"
                 conditionProperName="@{weatherState.condition}"
-                android:layout_width="wrap_content"
+                stateTextColor="@{weatherState.condition}"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_8dp"
                 android:layout_marginTop="@dimen/padding_4dp"
-                stateTextColor="@{weatherState.condition}"
+                android:textAlignment="center"
                 android:textSize="@dimen/text_size_14sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/txtWeatherStateRecommendation"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_goneMarginBottom="@dimen/padding_4dp"
-                tools:text="rain" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/txtWeatherStateRecommendation"
-                conditionRecommendation="@{weatherState.condition}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_8dp"
-                android:layout_marginTop="@dimen/padding_4dp"
-                stateTextColor="@{weatherState.condition}"
                 app:layout_constraintBottom_toTopOf="@id/scrollDates"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
-                app:layout_goneMarginBottom="@dimen/padding_4dp"
-                tools:text="check umbrella" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginBottom="@dimen/padding_16dp"
+                tools:text="rain" />
+            <!--
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtWeatherStateRecommendation"
+                            conditionRecommendation="@{weatherState.condition}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_8dp"
+                            android:layout_marginTop="@dimen/padding_4dp"
+                            stateTextColor="@{weatherState.condition}"
+                            app:layout_constraintBottom_toTopOf="@id/scrollDates"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType"
+                            app:layout_goneMarginBottom="@dimen/padding_4dp"
+                            tools:text="check umbrella" />
+            -->
             <HorizontalScrollView
                 android:id="@+id/scrollDates"
                 android:layout_width="match_parent"
@@ -76,7 +77,7 @@
                 android:scrollbars="none"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtWeatherStateRecommendation">
+                app:layout_constraintTop_toBottomOf="@id/txtWeatherStateType">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txtWeatherStateTypeDateRange"
