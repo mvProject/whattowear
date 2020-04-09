@@ -3,11 +3,11 @@
     <string name="btn_start_date_name">початок</string>
     <string name="btn_end_date_name">кінець</string>
 
-    <string name="weather_icon_type_rain">Очікується дощ</string>
-    <string name="weather_icon_type_snow">Очікується снігопад</string>
-    <string name="weather_icon_type_sleet">Очікується сніг з дощем</string>
+    <string name="weather_icon_type_rain">Очікується дощ. Не забудьте взяти парасольку!</string>
+    <string name="weather_icon_type_snow">Очікується снігопад. Вдягайтесь тепліше!</string>
+    <string name="weather_icon_type_sleet">Очікується сніг з дощем. Візьміть парасольку і одягайтеся тепліше!</string>
     <string name="weather_icon_type_wind">Очікується вітряна погода</string>
-    <string name="weather_icon_type_fog">Очікується туманна погода</string>
+    <string name="weather_icon_type_fog">Очікується туманна погода. Будьте обережні за кермом</string>
     <string name="default_weather_description">Погода обіцяє бути прекрасною</string>
 
     <string name="weather_rain_recommendation">Не забудьте взяти парасольку</string>
