@@ -21,6 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_2dp">
+
+            <!-- TODO temporally commented in Delete State Icons task -->
             <!--
                         <ImageView
                             android:id="@+id/iconWeatherState"
@@ -52,6 +54,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_goneMarginBottom="@dimen/padding_16dp"
                 tools:text="rain" />
+
+            <!-- TODO temporally commented in Delete State Icons task -->
             <!--
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/txtWeatherStateRecommendation"
@@ -67,6 +71,7 @@
                             app:layout_goneMarginBottom="@dimen/padding_4dp"
                             tools:text="check umbrella" />
             -->
+
             <HorizontalScrollView
                 android:id="@+id/scrollDates"
                 android:layout_width="match_parent"

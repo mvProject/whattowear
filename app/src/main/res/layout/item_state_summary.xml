@@ -21,6 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/padding_2dp">
+
+            <!-- TODO temporally commented in Delete State Icons task -->
             <!--
                         <ImageView
                             android:id="@+id/iconWeatherState"
@@ -35,6 +37,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:src="@drawable/ic_weather_placeholder" />
             -->
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtWeatherStateType"
                 conditionProperName="@{weatherState.condition}"
@@ -51,6 +54,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_goneMarginBottom="@dimen/padding_16dp"
                 tools:text="rain" />
+
+            <!-- TODO temporally commented in Delete State Icons task -->
             <!--
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/txtWeatherStateRecommendation"
