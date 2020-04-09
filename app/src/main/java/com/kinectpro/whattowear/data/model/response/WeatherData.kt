@@ -11,7 +11,7 @@ data class DarkSkyWeather(
     val latitude: Double,
     val longitude: Double,
     val daily: Daily,
-    val offset: Long
+    val offset: Float
 )
 
 data class Daily(

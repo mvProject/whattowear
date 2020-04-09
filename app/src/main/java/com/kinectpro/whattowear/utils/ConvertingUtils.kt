@@ -34,7 +34,7 @@ const val VERTICAL_PADDING = 1
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     if ((this.daily.data.first().sunsetTime != null) && (this.daily.data.first().apparentTemperatureHigh != null) && (this.daily.data.first().apparentTemperatureLow != null)) {
         val timeWithOffset =
-            this.daily.data.first().sunsetTime!! + TimeUnit.HOURS.toSeconds(this.offset)
+            this.daily.data.first().sunsetTime!! + TimeUnit.HOURS.toSeconds(this.offset.toLong())
         return WeatherData(
             timeWithOffset,
             this.daily.data.first().apparentTemperatureHigh!!,
