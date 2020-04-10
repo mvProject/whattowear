@@ -39,5 +39,9 @@
     <string name="temperature_value_description">Макс: %d %s "\n"Мин: %4d %s</string>
     <string name="navigation_title_main">Main</string>
     <string name="navigation_title_second">Second</string>
-    <string name="message_add_trip">Добавить поездку</string>
+
+    <string name="dialog_title">Создать список приключений?</string>
+    <string name="dialog_message">Добавить список по умолчанию</string>
+    <string name="dialog_button_yes">Да</string>
+    <string name="dialog_button_no">Нет</string>
 </resources>

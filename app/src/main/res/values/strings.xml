@@ -39,5 +39,9 @@
     <string name="temperature_value_description">Max: %d %s "\n"Min: %3d %s</string>
     <string name="navigation_title_main">Main</string>
     <string name="navigation_title_second">Second</string>
-    <string name="message_add_trip">Add a trip</string>
+
+    <string name="dialog_title">Create the adventure list?</string>
+    <string name="dialog_message">Add default checklist</string>
+    <string name="dialog_button_yes">Yes</string>
+    <string name="dialog_button_no">No</string>
 </resources>
