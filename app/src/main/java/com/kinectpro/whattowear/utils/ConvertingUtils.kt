@@ -1,5 +1,6 @@
 package com.kinectpro.whattowear.utils
 
+import android.util.Log
 import com.kinectpro.whattowear.data.model.response.DarkSkyWeather
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import java.text.SimpleDateFormat
@@ -33,8 +34,10 @@ const val VERTICAL_PADDING = 1
  */
 fun DarkSkyWeather.convertToWeatherDataModel(): WeatherData? {
     if ((this.daily.data.first().sunsetTime != null) && (this.daily.data.first().apparentTemperatureHigh != null) && (this.daily.data.first().apparentTemperatureLow != null)) {
+        //Log.d("Wear","time - " + TimeUnit.SECONDS.toMillis(this.daily.data.first().sunsetTime!!).convertDateToReadableFormat(DATE_READABLE_PATTERN))
         val timeWithOffset =
             this.daily.data.first().sunsetTime!! + TimeUnit.HOURS.toSeconds(this.offset.toLong())
+        //  Log.d("Wear","timeWithOffset - " + TimeUnit.SECONDS.toMillis(timeWithOffset).convertDateToReadableFormat(DATE_READABLE_PATTERN))
         return WeatherData(
             timeWithOffset,
             this.daily.data.first().apparentTemperatureHigh!!,

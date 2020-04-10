@@ -114,14 +114,14 @@ class ConvertingUtilsTest {
         return DarkSkyWeather(
             1.5,
             2.5,
-            getTestDaily(time, tempHigh, tempLow, state)
+            getTestDaily(time, tempHigh, tempLow, state), 3.5f
         )
     }
 
     @Test
     fun convertToWeatherDataModel_Test() {
         assertEquals(
-            getExpectedValue(1583704800, 12.5f, 12f, "rain"),
+            getExpectedValue(1583715600, 12.5f, 12f, "rain"),
             getTestValue(1583704800, 12.5f, 12f, "rain").convertToWeatherDataModel()
         )
     }
@@ -134,7 +134,7 @@ class ConvertingUtilsTest {
     @Test
     fun convertToWeatherDataModel_Test_Weather_Sub_Zero() {
         assertEquals(
-            getExpectedValue(1583704800, -12.5f, -12f, "rain"),
+            getExpectedValue(1583715600, -12.5f, -12f, "rain"),
             getTestValue(1583704800, -12.5f, -12f, "rain").convertToWeatherDataModel()
         )
     }
@@ -160,7 +160,7 @@ class ConvertingUtilsTest {
     @Test
     fun convertToWeatherDataModel_Test_State_Null() {
         assertEquals(
-            getExpectedValue(1583704800, 12.5f, -12f, null),
+            getExpectedValue(1583715600, 12.5f, -12f, null),
             getTestValue(1583704800, 12.5f, -12f, null).convertToWeatherDataModel()
         )
     }
