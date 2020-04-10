@@ -12,6 +12,7 @@ import com.kinectpro.whattowear.ui.viewmodel.SecondTripViewModel
 
 class SecondTripFragment : Fragment() {
 
+    // TODO proper naming when logic will be added
     private lateinit var secondViewModel: SecondTripViewModel
     private lateinit var secondTripFragmentBinding: SecondTripFragmentBinding
 

@@ -13,18 +13,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    //   private val TAG_MAIN_FRAGMENT = "main_fragment"
-    //  private var mainFragment: MainFragment? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
         val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.mainFragment, R.id.secondTripFragment
@@ -33,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        val fm = supportFragmentManager
+
         fabAddTrip.setOnClickListener {
             Toast.makeText(
                 applicationContext,
@@ -40,18 +36,5 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-/*
-        val fm = supportFragmentManager
-
-        mainFragment = fm.findFragmentByTag(TAG_MAIN_FRAGMENT) as MainFragment?
-
-        if (mainFragment == null) {
-            fm.beginTransaction().replace(
-                R.id.nav_host_fragment,
-                MainFragment(), TAG_MAIN_FRAGMENT
-            ).commit()
-        }
-
- */
     }
 }

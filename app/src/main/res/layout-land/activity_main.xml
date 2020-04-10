@@ -8,21 +8,21 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/view_size_45dp"
         android:layout_gravity="bottom"
-        app:fabAlignmentMode="center"
         android:backgroundTint="@color/colorPrimary"
+        app:contentInsetEnd="@dimen/zero_dp"
         app:contentInsetStart="@dimen/zero_dp"
-        app:contentInsetEnd="@dimen/zero_dp">
+        app:fabAlignmentMode="center">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:itemIconTint="@color/colorAccent"
+            android:layout_height="@dimen/view_size_45dp"
             android:background="@android:color/transparent"
-            app:itemTextColor="@color/colorAccent"
+            app:itemIconTint="@color/colorAccent"
             app:itemRippleColor="@color/colorPrimaryLight"
+            app:itemTextColor="@color/colorAccent"
             app:menu="@menu/bottom_nav_menu" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -32,6 +32,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/view_size_80dp"
         app:defaultNavHost="false"
         app:navGraph="@navigation/app_navigation" />
 
@@ -39,11 +40,11 @@
         android:id="@+id/fabAddTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:rippleColor="@color/colorPrimaryLight"
         android:backgroundTint="@color/colorAccent"
-        app:srcCompat="@drawable/ic_add_black"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_anchor="@id/bottom_bar"
-        android:focusable="true" />
+        app:rippleColor="@color/colorPrimaryLight"
+        app:srcCompat="@drawable/ic_add_black" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
