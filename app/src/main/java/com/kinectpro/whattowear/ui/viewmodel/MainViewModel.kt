@@ -2,7 +2,6 @@ package com.kinectpro.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -126,8 +125,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      */
     private fun getSelectedPlaceWeatherData(): LiveData<ResourceWrapper<List<WeatherData>>>? {
         selectedDestinationPlace.value?.let { place ->
-            //Log.d("Wear","start date - " + tripRangeStartDateValue.value!!.convertDateToReadableFormat(DATE_READABLE_PATTERN))
-            //Log.d("Wear","end date - " + tripRangeEndDateValue.value!!.convertDateToReadableFormat(DATE_READABLE_PATTERN))
             getDataRangeForTrip(
                 tripRangeStartDateValue.value!!,
                 tripRangeEndDateValue.value!!
