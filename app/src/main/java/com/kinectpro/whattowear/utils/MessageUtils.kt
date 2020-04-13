@@ -28,16 +28,3 @@ fun dialogShow(
     }
     dialogBuilder.show()
 }
-
-/**
- * Show short toast message
- * @param context application context
- * @param msg string message
- */
-fun shortToast(context: Context, msg: String) {
-    Toast.makeText(
-        context,
-        msg,
-        Toast.LENGTH_SHORT
-    ).show()
-}

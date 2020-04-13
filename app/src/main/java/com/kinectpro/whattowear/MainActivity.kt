@@ -1,7 +1,9 @@
 package com.kinectpro.whattowear
 
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -9,7 +11,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kinectpro.whattowear.utils.dialogShow
-import com.kinectpro.whattowear.utils.shortToast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         fabAddTrip.setOnClickListener {
             dialogShow(this, positiveListener = DialogInterface.OnClickListener { _, _ ->
-                shortToast(this, "Dialog ok!")
+                Toast.makeText(
+                    this,
+                    "Dialog ok!",
+                    Toast.LENGTH_SHORT
+                ).show()
             })
         }
     }
