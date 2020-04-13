@@ -37,4 +37,7 @@
     <string name="image_loading_description">Show load animation</string>
 
     <string name="temperature_value_description">Max: %d %s "\n"Min: %3d %s</string>
+    <string name="title_trip">Trip</string>
+    <string name="title_trip_list">Trip list</string>
+    <string name="message_add_trip">Add a trip</string>
 </resources>
