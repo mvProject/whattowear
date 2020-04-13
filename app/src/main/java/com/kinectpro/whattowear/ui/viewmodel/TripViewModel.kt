@@ -22,7 +22,7 @@ import com.kinectpro.whattowear.utils.*
 import java.util.*
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class TripViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository =
         WhatToWearRepository(NetworkChecker(getApplication()), WhatToWearCache(getApplication()))

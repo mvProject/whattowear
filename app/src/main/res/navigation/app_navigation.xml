@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/TripFragment">
+
+    <fragment
+        android:id="@+id/TripFragment"
+        android:name="com.kinectpro.whattowear.ui.fragment.TripFragment"
+        android:label="@string/title_trip"
+        tools:layout="@layout/trip_fragment" />
+
+    <fragment
+        android:id="@+id/TripListFragment"
+        android:name="com.kinectpro.whattowear.ui.fragment.TripListFragment"
+        android:label="@string/title_trip_list"
+        tools:layout="@layout/trip_list_fragment" />
+
+</navigation>
