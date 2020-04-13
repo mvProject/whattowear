@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mainFragment"
+        android:id="@+id/TripFragment"
         android:icon="@drawable/ic_place_select"
-        android:title="@string/navigation_title_main" />
+        android:title="@string/title_trip" />
 
     <item android:title="" />
 
     <item
-        android:id="@+id/secondTripFragment"
+        android:id="@+id/TripListFragment"
         android:icon="@drawable/ic_list"
-        android:title="@string/navigation_title_second" />
+        android:title="@string/title_trip_list" />
 </menu>

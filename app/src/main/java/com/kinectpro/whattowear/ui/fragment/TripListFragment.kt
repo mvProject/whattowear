@@ -6,27 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.kinectpro.whattowear.databinding.SecondTripFragmentBinding
+import com.kinectpro.whattowear.databinding.TripListFragmentBinding
 
-import com.kinectpro.whattowear.ui.viewmodel.SecondTripViewModel
 
-class SecondTripFragment : Fragment() {
+import com.kinectpro.whattowear.ui.viewmodel.TripListViewModel
+
+class TripListFragment : Fragment() {
 
     // TODO proper naming when logic will be added
-    private lateinit var secondViewModel: SecondTripViewModel
-    private lateinit var secondTripFragmentBinding: SecondTripFragmentBinding
+    private lateinit var tripListViewModel: TripListViewModel
+    private lateinit var tripListFragmentBinding: TripListFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        secondTripFragmentBinding = SecondTripFragmentBinding.inflate(inflater, container, false)
-        return secondTripFragmentBinding.root
+        tripListFragmentBinding = TripListFragmentBinding.inflate(inflater, container, false)
+        return tripListFragmentBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        secondViewModel = ViewModelProvider(this).get(SecondTripViewModel::class.java)
+        tripListViewModel = ViewModelProvider(this).get(TripListViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

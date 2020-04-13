@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.mainFragment, R.id.secondTripFragment
+                R.id.TripFragment, R.id.TripListFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -39,6 +39,4 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
-
-
 }

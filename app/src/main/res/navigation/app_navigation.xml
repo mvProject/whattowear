@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/mainFragment">
+    app:startDestination="@+id/TripFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.kinectpro.whattowear.ui.fragment.MainFragment"
-        android:label="place"
-        tools:layout="@layout/main_fragment" />
+        android:id="@+id/TripFragment"
+        android:name="com.kinectpro.whattowear.ui.fragment.TripFragment"
+        android:label="@string/title_trip"
+        tools:layout="@layout/trip_fragment" />
 
     <fragment
-        android:id="@+id/secondTripFragment"
-        android:name="com.kinectpro.whattowear.ui.fragment.SecondTripFragment"
-        android:label="list"
-        tools:layout="@layout/second_trip_fragment" />
+        android:id="@+id/TripListFragment"
+        android:name="com.kinectpro.whattowear.ui.fragment.TripListFragment"
+        android:label="@string/title_trip_list"
+        tools:layout="@layout/trip_list_fragment" />
 
 </navigation>
