@@ -95,12 +95,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      */
     var tripStartDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            tripRangeStartDateValue.value = Calendar.getInstance().apply {
+            tripRangeStartDateValue.value = Calendar.getInstance().run {
                 set(
                     year, month, dayOfMonth,
                     HOURS_DEFAULT, MINUTES_DEFAULT, START_DATE_SECONDS_DEFAULT
                 )
-            }.run {
                 this.timeInMillis
             }
         }
@@ -110,12 +109,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      */
     var tripEndDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            tripRangeEndDateValue.value = Calendar.getInstance().apply {
+            tripRangeEndDateValue.value = Calendar.getInstance().run {
                 set(
                     year, month, dayOfMonth,
                     HOURS_DEFAULT, MINUTES_DEFAULT, END_DATE_SECONDS_DEFAULT
                 )
-            }.run {
                 this.timeInMillis
             }
         }
