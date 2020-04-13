@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.Trip
+import com.kinectpro.whattowear.data.model.TripItem
 import com.kinectpro.whattowear.databinding.TripListItemBinding
 
-class TripsAdapter(var trips: List<Trip>) :
+class TripsAdapter(var trips: List<TripItem>) :
     RecyclerView.Adapter<TripsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripsViewHolder {
 
@@ -33,7 +33,7 @@ class TripsViewHolder(
     )
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bindItem(trip: Trip) {
+    fun bindItem(trip: TripItem) {
         binding.tripItem = trip
     }
 }

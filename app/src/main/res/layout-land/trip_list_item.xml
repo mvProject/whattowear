@@ -41,17 +41,17 @@
                 android:textSize="@dimen/text_size_14sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/trip_destination"
                 app:layout_constraintEnd_toStartOf="@id/item_menu"
-                android:layout_marginEnd="@dimen/padding_8dp"
                 tools:text="22.03.2020 - 25.04.2020" />
 
-            <com.google.android.material.textview.MaterialTextView
+            <ImageView
                 android:id="@+id/item_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_context_menu"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_context_menu"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent">
 
+            </ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

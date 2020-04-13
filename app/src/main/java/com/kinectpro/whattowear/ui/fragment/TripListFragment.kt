@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinectpro.whattowear.databinding.TripListFragmentBinding
-
+import com.kinectpro.whattowear.ui.adapter.TripsAdapter
 
 import com.kinectpro.whattowear.ui.viewmodel.TripListViewModel
+import kotlinx.android.synthetic.main.trip_list_fragment.*
 
 class TripListFragment : Fragment() {
 
-    // TODO proper naming when logic will be added
     private lateinit var tripListViewModel: TripListViewModel
     private lateinit var tripListFragmentBinding: TripListFragmentBinding
 
@@ -28,7 +29,14 @@ class TripListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         tripListViewModel = ViewModelProvider(this).get(TripListViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        trip_list_view.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter =
+                TripsAdapter(
+                    tripListViewModel.listTrips
+                )
+        }
     }
 
 }
