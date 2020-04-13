@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.kinectpro.whattowear.databinding.TripListFragmentBinding
 
-
 import com.kinectpro.whattowear.ui.viewmodel.TripListViewModel
 
 class TripListFragment : Fragment() {
 
-    // TODO proper naming when logic will be added
     private lateinit var tripListViewModel: TripListViewModel
     private lateinit var tripListFragmentBinding: TripListFragmentBinding
 
