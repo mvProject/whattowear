@@ -7,12 +7,14 @@ import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.storage.ICache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
+import com.kinectpro.whattowear.database.IDatabaseStorage
 import com.kinectpro.whattowear.network.service.ApiService
 import com.kinectpro.whattowear.utils.NetworkChecker
 
 class WhatToWearRepository(
     private val networkChecker: NetworkChecker,
-    private val localStorage: ICache
+    private val localStorage: ICache,
+    private val localDatabaseStorage: IDatabaseStorage
 ) :
     IWhatToWearRepository {
 
