@@ -27,12 +27,12 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
-        versionName "0.0.14"
+        versionName "0.0.15"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "GOOGLE_PLACE_API_KEY", '"AIzaSyAbiAj6LivbiUwyGh6YoU4sWiEd7Sfvrpk"'
         buildConfigField "String", "DARKSKY_API_KEY", '"553920852aac64d32d0de96ff4cbf4a6"'
-     }
+    }
     buildTypes {
         debug {
             debuggable true

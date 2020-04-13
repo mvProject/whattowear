@@ -95,24 +95,26 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      */
     var tripStartDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance().apply {
-                set(year, month, dayOfMonth)
+            tripRangeStartDateValue.value = Calendar.getInstance().run {
+                set(
+                    year, month, dayOfMonth
+                )
+                this.timeInMillis
             }
-            tripRangeStartDateValue.value = calendar.timeInMillis
         }
 
     /*
-     Set selected date value as trip range end date
+     Set selected date value as trip range end date with init time
      */
     var tripEndDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance().apply {
+            tripRangeEndDateValue.value = Calendar.getInstance().run {
                 set(
                     year, month, dayOfMonth,
                     END_DATE_HOURS_DEFAULT, END_DATE_MINUTES_DEFAULT, END_DATE_SECONDS_DEFAULT
                 )
+                this.timeInMillis
             }
-            tripRangeEndDateValue.value = calendar.timeInMillis
         }
 
     /*

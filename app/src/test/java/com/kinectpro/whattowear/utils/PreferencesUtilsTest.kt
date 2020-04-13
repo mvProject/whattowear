@@ -9,15 +9,13 @@ class PreferencesUtilsTest {
         "1",
         "PlaceName",
         "PlaceLat",
-        "PlaceLon",
-        7200
+        "PlaceLon"
     )
     private val testSecondPlace = PlaceTrip(
         "1",
         "SecondPlaceName",
         "SecondPlaceLat",
-        "SecondPlaceLon",
-        5555
+        "SecondPlaceLon"
     )
     private val jsonPlace =
         """{"id":"1","name":"PlaceName","latitude":"PlaceLat","longitude":"PlaceLon","offsetUTC":7200}"""
