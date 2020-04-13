@@ -1,6 +1,5 @@
 package com.kinectpro.whattowear
 
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.Toast
