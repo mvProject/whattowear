@@ -91,14 +91,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /*
-     Set selected date value as trip range start date with init time
+     Set selected date value as trip range start date
      */
     var tripStartDateSelectionDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             tripRangeStartDateValue.value = Calendar.getInstance().run {
                 set(
-                    year, month, dayOfMonth,
-                    HOURS_DEFAULT, MINUTES_DEFAULT, START_DATE_SECONDS_DEFAULT
+                    year, month, dayOfMonth
                 )
                 this.timeInMillis
             }
@@ -112,7 +111,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             tripRangeEndDateValue.value = Calendar.getInstance().run {
                 set(
                     year, month, dayOfMonth,
-                    HOURS_DEFAULT, MINUTES_DEFAULT, END_DATE_SECONDS_DEFAULT
+                    END_DATE_HOURS_DEFAULT, END_DATE_MINUTES_DEFAULT, END_DATE_SECONDS_DEFAULT
                 )
                 this.timeInMillis
             }

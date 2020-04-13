@@ -11,10 +11,9 @@ const val ERROR_START_DATE_GREATER = 4
 
 const val DATE_RANGE_MAX_LENGTH_ALLOWED = 30L
 
-const val HOURS_DEFAULT = 12
-const val MINUTES_DEFAULT = 0
-const val START_DATE_SECONDS_DEFAULT = 0
-const val END_DATE_SECONDS_DEFAULT = 1
+const val END_DATE_HOURS_DEFAULT = 23
+const val END_DATE_MINUTES_DEFAULT = 59
+const val END_DATE_SECONDS_DEFAULT = 59
 
 /**
  * Method which try to generate list of timestamps from start to end date
