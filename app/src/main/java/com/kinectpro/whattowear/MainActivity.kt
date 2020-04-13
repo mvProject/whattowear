@@ -8,7 +8,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kinectpro.whattowear.ui.fragment.MainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.mainFragment, R.id.secondTripFragment
+                R.id.TripFragment, R.id.TripListFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

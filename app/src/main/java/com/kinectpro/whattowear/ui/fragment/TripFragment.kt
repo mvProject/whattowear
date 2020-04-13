@@ -19,18 +19,18 @@ import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
-import com.kinectpro.whattowear.databinding.MainFragmentBinding
+import com.kinectpro.whattowear.databinding.TripFragmentBinding
 import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
-import com.kinectpro.whattowear.ui.viewmodel.MainViewModel
+import com.kinectpro.whattowear.ui.viewmodel.TripViewModel
 import com.kinectpro.whattowear.utils.DATE_RANGE_MAX_LENGTH_ALLOWED
 import com.kinectpro.whattowear.utils.convertToReadableRange
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.trip_fragment.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class MainFragment : Fragment() {
-    private lateinit var viewModel: MainViewModel
-    private lateinit var mainFragmentBinding: MainFragmentBinding
+class TripFragment : Fragment() {
+    private lateinit var tripViewModel: TripViewModel
+    private lateinit var tripFragmentBinding: TripFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,27 +40,27 @@ class MainFragment : Fragment() {
         if (!Places.isInitialized()) {
             Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
         }
-        mainFragmentBinding = MainFragmentBinding.inflate(inflater, container, false)
-        return mainFragmentBinding.root
+        tripFragmentBinding = TripFragmentBinding.inflate(inflater, container, false)
+        return tripFragmentBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
 
-        mainFragmentBinding.mainViewModel = viewModel
-        mainFragmentBinding.lifecycleOwner = this
+        tripFragmentBinding.mainViewModel = tripViewModel
+        tripFragmentBinding.lifecycleOwner = this
 
         /*
          Observes destination and date range and obtain new forecast on changing
          */
-        viewModel.selectedTrip.observe(viewLifecycleOwner, Observer {})
+        tripViewModel.selectedTrip.observe(viewLifecycleOwner, Observer {})
 
         /*
          Observes status of selecting place
          Show status message if error appears
          */
-        viewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
+        tripViewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
@@ -68,7 +68,7 @@ class MainFragment : Fragment() {
          Observes selected trip status
          Display weather forecast on success or or proper message on error
          */
-        viewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
+        tripViewModel.selectedTripCondition.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 ResourceStatus.LOADING -> {
                     Glide.with(this).load(R.drawable.waiting).into(waitingImage)
@@ -96,10 +96,10 @@ class MainFragment : Fragment() {
         /*
          Show calendar to select start date on TripStartDateSelect button click
          */
-        mainFragmentBinding.btnTripStartDateSelect.setOnClickListener {
+        tripFragmentBinding.btnTripStartDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
             val currentDate = calendar.timeInMillis
-            viewModel.tripRangeStartDateValue.value?.let {
+            tripViewModel.tripRangeStartDateValue.value?.let {
                 // if start date was already selected, it will be init value for calendar
                 if (it > 0) {
                     calendar.timeInMillis = it
@@ -107,7 +107,7 @@ class MainFragment : Fragment() {
             }
             val tripStartDateSelectionDialog = DatePickerDialog(
                 context!!,
-                viewModel.tripStartDateSelectionDialogListener,
+                tripViewModel.tripStartDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
@@ -124,9 +124,9 @@ class MainFragment : Fragment() {
         /*
          Show calendar to select end date on TripEndDateSelect button click
          */
-        mainFragmentBinding.btnTripEndDateSelect.setOnClickListener {
+        tripFragmentBinding.btnTripEndDateSelect.setOnClickListener {
             val calendar = Calendar.getInstance()
-            viewModel.tripRangeEndDateValue.value?.let {
+            tripViewModel.tripRangeEndDateValue.value?.let {
                 // if end date was already selected, it will be init value for calendar
                 if (it > 0) {
                     calendar.timeInMillis = it
@@ -134,12 +134,12 @@ class MainFragment : Fragment() {
             }
             val tripEndDateSelectionDialog = DatePickerDialog(
                 context!!,
-                viewModel.tripEndDateSelectionDialogListener,
+                tripViewModel.tripEndDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).also {
-                viewModel.tripRangeStartDateValue.value?.let { date ->
+                tripViewModel.tripRangeStartDateValue.value?.let { date ->
                     // if trip start date is already set,it will be set as minDate value for date select suggestion
                     if (date > 0) {
                         it.datePicker.minDate = date
@@ -171,18 +171,18 @@ class MainFragment : Fragment() {
                 )
             )
             setTypeFilter(TypeFilter.CITIES)
-            setOnPlaceSelectedListener(viewModel.getTripDestinationPlaceSelected())
+            setOnPlaceSelectedListener(tripViewModel.getTripDestinationPlaceSelected())
             // Set place if it was previously saved
-            viewModel.selectedDestinationPlace.value?.let {
+            tripViewModel.selectedDestinationPlace.value?.let {
                 autoComplete.setText(it.name)
             }
         }
 
         clear_button_view.setOnClickListener {
             autoComplete.setText("")
-            viewModel.clearTripSelection()
+            tripViewModel.clearTripSelection()
 
-            mainFragmentBinding.apply {
+            tripFragmentBinding.apply {
                 wearList.visibility = View.INVISIBLE
                 cardDatesSummary.visibility = View.INVISIBLE
                 txtGoodTripMessage.visibility = View.INVISIBLE
@@ -211,7 +211,7 @@ class MainFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        viewModel.saveLastSelectedPlaceToLocalStorage()
+        tripViewModel.saveLastSelectedPlaceToLocalStorage()
     }
 }
 

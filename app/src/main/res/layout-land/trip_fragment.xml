@@ -7,7 +7,7 @@
 
         <variable
             name="mainViewModel"
-            type="com.kinectpro.whattowear.ui.viewmodel.MainViewModel" />
+            type="com.kinectpro.whattowear.ui.viewmodel.TripViewModel" />
     </data>
 
     <ScrollView
@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.fragment.MainFragment">
+            tools:context=".ui.fragment.TripFragment">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/autocompleteFragment"

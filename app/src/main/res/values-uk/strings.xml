@@ -37,7 +37,7 @@
     <string name="image_loading_description">"Показати анімацію завантаження"</string>
 
     <string name="temperature_value_description">Макс: %d %s "\n"Мін: %5d %s</string>
-    <string name="navigation_title_main">Main</string>
-    <string name="navigation_title_second">Second</string>
+    <string name="title_trip">Подорож</string>
+    <string name="title_trip_list">Перелік подорожей</string>
     <string name="message_add_trip">Додати подорож</string>
 </resources>
