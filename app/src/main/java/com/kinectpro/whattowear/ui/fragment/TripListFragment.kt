@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinectpro.whattowear.databinding.TripListFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.TripsAdapter
 
+
 import com.kinectpro.whattowear.ui.viewmodel.TripListViewModel
 import kotlinx.android.synthetic.main.trip_list_fragment.*
 

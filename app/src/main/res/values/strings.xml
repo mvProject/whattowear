@@ -40,5 +40,11 @@
     <string name="date_range_description">%s - %s</string>
     <string name="title_trip">Trip</string>
     <string name="title_trip_list">Trip list</string>
+
+    <string name="dialog_title">Create the adventure list?</string>
+    <string name="dialog_message">Add default checklist</string>
+    <string name="dialog_button_yes">Yes</string>
+    <string name="dialog_button_no">No</string>
+
     <string name="message_add_trip">Add a trip</string>
 </resources>
