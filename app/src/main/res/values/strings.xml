@@ -47,4 +47,6 @@
     <string name="dialog_button_no">No</string>
 
     <string name="message_add_trip">Add a trip</string>
+    <string name="context_menu_delete">delete</string>
+    <string name="context_menu_edit">edit</string>
 </resources>

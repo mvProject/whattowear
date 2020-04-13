@@ -48,4 +48,7 @@
     <string name="dialog_button_no">Нет</string>
 
     <string name="message_add_trip">Добавить поездку</string>
+
+    <string name="context_menu_delete">Удалить</string>
+    <string name="context_menu_edit">Редактировать</string>
 </resources>

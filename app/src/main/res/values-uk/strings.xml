@@ -48,4 +48,7 @@
     <string name="dialog_button_no">Ні</string>
 
     <string name="message_add_trip">Додати подорож</string>
+
+    <string name="context_menu_delete">Видалити</string>
+    <string name="context_menu_edit">Редагувати</string>
 </resources>
