@@ -20,7 +20,7 @@ import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 import com.kinectpro.whattowear.databinding.TripFragmentBinding
-import com.kinectpro.whattowear.ui.WeatherConditionsAdapter
+import com.kinectpro.whattowear.ui.adapter.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripViewModel
 import com.kinectpro.whattowear.utils.DATE_RANGE_MAX_LENGTH_ALLOWED
 import com.kinectpro.whattowear.utils.convertToReadableRange
@@ -79,7 +79,10 @@ class TripFragment : Fragment() {
                     txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange(context!!)
                     wearList.apply {
                         layoutManager = LinearLayoutManager(context)
-                        adapter = WeatherConditionsAdapter(it.data?.conditionDates!!)
+                        adapter =
+                            WeatherConditionsAdapter(
+                                it.data?.conditionDates!!
+                            )
                     }
                 }
                 ResourceStatus.ERROR -> {
