@@ -2,10 +2,8 @@ package com.kinectpro.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
+import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
@@ -17,6 +15,7 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
+import com.kinectpro.whattowear.database.WhatToWearDatabaseStorage
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
 import java.util.*
@@ -25,7 +24,10 @@ import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 class TripViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository =
-        WhatToWearRepository(NetworkChecker(getApplication()), WhatToWearCache(getApplication()))
+        WhatToWearRepository(
+            NetworkChecker(getApplication()),
+            WhatToWearCache(getApplication())
+        )
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()

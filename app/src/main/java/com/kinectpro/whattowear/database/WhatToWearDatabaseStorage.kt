@@ -1,29 +1,37 @@
 package com.kinectpro.whattowear.database
 
-class WhatToWearDatabaseStorage() : IDatabaseStorage {
+import androidx.lifecycle.LiveData
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-    init {
-        TODO("init database")
-    }
+class WhatToWearDatabaseStorage(private val tripDao: TripDao) : IDatabaseStorage {
 
     override fun saveTripToDatabase(trip: TripItem) {
-        TODO("save trip to database")
+        GlobalScope.launch {
+            tripDao.insert(trip)
+        }
     }
 
-    override fun loadTripFromDatabase(id: Int) {
-        TODO("load single trip from database")
+    override fun loadAllTripsFromDatabase(): LiveData<List<TripItem>> {
+        return tripDao.getAllTrips()
     }
 
-    override fun loadAllTripsFromDatabase() {
-        TODO("load all trips from database")
+    override fun updateSelectedTrip(trip: TripItem) {
+        GlobalScope.launch {
+            tripDao.update(trip)
+        }
     }
 
-    override fun updateSelectedTrip() {
-        TODO("update current trip")
+    override fun deleteSelectedTrip(trip: TripItem) {
+        GlobalScope.launch {
+            tripDao.delete(trip)
+        }
     }
 
     override fun clearDatabase() {
-        TODO("clear database")
+        GlobalScope.launch {
+            tripDao.deleteAll()
+        }
     }
 
 }
