@@ -214,7 +214,7 @@ class TripFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        tripViewModel.saveLastSelectedPlaceToLocalStorage()
+        tripViewModel.saveLastSelectedPlaceToCache()
     }
 }
 

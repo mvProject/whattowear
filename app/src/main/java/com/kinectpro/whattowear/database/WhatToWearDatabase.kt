@@ -2,33 +2,38 @@ package com.kinectpro.whattowear.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
+import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.utils.convertDbModelsToModels
+import com.kinectpro.whattowear.utils.convertModelToDbModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class WhatToWearDatabaseStorage(context: Context, private val scope: CoroutineScope) :
-    IDatabaseStorage {
+class WhatToWearDatabase(context: Context, private val scope: CoroutineScope) :
+    IDatabase {
 
-    private val tripDao = TripDatabase.getInstance(context, scope).tripDatabaseDao
+    private val tripDao = TripDatabase.getInstance(context).tripDatabaseDao
 
     override fun saveTripToDatabase(trip: TripItem) {
         scope.launch {
-            tripDao.insert(trip)
+            tripDao.insert(trip.convertModelToDbModel())
         }
     }
 
     override fun loadAllTripsFromDatabase(): LiveData<List<TripItem>> {
-        return tripDao.getAllTrips()
+        return tripDao.getAllTrips().map { it.convertDbModelsToModels() }
+
     }
 
     override fun updateSelectedTrip(trip: TripItem) {
         scope.launch {
-            tripDao.update(trip)
+            tripDao.update(trip.convertModelToDbModel())
         }
     }
 
     override fun deleteSelectedTrip(trip: TripItem) {
         scope.launch {
-            tripDao.delete(trip)
+            tripDao.delete(trip.convertModelToDbModel())
         }
     }
 
