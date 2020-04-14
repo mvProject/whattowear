@@ -9,14 +9,14 @@ interface TripDao {
     fun getAllTrips(): LiveData<List<TripItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(trip: TripItem)
+    suspend fun insert(trip: TripItem)
 
     @Update
-    fun update(trip: TripItem)
+    suspend fun update(trip: TripItem)
 
     @Delete
-    fun delete(trip: TripItem)
+    suspend fun delete(trip: TripItem)
 
     @Query("DELETE FROM trip_table")
-    fun deleteAll()
+    suspend fun deleteAll()
 }

@@ -45,17 +45,12 @@ abstract class TripDatabase : RoomDatabase() {
                 super.onOpen(db)
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.tripDatabaseDao)
+                        database.tripDatabaseDao.deleteAll()
+                        val trip = TripItem(1, "11", "London", 1583704800000L, 1583791200000L)
+                        database.tripDatabaseDao.insert(trip)
                     }
                 }
             }
-        }
-
-        fun populateDatabase(tripDao: TripDao) {
-            tripDao.deleteAll()
-
-            val trip = TripItem(1, "11", "place", 123L, 456L)
-            tripDao.insert(trip)
         }
     }
 }

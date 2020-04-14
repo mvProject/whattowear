@@ -7,7 +7,7 @@
 
         <variable
             name="tripItem"
-            type="com.kinectpro.whattowear.data.model.TripItem" />
+            type="com.kinectpro.whattowear.database.TripItem" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -25,7 +25,7 @@
                 android:id="@+id/trip_destination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{tripItem.place}"
+                android:text="@{tripItem.destinationPlace}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_18sp"
                 app:layout_constraintStart_toStartOf="parent"

@@ -26,7 +26,8 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     private val repository =
         WhatToWearRepository(
             NetworkChecker(getApplication()),
-            WhatToWearCache(getApplication())
+            WhatToWearCache(getApplication()),
+            WhatToWearDatabaseStorage(getApplication(), viewModelScope)
         )
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 

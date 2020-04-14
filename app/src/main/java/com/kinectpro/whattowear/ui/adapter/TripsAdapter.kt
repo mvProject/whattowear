@@ -7,7 +7,7 @@ import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.database.TripItem
 import com.kinectpro.whattowear.databinding.TripListItemBinding
 
 class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelectedListener) :
@@ -30,7 +30,6 @@ class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelect
     override fun onBindViewHolder(holder: TripsViewHolder, position: Int) {
         holder.bindItem(trips[position])
     }
-
 
     inner class TripsViewHolder(
         private val parent: ViewGroup,

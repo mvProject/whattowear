@@ -1,19 +1,16 @@
 package com.kinectpro.whattowear.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.database.TripItem
 import com.kinectpro.whattowear.databinding.TripListFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.TripsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripListViewModel
@@ -36,28 +33,38 @@ class TripListFragment : Fragment(), TripsAdapter.OnItemSelectedListener {
         super.onActivityCreated(savedInstanceState)
         tripListViewModel = ViewModelProvider(this).get(TripListViewModel::class.java)
 
-        trip_list_view.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter =
-                TripsAdapter(
-                    tripListViewModel.listTrips, this@TripListFragment
-                )
-        }
-
         tripListViewModel.allTrips.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Log.d("Wear", it.size.toString())
+                trip_list_view.apply {
+                    layoutManager = LinearLayoutManager(context)
+                    adapter =
+                        TripsAdapter(
+                            it, this@TripListFragment
+                        )
+                }
             }
         })
     }
 
+
     override fun onMenuAction(trip: TripItem, item: MenuItem?) {
         when (item!!.itemId) {
+            //temporally for item edit click add new item for checking functional
             R.id.trip_item_edit -> {
-                Toast.makeText(context, "edit click on - " + trip.place, Toast.LENGTH_LONG).show()
+                tripListViewModel.add(
+                    TripItem(
+                        11,
+                        "dest2",
+                        "Tokio",
+                        1583877600000L,
+                        1583964000000L
+                    )
+                )
+                //tripListViewModel.edit(trip)
             }
+            // delete current trip from database
             R.id.trip_item_delete -> {
-                Toast.makeText(context, "delete click on - " + trip.place, Toast.LENGTH_LONG).show()
+                tripListViewModel.delete(trip)
             }
         }
     }
