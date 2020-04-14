@@ -15,9 +15,7 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
-import com.kinectpro.whattowear.database.IDatabaseStorage
-import com.kinectpro.whattowear.database.TripItem
-import com.kinectpro.whattowear.database.WhatToWearDatabaseStorage
+import com.kinectpro.whattowear.database.WhatToWearDatabase
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
 import java.util.*

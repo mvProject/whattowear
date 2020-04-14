@@ -213,7 +213,7 @@ class TripFragment : Fragment() {
     }
 
     fun saveTrip() {
-        tripViewModel.saveTrip()
+        tripViewModel.saveTripToDatabase()
     }
 
     override fun onStop() {
