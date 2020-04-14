@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear.ui
+package com.kinectpro.whattowear.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
