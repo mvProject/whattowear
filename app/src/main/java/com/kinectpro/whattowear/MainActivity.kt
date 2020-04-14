@@ -35,12 +35,7 @@ class MainActivity : AppCompatActivity() {
                     dialogShow(this, positiveListener = DialogInterface.OnClickListener { _, _ ->
                         val tripFragment =
                             nav_host_fragment.childFragmentManager.primaryNavigationFragment as TripFragment?
-                        tripFragment?.saveTrip() ?: Toast.makeText(
-                            this,
-                            "fragment null",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        tripFragment?.saveTrip()
                         navController.navigate(R.id.action_TripFragment_to_TripListFragment)
                     })
                 }
