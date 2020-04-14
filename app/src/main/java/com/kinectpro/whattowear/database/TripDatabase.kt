@@ -29,7 +29,7 @@ abstract class TripDatabase : RoomDatabase() {
                         TripDatabase::class.java,
                         "trip_database"
                     )
-                        .addCallback(TripDatabaseCallback(scope))
+                        // .addCallback(TripDatabaseCallback(scope))
                         .build()
                     INSTANCE = instance
                 }
@@ -46,7 +46,7 @@ abstract class TripDatabase : RoomDatabase() {
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
                         database.tripDatabaseDao.deleteAll()
-                        val trip = TripItem(1, "11", "London", 1583704800000L, 1583791200000L)
+                        val trip = TripItem("11", "London", 1583704800000L, 1583791200000L)
                         database.tripDatabaseDao.insert(trip)
                     }
                 }

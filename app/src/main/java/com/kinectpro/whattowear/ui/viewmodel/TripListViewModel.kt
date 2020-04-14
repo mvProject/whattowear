@@ -4,11 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.kinectpro.whattowear.database.IDatabaseStorage
 import com.kinectpro.whattowear.database.TripItem
 import com.kinectpro.whattowear.database.WhatToWearDatabaseStorage
 
 class TripListViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: WhatToWearDatabaseStorage =
+    private val repository: IDatabaseStorage =
         WhatToWearDatabaseStorage(getApplication(), viewModelScope)
 
     val allTrips: LiveData<List<TripItem>>

@@ -15,6 +15,8 @@ import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
+import com.kinectpro.whattowear.database.IDatabaseStorage
+import com.kinectpro.whattowear.database.TripItem
 import com.kinectpro.whattowear.database.WhatToWearDatabaseStorage
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
@@ -29,6 +31,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
             WhatToWearCache(getApplication()),
             WhatToWearDatabaseStorage(getApplication(), viewModelScope)
         )
+
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
@@ -250,6 +253,26 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     override fun onCleared() {
         super.onCleared()
         repository.unregisterCallback()
+    }
+
+    fun saveTrip() {
+        repository.saveTripToDb(
+            TripItem(
+                "22",
+                "Tokio",
+                1583877600000L,
+                1583964000000L
+            )
+            /*
+            TripItem(
+                selectedDestinationPlace.value?.id!!,
+                selectedDestinationPlace.value?.name!!,
+                tripRangeStartDateValue.value!!,
+                tripRangeEndDateValue.value!!
+            )
+
+             */
+        )
     }
 }
 

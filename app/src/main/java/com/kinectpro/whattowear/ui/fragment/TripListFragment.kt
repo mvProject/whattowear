@@ -53,7 +53,6 @@ class TripListFragment : Fragment(), TripsAdapter.OnItemSelectedListener {
             R.id.trip_item_edit -> {
                 tripListViewModel.add(
                     TripItem(
-                        11,
                         "dest2",
                         "Tokio",
                         1583877600000L,

@@ -212,6 +212,10 @@ class TripFragment : Fragment() {
         }
     }
 
+    fun saveTrip() {
+        tripViewModel.saveTrip()
+    }
+
     override fun onStop() {
         super.onStop()
         tripViewModel.saveLastSelectedPlaceToLocalStorage()

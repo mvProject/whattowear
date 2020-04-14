@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kinectpro.whattowear.ui.fragment.TripFragment
 import com.kinectpro.whattowear.utils.dialogShow
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,13 +30,22 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         fabAddTrip.setOnClickListener {
-            dialogShow(this, positiveListener = DialogInterface.OnClickListener { _, _ ->
-                Toast.makeText(
-                    this,
-                    "Dialog ok!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            })
+            when (navController.currentDestination?.id) {
+                R.id.TripFragment -> {
+                    dialogShow(this, positiveListener = DialogInterface.OnClickListener { _, _ ->
+                        val tripFragment =
+                            nav_host_fragment.childFragmentManager.primaryNavigationFragment as TripFragment?
+                        tripFragment?.saveTrip() ?: Toast.makeText(
+                            this,
+                            "fragment null",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        navController.navigate(R.id.action_TripFragment_to_TripListFragment)
+                    })
+                }
+            }
+
         }
     }
 }
