@@ -2,13 +2,13 @@ package com.kinectpro.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
-import android.util.Log
 import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.kinectpro.whattowear.data.IWeatherRangeSummary
 import com.kinectpro.whattowear.data.TripWeatherCondition
+import com.kinectpro.whattowear.data.model.TripItem
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
@@ -29,7 +29,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
         WhatToWearRepository(
             NetworkChecker(getApplication()),
             WhatToWearCache(getApplication()),
-            WhatToWearDatabaseStorage(getApplication(), viewModelScope)
+            WhatToWearDatabase(getApplication(), viewModelScope)
         )
 
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
@@ -70,7 +70,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     init {
-        repository.getLastSelectedPlace().let {
+        repository.getLastSelectedPlaceFromCache().let {
             selectedDestinationPlace.value = it
         }
     }
@@ -246,33 +246,26 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     /*
     Save selected place to local storage
      */
-    fun saveLastSelectedPlaceToLocalStorage() {
-        repository.setLastSelectedPlace(selectedDestinationPlace.value)
+    fun saveLastSelectedPlaceToCache() {
+        repository.setLastSelectedPlaceToCache(selectedDestinationPlace.value)
+    }
+
+    fun saveTripToDatabase() {
+        if (selectedDestinationPlace.value != null && tripRangeStartDateValue.value != null && tripRangeEndDateValue.value != null) {
+            repository.saveTripToDatabase(
+                TripItem(
+                    selectedDestinationPlace.value!!.id,
+                    selectedDestinationPlace.value!!.name,
+                    tripRangeStartDateValue.value!!,
+                    tripRangeEndDateValue.value!!
+                )
+            )
+        }
     }
 
     override fun onCleared() {
         super.onCleared()
         repository.unregisterCallback()
-    }
-
-    fun saveTrip() {
-        repository.saveTripToDb(
-            TripItem(
-                "22",
-                "Tokio",
-                1583877600000L,
-                1583964000000L
-            )
-            /*
-            TripItem(
-                selectedDestinationPlace.value?.id!!,
-                selectedDestinationPlace.value?.name!!,
-                tripRangeStartDateValue.value!!,
-                tripRangeEndDateValue.value!!
-            )
-
-             */
-        )
     }
 }
 

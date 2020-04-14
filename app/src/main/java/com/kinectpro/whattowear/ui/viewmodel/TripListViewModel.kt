@@ -4,13 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.kinectpro.whattowear.database.IDatabaseStorage
-import com.kinectpro.whattowear.database.TripItem
-import com.kinectpro.whattowear.database.WhatToWearDatabaseStorage
+import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.database.WhatToWearDatabase
 
 class TripListViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: IDatabaseStorage =
-        WhatToWearDatabaseStorage(getApplication(), viewModelScope)
+    private val repository: WhatToWearDatabase =
+        WhatToWearDatabase(getApplication(), viewModelScope)
 
     val allTrips: LiveData<List<TripItem>>
 
@@ -18,19 +17,11 @@ class TripListViewModel(application: Application) : AndroidViewModel(application
         allTrips = repository.loadAllTripsFromDatabase()
     }
 
-    fun add(trip: TripItem) {
-        repository.saveTripToDatabase(trip)
-    }
-
-    fun edit(trip: TripItem) {
+    fun editSelectedTrip(trip: TripItem) {
         repository.updateSelectedTrip(trip)
     }
 
-    fun delete(trip: TripItem) {
+    fun deleteSelectedTripFromDb(trip: TripItem) {
         repository.deleteSelectedTrip(trip)
-    }
-
-    fun deleteAll() {
-        repository.clearDatabase()
     }
 }

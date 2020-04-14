@@ -5,18 +5,18 @@ import androidx.room.*
 
 @Dao
 interface TripDao {
-    @Query("SELECT * FROM trip_table")
-    fun getAllTrips(): LiveData<List<TripItem>>
+    @Query("SELECT * FROM trips")
+    fun getAllTrips(): LiveData<List<TripDatabaseModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(trip: TripItem)
+    suspend fun insert(trip: TripDatabaseModel)
 
     @Update
-    suspend fun update(trip: TripItem)
+    suspend fun update(trip: TripDatabaseModel)
 
     @Delete
-    suspend fun delete(trip: TripItem)
+    suspend fun delete(trip: TripDatabaseModel)
 
-    @Query("DELETE FROM trip_table")
+    @Query("DELETE FROM trips")
     suspend fun deleteAll()
 }

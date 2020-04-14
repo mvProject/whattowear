@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "trip_table")
-data class TripItem(
+@Entity(tableName = "trips")
+data class TripDatabaseModel(
     @PrimaryKey @ColumnInfo(name = "destination_id") val destinationId: String,
     @ColumnInfo(name = "destination_place") val destinationPlace: String,
     @ColumnInfo(name = "start_date") val startDate: Long,

@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.database.TripItem
+import com.kinectpro.whattowear.data.model.TripItem
 import com.kinectpro.whattowear.databinding.TripListFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.TripsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripListViewModel
@@ -49,21 +49,13 @@ class TripListFragment : Fragment(), TripsAdapter.OnItemSelectedListener {
 
     override fun onMenuAction(trip: TripItem, item: MenuItem?) {
         when (item!!.itemId) {
-            //temporally for item edit click add new item for checking functional
+            // edit current trip from database
             R.id.trip_item_edit -> {
-                tripListViewModel.add(
-                    TripItem(
-                        "dest2",
-                        "Tokio",
-                        1583877600000L,
-                        1583964000000L
-                    )
-                )
-                //tripListViewModel.edit(trip)
+                tripListViewModel.editSelectedTrip(trip)
             }
             // delete current trip from database
             R.id.trip_item_delete -> {
-                tripListViewModel.delete(trip)
+                tripListViewModel.deleteSelectedTripFromDb(trip)
             }
         }
     }
