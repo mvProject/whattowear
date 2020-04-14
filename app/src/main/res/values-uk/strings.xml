@@ -37,6 +37,8 @@
     <string name="image_loading_description">"Показати анімацію завантаження"</string>
 
     <string name="temperature_value_description">Макс: %d %s "\n"Мін: %5d %s</string>
+    <string name="date_range_description">%s - %s</string>
+
     <string name="title_trip">Подорож</string>
     <string name="title_trip_list">Перелік подорожей</string>
 
@@ -46,4 +48,7 @@
     <string name="dialog_button_no">Ні</string>
 
     <string name="message_add_trip">Додати подорож</string>
+
+    <string name="context_menu_delete">Видалити</string>
+    <string name="context_menu_edit">Редагувати</string>
 </resources>

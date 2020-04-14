@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.TripItem
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 
 /**
@@ -152,4 +153,21 @@ fun setViewVisibilityAccordingSuccessStatus(
         ResourceStatus.SUCCESS -> view.visibility = View.VISIBLE
         else -> view.visibility = View.INVISIBLE
     }
+}
+
+/**
+ * Binding adapter setting formatted string with date range of trip
+ * @param view type of view which adapter can be binded
+ * @param trip current trip object
+ */
+@BindingAdapter(value = ["tripRange"])
+fun getProperTextForDateRangeView(
+    view: MaterialTextView,
+    trip: TripItem
+) {
+    view.text = String.format(
+        view.context.getString(R.string.date_range_description),
+        trip.startDate.convertDateToReadableFormat(DATE_READABLE_PATTERN),
+        trip.endDate.convertDateToReadableFormat(DATE_READABLE_PATTERN)
+    )
 }
