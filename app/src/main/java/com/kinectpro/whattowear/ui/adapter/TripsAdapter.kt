@@ -31,7 +31,6 @@ class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelect
         holder.bindItem(trips[position])
     }
 
-
     inner class TripsViewHolder(
         private val parent: ViewGroup,
         private val binding: TripListItemBinding = DataBindingUtil.inflate(

@@ -2,21 +2,21 @@ package com.kinectpro.whattowear.ui.viewmodel
 
 import android.app.Application
 import android.app.DatePickerDialog
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.kinectpro.whattowear.data.IWeatherRangeSummary
 import com.kinectpro.whattowear.data.TripWeatherCondition
+import com.kinectpro.whattowear.data.model.TripItem
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
+import com.kinectpro.whattowear.database.TripDatabaseModel
+import com.kinectpro.whattowear.database.WhatToWearDatabase
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
 import java.util.*
@@ -25,7 +25,11 @@ import com.kinectpro.whattowear.data.model.enums.ResourceStatus as RequestStatus
 class TripViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository =
-        WhatToWearRepository(NetworkChecker(getApplication()), WhatToWearCache(getApplication()))
+        WhatToWearRepository(
+            NetworkChecker(getApplication()),
+            WhatToWearCache(getApplication()),
+            WhatToWearDatabase(getApplication(), viewModelScope)
+        )
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
@@ -64,7 +68,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     init {
-        repository.getLastSelectedPlace().let {
+        repository.getLastSelectedPlaceFromCache().let {
             selectedDestinationPlace.value = it
         }
     }
@@ -240,8 +244,21 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     /*
     Save selected place to local storage
      */
-    fun saveLastSelectedPlaceToLocalStorage() {
-        repository.setLastSelectedPlace(selectedDestinationPlace.value)
+    fun saveLastSelectedPlaceToCache() {
+        repository.setLastSelectedPlaceToCache(selectedDestinationPlace.value)
+    }
+
+    fun saveTripToDatabase() {
+        if (selectedDestinationPlace.value != null && tripRangeStartDateValue.value != null && tripRangeEndDateValue.value != null) {
+            repository.saveTripToDatabase(
+                TripItem(
+                    selectedDestinationPlace.value!!.id,
+                    selectedDestinationPlace.value!!.name,
+                    tripRangeStartDateValue.value!!,
+                    tripRangeEndDateValue.value!!
+                )
+            )
+        }
     }
 
     override fun onCleared() {
