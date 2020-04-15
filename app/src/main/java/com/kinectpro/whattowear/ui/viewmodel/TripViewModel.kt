@@ -13,6 +13,7 @@ import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TripModel
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.database.WhatToWearDatabase
@@ -248,16 +249,34 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
         repository.setLastSelectedPlaceToCache(selectedDestinationPlace.value)
     }
 
-    fun saveTripToDatabase() {
+    /*
+    Save current trip to database
+     */
+    fun saveTripToDatabase(isDefaultListChecked: Boolean) {
         if (selectedDestinationPlace.value != null && tripRangeStartDateValue.value != null && tripRangeEndDateValue.value != null) {
-            repository.saveTripToDatabase(
-                TripItem(
-                    selectedDestinationPlace.value!!.id,
-                    selectedDestinationPlace.value!!.name,
-                    tripRangeStartDateValue.value!!,
-                    tripRangeEndDateValue.value!!
-                )
+            // Trip item with current conditions selected
+            val currentTripItem = TripItem(
+                selectedDestinationPlace.value!!.id,
+                selectedDestinationPlace.value!!.name,
+                tripRangeStartDateValue.value!!,
+                tripRangeEndDateValue.value!!,
+                null
             )
+            // saving trip according users default list including decision
+            when (isDefaultListChecked) {
+                // with checklist
+                true -> {
+                    // checklist can be created or achieved from various sources
+                    val defaultCheckList = listOf(WearItem("test1"), WearItem("test2"))
+                    val currentTripItemWithChecklist =
+                        currentTripItem.copy(checkList = defaultCheckList)
+                    repository.saveTripToDatabase(currentTripItemWithChecklist)
+                }
+                // without checklist
+                false -> {
+                    repository.saveTripToDatabase(currentTripItem)
+                }
+            }
         }
     }
 
