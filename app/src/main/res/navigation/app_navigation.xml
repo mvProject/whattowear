@@ -9,7 +9,11 @@
         android:id="@+id/TripFragment"
         android:name="com.kinectpro.whattowear.ui.fragment.TripFragment"
         android:label="@string/title_trip"
-        tools:layout="@layout/trip_fragment" />
+        tools:layout="@layout/trip_fragment">
+        <action
+            android:id="@+id/action_TripFragment_to_TripListFragment"
+            app:destination="@id/TripListFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/TripListFragment"
