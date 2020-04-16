@@ -3,16 +3,27 @@ package com.kinectpro.whattowear.utils
 import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.entity.TripDatabaseModel
+import com.kinectpro.whattowear.database.entity.WearDatabaseModel
 
 /**
  * Convert list of database models to list of trip models
  */
 fun List<TripDatabaseModel>.convertDbModelsToModels(): List<TripItem> {
-    val tripList = mutableListOf<TripItem>()
-    for (trip in this) {
-        tripList.add(trip.convertDbModelToModel())
-    }
-    return tripList
+    return this.map { it.convertDbModelToModel() }
+}
+
+/**
+ *
+ */
+fun List<WearDatabaseModel>.convertWearItemDbModelsToWearItemModels(): List<WearItem> {
+    return this.map { it.convertWearItemDbModelToWearItemModel() }
+}
+
+/**
+ *
+ */
+fun List<WearItem>.convertWearItemModelsToWearItemDbModels(): List<WearDatabaseModel> {
+    return this.map { it.convertWearItemModelToWearItemDbModel() }
 }
 
 /**
@@ -44,6 +55,28 @@ fun TripItem.convertModelToDbModel() = with(this) {
         startDate,
         endDate,
         checkList?.convertWearItemsToStrings()
+    )
+}
+
+/**
+ *
+ */
+fun WearItem.convertWearItemModelToWearItemDbModel() = with(this) {
+    WearDatabaseModel(
+        name,
+        isChecked,
+        tripId
+    )
+}
+
+/**
+ *
+ */
+fun WearDatabaseModel.convertWearItemDbModelToWearItemModel() = with(this) {
+    WearItem(
+        wearName,
+        wearChecked,
+        wearTripId
     )
 }
 

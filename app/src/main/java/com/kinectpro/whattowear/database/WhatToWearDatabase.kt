@@ -15,15 +15,19 @@ class WhatToWearDatabase(context: Context, private val scope: CoroutineScope) :
 
     private val tripDao = TripDatabase.getInstance(context).tripDao
 
+    private val wearRepository: IWear = WearRepository(context, scope)
+
     override fun saveTripToDatabase(trip: TripItem) {
         scope.launch {
             tripDao.insert(trip.convertModelToDbModel())
+            trip.checkList?.let {
+                wearRepository.saveTripWearsToDatabase(it)
+            }
         }
     }
 
     override fun loadAllTripsFromDatabase(): LiveData<List<TripItem>> {
         return tripDao.getAllTrips().map { it.convertDbModelsToModels() }
-
     }
 
     override fun updateSelectedTrip(trip: TripItem) {
@@ -35,6 +39,9 @@ class WhatToWearDatabase(context: Context, private val scope: CoroutineScope) :
     override fun deleteSelectedTrip(trip: TripItem) {
         scope.launch {
             tripDao.delete(trip.convertModelToDbModel())
+            trip.checkList?.let {
+                wearRepository.deleteTripWearsToDatabase(it)
+            }
         }
     }
 

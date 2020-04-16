@@ -22,7 +22,7 @@ interface WearDao {
     suspend fun update(wear: WearDatabaseModel)
 
     @Delete
-    suspend fun delete(wear: WearDatabaseModel)
+    suspend fun deleteTripWears(wears: List<WearDatabaseModel>)
 
     @Query("DELETE FROM wears")
     suspend fun deleteAll()
