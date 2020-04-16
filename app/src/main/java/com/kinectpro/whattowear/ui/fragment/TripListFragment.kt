@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.databinding.TripListFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.TripsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripListViewModel

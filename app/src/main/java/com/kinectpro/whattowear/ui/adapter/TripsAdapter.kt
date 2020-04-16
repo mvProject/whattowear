@@ -7,7 +7,7 @@ import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.databinding.TripListItemBinding
 
 class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelectedListener) :

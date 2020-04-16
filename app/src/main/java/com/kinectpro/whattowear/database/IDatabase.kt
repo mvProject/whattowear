@@ -1,7 +1,7 @@
 package com.kinectpro.whattowear.database
 
 import androidx.lifecycle.LiveData
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 
 interface IDatabase {
     fun saveTripToDatabase(trip: TripItem)

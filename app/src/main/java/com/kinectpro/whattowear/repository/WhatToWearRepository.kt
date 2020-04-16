@@ -2,7 +2,7 @@ package com.kinectpro.whattowear.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData

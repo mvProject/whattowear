@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 
 /**

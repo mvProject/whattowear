@@ -3,7 +3,7 @@ package com.kinectpro.whattowear.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.utils.convertDbModelsToModels
 import com.kinectpro.whattowear.utils.convertModelToDbModel
 import kotlinx.coroutines.CoroutineScope

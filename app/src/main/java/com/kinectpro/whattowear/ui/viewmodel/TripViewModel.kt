@@ -8,7 +8,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.kinectpro.whattowear.data.IWeatherRangeSummary
 import com.kinectpro.whattowear.data.TripWeatherCondition
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
@@ -253,18 +253,9 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     Save current trip to database
      */
     fun saveTripToDatabase(isDefaultListChecked: Boolean) {
-        if (selectedDestinationPlace.value != null && tripRangeStartDateValue.value != null && tripRangeEndDateValue.value != null) {
-            // Trip item with current conditions selected
-            val tripId = "${Random().nextInt()}-${selectedDestinationPlace.value}"
-            val currentTripItem = TripItem(
-                tripId,
-                selectedDestinationPlace.value!!.id,
-                selectedDestinationPlace.value!!.name,
-                tripRangeStartDateValue.value!!,
-                tripRangeEndDateValue.value!!,
-                null
-            )
-            // saving trip according users default list including decision
+        val currentTripItem = prepareTripToSaving()
+        // saving trip according users default list including decision
+        currentTripItem?.let {
             when (isDefaultListChecked) {
                 // with checklist
                 true -> {
@@ -280,6 +271,27 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
+    }
+
+    private fun prepareTripToSaving(): TripItem? {
+        val destination = selectedDestinationPlace.value
+        val destinationStart = tripRangeStartDateValue.value
+        val destinationEnd = tripRangeEndDateValue.value
+        val weatherCondition = selectedTripCondition.value?.data
+        if ((destination != null) && (destinationStart != null) && (destinationEnd != null) && (weatherCondition != null)) {
+            val tripId = "${Random().nextInt()}-${destination.id}"
+            return TripItem(
+                tripId,
+                destination.id,
+                destination.name,
+                weatherCondition.nightTemp.convertToReadableRange(getApplication()),
+                weatherCondition.dayTemp.convertToReadableRange(getApplication()),
+                destinationStart,
+                destinationEnd,
+                null
+            )
+        }
+        return null
     }
 
     override fun onCleared() {

@@ -7,7 +7,7 @@
 
         <variable
             name="tripItem"
-            type="com.kinectpro.whattowear.data.model.TripItem" />
+            type="com.kinectpro.whattowear.data.model.trip.TripItem" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
