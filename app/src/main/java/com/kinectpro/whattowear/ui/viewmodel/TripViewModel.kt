@@ -16,7 +16,7 @@ import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
-import com.kinectpro.whattowear.database.WhatToWearDatabase
+import com.kinectpro.whattowear.database.TripRepository
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
 import java.util.*
@@ -28,7 +28,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
         WhatToWearRepository(
             NetworkChecker(getApplication()),
             WhatToWearCache(getApplication()),
-            WhatToWearDatabase(getApplication(), viewModelScope)
+            TripRepository(getApplication(), viewModelScope)
         )
 
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
@@ -261,12 +261,10 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
                 true -> {
                     // checklist can be created or achieved from various sources
                     val defaultCheckList = listOf(
-                        WearItem("test1", true, currentTripItem.tripId),
-                        WearItem("test2", false, currentTripItem.tripId)
+                        WearItem(currentTripItem.place + " wear1", true, currentTripItem.tripId),
+                        WearItem(currentTripItem.place + " wear2", false, currentTripItem.tripId)
                     )
-                    //val currentTripItemWithChecklist =
-                    //    currentTripItem.copy(checkList = defaultCheckList)
-                    repository.saveTripToDatabase(currentTripItem)
+                    repository.saveTripToDatabase(currentTripItem, defaultCheckList)
                 }
                 // without checklist
                 false -> {
@@ -282,15 +280,17 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
         val destinationEnd = tripRangeEndDateValue.value
         val weatherCondition = selectedTripCondition.value?.data
         if ((destination != null) && (destinationStart != null) && (destinationEnd != null) && (weatherCondition != null)) {
-            val tripId = "${Random().nextInt()}-${destination.id}"
+            val id = Random().nextInt()
             return TripItem(
-                tripId,
+                id,
                 destination.id,
                 destination.name,
                 weatherCondition.nightTemp.convertToReadableRange(getApplication()),
                 weatherCondition.dayTemp.convertToReadableRange(getApplication()),
                 destinationStart,
-                destinationEnd
+                destinationEnd,
+                "$id-${destination.id}"
+
             )
         }
         return null

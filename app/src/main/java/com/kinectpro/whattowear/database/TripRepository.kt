@@ -1,21 +1,23 @@
 package com.kinectpro.whattowear.database
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.db.TripDatabase
+import com.kinectpro.whattowear.database.entity.TripWithCheckList
 import com.kinectpro.whattowear.utils.convertDbModelsToModels
 import com.kinectpro.whattowear.utils.convertModelToDbModel
+import com.kinectpro.whattowear.utils.convertWearItemModelsToWearItemDbModels
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class WhatToWearDatabase(context: Context, private val scope: CoroutineScope) :
-    IDatabase {
+class TripRepository(context: Context, private val scope: CoroutineScope) :
+    ITrip {
 
     private val tripDao = TripDatabase.getInstance(context).tripDao
+    private val wearDao = TripDatabase.getInstance(context).wearDao
 
     override fun saveTripToDatabase(trip: TripItem) {
         scope.launch {
@@ -23,8 +25,23 @@ class WhatToWearDatabase(context: Context, private val scope: CoroutineScope) :
         }
     }
 
+    override fun saveTripToDatabase(trip: TripItem, checkList: List<WearItem>) {
+        scope.launch {
+            tripDao.insert(trip.convertModelToDbModel())
+            wearDao.insertTripWears(checkList.convertWearItemModelsToWearItemDbModels())
+        }
+    }
+
     override fun loadAllTripsFromDatabase(): LiveData<List<TripItem>> {
         return tripDao.getAllTrips().map { it.convertDbModelsToModels() }
+    }
+
+    override fun loadAllTripsWithCheckListsFromDatabase(): LiveData<List<TripWithCheckList>> {
+        return tripDao.getAllTripsWithCheckLists()
+    }
+
+    override fun loadSingleTripWithCheckListsFromDatabase(tripId: String): LiveData<TripWithCheckList> {
+        return tripDao.getSingleTripWithCheckLists(tripId)
     }
 
     override fun updateSelectedTrip(trip: TripItem) {
@@ -34,8 +51,12 @@ class WhatToWearDatabase(context: Context, private val scope: CoroutineScope) :
     }
 
     override fun deleteSelectedTrip(trip: TripItem) {
+        val wears = wearDao.getTripWears(trip.tripId).value
         scope.launch {
             tripDao.delete(trip.convertModelToDbModel())
+            if (wears != null) {
+                wearDao.deleteTripWears(wears)
+            }
         }
     }
 
