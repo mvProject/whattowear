@@ -255,7 +255,9 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     fun saveTripToDatabase(isDefaultListChecked: Boolean) {
         if (selectedDestinationPlace.value != null && tripRangeStartDateValue.value != null && tripRangeEndDateValue.value != null) {
             // Trip item with current conditions selected
+            val tripId = "${Random().nextInt()}-${selectedDestinationPlace.value}"
             val currentTripItem = TripItem(
+                tripId,
                 selectedDestinationPlace.value!!.id,
                 selectedDestinationPlace.value!!.name,
                 tripRangeStartDateValue.value!!,

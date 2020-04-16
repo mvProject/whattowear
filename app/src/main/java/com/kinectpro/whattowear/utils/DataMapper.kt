@@ -20,6 +20,7 @@ fun List<TripDatabaseModel>.convertDbModelsToModels(): List<TripItem> {
  */
 fun TripDatabaseModel.convertDbModelToModel() = with(this) {
     TripItem(
+        tripId,
         destinationId,
         destinationPlace,
         startDate,
@@ -32,7 +33,14 @@ fun TripDatabaseModel.convertDbModelToModel() = with(this) {
  *
  */
 fun TripItem.convertModelToDbModel() = with(this) {
-    TripDatabaseModel(placeId, place, startDate, endDate, checkList?.convertWearItemsToStrings())
+    TripDatabaseModel(
+        tripId,
+        placeId,
+        place,
+        startDate,
+        endDate,
+        checkList?.convertWearItemsToStrings()
+    )
 }
 
 /**
