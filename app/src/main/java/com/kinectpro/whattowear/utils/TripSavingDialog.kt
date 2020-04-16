@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.dialog_layout.view.*
 class TripSavingDialog : DialogFragment() {
 
     interface DefaultListDialogListener {
-        fun onFinishDialog(defaultListChecked: Boolean)
+        fun onFinishDialog(isDefaultListChecked: Boolean)
     }
 
     var onCheckListener: DefaultListDialogListener? = null
@@ -26,8 +26,8 @@ class TripSavingDialog : DialogFragment() {
             builder.setCancelable(true)
                 .setView(view)
                 .setPositiveButton(context?.getString(R.string.dialog_button_yes)) { _, _ ->
-                    val defaultCheck = view.checkBox.isChecked
-                    onCheckListener?.onFinishDialog(defaultCheck)
+                    val isDefaultListChecked = view.checkBox.isChecked
+                    onCheckListener?.onFinishDialog(isDefaultListChecked)
                 }
                 .setNeutralButton(context?.getString(R.string.dialog_button_no), null)
             builder.create()

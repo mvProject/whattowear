@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity(), TripSavingDialog.DefaultListDialogList
     }
 
     // Save current trip with or without checklist and navigate to trip list screen
-    override fun onFinishDialog(defaultListChecked: Boolean) {
+    override fun onFinishDialog(isDefaultListChecked: Boolean) {
         val tripFragment =
             nav_host_fragment.childFragmentManager.primaryNavigationFragment as TripFragment?
-        tripFragment?.saveTrip(defaultListChecked)
+        tripFragment?.saveTrip(isDefaultListChecked)
         navController.navigate(R.id.action_TripFragment_to_TripListFragment)
     }
 }
