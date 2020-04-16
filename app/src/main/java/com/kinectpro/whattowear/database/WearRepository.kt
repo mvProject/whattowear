@@ -1,6 +1,8 @@
 package com.kinectpro.whattowear.database
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.db.TripDatabase
 import com.kinectpro.whattowear.utils.convertWearItemDbModelsToWearItemModels
@@ -18,12 +20,8 @@ class WearRepository(context: Context, private val scope: CoroutineScope) : IWea
         }
     }
 
-    override fun loadTripWearsFromDatabase(): List<WearItem>? {
-        var wears: List<WearItem>? = null
-        scope.launch {
-            wears = wearDao.getAllWears().value?.convertWearItemDbModelsToWearItemModels()
-        }
-        return wears
+    override fun loadTripWearsFromDatabase(): LiveData<List<WearItem>> {
+        return wearDao.getAllWears().map { it.convertWearItemDbModelsToWearItemModels() }
     }
 
     override fun deleteTripWearsToDatabase(wears: List<WearItem>) {

@@ -13,17 +13,8 @@ interface WearDao {
     fun getTripWears(tripId: String): LiveData<List<WearDatabaseModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSingleWear(wear: WearDatabaseModel)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTripWears(wears: List<WearDatabaseModel>)
-
-    @Update
-    suspend fun update(wear: WearDatabaseModel)
 
     @Delete
     suspend fun deleteTripWears(wears: List<WearDatabaseModel>)
-
-    @Query("DELETE FROM wears")
-    suspend fun deleteAll()
 }

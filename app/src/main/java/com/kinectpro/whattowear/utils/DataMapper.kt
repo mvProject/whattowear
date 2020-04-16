@@ -37,8 +37,7 @@ fun TripDatabaseModel.convertDbModelToModel() = with(this) {
         nightTemp,
         dayTemp,
         startDate,
-        endDate,
-        checkList?.convertStringToWearItems()
+        endDate
     )
 }
 
@@ -53,8 +52,7 @@ fun TripItem.convertModelToDbModel() = with(this) {
         nightTemp,
         dayTemp,
         startDate,
-        endDate,
-        checkList?.convertWearItemsToStrings()
+        endDate
     )
 }
 
@@ -78,30 +76,4 @@ fun WearDatabaseModel.convertWearItemDbModelToWearItemModel() = with(this) {
         wearChecked,
         wearTripId
     )
-}
-
-/**
- * Converter from wear item list single string
- * @return string value
- */
-fun List<WearItem>?.convertWearItemsToStrings(): String? {
-    return this?.joinToString {
-        it.name
-    }
-}
-
-/**
- * Converter from single string to wear item list
- * @return list of wear items in case of proper string
- * @return null in other cases
- */
-fun String?.convertStringToWearItems(): List<WearItem>? {
-    if ((this != null) && (this.isNotEmpty()) && (this.contains(","))) {
-        val tripList = mutableListOf<WearItem>()
-        for (item in tripList) {
-            tripList.add(WearItem(item.name, item.isChecked, item.tripId))
-        }
-        return tripList
-    }
-    return null
 }

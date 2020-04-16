@@ -264,9 +264,9 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
                         WearItem("test1", true, currentTripItem.tripId),
                         WearItem("test2", false, currentTripItem.tripId)
                     )
-                    val currentTripItemWithChecklist =
-                        currentTripItem.copy(checkList = defaultCheckList)
-                    repository.saveTripToDatabase(currentTripItemWithChecklist)
+                    //val currentTripItemWithChecklist =
+                    //    currentTripItem.copy(checkList = defaultCheckList)
+                    repository.saveTripToDatabase(currentTripItem)
                 }
                 // without checklist
                 false -> {
@@ -290,8 +290,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
                 weatherCondition.nightTemp.convertToReadableRange(getApplication()),
                 weatherCondition.dayTemp.convertToReadableRange(getApplication()),
                 destinationStart,
-                destinationEnd,
-                null
+                destinationEnd
             )
         }
         return null

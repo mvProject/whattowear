@@ -20,6 +20,7 @@ class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelect
     }
 
     interface OnItemSelectedListener {
+        fun onItemClick(trip: TripItem)
         fun onMenuAction(trip: TripItem, item: MenuItem?)
     }
 
@@ -40,6 +41,9 @@ class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelect
 
         fun bindItem(trip: TripItem) {
             binding.tripItem = trip
+            binding.tripCard.setOnClickListener {
+                listener.onItemClick(trip)
+            }
             // define menu and show on click
             binding.itemMenu.setOnClickListener {
                 val contextMenu = PopupMenu(parent.context, it)

@@ -1,6 +1,7 @@
 package com.kinectpro.whattowear.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -44,6 +45,10 @@ class TripListFragment : Fragment(), TripsAdapter.OnItemSelectedListener {
                 }
             }
         })
+    }
+
+    override fun onItemClick(trip: TripItem) {
+        Log.d("Wear", "item clicked - " + trip.place)
     }
 
 

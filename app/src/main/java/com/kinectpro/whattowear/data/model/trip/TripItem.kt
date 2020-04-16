@@ -1,6 +1,5 @@
 package com.kinectpro.whattowear.data.model.trip
 
-import com.kinectpro.whattowear.data.model.wear.WearItem
 import java.io.Serializable
 
 data class TripItem(
@@ -10,6 +9,5 @@ data class TripItem(
     val nightTemp: String,
     val dayTemp: String,
     val startDate: Long,
-    val endDate: Long,
-    val checkList: List<WearItem>?
+    val endDate: Long
 ) : Serializable
