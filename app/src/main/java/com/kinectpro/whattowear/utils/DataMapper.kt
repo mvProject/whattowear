@@ -8,8 +8,8 @@ import com.kinectpro.whattowear.database.entity.WearDatabaseModel
 /**
  * Convert list of trip database models to list of trip models
  */
-fun List<TripDatabaseModel>.convertDbModelsToModels(): List<TripItem> {
-    return this.map { it.convertDbModelToModel() }
+fun List<TripDatabaseModel>.convertTripDbModelsToTripModels(): List<TripItem> {
+    return this.map { it.convertTripDbModelToTripModel() }
 }
 
 /**
@@ -29,7 +29,7 @@ fun List<WearItem>.convertWearItemModelsToWearItemDbModels(): List<WearDatabaseM
 /**
  * Convert trip database model to trip model
  */
-fun TripDatabaseModel.convertDbModelToModel() = with(this) {
+fun TripDatabaseModel.convertTripDbModelToTripModel() = with(this) {
     TripItem(
         id,
         destinationId,
@@ -45,7 +45,7 @@ fun TripDatabaseModel.convertDbModelToModel() = with(this) {
 /**
  * Convert trip model to trip database model
  */
-fun TripItem.convertModelToDbModel() = with(this) {
+fun TripItem.convertTripModelToTripDbModel() = with(this) {
     TripDatabaseModel(
         id,
         placeId,
