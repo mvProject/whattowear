@@ -260,7 +260,10 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
                 // with checklist
                 true -> {
                     // checklist can be created or achieved from various sources
-                    val defaultCheckList = listOf(WearItem("test1"), WearItem("test2"))
+                    val defaultCheckList = listOf(
+                        WearItem("test1", true, currentTripItem.tripId),
+                        WearItem("test2", false, currentTripItem.tripId)
+                    )
                     val currentTripItemWithChecklist =
                         currentTripItem.copy(checkList = defaultCheckList)
                     repository.saveTripToDatabase(currentTripItemWithChecklist)

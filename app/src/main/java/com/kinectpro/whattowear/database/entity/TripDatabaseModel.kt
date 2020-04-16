@@ -1,4 +1,4 @@
-package com.kinectpro.whattowear.database
+package com.kinectpro.whattowear.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

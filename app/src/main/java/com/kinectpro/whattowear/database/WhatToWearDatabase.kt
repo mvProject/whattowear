@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.kinectpro.whattowear.data.model.trip.TripItem
+import com.kinectpro.whattowear.database.db.TripDatabase
 import com.kinectpro.whattowear.utils.convertDbModelsToModels
 import com.kinectpro.whattowear.utils.convertModelToDbModel
 import kotlinx.coroutines.CoroutineScope
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 class WhatToWearDatabase(context: Context, private val scope: CoroutineScope) :
     IDatabase {
 
-    private val tripDao = TripDatabase.getInstance(context).tripDatabaseDao
+    private val tripDao = TripDatabase.getInstance(context).tripDao
 
     override fun saveTripToDatabase(trip: TripItem) {
         scope.launch {

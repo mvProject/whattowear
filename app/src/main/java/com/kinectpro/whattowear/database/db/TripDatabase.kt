@@ -1,14 +1,23 @@
-package com.kinectpro.whattowear.database
+package com.kinectpro.whattowear.database.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.kinectpro.whattowear.database.dao.TripDao
+import com.kinectpro.whattowear.database.dao.WearDao
+import com.kinectpro.whattowear.database.entity.TripDatabaseModel
+import com.kinectpro.whattowear.database.entity.WearDatabaseModel
 
-@Database(entities = [TripDatabaseModel::class], version = 1, exportSchema = false)
+@Database(
+    entities = [TripDatabaseModel::class, WearDatabaseModel::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class TripDatabase : RoomDatabase() {
 
-    abstract val tripDatabaseDao: TripDao
+    abstract val tripDao: TripDao
+    abstract val wearDao: WearDao
 
     companion object {
 
@@ -17,7 +26,8 @@ abstract class TripDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): TripDatabase {
             synchronized(this) {
-                var instance = INSTANCE
+                var instance =
+                    INSTANCE
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(

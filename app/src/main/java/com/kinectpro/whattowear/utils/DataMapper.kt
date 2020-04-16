@@ -2,7 +2,7 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.wear.WearItem
-import com.kinectpro.whattowear.database.TripDatabaseModel
+import com.kinectpro.whattowear.database.entity.TripDatabaseModel
 
 /**
  * Convert list of database models to list of trip models
@@ -65,9 +65,8 @@ fun List<WearItem>?.convertWearItemsToStrings(): String? {
 fun String?.convertStringToWearItems(): List<WearItem>? {
     if ((this != null) && (this.isNotEmpty()) && (this.contains(","))) {
         val tripList = mutableListOf<WearItem>()
-        val listItems = this.split(",")
-        for (item in listItems) {
-            tripList.add(WearItem(item.trim()))
+        for (item in tripList) {
+            tripList.add(WearItem(item.name, item.isChecked, item.tripId))
         }
         return tripList
     }

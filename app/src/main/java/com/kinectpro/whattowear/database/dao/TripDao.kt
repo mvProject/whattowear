@@ -1,7 +1,8 @@
-package com.kinectpro.whattowear.database
+package com.kinectpro.whattowear.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.kinectpro.whattowear.database.entity.TripDatabaseModel
 
 @Dao
 interface TripDao {
