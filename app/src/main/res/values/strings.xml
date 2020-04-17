@@ -42,7 +42,7 @@
     <string name="title_trip_list">Trip list</string>
 
     <string name="dialog_title">Create the adventure list?</string>
-    <string name="dialog_message">Add default checklist</string>
+    <string name="dialog_message">  Add default checklist</string>
     <string name="dialog_button_yes">Yes</string>
     <string name="dialog_button_no">No</string>
 
