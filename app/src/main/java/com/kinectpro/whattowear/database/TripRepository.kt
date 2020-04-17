@@ -25,10 +25,17 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
         }
     }
 
-    override fun saveTripToDatabase(trip: TripItem, checkList: List<WearItem>) {
+    private fun createCheckList(trip: TripItem): List<WearItem> {
+        return listOf(
+            WearItem(trip.place + " wear1", true, trip.id),
+            WearItem(trip.place + " wear2", false, trip.id)
+        )
+    }
+
+    override fun saveTripToDatabase(trip: TripItem, isDefaultListChecked: Boolean) {
         scope.launch {
             tripDao.insert(trip.convertTripModelToTripEntity())
-            wearDao.insertTripWears(checkList.convertWearItemsToWearEntities())
+            wearDao.insertTripWears(createCheckList(trip).convertWearItemsToWearEntities())
         }
     }
 

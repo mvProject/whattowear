@@ -7,7 +7,7 @@ import com.kinectpro.whattowear.database.entity.TripWithCheckList
 
 interface ITrip {
     fun saveTripToDatabase(trip: TripItem)
-    fun saveTripToDatabase(trip: TripItem, checkList: List<WearItem>)
+    fun saveTripToDatabase(trip: TripItem, isDefaultListChecked: Boolean)
     fun loadAllTripsFromDatabase(): LiveData<List<TripItem>>
     fun loadAllTripsWithCheckListsFromDatabase(): LiveData<List<TripWithCheckList>>
     fun loadSingleTripWithCheckListsFromDatabase(tripId: String): LiveData<TripWithCheckList>

@@ -13,7 +13,6 @@ import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TripModel
-import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.database.TripRepository
@@ -254,19 +253,11 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun saveTripToDatabase(isDefaultListChecked: Boolean) {
         val currentTripItem = prepareTripToSaving()
-        // saving trip according users default list including decision
         currentTripItem?.let {
             when (isDefaultListChecked) {
-                // with checklist
                 true -> {
-                    // checklist can be created or achieved from various sources
-                    val defaultCheckList = listOf(
-                        WearItem(currentTripItem.place + " wear1", true, currentTripItem.id),
-                        WearItem(currentTripItem.place + " wear2", false, currentTripItem.id)
-                    )
-                    repository.saveTripToDatabase(currentTripItem, defaultCheckList)
+                    repository.saveTripToDatabase(currentTripItem, isDefaultListChecked)
                 }
-                // without checklist
                 false -> {
                     repository.saveTripToDatabase(currentTripItem)
                 }
