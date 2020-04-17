@@ -7,7 +7,7 @@ data class TripWithCheckList(
     @Embedded val trip: TripEntity,
     @Relation(
         parentColumn = "id",
-        entityColumn = "wear_trip_id"
+        entityColumn = "trip_id"
     )
     val checkList: List<WearEntity>
 )

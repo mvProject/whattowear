@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 data class WearEntity(
     @PrimaryKey @ColumnInfo(name = "wear_name") val wearName: String,
     @ColumnInfo(name = "wear_checked") val wearChecked: Boolean,
-    @ColumnInfo(name = "wear_trip_id") val wearTripId: String?
+    @ColumnInfo(name = "trip_id") val tripId: String?
 )

@@ -74,6 +74,6 @@ fun WearEntity.convertWearEntityToWearItem() = with(this) {
     WearItem(
         wearName,
         wearChecked,
-        wearTripId
+        tripId
     )
 }

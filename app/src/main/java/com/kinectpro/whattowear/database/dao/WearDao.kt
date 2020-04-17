@@ -9,7 +9,7 @@ interface WearDao {
     @Query("SELECT * FROM wears")
     fun getAllWears(): LiveData<List<WearEntity>>
 
-    @Query("SELECT * FROM wears WHERE wear_trip_id = :tripId")
+    @Query("SELECT * FROM wears WHERE trip_id = :tripId")
     fun getTripWears(tripId: String): LiveData<List<WearEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
