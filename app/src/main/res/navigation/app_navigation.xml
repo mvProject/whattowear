@@ -19,6 +19,24 @@
         android:id="@+id/TripListFragment"
         android:name="com.kinectpro.whattowear.ui.fragment.TripListFragment"
         android:label="@string/title_trip_list"
-        tools:layout="@layout/trip_list_fragment" />
+        tools:layout="@layout/trip_list_fragment">
+        <action
+            android:id="@+id/action_TripListFragment_to_tripInfo"
+            app:destination="@id/tripInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/tripInfo"
+        android:name="com.kinectpro.whattowear.ui.fragment.TripInfo"
+        android:label="@string/trip_details"
+        tools:layout="@layout/trip_info_fragment">
+        <action
+            android:id="@+id/action_tripInfo_to_TripListFragment2"
+            app:destination="@id/TripListFragment"
+            app:popUpTo="@id/TripListFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

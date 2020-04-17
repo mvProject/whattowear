@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.TripItem
@@ -52,6 +54,8 @@ class TripListFragment : Fragment(), TripsAdapter.OnItemSelectedListener {
             // edit current trip from database
             R.id.trip_item_edit -> {
                 tripListViewModel.editSelectedTrip(trip)
+                //   val action = TripListFragmentDirections.actionTripListFragmentToTripInfo("id")
+                //   view?.findNavController()?.navigate(action)
             }
             // delete current trip from database
             R.id.trip_item_delete -> {

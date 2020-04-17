@@ -51,4 +51,6 @@
 
     <string name="context_menu_delete">Удалить</string>
     <string name="context_menu_edit">Редактировать</string>
+
+    <string name="trip_details">Информация про поездку</string>
 </resources>
