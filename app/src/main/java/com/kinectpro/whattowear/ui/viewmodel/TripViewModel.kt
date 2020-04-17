@@ -8,14 +8,14 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.kinectpro.whattowear.data.IWeatherRangeSummary
 import com.kinectpro.whattowear.data.TripWeatherCondition
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TripModel
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
-import com.kinectpro.whattowear.database.WhatToWearDatabase
+import com.kinectpro.whattowear.database.TripRepository
 import com.kinectpro.whattowear.repository.WhatToWearRepository
 import com.kinectpro.whattowear.utils.*
 import java.util.*
@@ -27,7 +27,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
         WhatToWearRepository(
             NetworkChecker(getApplication()),
             WhatToWearCache(getApplication()),
-            WhatToWearDatabase(getApplication(), viewModelScope)
+            TripRepository(getApplication(), viewModelScope)
         )
 
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
@@ -248,17 +248,34 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
         repository.setLastSelectedPlaceToCache(selectedDestinationPlace.value)
     }
 
-    fun saveTripToDatabase() {
-        if (selectedDestinationPlace.value != null && tripRangeStartDateValue.value != null && tripRangeEndDateValue.value != null) {
-            repository.saveTripToDatabase(
-                TripItem(
-                    selectedDestinationPlace.value!!.id,
-                    selectedDestinationPlace.value!!.name,
-                    tripRangeStartDateValue.value!!,
-                    tripRangeEndDateValue.value!!
-                )
+    /*
+    Save current trip to database
+     */
+    fun saveTripToDatabase(isDefaultListChecked: Boolean) {
+        val currentTripItem = prepareTripToSaving()
+        currentTripItem?.let {
+            repository.saveTripToDatabase(currentTripItem, isDefaultListChecked)
+        }
+    }
+
+    private fun prepareTripToSaving(): TripItem? {
+        val destination = selectedDestinationPlace.value
+        val destinationStart = tripRangeStartDateValue.value
+        val destinationEnd = tripRangeEndDateValue.value
+        val weatherCondition = selectedTripCondition.value?.data
+        if ((destination != null) && (destinationStart != null) && (destinationEnd != null) && (weatherCondition != null)) {
+            val id = Random().nextInt().toString()
+            return TripItem(
+                id,
+                destination.id,
+                destination.name,
+                weatherCondition.nightTemp.convertToReadableRange(getApplication()),
+                weatherCondition.dayTemp.convertToReadableRange(getApplication()),
+                destinationStart,
+                destinationEnd
             )
         }
+        return null
     }
 
     override fun onCleared() {

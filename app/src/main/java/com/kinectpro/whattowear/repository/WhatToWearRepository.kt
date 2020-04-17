@@ -2,20 +2,20 @@ package com.kinectpro.whattowear.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.storage.ICache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
-import com.kinectpro.whattowear.database.IDatabase
+import com.kinectpro.whattowear.database.ITrip
 import com.kinectpro.whattowear.network.service.ApiService
 import com.kinectpro.whattowear.utils.NetworkChecker
 
 class WhatToWearRepository(
     private val networkChecker: NetworkChecker,
     private val localStorage: ICache,
-    private val localDatabase: IDatabase
+    private val localDatabase: ITrip
 ) :
     IWhatToWearRepository {
 
@@ -48,7 +48,7 @@ class WhatToWearRepository(
         localStorage.setLastSelectedPlace(selectedPlace)
     }
 
-    fun saveTripToDatabase(trip: TripItem) {
-        localDatabase.saveTripToDatabase(trip)
+    fun saveTripToDatabase(trip: TripItem, isDefaultListChecked: Boolean) {
+        localDatabase.saveTripToDatabase(trip, isDefaultListChecked)
     }
 }

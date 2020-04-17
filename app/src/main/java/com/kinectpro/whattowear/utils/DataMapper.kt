@@ -1,20 +1,79 @@
 package com.kinectpro.whattowear.utils
 
-import com.kinectpro.whattowear.data.model.TripItem
-import com.kinectpro.whattowear.database.TripDatabaseModel
+import com.kinectpro.whattowear.data.model.trip.TripItem
+import com.kinectpro.whattowear.data.model.wear.WearItem
+import com.kinectpro.whattowear.database.entity.TripEntity
+import com.kinectpro.whattowear.database.entity.WearEntity
 
-fun List<TripDatabaseModel>.convertDbModelsToModels(): List<TripItem> {
-    val tripList = mutableListOf<TripItem>()
-    for (trip in this) {
-        tripList.add(trip.convertDbModelToModel())
-    }
-    return tripList
+/**
+ * Convert list of trip entities to list of trip models
+ */
+fun List<TripEntity>.convertTripEntitiesToTripModels(): List<TripItem> {
+    return this.map { it.convertTripEntityToTripModel() }
 }
 
-fun TripDatabaseModel.convertDbModelToModel() = with(this) {
-    TripItem(destinationId, destinationPlace, startDate, endDate)
+/**
+ * Convert list of wear entities to list of wear models
+ */
+fun List<WearEntity>.convertWearEntitiesToWearItems(): List<WearItem> {
+    return this.map { it.convertWearEntityToWearItem() }
 }
 
-fun TripItem.convertModelToDbModel() = with(this) {
-    TripDatabaseModel(placeId, place, startDate, endDate)
+/**
+ * Convert list of wear models to list of wear entities
+ */
+fun List<WearItem>.convertWearItemsToWearEntities(): List<WearEntity> {
+    return this.map { it.convertWearItemToWearEntity() }
+}
+
+/**
+ * Convert trip entity to trip model
+ */
+fun TripEntity.convertTripEntityToTripModel() = with(this) {
+    TripItem(
+        id,
+        destinationId,
+        destinationPlace,
+        nightTemp,
+        dayTemp,
+        startDate,
+        endDate
+    )
+}
+
+/**
+ * Convert trip model to trip entity
+ */
+fun TripItem.convertTripModelToTripEntity() = with(this) {
+    TripEntity(
+        id,
+        placeId,
+        place,
+        nightTemp,
+        dayTemp,
+        startDate,
+        endDate
+    )
+}
+
+/**
+ * Convert wear model to wear entity
+ */
+fun WearItem.convertWearItemToWearEntity() = with(this) {
+    WearEntity(
+        name,
+        isChecked,
+        tripId
+    )
+}
+
+/**
+ * Convert wear entity to wear model
+ */
+fun WearEntity.convertWearEntityToWearItem() = with(this) {
+    WearItem(
+        wearName,
+        wearChecked,
+        tripId
+    )
 }
