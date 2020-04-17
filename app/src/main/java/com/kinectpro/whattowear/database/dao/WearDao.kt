@@ -2,19 +2,19 @@ package com.kinectpro.whattowear.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.kinectpro.whattowear.database.entity.WearDatabaseModel
+import com.kinectpro.whattowear.database.entity.WearEntity
 
 @Dao
 interface WearDao {
     @Query("SELECT * FROM wears")
-    fun getAllWears(): LiveData<List<WearDatabaseModel>>
+    fun getAllWears(): LiveData<List<WearEntity>>
 
     @Query("SELECT * FROM wears WHERE wear_trip_id = :tripId")
-    fun getTripWears(tripId: String): LiveData<List<WearDatabaseModel>>
+    fun getTripWears(tripId: String): LiveData<List<WearEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTripWears(wears: List<WearDatabaseModel>)
+    suspend fun insertTripWears(wears: List<WearEntity>)
 
     @Delete
-    suspend fun deleteTripWears(wears: List<WearDatabaseModel>)
+    suspend fun deleteTripWears(wears: List<WearEntity>)
 }

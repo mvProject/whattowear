@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kinectpro.whattowear.database.dao.TripDao
 import com.kinectpro.whattowear.database.dao.WearDao
-import com.kinectpro.whattowear.database.entity.TripDatabaseModel
-import com.kinectpro.whattowear.database.entity.WearDatabaseModel
+import com.kinectpro.whattowear.database.entity.TripEntity
+import com.kinectpro.whattowear.database.entity.WearEntity
 
 @Database(
-    entities = [TripDatabaseModel::class, WearDatabaseModel::class],
+    entities = [TripEntity::class, WearEntity::class],
     version = 1,
     exportSchema = false
 )

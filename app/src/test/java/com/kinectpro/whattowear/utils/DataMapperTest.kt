@@ -2,8 +2,8 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.wear.WearItem
-import com.kinectpro.whattowear.database.entity.TripDatabaseModel
-import com.kinectpro.whattowear.database.entity.WearDatabaseModel
+import com.kinectpro.whattowear.database.entity.TripEntity
+import com.kinectpro.whattowear.database.entity.WearEntity
 import org.junit.Test
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -14,95 +14,95 @@ class DataMapperTest {
         TripItem(1, "placeId", "placeName", "nightTemp", "day", 123L, 456L, "tripid")
     private val defaultTripModels = listOf(defaultTripModel, defaultTripModel, defaultTripModel)
 
-    private val defaultTripDbModel =
-        TripDatabaseModel(1, "placeId", "placeName", "nightTemp", "day", 123L, 456L, "tripid")
-    private val defaultTripDbModels =
-        listOf(defaultTripDbModel, defaultTripDbModel, defaultTripDbModel)
+    private val defaultTripEntity =
+        TripEntity(1, "placeId", "placeName", "nightTemp", "day", 123L, 456L, "tripid")
+    private val defaultTripEntities =
+        listOf(defaultTripEntity, defaultTripEntity, defaultTripEntity)
 
     private val defaultWearItem = WearItem("test1", true, "tripid")
     private val defaultWearItems =
         listOf(defaultWearItem, defaultWearItem)
 
-    private val defaultWearDbItem = WearDatabaseModel("test1", true, "tripid")
-    private val defaultWearDbItems =
-        listOf(defaultWearDbItem, defaultWearDbItem)
+    private val defaultWearEntity = WearEntity("test1", true, "tripid")
+    private val defaultWearEntities =
+        listOf(defaultWearEntity, defaultWearEntity)
 
     private val emptyWearItems = listOf<WearItem>()
-    private val emptyWearDbItems = listOf<WearDatabaseModel>()
-    private val emptyTripItems = listOf<WearDatabaseModel>()
+    private val emptyWearEntities = listOf<WearEntity>()
+    private val emptyTripItems = listOf<WearEntity>()
 
     @Test
-    fun convertTripDbModelsToTripModels_Proper() {
-        assertEquals(defaultTripModels, defaultTripDbModels.convertTripDbModelsToTripModels())
+    fun convertTripEntitiesToTripModels_Proper() {
+        assertEquals(defaultTripModels, defaultTripEntities.convertTripEntitiesToTripModels())
     }
 
     @Test
-    fun convertTripDbModelsToTripModels_NotNull() {
-        assertNotEquals(null, defaultTripDbModels.convertTripDbModelsToTripModels())
+    fun convertTripEntitiesToTripModels_NotNull() {
+        assertNotEquals(null, defaultTripEntities.convertTripEntitiesToTripModels())
     }
 
     @Test
-    fun convertTripDbModelsToTripModels_NotEmpty() {
-        assertNotEquals(emptyTripItems, defaultTripDbModels.convertTripDbModelsToTripModels())
+    fun convertTripEntitiesToTripModels_NotEmpty() {
+        assertNotEquals(emptyTripItems, defaultTripEntities.convertTripEntitiesToTripModels())
     }
 
     @Test
-    fun convertWearItemDbModelsToWearItemModels_Proper() {
-        assertEquals(defaultWearItems, defaultWearDbItems.convertWearItemDbModelsToWearItemModels())
+    fun convertWearEntitiesToWearItems_Proper() {
+        assertEquals(defaultWearItems, defaultWearEntities.convertWearEntitiesToWearItems())
     }
 
     @Test
-    fun convertWearItemDbModelsToWearItemModels_NotNull() {
-        assertNotEquals(null, defaultWearDbItems.convertWearItemDbModelsToWearItemModels())
+    fun convertWearEntitiesToWearItems_NotNull() {
+        assertNotEquals(null, defaultWearEntities.convertWearEntitiesToWearItems())
     }
 
     @Test
-    fun convertWearItemDbModelsToWearItemModels_NotEmpty() {
-        assertNotEquals(emptyWearItems, defaultTripDbModels.convertTripDbModelsToTripModels())
+    fun convertWearEntitiesToWearItems_NotEmpty() {
+        assertNotEquals(emptyWearItems, defaultWearEntities.convertWearEntitiesToWearItems())
     }
 
     @Test
-    fun convertWearItemModelsToWearItemDbModels_Proper() {
-        assertEquals(defaultWearDbItems, defaultWearItems.convertWearItemModelsToWearItemDbModels())
+    fun convertWearItemsToWearEntities_Proper() {
+        assertEquals(defaultWearEntities, defaultWearItems.convertWearItemsToWearEntities())
     }
 
     @Test
-    fun convertWearItemModelsToWearItemDbModels_NotNull() {
-        assertNotEquals(null, defaultWearItems.convertWearItemModelsToWearItemDbModels())
+    fun convertWearItemsToWearEntities_NotNull() {
+        assertNotEquals(null, defaultWearItems.convertWearItemsToWearEntities())
     }
 
     @Test
-    fun convertWearItemModelsToWearItemDbModels_NotEmpty() {
-        assertNotEquals(emptyWearDbItems, defaultTripDbModels.convertTripDbModelsToTripModels())
+    fun convertWearItemsToWearEntities_NotEmpty() {
+        assertNotEquals(emptyWearEntities, defaultWearItems.convertWearItemsToWearEntities())
     }
 
     @Test
-    fun convertTripDbModelToTripModel_Proper() {
-        assertEquals(defaultTripModel, defaultTripDbModel.convertTripDbModelToTripModel())
+    fun convertTripEntityToTripModel_Proper() {
+        assertEquals(defaultTripModel, defaultTripEntity.convertTripEntityToTripModel())
     }
 
     @Test
-    fun convertTripDbModelToTripModel_NotNull() {
-        assertNotEquals(null, defaultTripDbModel.convertTripDbModelToTripModel())
+    fun convertTripEntityToTripModel_NotNull() {
+        assertNotEquals(null, defaultTripEntity.convertTripEntityToTripModel())
     }
 
     @Test
-    fun convertWearItemModelToWearItemDbModel_Proper() {
-        assertEquals(defaultWearDbItem, defaultWearItem.convertWearItemModelToWearItemDbModel())
+    fun convertWearItemToWearEntity_Proper() {
+        assertEquals(defaultWearEntity, defaultWearItem.convertWearItemToWearEntity())
     }
 
     @Test
-    fun convertWearItemModelToWearItemDbModel_NotNull() {
-        assertNotEquals(null, defaultWearItem.convertWearItemModelToWearItemDbModel())
+    fun convertWearItemToWearEntity_NotNull() {
+        assertNotEquals(null, defaultWearItem.convertWearItemToWearEntity())
     }
 
     @Test
-    fun convertWearItemDbModelToWearItemModel_Proper() {
-        assertEquals(defaultWearItem, defaultWearDbItem.convertWearItemDbModelToWearItemModel())
+    fun convertWearEntityToWearItem_Proper() {
+        assertEquals(defaultWearItem, defaultWearEntity.convertWearEntityToWearItem())
     }
 
     @Test
-    fun convertWearItemDbModelToWearItemModel_NotNull() {
-        assertNotEquals(null, defaultWearDbItem.convertWearItemDbModelToWearItemModel())
+    fun convertWearEntityToWearItem_NotNull() {
+        assertNotEquals(null, defaultWearEntity.convertWearEntityToWearItem())
     }
 }

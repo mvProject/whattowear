@@ -2,34 +2,34 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.wear.WearItem
-import com.kinectpro.whattowear.database.entity.TripDatabaseModel
-import com.kinectpro.whattowear.database.entity.WearDatabaseModel
+import com.kinectpro.whattowear.database.entity.TripEntity
+import com.kinectpro.whattowear.database.entity.WearEntity
 
 /**
- * Convert list of trip database models to list of trip models
+ * Convert list of trip entities to list of trip models
  */
-fun List<TripDatabaseModel>.convertTripDbModelsToTripModels(): List<TripItem> {
-    return this.map { it.convertTripDbModelToTripModel() }
+fun List<TripEntity>.convertTripEntitiesToTripModels(): List<TripItem> {
+    return this.map { it.convertTripEntityToTripModel() }
 }
 
 /**
- * Convert list of wear database models to list of wear models
+ * Convert list of wear entities to list of wear models
  */
-fun List<WearDatabaseModel>.convertWearItemDbModelsToWearItemModels(): List<WearItem> {
-    return this.map { it.convertWearItemDbModelToWearItemModel() }
+fun List<WearEntity>.convertWearEntitiesToWearItems(): List<WearItem> {
+    return this.map { it.convertWearEntityToWearItem() }
 }
 
 /**
- * Convert list of wear models to list of wear database models
+ * Convert list of wear models to list of wear entities
  */
-fun List<WearItem>.convertWearItemModelsToWearItemDbModels(): List<WearDatabaseModel> {
-    return this.map { it.convertWearItemModelToWearItemDbModel() }
+fun List<WearItem>.convertWearItemsToWearEntities(): List<WearEntity> {
+    return this.map { it.convertWearItemToWearEntity() }
 }
 
 /**
- * Convert trip database model to trip model
+ * Convert trip entity to trip model
  */
-fun TripDatabaseModel.convertTripDbModelToTripModel() = with(this) {
+fun TripEntity.convertTripEntityToTripModel() = with(this) {
     TripItem(
         id,
         destinationId,
@@ -43,10 +43,10 @@ fun TripDatabaseModel.convertTripDbModelToTripModel() = with(this) {
 }
 
 /**
- * Convert trip model to trip database model
+ * Convert trip model to trip entity
  */
-fun TripItem.convertTripModelToTripDbModel() = with(this) {
-    TripDatabaseModel(
+fun TripItem.convertTripModelToTripEntity() = with(this) {
+    TripEntity(
         id,
         placeId,
         place,
@@ -59,10 +59,10 @@ fun TripItem.convertTripModelToTripDbModel() = with(this) {
 }
 
 /**
- * Convert wear model to wear database model
+ * Convert wear model to wear entity
  */
-fun WearItem.convertWearItemModelToWearItemDbModel() = with(this) {
-    WearDatabaseModel(
+fun WearItem.convertWearItemToWearEntity() = with(this) {
+    WearEntity(
         name,
         isChecked,
         tripId
@@ -70,9 +70,9 @@ fun WearItem.convertWearItemModelToWearItemDbModel() = with(this) {
 }
 
 /**
- * Convert wear database model to wear model
+ * Convert wear entity to wear model
  */
-fun WearDatabaseModel.convertWearItemDbModelToWearItemModel() = with(this) {
+fun WearEntity.convertWearEntityToWearItem() = with(this) {
     WearItem(
         wearName,
         wearChecked,

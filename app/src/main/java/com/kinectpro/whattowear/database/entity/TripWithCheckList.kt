@@ -4,11 +4,11 @@ import androidx.room.Embedded
 import androidx.room.Relation
 
 data class TripWithCheckList(
-    @Embedded val trip: TripDatabaseModel,
+    @Embedded val trip: TripEntity,
     @Relation(
         parentColumn = "trip_id",
-        entity = WearDatabaseModel::class,
+        entity = WearEntity::class,
         entityColumn = "wear_trip_id"
     )
-    val checkList: List<WearDatabaseModel>
+    val checkList: List<WearEntity>
 )

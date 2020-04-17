@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "trips")
-data class TripDatabaseModel(
+data class TripEntity(
     @PrimaryKey @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "destination_id") val destinationId: String,
     @ColumnInfo(name = "destination_place") val destinationPlace: String,
