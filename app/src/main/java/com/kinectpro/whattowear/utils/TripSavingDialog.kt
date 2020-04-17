@@ -20,7 +20,7 @@ class TripSavingDialog : DialogFragment() {
     var onCheckListener: DefaultListDialogListener? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity.let {
+        return activity?.let {
             val view = activity!!.layoutInflater.inflate(R.layout.dialog_layout, null)
             val builder = AlertDialog.Builder(it)
             builder.setCancelable(true)
@@ -31,7 +31,7 @@ class TripSavingDialog : DialogFragment() {
                 }
                 .setNeutralButton(context?.getString(R.string.dialog_button_no), null)
             builder.create()
-        }
+        } ?: throw IllegalStateException(getString(R.string.exception_null_dialog_activity))
     }
 
     override fun onAttach(context: Context) {

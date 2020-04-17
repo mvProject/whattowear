@@ -1,7 +1,5 @@
 package com.kinectpro.whattowear.data.model.trip
 
-import java.io.Serializable
-
 data class TripItem(
     val id: Int,
     val placeId: String,
