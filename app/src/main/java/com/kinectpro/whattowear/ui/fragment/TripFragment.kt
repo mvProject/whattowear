@@ -212,8 +212,8 @@ class TripFragment : Fragment() {
         }
     }
 
-    fun saveTrip() {
-        tripViewModel.saveTripToDatabase()
+    fun saveTrip(isDefaultListChecked: Boolean) {
+        tripViewModel.saveTripToDatabase(isDefaultListChecked)
     }
 
     override fun onStop() {

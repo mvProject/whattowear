@@ -7,7 +7,7 @@ import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.databinding.TripListItemBinding
 
 class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelectedListener) :
@@ -20,6 +20,7 @@ class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelect
     }
 
     interface OnItemSelectedListener {
+        fun onItemClick(trip: TripItem)
         fun onMenuAction(trip: TripItem, item: MenuItem?)
     }
 
@@ -40,6 +41,9 @@ class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelect
 
         fun bindItem(trip: TripItem) {
             binding.tripItem = trip
+            binding.tripCard.setOnClickListener {
+                listener.onItemClick(trip)
+            }
             // define menu and show on click
             binding.itemMenu.setOnClickListener {
                 val contextMenu = PopupMenu(parent.context, it)
