@@ -1,8 +1,6 @@
 package com.kinectpro.whattowear
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -55,17 +53,6 @@ class MainActivity : AppCompatActivity(), TripSavingDialog.DefaultListDialogList
                     val myDialogFragment = TripSavingDialog()
                     val manager = supportFragmentManager
                     myDialogFragment.show(manager, TRIP_SAVE_DIALOG_TAG)
-                }
-            }
-        }
-    }
-
-    // Save current trip with or without checklist and navigate to trip list screen
-    override fun onFinishDialog(defaultListChecked: Boolean) {
-        val tripFragment =
-            nav_host_fragment.childFragmentManager.primaryNavigationFragment as TripFragment?
-        tripFragment?.saveTrip(defaultListChecked)
-        navController.navigate(R.id.action_TripFragment_to_TripListFragment)
     }
 
     override fun onSupportNavigateUp(): Boolean {

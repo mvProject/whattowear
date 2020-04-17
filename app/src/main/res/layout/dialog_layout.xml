@@ -22,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_4dp"
-        android:button="@drawable/checkbox_state"
         android:text="@string/dialog_message"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_16sp"

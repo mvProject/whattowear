@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/view_size_80dp"
-        app:defaultNavHost="false"
+        app:defaultNavHost="true"
         app:navGraph="@navigation/app_navigation" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

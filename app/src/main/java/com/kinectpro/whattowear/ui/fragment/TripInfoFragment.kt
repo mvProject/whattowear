@@ -1,21 +1,21 @@
 package com.kinectpro.whattowear.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.kinectpro.whattowear.databinding.TripInfoFragmentBinding
 import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
 
-class TripInfo : Fragment() {
+class TripInfoFragment : Fragment() {
 
     private lateinit var tripInfoViewModel: TripInfoViewModel
     private lateinit var tripInfoFragmentBinding: TripInfoFragmentBinding
 
-    private val args: TripInfoArgs by navArgs()
+    private val args: TripInfoFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,9 +27,14 @@ class TripInfo : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         tripInfoViewModel = ViewModelProvider(this).get(TripInfoViewModel::class.java)
 
-        val selectedTrip = args.id
+        val selectedTrip = args.tripId
+
+        //  tripInfoViewModel.loadSingleTrip(selectedTrip).observe(viewLifecycleOwner, Observer {
+        //      Log.d("Wear",it.toString())
+        //  })
         /*
             tripInfoFragmentBinding.tripItemInfo = selectedTrip
             selectedTrip.checkList?.let {

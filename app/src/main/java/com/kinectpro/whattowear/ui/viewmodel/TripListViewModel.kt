@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.database.ITrip
 import com.kinectpro.whattowear.database.TripRepository
-import com.kinectpro.whattowear.database.entity.TripWithCheckList
 
 class TripListViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: ITrip =
@@ -25,9 +24,5 @@ class TripListViewModel(application: Application) : AndroidViewModel(application
 
     fun deleteSelectedTripFromDb(trip: TripItem) {
         repository.deleteSelectedTrip(trip)
-    }
-
-    fun loadSingleTrip(trip: TripItem): LiveData<TripWithCheckList> {
-        return repository.loadSingleTripWithCheckListsFromDatabase(trip.id)
     }
 }
