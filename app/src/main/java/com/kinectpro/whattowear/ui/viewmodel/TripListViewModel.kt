@@ -28,6 +28,6 @@ class TripListViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun loadSingleTrip(trip: TripItem): LiveData<TripWithCheckList> {
-        return repository.loadSingleTripWithCheckListsFromDatabase(trip.tripId)
+        return repository.loadSingleTripWithCheckListsFromDatabase(trip.id)
     }
 }

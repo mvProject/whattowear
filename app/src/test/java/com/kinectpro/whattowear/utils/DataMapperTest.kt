@@ -11,11 +11,11 @@ import org.junit.Assert.assertNotEquals
 class DataMapperTest {
 
     private val defaultTripModel =
-        TripItem(1, "placeId", "placeName", "nightTemp", "day", 123L, 456L, "tripid")
+        TripItem("1", "placeId", "placeName", "nightTemp", "day", 123L, 456L)
     private val defaultTripModels = listOf(defaultTripModel, defaultTripModel, defaultTripModel)
 
     private val defaultTripEntity =
-        TripEntity(1, "placeId", "placeName", "nightTemp", "day", 123L, 456L, "tripid")
+        TripEntity("1", "placeId", "placeName", "nightTemp", "day", 123L, 456L)
     private val defaultTripEntities =
         listOf(defaultTripEntity, defaultTripEntity, defaultTripEntity)
 

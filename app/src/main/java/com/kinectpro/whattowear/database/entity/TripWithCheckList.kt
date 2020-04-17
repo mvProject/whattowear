@@ -6,8 +6,7 @@ import androidx.room.Relation
 data class TripWithCheckList(
     @Embedded val trip: TripEntity,
     @Relation(
-        parentColumn = "trip_id",
-        entity = WearEntity::class,
+        parentColumn = "id",
         entityColumn = "wear_trip_id"
     )
     val checkList: List<WearEntity>

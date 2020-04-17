@@ -51,7 +51,7 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
     }
 
     override fun deleteSelectedTrip(trip: TripItem) {
-        val wears = wearDao.getTripWears(trip.tripId).value
+        val wears = wearDao.getTripWears(trip.id).value
         scope.launch {
             tripDao.delete(trip.convertTripModelToTripEntity())
             if (wears != null) {

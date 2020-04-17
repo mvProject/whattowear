@@ -37,8 +37,7 @@ fun TripEntity.convertTripEntityToTripModel() = with(this) {
         nightTemp,
         dayTemp,
         startDate,
-        endDate,
-        tripId
+        endDate
     )
 }
 
@@ -53,8 +52,7 @@ fun TripItem.convertTripModelToTripEntity() = with(this) {
         nightTemp,
         dayTemp,
         startDate,
-        endDate,
-        tripId
+        endDate
     )
 }
 

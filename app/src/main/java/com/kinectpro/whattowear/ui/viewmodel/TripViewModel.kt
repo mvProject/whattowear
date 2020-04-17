@@ -261,8 +261,8 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
                 true -> {
                     // checklist can be created or achieved from various sources
                     val defaultCheckList = listOf(
-                        WearItem(currentTripItem.place + " wear1", true, currentTripItem.tripId),
-                        WearItem(currentTripItem.place + " wear2", false, currentTripItem.tripId)
+                        WearItem(currentTripItem.place + " wear1", true, currentTripItem.id),
+                        WearItem(currentTripItem.place + " wear2", false, currentTripItem.id)
                     )
                     repository.saveTripToDatabase(currentTripItem, defaultCheckList)
                 }
@@ -280,7 +280,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
         val destinationEnd = tripRangeEndDateValue.value
         val weatherCondition = selectedTripCondition.value?.data
         if ((destination != null) && (destinationStart != null) && (destinationEnd != null) && (weatherCondition != null)) {
-            val id = Random().nextInt()
+            val id = Random().nextInt().toString()
             return TripItem(
                 id,
                 destination.id,
@@ -288,9 +288,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
                 weatherCondition.nightTemp.convertToReadableRange(getApplication()),
                 weatherCondition.dayTemp.convertToReadableRange(getApplication()),
                 destinationStart,
-                destinationEnd,
-                "$id-${destination.id}"
-
+                destinationEnd
             )
         }
         return null

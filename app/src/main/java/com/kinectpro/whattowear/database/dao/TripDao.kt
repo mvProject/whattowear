@@ -15,8 +15,8 @@ interface TripDao {
     fun getAllTripsWithCheckLists(): LiveData<List<TripWithCheckList>>
 
     @Transaction
-    @Query("SELECT * FROM trips WHERE trip_id = :tripId")
-    fun getSingleTripWithCheckLists(tripId: String): LiveData<TripWithCheckList>
+    @Query("SELECT * FROM trips WHERE id = :id")
+    fun getSingleTripWithCheckLists(id: String): LiveData<TripWithCheckList>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(trip: TripEntity)
