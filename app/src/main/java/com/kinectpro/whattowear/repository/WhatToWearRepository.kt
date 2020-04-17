@@ -51,8 +51,4 @@ class WhatToWearRepository(
     fun saveTripToDatabase(trip: TripItem, isDefaultListChecked: Boolean) {
         localDatabase.saveTripToDatabase(trip, isDefaultListChecked)
     }
-
-    fun saveTripToDatabase(trip: TripItem) {
-        localDatabase.saveTripToDatabase(trip)
-    }
 }

@@ -254,14 +254,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     fun saveTripToDatabase(isDefaultListChecked: Boolean) {
         val currentTripItem = prepareTripToSaving()
         currentTripItem?.let {
-            when (isDefaultListChecked) {
-                true -> {
-                    repository.saveTripToDatabase(currentTripItem, isDefaultListChecked)
-                }
-                false -> {
-                    repository.saveTripToDatabase(currentTripItem)
-                }
-            }
+            repository.saveTripToDatabase(currentTripItem, isDefaultListChecked)
         }
     }
 
