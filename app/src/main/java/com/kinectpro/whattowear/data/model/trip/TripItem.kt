@@ -11,4 +11,4 @@ data class TripItem(
     val startDate: Long,
     val endDate: Long,
     val tripId: String
-) : Serializable
+)
