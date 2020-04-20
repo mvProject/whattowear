@@ -68,6 +68,12 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
         }
     }
 
+    override fun updateWears(wears: List<WearItem>) {
+        scope.launch {
+            wearDao.updateTripWears(wears.convertWearItemsToWearEntities())
+        }
+    }
+
     override fun deleteSelectedTrip(trip: TripItem) {
         val wears = wearDao.getTripWears(trip.id).value
         scope.launch {

@@ -17,4 +17,7 @@ interface WearDao {
 
     @Delete
     suspend fun deleteTripWears(wears: List<WearEntity>)
+
+    @Update
+    suspend fun updateTripWears(wears: List<WearEntity>)
 }

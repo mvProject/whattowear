@@ -54,4 +54,9 @@ class TripInfoFragment : Fragment() {
             }
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        tripInfoViewModel.updateWears((tripCheckList.adapter as TripCheckListAdapter).getTripsSelection())
+    }
 }
