@@ -11,6 +11,8 @@ import com.kinectpro.whattowear.databinding.TripInfoCheckistItemBinding
 class TripCheckListAdapter(var trips: List<WearItem>) :
     RecyclerView.Adapter<TripCheckListAdapter.TripCheckListViewHolder>() {
 
+    private val myItems = trips
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripCheckListViewHolder {
         return TripCheckListViewHolder(
             parent
@@ -34,6 +36,12 @@ class TripCheckListAdapter(var trips: List<WearItem>) :
 
         fun bindItem(trip: WearItem) {
             binding.wearItem = trip
+            binding.chbWearItem.apply {
+                isChecked = myItems[adapterPosition].isChecked
+                setOnCheckedChangeListener { _, isChecked ->
+                    myItems[adapterPosition].isChecked = isChecked
+                }
+            }
         }
     }
 }
