@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.TripInfoCheckistItemBinding
 
-class TripCheckListAdapter(var trips: List<String>) :
+class TripCheckListAdapter(var trips: List<WearItem>) :
     RecyclerView.Adapter<TripCheckListAdapter.TripCheckListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripCheckListViewHolder {
@@ -31,8 +32,8 @@ class TripCheckListAdapter(var trips: List<String>) :
         )
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItem(trip: String) {
-            // binding.wearItem = trip
+        fun bindItem(trip: WearItem) {
+            binding.wearItem = trip
         }
     }
 }

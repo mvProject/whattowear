@@ -1,8 +1,10 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.trip.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripWithWears
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.entity.TripEntity
+import com.kinectpro.whattowear.database.entity.TripWithCheckList
 import com.kinectpro.whattowear.database.entity.WearEntity
 
 /**
@@ -10,6 +12,15 @@ import com.kinectpro.whattowear.database.entity.WearEntity
  */
 fun List<TripEntity>.convertTripEntitiesToTripModels(): List<TripItem> {
     return this.map { it.convertTripEntityToTripModel() }
+}
+
+fun TripWithCheckList.convertTripWithCheckListEntityToTripWithWearModel(): TripWithWears {
+    with(this) {
+        return TripWithWears(
+            trip.convertTripEntityToTripModel(),
+            checkList.convertWearEntitiesToWearItems()
+        )
+    }
 }
 
 /**

@@ -21,8 +21,9 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
 
     private fun createCheckList(trip: TripItem): List<WearItem> {
         return listOf(
-            WearItem(trip.place + " wear1", true, trip.id),
-            WearItem(trip.place + " wear2", false, trip.id)
+            WearItem("Documents", true, trip.id),
+            WearItem("Money", false, trip.id),
+            WearItem("First aid kit", false, trip.id)
         )
     }
 

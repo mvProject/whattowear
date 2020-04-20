@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--
-                <variable
-                    name="tripItemInfo"
-                    type="com.kinectpro.whattowear.data.model.wear.TripItem" />
-                    -->
+
+        <variable
+            name="tripItemInfo"
+            type="com.kinectpro.whattowear.data.model.trip.TripItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_8dp"
-            android:text="Destination"
+            android:text="@{tripItemInfo.place}"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_22sp"
@@ -30,7 +29,6 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tripRange"
-            android:text="tripRange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_4dp"
@@ -39,6 +37,8 @@
             android:textSize="@dimen/text_size_18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tripDestination"
+            tripStartDate="@{Long.valueOf(tripItemInfo.startDate)}"
+            tripEndDate="@{Long.valueOf(tripItemInfo.endDate)}"
             tools:text="22.04 - 28.04" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_4dp"
-            android:text="nightTemp"
+            android:text="@{tripItemInfo.nightTemp}"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_18sp"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_4dp"
-            android:text="nightTemp"
+            android:text="@{tripItemInfo.dayTemp}"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_18sp"
