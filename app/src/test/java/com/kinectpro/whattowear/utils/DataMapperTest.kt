@@ -1,8 +1,10 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.trip.TripItem
+import com.kinectpro.whattowear.data.model.trip.TripWithWears
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.entity.TripEntity
+import com.kinectpro.whattowear.database.entity.TripWithCheckList
 import com.kinectpro.whattowear.database.entity.WearEntity
 import org.junit.Test
 import org.junit.Assert.assertEquals
@@ -31,6 +33,17 @@ class DataMapperTest {
     private val emptyWearEntities = listOf<WearEntity>()
     private val emptyTripItems = listOf<WearEntity>()
 
+    private val tripWithWears = TripWithWears(defaultTripModel, defaultWearItems)
+    private val tripWithCheckList = TripWithCheckList(defaultTripEntity, defaultWearEntities)
+
+    @Test
+    fun convertTripWithCheckListEntityToTripWithWearModel_Proper() {
+        assertEquals(
+            tripWithWears,
+            tripWithCheckList.convertTripWithCheckListEntityToTripWithWearModel()
+        )
+    }
+    
     @Test
     fun convertTripEntitiesToTripModels_Proper() {
         assertEquals(defaultTripModels, defaultTripEntities.convertTripEntitiesToTripModels())

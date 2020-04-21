@@ -51,4 +51,9 @@ class MainActivity : AppCompatActivity(), TripSavingDialog.DefaultListDialogList
         tripFragment?.saveTrip(isDefaultListChecked)
         navController.navigate(R.id.action_TripFragment_to_TripListFragment)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp()
+    }
 }

@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.database
 
 import androidx.lifecycle.LiveData
 import com.kinectpro.whattowear.data.model.trip.TripItem
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.entity.TripWithCheckList
 
 interface ITrip {
@@ -10,6 +11,7 @@ interface ITrip {
     fun loadAllTripsWithCheckListsFromDatabase(): LiveData<List<TripWithCheckList>>
     fun loadSingleTripWithCheckListsFromDatabase(tripId: String): LiveData<TripWithCheckList>
     fun updateSelectedTrip(trip: TripItem)
+    fun updateWears(wears: List<WearItem>)
     fun deleteSelectedTrip(trip: TripItem)
     fun clearDatabase()
 }

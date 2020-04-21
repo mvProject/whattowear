@@ -35,7 +35,8 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/trip_range"
-                tripRange="@{tripItem}"
+                tripStartDate="@{Long.valueOf(tripItem.startDate)}"
+                tripEndDate="@{Long.valueOf(tripItem.endDate)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"

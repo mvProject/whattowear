@@ -43,7 +43,7 @@
     <string name="title_trip_list">Перелік подорожей</string>
 
     <string name="dialog_title">Створити список пригод?</string>
-    <string name="dialog_message">Додати список за замовчуванням</string>
+    <string name="dialog_message">  Додати список за замовчуванням</string>
     <string name="dialog_button_yes">Так</string>
     <string name="dialog_button_no">Ні</string>
 
@@ -51,4 +51,6 @@
 
     <string name="context_menu_delete">Видалити</string>
     <string name="context_menu_edit">Редагувати</string>
+
+    <string name="trip_details">Інформація про поїздку</string>
 </resources>

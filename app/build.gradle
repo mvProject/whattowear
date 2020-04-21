@@ -10,6 +10,8 @@ apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'com.google.firebase.crashlytics'
 
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -27,7 +29,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
-        versionName "0.0.15"
+        versionName "0.0.16"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "GOOGLE_PLACE_API_KEY", '"AIzaSyAbiAj6LivbiUwyGh6YoU4sWiEd7Sfvrpk"'

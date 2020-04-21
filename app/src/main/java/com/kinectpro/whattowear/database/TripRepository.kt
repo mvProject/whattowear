@@ -21,8 +21,23 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
 
     private fun createCheckList(trip: TripItem): List<WearItem> {
         return listOf(
-            WearItem(trip.place + " wear1", true, trip.id),
-            WearItem(trip.place + " wear2", false, trip.id)
+            WearItem("Documents", true, trip.id),
+            WearItem("Money1", false, trip.id),
+            WearItem("Money2", false, trip.id),
+            WearItem("Money3", false, trip.id),
+            WearItem("Money4", false, trip.id),
+            WearItem("Money5", false, trip.id),
+            WearItem("Money6", false, trip.id),
+            WearItem("Money7", false, trip.id),
+            WearItem("Money8", false, trip.id),
+            WearItem("Money9", false, trip.id),
+            WearItem("Money10", false, trip.id),
+            WearItem("Money11", false, trip.id),
+            WearItem("Money12", false, trip.id),
+            WearItem("Money13", false, trip.id),
+            WearItem("Money14", false, trip.id),
+            WearItem("Money15", false, trip.id),
+            WearItem("First aid kit", false, trip.id)
         )
     }
 
@@ -50,6 +65,12 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
     override fun updateSelectedTrip(trip: TripItem) {
         scope.launch {
             tripDao.update(trip.convertTripModelToTripEntity())
+        }
+    }
+
+    override fun updateWears(wears: List<WearItem>) {
+        scope.launch {
+            wearDao.updateTripWears(wears.convertWearItemsToWearEntities())
         }
     }
 

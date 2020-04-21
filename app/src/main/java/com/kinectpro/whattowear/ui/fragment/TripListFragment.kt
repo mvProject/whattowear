@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.trip.TripItem
@@ -47,17 +47,10 @@ class TripListFragment : Fragment(), TripsAdapter.OnItemSelectedListener {
         })
     }
 
-    // prepare for details screen - achieve single trip info with check list)
     override fun onItemClick(trip: TripItem) {
-        tripListViewModel.loadSingleTrip(trip).observe(viewLifecycleOwner, Observer {
-            it?.let {
-                Toast.makeText(
-                    context,
-                    it.trip.destinationPlace + " " + it.checkList.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+        val detailInfoAction =
+            TripListFragmentDirections.actionTripListFragmentToTripInfoFragment(trip.id)
+        view?.findNavController()?.navigate(detailInfoAction)
     }
 
     override fun onMenuAction(trip: TripItem, item: MenuItem?) {

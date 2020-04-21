@@ -47,7 +47,9 @@
     <string name="dialog_button_no">No</string>
 
     <string name="message_add_trip">Add a trip</string>
-    <string name="context_menu_delete">delete</string>
-    <string name="context_menu_edit">edit</string>
+    <string name="context_menu_delete">Delete</string>
+    <string name="context_menu_edit">Edit</string>
     <string name="exception_null_dialog_activity" translatable="false">Activity cannot be null</string>
+
+    <string name="trip_details">Travel Information</string>
 </resources>

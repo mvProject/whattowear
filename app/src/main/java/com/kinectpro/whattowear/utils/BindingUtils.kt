@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 
 /**
@@ -160,14 +159,15 @@ fun setViewVisibilityAccordingSuccessStatus(
  * @param view type of view which adapter can be binded
  * @param trip current trip object
  */
-@BindingAdapter(value = ["tripRange"])
+@BindingAdapter(value = ["tripStartDate", "tripEndDate"])
 fun getProperTextForDateRangeView(
     view: MaterialTextView,
-    trip: TripItem
+    startDate: Long,
+    endDate: Long
 ) {
     view.text = String.format(
         view.context.getString(R.string.date_range_description),
-        trip.startDate.convertDateToReadableFormat(DATE_READABLE_PATTERN),
-        trip.endDate.convertDateToReadableFormat(DATE_READABLE_PATTERN)
+        startDate.convertDateToReadableFormat(DATE_READABLE_PATTERN),
+        endDate.convertDateToReadableFormat(DATE_READABLE_PATTERN)
     )
 }
