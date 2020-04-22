@@ -21,8 +21,11 @@ import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
+import com.kinectpro.whattowear.data.model.trip.TripItem
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.DialogLayoutBinding
 import com.kinectpro.whattowear.databinding.TripFragmentBinding
+import com.kinectpro.whattowear.ui.adapter.TripCheckListAdapter
 import com.kinectpro.whattowear.ui.adapter.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripViewModel
 import com.kinectpro.whattowear.utils.DATE_RANGE_MAX_LENGTH_ALLOWED
@@ -41,7 +44,7 @@ class TripFragment : Fragment() {
     ): View? {
 
         if (!Places.isInitialized()) {
-            Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
+            Places.initialize(requireContext(), BuildConfig.GOOGLE_PLACE_API_KEY)
         }
         tripFragmentBinding = TripFragmentBinding.inflate(inflater, container, false)
         return tripFragmentBinding.root
@@ -67,6 +70,7 @@ class TripFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
+
         /*
          Observes selected trip status
          Display weather forecast on success or or proper message on error
@@ -78,8 +82,10 @@ class TripFragment : Fragment() {
                 }
                 ResourceStatus.SUCCESS -> {
                     txtNightWeatherSummary.text =
-                        it.data?.nightTemp?.convertToReadableRange(context!!)
-                    txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange(context!!)
+                        it.data?.nightTemp?.convertToReadableRange(requireContext())
+                    txtDayWeatherSummary.text =
+                        it.data?.dayTemp?.convertToReadableRange(requireContext())
+
                     wearList.apply {
                         layoutManager = LinearLayoutManager(context)
                         adapter =
@@ -112,7 +118,7 @@ class TripFragment : Fragment() {
                 }
             }
             val tripStartDateSelectionDialog = DatePickerDialog(
-                context!!,
+                requireContext(),
                 tripViewModel.tripStartDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -139,7 +145,7 @@ class TripFragment : Fragment() {
                 }
             }
             val tripEndDateSelectionDialog = DatePickerDialog(
-                context!!,
+                requireContext(),
                 tripViewModel.tripEndDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -224,7 +230,7 @@ class TripFragment : Fragment() {
     fun showDialog() {
         val dialog: AlertDialog
         val binding: DialogLayoutBinding = DialogLayoutBinding.inflate(LayoutInflater.from(context))
-        AlertDialog.Builder(context!!).run {
+        AlertDialog.Builder(requireContext()).run {
             setView(binding.root)
             dialog = this.show()
         }

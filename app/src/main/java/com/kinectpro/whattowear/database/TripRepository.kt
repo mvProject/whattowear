@@ -9,6 +9,7 @@ import com.kinectpro.whattowear.database.db.TripDatabase
 import com.kinectpro.whattowear.database.entity.TripWithCheckList
 import com.kinectpro.whattowear.utils.convertTripEntitiesToTripModels
 import com.kinectpro.whattowear.utils.convertTripModelToTripEntity
+import com.kinectpro.whattowear.utils.convertWearItemToWearEntity
 import com.kinectpro.whattowear.utils.convertWearItemsToWearEntities
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -21,31 +22,29 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
 
     private fun createCheckList(trip: TripItem): List<WearItem> {
         return listOf(
-            WearItem("Documents", true, trip.id),
-            WearItem("Money1", false, trip.id),
-            WearItem("Money2", false, trip.id),
-            WearItem("Money3", false, trip.id),
-            WearItem("Money4", false, trip.id),
-            WearItem("Money5", false, trip.id),
-            WearItem("Money6", false, trip.id),
-            WearItem("Money7", false, trip.id),
-            WearItem("Money8", false, trip.id),
-            WearItem("Money9", false, trip.id),
-            WearItem("Money10", false, trip.id),
-            WearItem("Money11", false, trip.id),
-            WearItem("Money12", false, trip.id),
-            WearItem("Money13", false, trip.id),
-            WearItem("Money14", false, trip.id),
-            WearItem("Money15", false, trip.id),
+            WearItem("Passport", false, trip.id),
+            WearItem("Money", false, trip.id),
+            WearItem("Underwear", false, trip.id),
+            WearItem("Hygiene items", false, trip.id),
+            WearItem("Food", false, trip.id),
             WearItem("First aid kit", false, trip.id)
         )
     }
 
-    override fun saveTripToDatabase(trip: TripItem, isDefaultListChecked: Boolean) {
+    override fun saveTripToDatabase(
+        trip: TripItem,
+        wears: List<WearItem>?,
+        isDefaultListChecked: Boolean
+    ) {
         scope.launch {
+            val checkList = createCheckList(trip)
             tripDao.insert(trip.convertTripModelToTripEntity())
+            if (wears != null) {
+                TODO("combine default and personal checklist")
+            }
             if (isDefaultListChecked) {
-                wearDao.insertTripWears(createCheckList(trip).convertWearItemsToWearEntities())
+                wearDao.insertTripWears(checkList.convertWearItemsToWearEntities())
+                TODO("save personal checklist")
             }
         }
     }
@@ -74,6 +73,12 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
         }
     }
 
+    override fun deleteSelectedWear(wear: WearItem) {
+        scope.launch {
+            wearDao.deleteWear(wear.convertWearItemToWearEntity())
+        }
+    }
+
     override fun deleteSelectedTrip(trip: TripItem) {
         val wears = wearDao.getTripWears(trip.id).value
         scope.launch {
@@ -81,6 +86,12 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
             if (wears != null) {
                 wearDao.deleteTripWears(wears)
             }
+        }
+    }
+
+    override fun saveWearToDatabase(wear: WearItem) {
+        scope.launch {
+            wearDao.insertWear(wear.convertWearItemToWearEntity())
         }
     }
 
