@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.libraries.places.api.Places
@@ -19,6 +21,7 @@ import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
+import com.kinectpro.whattowear.databinding.DialogLayoutBinding
 import com.kinectpro.whattowear.databinding.TripFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripViewModel
@@ -212,13 +215,30 @@ class TripFragment : Fragment() {
         }
     }
 
-    fun saveTrip(isDefaultListChecked: Boolean) {
-        tripViewModel.saveTripToDatabase(isDefaultListChecked)
-    }
-
     override fun onStop() {
         super.onStop()
         tripViewModel.saveLastSelectedPlaceToCache()
+    }
+
+
+    fun showDialog() {
+        val dialog: AlertDialog
+        val binding: DialogLayoutBinding = DialogLayoutBinding.inflate(LayoutInflater.from(context))
+        AlertDialog.Builder(context!!).run {
+            setView(binding.root)
+            dialog = this.show()
+        }
+
+        binding.apply {
+            btnDialogCancel.setOnClickListener {
+                dialog.dismiss()
+            }
+            btnDialogOk.setOnClickListener {
+                tripViewModel.saveTripToDatabase(checkBox.isChecked)
+                view?.findNavController()?.navigate(R.id.action_TripFragment_to_TripListFragment)
+                dialog.dismiss()
+            }
+        }
     }
 }
 
