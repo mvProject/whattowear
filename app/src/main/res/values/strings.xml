@@ -52,4 +52,8 @@
     <string name="exception_null_dialog_activity" translatable="false">Activity cannot be null</string>
 
     <string name="trip_details">Travel Information</string>
+    <string name="checklist_title">Checklist</string>
+    <string name="checklist_default_type">default</string>
+    <string name="show_title">show</string>
+    <string name="hide_title">hide</string>
 </resources>

@@ -53,4 +53,8 @@
     <string name="context_menu_edit">Редактировать</string>
 
     <string name="trip_details">Информация про поездку</string>
+    <string name="checklist_title">Контрольный список</string>
+    <string name="checklist_default_type">по умолчанию</string>
+    <string name="show_title">показать</string>
+    <string name="hide_title">скрыть</string>
 </resources>

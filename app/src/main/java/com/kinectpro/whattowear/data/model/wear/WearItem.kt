@@ -1,3 +1,3 @@
 package com.kinectpro.whattowear.data.model.wear
 
-data class WearItem(val name: String, var isChecked: Boolean, val tripId: String?)
+data class WearItem(val name: String, var isChecked: Boolean = false, var tripId: String? = null)

@@ -25,8 +25,8 @@
                 android:id="@+id/chbWearItem"
                 android:layout_width="@dimen/view_size_30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_4dp"
                 android:layout_marginStart="@dimen/padding_4dp"
+                android:layout_marginTop="@dimen/padding_4dp"
                 android:button="@drawable/checkbox_state"
                 android:checked="@{wearItem.checked}"
                 android:textSize="@dimen/text_size_16sp"
@@ -39,13 +39,12 @@
                 android:id="@+id/txtWearItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_8dp"
                 android:text="@{wearItem.name}"
-                android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_18sp"
-                app:layout_constraintStart_toEndOf="@id/chbWearItem"
                 app:layout_constraintBaseline_toBaselineOf="@id/chbWearItem"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/chbWearItem"
                 tools:text="wear item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

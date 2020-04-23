@@ -23,7 +23,7 @@ import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 import com.kinectpro.whattowear.databinding.DialogLayoutBinding
 import com.kinectpro.whattowear.databinding.TripFragmentBinding
-import com.kinectpro.whattowear.ui.adapter.WeatherConditionsAdapter
+import com.kinectpro.whattowear.ui.adapter.DefaultCheckListAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripViewModel
 import com.kinectpro.whattowear.utils.DATE_RANGE_MAX_LENGTH_ALLOWED
 import com.kinectpro.whattowear.utils.convertToReadableRange
@@ -41,7 +41,7 @@ class TripFragment : Fragment() {
     ): View? {
 
         if (!Places.isInitialized()) {
-            Places.initialize(context!!, BuildConfig.GOOGLE_PLACE_API_KEY)
+            Places.initialize(requireContext(), BuildConfig.GOOGLE_PLACE_API_KEY)
         }
         tripFragmentBinding = TripFragmentBinding.inflate(inflater, container, false)
         return tripFragmentBinding.root
@@ -63,7 +63,7 @@ class TripFragment : Fragment() {
          Observes status of selecting place
          Show status message if error appears
          */
-        tripViewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
+        tripViewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
 
@@ -78,14 +78,13 @@ class TripFragment : Fragment() {
                 }
                 ResourceStatus.SUCCESS -> {
                     txtNightWeatherSummary.text =
-                        it.data?.nightTemp?.convertToReadableRange(context!!)
-                    txtDayWeatherSummary.text = it.data?.dayTemp?.convertToReadableRange(context!!)
+                        it.data?.nightTemp?.convertToReadableRange(requireContext())
+                    txtDayWeatherSummary.text =
+                        it.data?.dayTemp?.convertToReadableRange(requireContext())
+
                     wearList.apply {
                         layoutManager = LinearLayoutManager(context)
-                        adapter =
-                            WeatherConditionsAdapter(
-                                it.data?.conditionDates!!
-                            )
+                        adapter = DefaultCheckListAdapter(tripViewModel)
                     }
                 }
                 ResourceStatus.ERROR -> {
@@ -112,7 +111,7 @@ class TripFragment : Fragment() {
                 }
             }
             val tripStartDateSelectionDialog = DatePickerDialog(
-                context!!,
+                requireContext(),
                 tripViewModel.tripStartDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -139,7 +138,7 @@ class TripFragment : Fragment() {
                 }
             }
             val tripEndDateSelectionDialog = DatePickerDialog(
-                context!!,
+                requireContext(),
                 tripViewModel.tripEndDateSelectionDialogListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -159,6 +158,10 @@ class TripFragment : Fragment() {
                 }
             }
             tripEndDateSelectionDialog.show()
+        }
+
+        txtHideShow.setOnClickListener {
+            tripViewModel.changeVisibility()
         }
     }
 
@@ -224,7 +227,7 @@ class TripFragment : Fragment() {
     fun showDialog() {
         val dialog: AlertDialog
         val binding: DialogLayoutBinding = DialogLayoutBinding.inflate(LayoutInflater.from(context))
-        AlertDialog.Builder(context!!).run {
+        AlertDialog.Builder(requireContext()).run {
             setView(binding.root)
             dialog = this.show()
         }
@@ -234,6 +237,9 @@ class TripFragment : Fragment() {
                 dialog.dismiss()
             }
             btnDialogOk.setOnClickListener {
+                if (wearList.adapter != null) {
+                    (wearList.adapter as DefaultCheckListAdapter).updateWears()
+                }
                 tripViewModel.saveTripToDatabase(checkBox.isChecked)
                 view?.findNavController()?.navigate(R.id.action_TripFragment_to_TripListFragment)
                 dialog.dismiss()

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="default_check_list">
+        <item>Паспорт</item>
+        <item>Money</item>
+        <item>Underwear</item>
+        <item>Hygiene items</item>
+        <item>Food</item>
+        <item>First aid kit</item>
+    </string-array>
+</resources>

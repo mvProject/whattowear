@@ -6,6 +6,7 @@ import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.storage.ICache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.database.ITrip
@@ -48,7 +49,11 @@ class WhatToWearRepository(
         localStorage.setLastSelectedPlace(selectedPlace)
     }
 
-    fun saveTripToDatabase(trip: TripItem, isDefaultListChecked: Boolean) {
-        localDatabase.saveTripToDatabase(trip, isDefaultListChecked)
+    fun saveTripToDatabase(trip: TripItem, wears: List<WearItem>, isDefaultListChecked: Boolean) {
+        localDatabase.saveTripToDatabase(trip, wears, isDefaultListChecked)
+    }
+
+    fun createCheckList(): List<WearItem> {
+        return localDatabase.getDefaultCheckList()
     }
 }

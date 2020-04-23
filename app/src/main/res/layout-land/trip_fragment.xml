@@ -49,8 +49,8 @@
                 android:id="@+id/btnTripEndDateSelect"
                 style="@style/DateSelectViewStyle"
                 placeholderText="@{@string/btn_end_date_name}"
-                app:layout_constraintEnd_toEndOf="parent"
                 tripDate="@{mainViewModel.tripRangeEndDateValue}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toEndOf="@id/btnTripStartDateSelect"
                 app:layout_constraintTop_toBottomOf="@id/autocompleteFragment"
@@ -106,23 +106,73 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/wearList"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtVisibilityTitle"
                 checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/view_size_300dp"
-                android:layout_marginStart="@dimen/padding_8dp"
-                android:layout_marginTop="@dimen/padding_8dp"
-                android:layout_marginEnd="@dimen/padding_8dp"
-                android:layout_marginBottom="@dimen/padding_4dp"
-                android:background="@drawable/bg_recyclerview"
-                android:elevation="@dimen/padding_1dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@id/txtGoodTripMessage"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_4dp"
+                android:text="@string/checklist_title"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardDatesSummary"
-                tools:visibility="visible" />
+                app:layout_constraintTop_toBottomOf="@id/cardDatesSummary" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtDefaultListTitle"
+                checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_16dp"
+                android:text="@string/checklist_default_type"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtVisibilityTitle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtHideShow"
+                checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
+                setVisibilityType="@{mainViewModel.defaultListVisibility}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_16dp"
+                android:drawableEnd="@drawable/ic_arrow_up"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtVisibilityTitle"
+                tools:text="@string/hide_title" />
+
+
+            <LinearLayout
+                android:id="@+id/defaultListContainer"
+                setVisibility="@{mainViewModel.defaultListVisibility}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_size_300dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtDefaultListTitle">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/wearList"
+                    checkSuccessVisibility="@{mainViewModel.selectedTripCondition.status}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/padding_8dp"
+                    android:layout_marginTop="@dimen/padding_8dp"
+                    android:layout_marginEnd="@dimen/padding_8dp"
+                    android:layout_marginBottom="@dimen/padding_4dp"
+                    android:background="@drawable/bg_recyclerview"
+                    android:elevation="@dimen/padding_1dp"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtGoodTripMessage"
@@ -140,7 +190,6 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wearList"
                 tools:text="@string/message_nice_trip_wishes" />
 
             <ImageView

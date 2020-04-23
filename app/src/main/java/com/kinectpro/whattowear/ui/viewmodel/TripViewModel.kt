@@ -13,6 +13,7 @@ import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.location.PlaceTrip
 import com.kinectpro.whattowear.data.model.response.WeatherData
 import com.kinectpro.whattowear.data.model.trip.TripModel
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.data.storage.WhatToWearCache
 import com.kinectpro.whattowear.data.wrapper.ResourceWrapper
 import com.kinectpro.whattowear.database.TripRepository
@@ -30,7 +31,11 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
             TripRepository(getApplication(), viewModelScope)
         )
 
+    val defaultListVisibility = MutableLiveData<Boolean>().apply { value = true }
+
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
+
+    val wears = MutableLiveData<List<WearItem>>().apply { value = repository.createCheckList() }
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
@@ -253,9 +258,22 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun saveTripToDatabase(isDefaultListChecked: Boolean) {
         val currentTripItem = prepareTripToSaving()
-        currentTripItem?.let {
-            repository.saveTripToDatabase(currentTripItem, isDefaultListChecked)
+        val currentTripWears = wears.value!!
+        currentTripItem?.let { trip ->
+            repository.saveTripToDatabase(
+                trip,
+                currentTripWears.setWearsId(trip.id),
+                isDefaultListChecked
+            )
         }
+    }
+
+    fun getDefaultCheckList(): List<WearItem>? {
+        return repository.createCheckList()
+    }
+
+    fun changeVisibility() {
+        defaultListVisibility.value = defaultListVisibility.value != true
     }
 
     private fun prepareTripToSaving(): TripItem? {
