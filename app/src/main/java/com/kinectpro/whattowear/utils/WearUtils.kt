@@ -1,6 +1,7 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.wear.WearItem
 
 /**
  * Extension for String variable to convert
@@ -108,6 +109,14 @@ fun String?.checkProperConditionState(): Boolean {
         in condition -> true
         else -> false
     }
+}
+
+fun List<WearItem>.setWearsId(tripId: String): List<WearItem> {
+    val wearsWithId = mutableListOf<WearItem>()
+    for (wear in this) {
+        wearsWithId.add(wear.copy(tripId = tripId))
+    }
+    return wearsWithId
 }
 
 

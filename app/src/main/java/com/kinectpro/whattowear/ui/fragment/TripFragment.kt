@@ -21,12 +21,9 @@ import com.kinectpro.whattowear.BuildConfig
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
-import com.kinectpro.whattowear.data.model.trip.TripItem
-import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.DialogLayoutBinding
 import com.kinectpro.whattowear.databinding.TripFragmentBinding
-import com.kinectpro.whattowear.ui.adapter.TripCheckListAdapter
-import com.kinectpro.whattowear.ui.adapter.WeatherConditionsAdapter
+import com.kinectpro.whattowear.ui.adapter.DefaultCheckListAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripViewModel
 import com.kinectpro.whattowear.utils.DATE_RANGE_MAX_LENGTH_ALLOWED
 import com.kinectpro.whattowear.utils.convertToReadableRange
@@ -86,13 +83,16 @@ class TripFragment : Fragment() {
                     txtDayWeatherSummary.text =
                         it.data?.dayTemp?.convertToReadableRange(requireContext())
 
-                    wearList.apply {
-                        layoutManager = LinearLayoutManager(context)
-                        adapter =
-                            WeatherConditionsAdapter(
-                                it.data?.conditionDates!!
-                            )
+                    tripViewModel.getDefaultCheckList()?.let {
+                        wearList.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            adapter =
+                                DefaultCheckListAdapter(
+                                    it
+                                )
+                        }
                     }
+
                 }
                 ResourceStatus.ERROR -> {
                     it.errorCode?.let { error ->
@@ -166,6 +166,24 @@ class TripFragment : Fragment() {
             }
             tripEndDateSelectionDialog.show()
         }
+
+        txtHideShow.setOnClickListener {
+            when (defaultListContainer.visibility) {
+                View.VISIBLE -> {
+                    defaultListContainer.visibility = View.GONE
+                    val icon =
+                        requireContext().resources.getDrawable(R.drawable.ic_arrow_down, null)
+                    txtHideShow.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+                }
+                else -> {
+                    defaultListContainer.visibility = View.VISIBLE
+                    val icon = requireContext().resources.getDrawable(R.drawable.ic_arrow_up, null)
+                    txtHideShow.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+                }
+            }
+        }
+
+
     }
 
     private fun setupPlaceSelectListener() {
@@ -240,7 +258,8 @@ class TripFragment : Fragment() {
                 dialog.dismiss()
             }
             btnDialogOk.setOnClickListener {
-                tripViewModel.saveTripToDatabase(checkBox.isChecked)
+                val wears = (wearList.adapter as DefaultCheckListAdapter).getWearsList()
+                tripViewModel.saveTripToDatabase(wears, checkBox.isChecked)
                 view?.findNavController()?.navigate(R.id.action_TripFragment_to_TripListFragment)
                 dialog.dismiss()
             }

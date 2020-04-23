@@ -3,6 +3,7 @@ package com.kinectpro.whattowear.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.db.TripDatabase
@@ -19,32 +20,17 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
 
     private val tripDao = TripDatabase.getInstance(context).tripDao
     private val wearDao = TripDatabase.getInstance(context).wearDao
-
-    private fun createCheckList(trip: TripItem): List<WearItem> {
-        return listOf(
-            WearItem("Passport", false, trip.id),
-            WearItem("Money", false, trip.id),
-            WearItem("Underwear", false, trip.id),
-            WearItem("Hygiene items", false, trip.id),
-            WearItem("Food", false, trip.id),
-            WearItem("First aid kit", false, trip.id)
-        )
-    }
+    private val defaultList = context.resources.getStringArray(R.array.default_check_list).toList()
 
     override fun saveTripToDatabase(
         trip: TripItem,
-        wears: List<WearItem>?,
+        wears: List<WearItem>,
         isDefaultListChecked: Boolean
     ) {
         scope.launch {
-            val checkList = createCheckList(trip)
             tripDao.insert(trip.convertTripModelToTripEntity())
-            if (wears != null) {
-                TODO("combine default and personal checklist")
-            }
             if (isDefaultListChecked) {
-                wearDao.insertTripWears(checkList.convertWearItemsToWearEntities())
-                TODO("save personal checklist")
+                wearDao.insertTripWears(wears.convertWearItemsToWearEntities())
             }
         }
     }
@@ -77,6 +63,14 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
         scope.launch {
             wearDao.deleteWear(wear.convertWearItemToWearEntity())
         }
+    }
+
+    override fun getDefaultCheckList(): List<WearItem> {
+        val checkList = mutableListOf<WearItem>()
+        for (item in defaultList) {
+            checkList.add(WearItem(item))
+        }
+        return checkList
     }
 
     override fun deleteSelectedTrip(trip: TripItem) {
