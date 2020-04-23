@@ -49,11 +49,7 @@ class WhatToWearRepository(
         localStorage.setLastSelectedPlace(selectedPlace)
     }
 
-    fun saveTripToDatabase(trip: TripItem, wears: List<WearItem>, isDefaultListChecked: Boolean) {
-        localDatabase.saveTripToDatabase(trip, wears, isDefaultListChecked)
-    }
-
-    fun createCheckList(): List<WearItem> {
-        return localDatabase.getDefaultCheckList()
+    fun saveTripToDatabase(trip: TripItem, isDefaultListChecked: Boolean) {
+        localDatabase.saveTripToDatabase(trip, isDefaultListChecked)
     }
 }
