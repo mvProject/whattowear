@@ -63,10 +63,9 @@ class TripFragment : Fragment() {
          Observes status of selecting place
          Show status message if error appears
          */
-        tripViewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer<String> {
+        tripViewModel.selectedPlaceStatus.observe(viewLifecycleOwner, Observer {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
-
 
         /*
          Observes selected trip status
@@ -83,16 +82,10 @@ class TripFragment : Fragment() {
                     txtDayWeatherSummary.text =
                         it.data?.dayTemp?.convertToReadableRange(requireContext())
 
-                    tripViewModel.getDefaultCheckList()?.let {
-                        wearList.apply {
-                            layoutManager = LinearLayoutManager(context)
-                            adapter =
-                                DefaultCheckListAdapter(
-                                    it
-                                )
-                        }
+                    wearList.apply {
+                        layoutManager = LinearLayoutManager(context)
+                        adapter = DefaultCheckListAdapter(tripViewModel)
                     }
-
                 }
                 ResourceStatus.ERROR -> {
                     it.errorCode?.let { error ->
@@ -168,22 +161,8 @@ class TripFragment : Fragment() {
         }
 
         txtHideShow.setOnClickListener {
-            when (defaultListContainer.visibility) {
-                View.VISIBLE -> {
-                    defaultListContainer.visibility = View.GONE
-                    val icon =
-                        requireContext().resources.getDrawable(R.drawable.ic_arrow_down, null)
-                    txtHideShow.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
-                }
-                else -> {
-                    defaultListContainer.visibility = View.VISIBLE
-                    val icon = requireContext().resources.getDrawable(R.drawable.ic_arrow_up, null)
-                    txtHideShow.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
-                }
-            }
+            tripViewModel.changeVisibility()
         }
-
-
     }
 
     private fun setupPlaceSelectListener() {
@@ -258,8 +237,10 @@ class TripFragment : Fragment() {
                 dialog.dismiss()
             }
             btnDialogOk.setOnClickListener {
-                val wears = (wearList.adapter as DefaultCheckListAdapter).getWearsList()
-                tripViewModel.saveTripToDatabase(wears, checkBox.isChecked)
+                if (wearList.adapter != null) {
+                    (wearList.adapter as DefaultCheckListAdapter).updateWears()
+                }
+                tripViewModel.saveTripToDatabase(checkBox.isChecked)
                 view?.findNavController()?.navigate(R.id.action_TripFragment_to_TripListFragment)
                 dialog.dismiss()
             }

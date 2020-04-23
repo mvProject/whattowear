@@ -171,3 +171,44 @@ fun getProperTextForDateRangeView(
         endDate.convertDateToReadableFormat(DATE_READABLE_PATTERN)
     )
 }
+
+/**
+ * Binding adapter changing view visibility according to boolean condition
+ * @param view type of view which adapter can be binded
+ * @param state current condition
+ */
+@BindingAdapter(value = ["setVisibility"])
+fun setViewVisibility(
+    view: View,
+    condition: Boolean
+) {
+    when (condition) {
+        true -> view.visibility = View.VISIBLE
+        else -> view.visibility = View.INVISIBLE
+    }
+}
+
+/**
+ * Binding adapter changing view text and drawable according to boolean condition
+ * @param view type of view which adapter can be binded
+ * @param state current condition
+ */
+@BindingAdapter(value = ["setVisibilityType"])
+fun setViewVisibilityType(
+    view: MaterialTextView,
+    condition: Boolean
+) {
+    when (condition) {
+        true -> {
+            val icon = view.context.resources.getDrawable(R.drawable.ic_arrow_up, null)
+            view.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+            view.text = view.context.getString(R.string.hide_title)
+        }
+        else -> {
+            val icon = view.context.resources.getDrawable(R.drawable.ic_arrow_down, null)
+            view.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+            view.text = view.context.getString(R.string.show_title)
+        }
+
+    }
+}

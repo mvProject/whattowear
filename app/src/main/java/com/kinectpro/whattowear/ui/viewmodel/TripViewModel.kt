@@ -31,7 +31,11 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
             TripRepository(getApplication(), viewModelScope)
         )
 
+    val defaultListVisibility = MutableLiveData<Boolean>().apply { value = true }
+
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
+
+    val wears = MutableLiveData<List<WearItem>>().apply { value = repository.createCheckList() }
 
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
@@ -252,15 +256,24 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     /*
     Save current trip to database
      */
-    fun saveTripToDatabase(wears: List<WearItem>, isDefaultListChecked: Boolean) {
+    fun saveTripToDatabase(isDefaultListChecked: Boolean) {
         val currentTripItem = prepareTripToSaving()
+        val currentTripWears = wears.value!!
         currentTripItem?.let { trip ->
-            repository.saveTripToDatabase(trip, wears.setWearsId(trip.id), isDefaultListChecked)
+            repository.saveTripToDatabase(
+                trip,
+                currentTripWears.setWearsId(trip.id),
+                isDefaultListChecked
+            )
         }
     }
 
     fun getDefaultCheckList(): List<WearItem>? {
         return repository.createCheckList()
+    }
+
+    fun changeVisibility() {
+        defaultListVisibility.value = defaultListVisibility.value != true
     }
 
     private fun prepareTripToSaving(): TripItem? {
