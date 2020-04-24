@@ -111,10 +111,10 @@ fun String?.checkProperConditionState(): Boolean {
     }
 }
 
-fun List<WearItem>.setWearsId(tripId: String): List<WearItem> {
+fun List<String>.getWearsWithIds(tripId: String): List<WearItem> {
     val wearsWithId = mutableListOf<WearItem>()
     for (wear in this) {
-        wearsWithId.add(wear.copy(tripId = tripId))
+        wearsWithId.add(WearItem(wear, false, tripId))
     }
     return wearsWithId
 }

@@ -23,7 +23,7 @@ import com.kinectpro.whattowear.data.model.enums.ErrorCodes
 import com.kinectpro.whattowear.data.model.enums.ResourceStatus
 import com.kinectpro.whattowear.databinding.DialogLayoutBinding
 import com.kinectpro.whattowear.databinding.TripFragmentBinding
-import com.kinectpro.whattowear.ui.adapter.DefaultCheckListAdapter
+import com.kinectpro.whattowear.ui.adapter.WeatherConditionsAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripViewModel
 import com.kinectpro.whattowear.utils.DATE_RANGE_MAX_LENGTH_ALLOWED
 import com.kinectpro.whattowear.utils.convertToReadableRange
@@ -84,7 +84,9 @@ class TripFragment : Fragment() {
 
                     wearList.apply {
                         layoutManager = LinearLayoutManager(context)
-                        adapter = DefaultCheckListAdapter(tripViewModel)
+                        adapter = WeatherConditionsAdapter(
+                            it.data?.conditionDates!!
+                        )
                     }
                 }
                 ResourceStatus.ERROR -> {
@@ -158,10 +160,6 @@ class TripFragment : Fragment() {
                 }
             }
             tripEndDateSelectionDialog.show()
-        }
-
-        txtHideShow.setOnClickListener {
-            tripViewModel.changeVisibility()
         }
     }
 
@@ -237,9 +235,6 @@ class TripFragment : Fragment() {
                 dialog.dismiss()
             }
             btnDialogOk.setOnClickListener {
-                if (wearList.adapter != null) {
-                    (wearList.adapter as DefaultCheckListAdapter).updateWears()
-                }
                 tripViewModel.saveTripToDatabase(checkBox.isChecked)
                 view?.findNavController()?.navigate(R.id.action_TripFragment_to_TripListFragment)
                 dialog.dismiss()

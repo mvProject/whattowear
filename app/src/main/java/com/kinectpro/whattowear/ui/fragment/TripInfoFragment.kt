@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.databinding.TripInfoFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.TripCheckListAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
@@ -45,14 +46,42 @@ class TripInfoFragment : Fragment() {
 
                 tripInfoViewModel.tripDetail.observe(viewLifecycleOwner, Observer { item ->
                     tripInfoFragmentBinding.tripItemInfo = item.trip
+
                     tripCheckList.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(context)
                         adapter = TripCheckListAdapter(item.wears)
                     }
+
+                    if (item.wears.isEmpty()) {
+                        txtHideShow.visibility = View.GONE
+                        txtDefaultListTitle.visibility = View.GONE
+                        defaultListContainer.visibility = View.GONE
+                    }
                 })
             }
         }
+        txtHideShow.setOnClickListener {
+            tripInfoViewModel.changeVisibility()
+        }
+
+        tripInfoViewModel.defaultListVisibility.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                true -> {
+                    defaultListContainer.visibility = View.VISIBLE
+                    val icon = requireContext().resources.getDrawable(R.drawable.ic_arrow_up, null)
+                    txtHideShow.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+                    txtHideShow.text = requireContext().getString(R.string.hide_title)
+                }
+                else -> {
+                    defaultListContainer.visibility = View.GONE
+                    val icon =
+                        requireContext().resources.getDrawable(R.drawable.ic_arrow_down, null)
+                    txtHideShow.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+                    txtHideShow.text = requireContext().getString(R.string.show_title)
+                }
+            }
+        })
     }
 
     override fun onPause() {

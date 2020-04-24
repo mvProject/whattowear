@@ -8,10 +8,7 @@ import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.db.TripDatabase
 import com.kinectpro.whattowear.database.entity.TripWithCheckList
-import com.kinectpro.whattowear.utils.convertTripEntitiesToTripModels
-import com.kinectpro.whattowear.utils.convertTripModelToTripEntity
-import com.kinectpro.whattowear.utils.convertWearItemToWearEntity
-import com.kinectpro.whattowear.utils.convertWearItemsToWearEntities
+import com.kinectpro.whattowear.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -24,13 +21,14 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
 
     override fun saveTripToDatabase(
         trip: TripItem,
-        wears: List<WearItem>,
         isDefaultListChecked: Boolean
     ) {
         scope.launch {
             tripDao.insert(trip.convertTripModelToTripEntity())
             if (isDefaultListChecked) {
-                wearDao.insertTripWears(wears.convertWearItemsToWearEntities())
+                wearDao.insertTripWears(
+                    defaultList.getWearsWithIds(trip.id).convertWearItemsToWearEntities()
+                )
             }
         }
     }
@@ -63,14 +61,6 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
         scope.launch {
             wearDao.deleteWear(wear.convertWearItemToWearEntity())
         }
-    }
-
-    override fun getDefaultCheckList(): List<WearItem> {
-        val checkList = mutableListOf<WearItem>()
-        for (item in defaultList) {
-            checkList.add(WearItem(item))
-        }
-        return checkList
     }
 
     override fun deleteSelectedTrip(trip: TripItem) {
