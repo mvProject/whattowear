@@ -1,10 +1,22 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_DEFAULT
+import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_PERSONAL
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class WearUtilsTest {
+
+    private val WRONG_TYPE = "WRONG_TYPE"
+    val wearsTest = listOf(
+        WearItem(1, "name1", true, "id1", ITEM_TYPE_PERSONAL),
+        WearItem(2, "name2", false, "id1", ITEM_TYPE_PERSONAL),
+        WearItem(3, "name3", true, "id1", ITEM_TYPE_PERSONAL),
+        WearItem(4, "name4", false, "id1", ITEM_TYPE_DEFAULT),
+        WearItem(5, "name5", true, "id1", ITEM_TYPE_DEFAULT)
+    )
 
     @Test
     fun convertIconToEnumValue_PROPER_VALUE() {
@@ -158,5 +170,35 @@ class WearUtilsTest {
     fun convertIconToWeatherRecommendation_NOT_PROPER_VALUE() {
         val state = "weather"
         assertEquals(null, state.convertIconToWeatherRecommendation())
+    }
+
+    @Test
+    fun getWearsWithIds_Empty() {
+        val emptyTest = listOf<String>()
+        assertEquals(emptyList<WearItem>(), emptyTest.getWearsWithIds("id1", ITEM_TYPE_DEFAULT))
+    }
+
+    @Test
+    fun filteredType_Proper_Personal() {
+        val wearsPersonalTest = listOf(
+            WearItem(1, "name1", true, "id1", ITEM_TYPE_PERSONAL),
+            WearItem(2, "name2", false, "id1", ITEM_TYPE_PERSONAL),
+            WearItem(3, "name3", true, "id1", ITEM_TYPE_PERSONAL)
+        )
+        assertEquals(wearsPersonalTest, wearsTest.filteredType(ITEM_TYPE_PERSONAL))
+    }
+
+    @Test
+    fun filteredType_Proper_Default() {
+        val wearsDefaultTest = listOf(
+            WearItem(4, "name4", false, "id1", ITEM_TYPE_DEFAULT),
+            WearItem(5, "name5", true, "id1", ITEM_TYPE_DEFAULT)
+        )
+        assertEquals(wearsDefaultTest, wearsTest.filteredType(ITEM_TYPE_DEFAULT))
+    }
+
+    @Test
+    fun filteredType_Not_Proper() {
+        assertEquals(emptyList<WearItem>(), wearsTest.filteredType(WRONG_TYPE))
     }
 }

@@ -72,9 +72,11 @@ fun TripItem.convertTripModelToTripEntity() = with(this) {
  */
 fun WearItem.convertWearItemToWearEntity() = with(this) {
     WearEntity(
+        id,
         name,
         isChecked,
-        tripId
+        tripId,
+        type
     )
 }
 
@@ -83,8 +85,10 @@ fun WearItem.convertWearItemToWearEntity() = with(this) {
  */
 fun WearEntity.convertWearEntityToWearItem() = with(this) {
     WearItem(
+        id,
         wearName,
         wearChecked,
-        tripId
+        tripId,
+        type
     )
 }

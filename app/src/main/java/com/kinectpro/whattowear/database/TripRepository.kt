@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.trip.TripItem
+import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_DEFAULT
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.db.TripDatabase
 import com.kinectpro.whattowear.database.entity.TripWithCheckList
@@ -27,7 +28,8 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
             tripDao.insert(trip.convertTripModelToTripEntity())
             if (isDefaultListChecked) {
                 wearDao.insertTripWears(
-                    defaultList.getWearsWithIds(trip.id).convertWearItemsToWearEntities()
+                    defaultList.getWearsWithIds(trip.id, ITEM_TYPE_DEFAULT)
+                        .convertWearItemsToWearEntities()
                 )
             }
         }
@@ -54,6 +56,12 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
     override fun updateWears(wears: List<WearItem>) {
         scope.launch {
             wearDao.updateTripWears(wears.convertWearItemsToWearEntities())
+        }
+    }
+
+    override fun updateSelectedWear(wear: WearItem) {
+        scope.launch {
+            wearDao.updateWear(wear.convertWearItemToWearEntity())
         }
     }
 
@@ -84,5 +92,4 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
             tripDao.deleteAll()
         }
     }
-
 }

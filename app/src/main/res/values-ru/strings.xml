@@ -55,6 +55,8 @@
     <string name="trip_details">Информация про поездку</string>
     <string name="checklist_title">Контрольный список</string>
     <string name="checklist_default_type">по умолчанию</string>
+    <string name="checklist_personal_type">личный</string>
     <string name="show_title">показать</string>
     <string name="hide_title">скрыть</string>
+    <string name="hint_title_add">Добавить</string>
 </resources>

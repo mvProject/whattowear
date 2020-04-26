@@ -25,6 +25,7 @@ const val LOCALE_LANGUAGE_UA = "uk_UA"
 const val BACKGROUND_CORNER_RADIUS = 20
 const val HORIZONTAL_PADDING = 15
 const val VERTICAL_PADDING = 1
+
 /**
  * Extension Method to response data class which
  * try to extract only specified non-null fields

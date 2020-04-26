@@ -47,7 +47,7 @@ class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelect
             // define menu and show on click
             binding.itemMenu.setOnClickListener {
                 val contextMenu = PopupMenu(parent.context, it)
-                contextMenu.inflate(R.menu.trip_item_menu)
+                contextMenu.inflate(R.menu.item_list_context_menu)
                 contextMenu.setOnMenuItemClickListener(this)
                 contextMenu.show()
             }

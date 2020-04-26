@@ -19,7 +19,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_4dp"
+            android:paddingBottom="@dimen/padding_4dp">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/chbWearItem"
@@ -37,9 +39,9 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtWearItem"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_8dp"
+                android:layout_marginStart="@dimen/padding_40dp"
                 android:text="@{wearItem.name}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_16sp"
