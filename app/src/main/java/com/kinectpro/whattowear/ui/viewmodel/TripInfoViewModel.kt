@@ -3,7 +3,6 @@ package com.kinectpro.whattowear.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.kinectpro.whattowear.data.model.trip.TripWithWears
-import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_PERSONAL
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.ITrip
 import com.kinectpro.whattowear.database.TripRepository
@@ -22,7 +21,7 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
         tripDetail = repository.loadSingleTripWithCheckListsFromDatabase(tripDetailId)
             .map { it.convertTripWithCheckListEntityToTripWithWearModel() }.also {
                 isDefaultListNotNull.value =
-                    it.value?.wears?.filteredType(ITEM_TYPE_PERSONAL)?.isNotEmpty() ?: false
+                    it.value?.wears?.filteredType(false)?.isNotEmpty() ?: false
             }
     }
 

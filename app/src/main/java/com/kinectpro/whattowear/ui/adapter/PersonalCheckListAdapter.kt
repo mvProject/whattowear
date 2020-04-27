@@ -1,12 +1,10 @@
 package com.kinectpro.whattowear.ui.adapter
 
-import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -120,10 +118,6 @@ class PersonalCheckListAdapter(
                     text?.append(editableWear!!.name)
                     requestFocus()
                 }
-                // show keyboard
-                val imm: InputMethodManager =
-                    parent.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(parent, 0)
             }
 
             binding.addItem.addTextChangedListener(object : TextWatcher {
@@ -152,10 +146,6 @@ class PersonalCheckListAdapter(
                         ), false
                     )
                 }
-                // hide keyboard
-                val imm: InputMethodManager =
-                    parent.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(parent.windowToken, 0)
             }
         }
     }

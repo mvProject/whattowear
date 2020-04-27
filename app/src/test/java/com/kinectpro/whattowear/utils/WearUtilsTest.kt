@@ -1,21 +1,18 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_DEFAULT
-import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_PERSONAL
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class WearUtilsTest {
 
-    private val WRONG_TYPE = "WRONG_TYPE"
     val wearsTest = listOf(
-        WearItem(1, "name1", true, "id1", ITEM_TYPE_PERSONAL),
-        WearItem(2, "name2", false, "id1", ITEM_TYPE_PERSONAL),
-        WearItem(3, "name3", true, "id1", ITEM_TYPE_PERSONAL),
-        WearItem(4, "name4", false, "id1", ITEM_TYPE_DEFAULT),
-        WearItem(5, "name5", true, "id1", ITEM_TYPE_DEFAULT)
+        WearItem(1, "name1", true, "id1"),
+        WearItem(2, "name2", false, "id1"),
+        WearItem(3, "name3", true, "id1"),
+        WearItem(4, "name4", false, "id1", true),
+        WearItem(5, "name5", true, "id1", true)
     )
 
     @Test
@@ -175,30 +172,25 @@ class WearUtilsTest {
     @Test
     fun getWearsWithIds_Empty() {
         val emptyTest = listOf<String>()
-        assertEquals(emptyList<WearItem>(), emptyTest.getWearsWithIds("id1", ITEM_TYPE_DEFAULT))
+        assertEquals(emptyList<WearItem>(), emptyTest.getWearsWithIds("id1", false))
     }
 
     @Test
     fun filteredType_Proper_Personal() {
         val wearsPersonalTest = listOf(
-            WearItem(1, "name1", true, "id1", ITEM_TYPE_PERSONAL),
-            WearItem(2, "name2", false, "id1", ITEM_TYPE_PERSONAL),
-            WearItem(3, "name3", true, "id1", ITEM_TYPE_PERSONAL)
+            WearItem(1, "name1", true, "id1"),
+            WearItem(2, "name2", false, "id1"),
+            WearItem(3, "name3", true, "id1")
         )
-        assertEquals(wearsPersonalTest, wearsTest.filteredType(ITEM_TYPE_PERSONAL))
+        assertEquals(wearsPersonalTest, wearsTest.filteredType(false))
     }
 
     @Test
     fun filteredType_Proper_Default() {
         val wearsDefaultTest = listOf(
-            WearItem(4, "name4", false, "id1", ITEM_TYPE_DEFAULT),
-            WearItem(5, "name5", true, "id1", ITEM_TYPE_DEFAULT)
+            WearItem(4, "name4", false, "id1", true),
+            WearItem(5, "name5", true, "id1", true)
         )
-        assertEquals(wearsDefaultTest, wearsTest.filteredType(ITEM_TYPE_DEFAULT))
-    }
-
-    @Test
-    fun filteredType_Not_Proper() {
-        assertEquals(emptyList<WearItem>(), wearsTest.filteredType(WRONG_TYPE))
+        assertEquals(wearsDefaultTest, wearsTest.filteredType(true))
     }
 }

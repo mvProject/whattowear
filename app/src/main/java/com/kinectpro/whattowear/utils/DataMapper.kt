@@ -76,7 +76,7 @@ fun WearItem.convertWearItemToWearEntity() = with(this) {
         name,
         isChecked,
         tripId,
-        type
+        isDefault
     )
 }
 
@@ -89,6 +89,6 @@ fun WearEntity.convertWearEntityToWearItem() = with(this) {
         wearName,
         wearChecked,
         tripId,
-        type
+        isDefault
     )
 }

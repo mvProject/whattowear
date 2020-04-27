@@ -116,10 +116,10 @@ fun String?.checkProperConditionState(): Boolean {
  * Create wears list with specified parameters from string list
  * @return wears list
  */
-fun List<String>.getWearsWithIds(tripId: String, type: String): List<WearItem> {
+fun List<String>.getWearsWithIds(tripId: String, isDefault: Boolean): List<WearItem> {
     val wearsWithId = mutableListOf<WearItem>()
     for (wearName in this) {
-        wearsWithId.add(WearItem(Random().nextInt(), wearName, false, tripId, type))
+        wearsWithId.add(WearItem(Random().nextInt(), wearName, false, tripId, isDefault))
     }
     return wearsWithId
 }
@@ -128,4 +128,4 @@ fun List<String>.getWearsWithIds(tripId: String, type: String): List<WearItem> {
  * Filter wears list with selected type predicate
  * @return filtered wears list
  */
-fun List<WearItem>.filteredType(type: String) = this.filter { it.type == type }
+fun List<WearItem>.filteredType(isDefault: Boolean) = this.filter { it.isDefault == isDefault }

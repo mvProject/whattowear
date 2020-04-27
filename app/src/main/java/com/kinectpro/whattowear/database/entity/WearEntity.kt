@@ -10,5 +10,5 @@ data class WearEntity(
     @ColumnInfo(name = "wear_name") val wearName: String,
     @ColumnInfo(name = "wear_checked") val wearChecked: Boolean,
     @ColumnInfo(name = "trip_id") val tripId: String?,
-    @ColumnInfo(name = "type") val type: String
+    @ColumnInfo(name = "is_default") val isDefault: Boolean
 )

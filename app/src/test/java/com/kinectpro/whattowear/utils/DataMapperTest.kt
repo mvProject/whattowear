@@ -2,7 +2,6 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.data.model.trip.TripItem
 import com.kinectpro.whattowear.data.model.trip.TripWithWears
-import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_PERSONAL
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.database.entity.TripEntity
 import com.kinectpro.whattowear.database.entity.TripWithCheckList
@@ -26,7 +25,7 @@ class DataMapperTest {
     private val defaultWearItems =
         listOf(defaultWearItem, defaultWearItem)
 
-    private val defaultWearEntity = WearEntity(11, "test1", true, "tripid", ITEM_TYPE_PERSONAL)
+    private val defaultWearEntity = WearEntity(11, "test1", true, "tripid", true)
     private val defaultWearEntities =
         listOf(defaultWearEntity, defaultWearEntity)
 

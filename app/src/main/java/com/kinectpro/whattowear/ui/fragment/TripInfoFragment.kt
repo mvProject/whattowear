@@ -1,7 +1,6 @@
 package com.kinectpro.whattowear.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -9,8 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_DEFAULT
-import com.kinectpro.whattowear.data.model.wear.ITEM_TYPE_PERSONAL
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.TripInfoFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.DefaultCheckListAdapter
@@ -56,11 +53,11 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(context)
                         adapter =
-                            DefaultCheckListAdapter(item.wears.filteredType(ITEM_TYPE_DEFAULT))
+                            DefaultCheckListAdapter(item.wears.filteredType(true))
                     }
 
                     // hide default check list ui when it empty
-                    if (item.wears.filteredType(ITEM_TYPE_DEFAULT).isEmpty()) {
+                    if (item.wears.filteredType(true).isEmpty()) {
                         txtHideShow.visibility = View.GONE
                         txtDefaultListTitle.visibility = View.GONE
                         tripDefaultCheckList.visibility = View.GONE
@@ -71,7 +68,7 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
                         layoutManager = LinearLayoutManager(context)
                         adapter = PersonalCheckListAdapter(
                             item.wears.filteredType(
-                                ITEM_TYPE_PERSONAL
+                                false
                             ), this@TripInfoFragment
                         )
                     }
