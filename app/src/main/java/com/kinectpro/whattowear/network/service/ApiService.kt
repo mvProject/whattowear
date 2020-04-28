@@ -14,13 +14,14 @@ import java.net.UnknownHostException
 
 class ApiService : IDarkSkyWeather {
 
+    val api = DarkSkyWeatherApiService()
+        .initApi()
+
     override suspend fun getDarkSkyWeatherDataForDateRange(
         lat: String,
         lon: String,
         dataRange: List<Long>
     ): ResourceWrapper<List<WeatherData>> {
-        val api = DarkSkyWeatherApiService()
-            .initApi()
 
         val weatherList = mutableListOf<WeatherData>()
 
