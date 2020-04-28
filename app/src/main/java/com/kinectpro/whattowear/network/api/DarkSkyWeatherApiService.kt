@@ -11,6 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 const val REQUEST_TIMEOUT = 10L
+const val KEEP_ALIVE_DURATION_POOL = 30L
+const val MAX_IDLE_CONNECTIONS = 0
 
 class DarkSkyWeatherApiService {
 
@@ -20,7 +22,13 @@ class DarkSkyWeatherApiService {
             .connectTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(getRequestSettingsInterceptor())
             .addInterceptor(getLoggingInterceptor())
-            .connectionPool(ConnectionPool(0, 15, TimeUnit.SECONDS))
+            .connectionPool(
+                ConnectionPool(
+                    MAX_IDLE_CONNECTIONS,
+                    KEEP_ALIVE_DURATION_POOL,
+                    TimeUnit.SECONDS
+                )
+            )
             .build()
         return Retrofit.Builder().apply {
             baseUrl(BASE_URL)
