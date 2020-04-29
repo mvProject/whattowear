@@ -118,6 +118,6 @@ class TripInfoFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        tripInfoViewModel.updateWears((tripDefaultCheckList.adapter as DefaultCheckListAdapter).getCurrentWears())
+        tripInfoViewModel.updateWears()
     }
 }

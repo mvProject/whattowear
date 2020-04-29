@@ -32,8 +32,8 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
         defaultListVisibility.value = defaultListVisibility.value != true
     }
 
-    fun updateWears(wears: List<WearItem>) {
-        repository.updateWears(wears)
+    fun updateWears() {
+        repository.updateWears(tripDetail.value?.wears!!)
     }
 
     fun addOrEditPersonalWear(name: String) {
