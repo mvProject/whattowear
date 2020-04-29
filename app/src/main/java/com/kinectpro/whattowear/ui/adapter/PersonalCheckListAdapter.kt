@@ -17,7 +17,8 @@ class PersonalCheckListAdapter(
 ) :
     RecyclerView.Adapter<PersonalCheckListAdapter.PersonalCheckListViewHolder>() {
 
-    var wears: List<WearItem> = vm.tripDetail.value?.wears?.filteredType(false)!!
+    var wears: List<WearItem> =
+        vm.tripDetailInformation.value?.wears?.filteredType(false) ?: emptyList()
     private val viewModel = vm
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalCheckListViewHolder {
@@ -71,7 +72,7 @@ class PersonalCheckListAdapter(
             val wear: WearItem = wears[layoutPosition]
             when (item!!.itemId) {
                 R.id.trip_item_edit -> {
-                    viewModel.editWear = wear
+                    viewModel.wearItemForEdit = wear
                     notifyDataSetChanged()
                 }
                 R.id.trip_item_delete -> {

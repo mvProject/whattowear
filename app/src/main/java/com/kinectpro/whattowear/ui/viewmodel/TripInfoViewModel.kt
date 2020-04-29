@@ -14,18 +14,21 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
 
     private val tripDetailId = tripId
     private val repository: ITrip = TripRepository(getApplication(), viewModelScope)
-    val tripDetail: LiveData<TripWithWears>
+    val tripDetailInformation: LiveData<TripWithWears>
+
+    var wearItemForEdit: WearItem? = null
+    val isHasDefaultChecklist = MutableLiveData<Boolean>().apply { value = false }
     val defaultListVisibility = MutableLiveData<Boolean>().apply { value = false }
-    var editWear: WearItem? = null
 
     init {
-        tripDetail = repository.loadSingleTripWithCheckListsFromDatabase(tripDetailId)
+        tripDetailInformation = repository.loadSingleTripWithCheckListsFromDatabase(tripDetailId)
             .map { it.convertTripWithCheckListEntityToTripWithWearModel() }
-
     }
 
-    fun isDefaultListEmpty(): Boolean {
-        return tripDetail.value?.wears?.filteredType(true).isNullOrEmpty()
+    val defaultCheckList = MediatorLiveData<LiveData<TripWithWears>>().apply {
+        addSource(tripDetailInformation) {
+            isHasDefaultChecklist.value = !it.wears.filteredType(true).isNullOrEmpty()
+        }
     }
 
     fun changeVisibility() {
@@ -33,13 +36,13 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
     }
 
     fun updateWears() {
-        repository.updateWears(tripDetail.value?.wears!!)
+        repository.updateWears(tripDetailInformation.value?.wears!!)
     }
 
     fun addOrEditPersonalWear(name: String) {
-        when (editWear) {
+        when (wearItemForEdit) {
             null -> {
-                tripDetail.value?.trip?.id.let {
+                tripDetailInformation.value?.trip?.id.let {
                     repository.saveWearToDatabase(
                         WearItem(
                             Random().nextInt(),
@@ -50,8 +53,8 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
                 }
             }
             else -> {
-                repository.updateSelectedWear(editWear!!.copy(name = name))
-                editWear = null
+                repository.updateSelectedWear(wearItemForEdit!!.copy(name = name))
+                wearItemForEdit = null
             }
         }
 

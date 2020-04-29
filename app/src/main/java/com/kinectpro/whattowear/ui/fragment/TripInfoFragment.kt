@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.databinding.TripInfoFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.DefaultCheckListAdapter
 import com.kinectpro.whattowear.ui.adapter.ItemAdapter
@@ -40,76 +39,47 @@ class TripInfoFragment : Fragment() {
 
         selectedTripId = args.tripId
         if (selectedTripId.isNotEmpty()) {
-            activity?.let {
-                tripInfoViewModelFactory = TripInfoViewModelFactory(it.application, selectedTripId)
+            activity?.let { activity ->
+                tripInfoViewModelFactory =
+                    TripInfoViewModelFactory(activity.application, selectedTripId)
                 tripInfoViewModel = ViewModelProvider(
                     this,
                     tripInfoViewModelFactory
                 ).get(TripInfoViewModel::class.java)
+            }
 
-                tripInfoViewModel.tripDetail.observe(viewLifecycleOwner, Observer { item ->
-                    tripInfoFragmentBinding.tripItemInfo = item.trip
+            // need for checking is selected trip has default checklist for showing ui
+            tripInfoViewModel.defaultCheckList.observe(viewLifecycleOwner, Observer {
+            })
+
+            tripInfoViewModel.tripDetailInformation.observe(
+                viewLifecycleOwner,
+                Observer {
+                    tripInfoFragmentBinding.tripModel = tripInfoViewModel
 
                     tripDefaultCheckList.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(context)
                         adapter =
-                            DefaultCheckListAdapter(item.wears.filteredType(true))
+                            DefaultCheckListAdapter(tripInfoViewModel)
                     }
-
-                    // hide default check list ui when it empty
-                    if (tripInfoViewModel.isDefaultListEmpty()) {
-                        txtHideShow.visibility = View.GONE
-                        txtDefaultListTitle.visibility = View.GONE
-                        tripDefaultCheckList.visibility = View.GONE
-                    }
-
-                    val adapter1 =
-                        PersonalCheckListAdapter(tripInfoViewModel)
-                    val adapter2 = ItemAdapter(tripInfoViewModel)
-                    val mergedAdapter = MergeAdapter(adapter1, adapter2)
 
                     tripPersonalCheckList.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(context)
-                        adapter = mergedAdapter
+                        adapter = MergeAdapter(
+                            PersonalCheckListAdapter(tripInfoViewModel),
+                            ItemAdapter(tripInfoViewModel)
+                        )
                     }
-                })
+                }
+            )
 
-                tripInfoViewModel.defaultListVisibility.observe(viewLifecycleOwner, Observer {
-                    when (it) {
-                        true -> {
-                            tripDefaultCheckList.visibility = View.VISIBLE
-                            val icon =
-                                requireContext().resources.getDrawable(R.drawable.ic_arrow_up, null)
-                            txtHideShow.setCompoundDrawablesWithIntrinsicBounds(
-                                null,
-                                null,
-                                icon,
-                                null
-                            )
-                            txtHideShow.text = requireContext().getString(R.string.hide_title)
-                        }
-                        else -> {
-                            tripDefaultCheckList.visibility = View.GONE
-                            val icon =
-                                requireContext().resources.getDrawable(
-                                    R.drawable.ic_arrow_down,
-                                    null
-                                )
-                            txtHideShow.setCompoundDrawablesWithIntrinsicBounds(
-                                null,
-                                null,
-                                icon,
-                                null
-                            )
-                            txtHideShow.text = requireContext().getString(R.string.show_title)
-                        }
-                    }
-                })
+            tripInfoViewModel.defaultListVisibility.observe(viewLifecycleOwner, Observer {
+                setViewVisibility(tripDefaultCheckList, it)
+                setTextViewTitleAndIcon(txtHideShow, it)
+            })
 
-
-            }
             txtHideShow.setOnClickListener {
                 tripInfoViewModel.changeVisibility()
             }

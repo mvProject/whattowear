@@ -15,6 +15,8 @@ class ItemAdapter(
 ) :
     RecyclerView.Adapter<ItemAdapter.AddCheckListItemViewHolder>() {
 
+    private val MIN_NAME_LENGTH = 2
+    private val ITEM_COUNT = 1
     private val viewModel = vm
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddCheckListItemViewHolder {
@@ -24,7 +26,7 @@ class ItemAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return ITEM_COUNT
     }
 
     override fun onBindViewHolder(holder: AddCheckListItemViewHolder, position: Int) {
@@ -39,9 +41,9 @@ class ItemAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindItem() {
-            if (viewModel.editWear != null) {
+            if (viewModel.wearItemForEdit != null) {
                 binding.addItem.apply {
-                    text?.append(viewModel.editWear!!.name)
+                    text?.append(viewModel.wearItemForEdit!!.name)
                     requestFocus()
                 }
             }
@@ -49,7 +51,7 @@ class ItemAdapter(
             binding.addItem.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(p0: Editable?) {
                     p0.let {
-                        binding.btnAdd.isEnabled = it!!.length >= 2
+                        binding.btnAdd.isEnabled = it!!.length >= MIN_NAME_LENGTH
                     }
                 }
 
