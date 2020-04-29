@@ -8,6 +8,7 @@ import com.kinectpro.whattowear.database.ITrip
 import com.kinectpro.whattowear.database.TripRepository
 import com.kinectpro.whattowear.utils.convertTripWithCheckListEntityToTripWithWearModel
 import com.kinectpro.whattowear.utils.filteredType
+import java.util.*
 
 class TripInfoViewModel(application: Application, tripId: String) : AndroidViewModel(application) {
 
@@ -15,14 +16,16 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
     private val repository: ITrip = TripRepository(getApplication(), viewModelScope)
     val tripDetail: LiveData<TripWithWears>
     val defaultListVisibility = MutableLiveData<Boolean>().apply { value = false }
-    val isDefaultListNotNull = MutableLiveData<Boolean>()
+    var editWear: WearItem? = null
 
     init {
         tripDetail = repository.loadSingleTripWithCheckListsFromDatabase(tripDetailId)
-            .map { it.convertTripWithCheckListEntityToTripWithWearModel() }.also {
-                isDefaultListNotNull.value =
-                    it.value?.wears?.filteredType(false)?.isNotEmpty() ?: false
-            }
+            .map { it.convertTripWithCheckListEntityToTripWithWearModel() }
+
+    }
+
+    fun isDefaultListEmpty(): Boolean {
+        return tripDetail.value?.wears?.filteredType(true).isNullOrEmpty()
     }
 
     fun changeVisibility() {
@@ -33,12 +36,26 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
         repository.updateWears(wears)
     }
 
-    fun addPersonalWear(wear: WearItem) {
-        repository.saveWearToDatabase(wear)
-    }
+    fun addOrEditPersonalWear(name: String) {
+        when (editWear) {
+            null -> {
+                tripDetail.value?.trip?.id.let {
+                    repository.saveWearToDatabase(
+                        WearItem(
+                            Random().nextInt(),
+                            name,
+                            tripId = it
+                        )
+                    )
+                }
+            }
+            else -> {
+                repository.updateSelectedWear(editWear!!.copy(name = name))
+                editWear = null
+            }
+        }
 
-    fun editSelectedWear(wear: WearItem) {
-        repository.updateSelectedWear(wear)
+
     }
 
     fun deleteSelectedWearFromDb(wear: WearItem) {

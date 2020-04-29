@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.AddPersonalItemBinding
 import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
-import java.util.*
 
 class ItemAdapter(
     vm: TripInfoViewModel
@@ -18,17 +16,11 @@ class ItemAdapter(
     RecyclerView.Adapter<ItemAdapter.AddCheckListItemViewHolder>() {
 
     private val viewModel = vm
-    private val ITEM_ADD_OR_EDIT = 1
-    private var editableWear: WearItem? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddCheckListItemViewHolder {
         return AddCheckListItemViewHolder(
             parent
         )
-    }
-
-    interface OnItemSelectedListener {
-        fun onItemAction(wear: WearItem, isEditMode: Boolean)
     }
 
     override fun getItemCount(): Int {
@@ -47,9 +39,9 @@ class ItemAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindItem() {
-            if (editableWear != null) {
+            if (viewModel.editWear != null) {
                 binding.addItem.apply {
-                    text?.append(editableWear!!.name)
+                    text?.append(viewModel.editWear!!.name)
                     requestFocus()
                 }
             }
@@ -66,25 +58,7 @@ class ItemAdapter(
             })
 
             binding.btnAdd.setOnClickListener {
-                val id = viewModel.tripDetail.value?.trip?.id
-                // edit current personal item
-                if (editableWear != null) {
-                    val newWear = editableWear!!.copy(name = binding.addItem.text.toString())
-                    //listener.onItemAction(newWear, true)
-                }
-                // add new personal item
-                else {
-                    id.let {
-                        viewModel.addPersonalWear(
-                            WearItem(
-                                Random().nextInt(),
-                                binding.addItem.text.toString(),
-                                tripId = it
-                            )
-                        )
-                        notifyDataSetChanged()
-                    }
-                }
+                viewModel.addOrEditPersonalWear(binding.addItem.text.toString())
             }
         }
     }

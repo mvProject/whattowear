@@ -9,7 +9,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import com.kinectpro.whattowear.R
-import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.TripInfoFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.DefaultCheckListAdapter
 import com.kinectpro.whattowear.ui.adapter.ItemAdapter
@@ -19,7 +18,7 @@ import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModelFactory
 import com.kinectpro.whattowear.utils.*
 import kotlinx.android.synthetic.main.trip_info_fragment.*
 
-class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedListener {
+class TripInfoFragment : Fragment() {
 
     private var selectedTripId = ""
     private lateinit var tripInfoViewModel: TripInfoViewModel
@@ -59,15 +58,14 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
                     }
 
                     // hide default check list ui when it empty
-                    if (item.wears.filteredType(true).isEmpty()) {
+                    if (tripInfoViewModel.isDefaultListEmpty()) {
                         txtHideShow.visibility = View.GONE
                         txtDefaultListTitle.visibility = View.GONE
                         tripDefaultCheckList.visibility = View.GONE
                     }
 
-
                     val adapter1 =
-                        PersonalCheckListAdapter(tripInfoViewModel, this@TripInfoFragment)
+                        PersonalCheckListAdapter(tripInfoViewModel)
                     val adapter2 = ItemAdapter(tripInfoViewModel)
                     val mergedAdapter = MergeAdapter(adapter1, adapter2)
 
@@ -109,6 +107,8 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
                         }
                     }
                 })
+
+
             }
             txtHideShow.setOnClickListener {
                 tripInfoViewModel.changeVisibility()
@@ -119,29 +119,5 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
     override fun onPause() {
         super.onPause()
         tripInfoViewModel.updateWears((tripDefaultCheckList.adapter as DefaultCheckListAdapter).getCurrentWears())
-        //tripInfoViewModel.updateWears((tripPersonalCheckList.adapter as PersonalCheckListAdapter).getCurrentWears())
     }
-
-    override fun onMenuAction(wear: WearItem, item: MenuItem?) {
-        when (item!!.itemId) {
-            R.id.trip_item_delete -> {
-                tripInfoViewModel.deleteSelectedWearFromDb(wear)
-            }
-        }
-    }
-
-    override fun onItemAction(wear: WearItem, isEditMode: Boolean) {
-        when (isEditMode) {
-            true -> {
-                //tripInfoViewModel.editSelectedWear(wear)
-            }
-            false -> {
-                if (selectedTripId.isNotEmpty()) {
-                    // tripInfoViewModel.addPersonalWear(wear.copy(tripId = selectedTripId))
-                }
-            }
-        }
-    }
-
-
 }

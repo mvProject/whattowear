@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="tripModel"
+            type="com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel" />
+
+        <variable
             name="tripItemInfo"
             type="com.kinectpro.whattowear.data.model.trip.TripItem" />
     </data>

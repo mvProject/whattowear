@@ -44,9 +44,9 @@ class DefaultCheckListAdapter(var wears: List<WearItem>) :
             }
 
             binding.chbWearItem.apply {
-                isChecked = wears[adapterPosition].isChecked
+                isChecked = wears[layoutPosition].isChecked
                 setOnCheckedChangeListener { _, isChecked ->
-                    wears[adapterPosition].isChecked = isChecked
+                    wears[layoutPosition].isChecked = isChecked
                 }
             }
         }

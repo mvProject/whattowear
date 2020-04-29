@@ -13,24 +13,17 @@ import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
 import com.kinectpro.whattowear.utils.filteredType
 
 class PersonalCheckListAdapter(
-    vm: TripInfoViewModel,
-    private val listener: OnItemSelectedListener
+    vm: TripInfoViewModel
 ) :
     RecyclerView.Adapter<PersonalCheckListAdapter.PersonalCheckListViewHolder>() {
 
     var wears: List<WearItem> = vm.tripDetail.value?.wears?.filteredType(false)!!
-
-    private var editableWear: WearItem? = null
+    private val viewModel = vm
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalCheckListViewHolder {
         return PersonalCheckListViewHolder(
             parent
         )
-    }
-
-    interface OnItemSelectedListener {
-        fun onMenuAction(wear: WearItem, item: MenuItem?)
-        fun onItemAction(wear: WearItem, isEditMode: Boolean)
     }
 
     override fun getItemCount(): Int {
@@ -59,9 +52,9 @@ class PersonalCheckListAdapter(
             }
             // keep item selection
             binding.chbWearItem.apply {
-                isChecked = wears[adapterPosition].isChecked
+                isChecked = wears[layoutPosition].isChecked
                 setOnCheckedChangeListener { _, isChecked ->
-                    wears[adapterPosition].isChecked = isChecked
+                    wears[layoutPosition].isChecked = isChecked
                 }
             }
             // define menu and show on click
@@ -75,12 +68,17 @@ class PersonalCheckListAdapter(
 
         // specify which item menu clicked
         override fun onMenuItemClick(item: MenuItem?): Boolean {
-            val wear: WearItem = wears[adapterPosition]
-            if (item!!.itemId == R.id.trip_item_edit) {
-                editableWear = wear
-                notifyDataSetChanged()
+            val wear: WearItem = wears[layoutPosition]
+            when (item!!.itemId) {
+                R.id.trip_item_edit -> {
+                    viewModel.editWear = wear
+                    notifyDataSetChanged()
+                }
+                R.id.trip_item_delete -> {
+                    viewModel.deleteSelectedWearFromDb(wear)
+                    notifyDataSetChanged()
+                }
             }
-            listener.onMenuAction(wear, item)
             return false
         }
     }
