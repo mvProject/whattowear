@@ -14,7 +14,7 @@ import java.net.UnknownHostException
 
 class ApiService : IDarkSkyWeather {
 
-    val api = DarkSkyWeatherApiService()
+    private val api = DarkSkyWeatherApiService()
         .initApi()
 
     override suspend fun getDarkSkyWeatherDataForDateRange(
