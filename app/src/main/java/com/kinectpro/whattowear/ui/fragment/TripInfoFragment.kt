@@ -7,10 +7,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.MergeAdapter
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.TripInfoFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.DefaultCheckListAdapter
+import com.kinectpro.whattowear.ui.adapter.ItemAdapter
 import com.kinectpro.whattowear.ui.adapter.PersonalCheckListAdapter
 import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
 import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModelFactory
@@ -63,14 +65,16 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
                         tripDefaultCheckList.visibility = View.GONE
                     }
 
+
+                    val adapter1 =
+                        PersonalCheckListAdapter(tripInfoViewModel, this@TripInfoFragment)
+                    val adapter2 = ItemAdapter(tripInfoViewModel)
+                    val mergedAdapter = MergeAdapter(adapter1, adapter2)
+
                     tripPersonalCheckList.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(context)
-                        adapter = PersonalCheckListAdapter(
-                            item.wears.filteredType(
-                                false
-                            ), this@TripInfoFragment
-                        )
+                        adapter = mergedAdapter
                     }
                 })
 
@@ -115,7 +119,7 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
     override fun onPause() {
         super.onPause()
         tripInfoViewModel.updateWears((tripDefaultCheckList.adapter as DefaultCheckListAdapter).getCurrentWears())
-        tripInfoViewModel.updateWears((tripPersonalCheckList.adapter as PersonalCheckListAdapter).getCurrentWears())
+        //tripInfoViewModel.updateWears((tripPersonalCheckList.adapter as PersonalCheckListAdapter).getCurrentWears())
     }
 
     override fun onMenuAction(wear: WearItem, item: MenuItem?) {
@@ -129,11 +133,11 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
     override fun onItemAction(wear: WearItem, isEditMode: Boolean) {
         when (isEditMode) {
             true -> {
-                tripInfoViewModel.editSelectedWear(wear)
+                //tripInfoViewModel.editSelectedWear(wear)
             }
             false -> {
                 if (selectedTripId.isNotEmpty()) {
-                    tripInfoViewModel.addPersonalWear(wear.copy(tripId = selectedTripId))
+                    // tripInfoViewModel.addPersonalWear(wear.copy(tripId = selectedTripId))
                 }
             }
         }

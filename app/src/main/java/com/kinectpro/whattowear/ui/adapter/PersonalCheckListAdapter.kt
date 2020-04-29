@@ -1,7 +1,5 @@
 package com.kinectpro.whattowear.ui.adapter
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -10,24 +8,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.wear.WearItem
-import com.kinectpro.whattowear.databinding.AddPersonalItemBinding
 import com.kinectpro.whattowear.databinding.TripInfoPersonalChecklistItemBinding
-import java.util.*
+import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
+import com.kinectpro.whattowear.utils.filteredType
 
 class PersonalCheckListAdapter(
-    var wears: List<WearItem>,
+    vm: TripInfoViewModel,
     private val listener: OnItemSelectedListener
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<PersonalCheckListAdapter.PersonalCheckListViewHolder>() {
 
-    private val ITEM_ADD_OR_EDIT = 1
+    var wears: List<WearItem> = vm.tripDetail.value?.wears?.filteredType(false)!!
+
     private var editableWear: WearItem? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == ITEM_ADD_OR_EDIT)
-            return AddCheckListItemViewHolder(
-                parent
-            )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalCheckListViewHolder {
         return PersonalCheckListViewHolder(
             parent
         )
@@ -39,26 +34,11 @@ class PersonalCheckListAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (wears.isEmpty()) return ITEM_ADD_OR_EDIT
-        return wears.size + ITEM_ADD_OR_EDIT
+        return wears.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == ITEM_ADD_OR_EDIT) {
-            (holder as AddCheckListItemViewHolder).bindItem()
-        } else {
-            (holder as PersonalCheckListViewHolder).bindItem(wears[position])
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        if (position == wears.size)
-            return ITEM_ADD_OR_EDIT
-        return super.getItemViewType(position)
-    }
-
-    fun getCurrentWears(): List<WearItem> {
-        return wears
+    override fun onBindViewHolder(holder: PersonalCheckListViewHolder, position: Int) {
+        holder.bindItem(wears[position])
     }
 
     inner class PersonalCheckListViewHolder(
@@ -102,51 +82,6 @@ class PersonalCheckListAdapter(
             }
             listener.onMenuAction(wear, item)
             return false
-        }
-    }
-
-    inner class AddCheckListItemViewHolder(
-        private val parent: ViewGroup,
-        private val binding: AddPersonalItemBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), R.layout.add_personal_item, parent, false
-        )
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bindItem() {
-            if (editableWear != null) {
-                binding.addItem.apply {
-                    text?.append(editableWear!!.name)
-                    requestFocus()
-                }
-            }
-
-            binding.addItem.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(p0: Editable?) {
-                    p0.let {
-                        binding.btnAdd.isEnabled = it!!.length >= 2
-                    }
-                }
-
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
-            })
-
-            binding.btnAdd.setOnClickListener {
-                // edit current personal item
-                if (editableWear != null) {
-                    val newWear = editableWear!!.copy(name = binding.addItem.text.toString())
-                    listener.onItemAction(newWear, true)
-                }
-                // add new personal item
-                else {
-                    listener.onItemAction(
-                        WearItem(
-                            Random().nextInt(),
-                            binding.addItem.text.toString()
-                        ), false
-                    )
-                }
-            }
         }
     }
 }
