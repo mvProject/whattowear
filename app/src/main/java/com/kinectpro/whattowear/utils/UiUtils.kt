@@ -4,6 +4,9 @@ import android.graphics.drawable.Drawable
 import com.google.android.material.textview.MaterialTextView
 import com.kinectpro.whattowear.R
 
+/**
+ * Set specified text and icon to view according boolean condition
+ */
 fun setTextViewTitleAndIcon(
     view: MaterialTextView,
     condition: Boolean
