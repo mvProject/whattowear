@@ -22,6 +22,7 @@ class ApiService : IDarkSkyWeather {
         lon: String,
         dataRange: List<Long>
     ): ResourceWrapper<List<WeatherData>> {
+
         val weatherList = mutableListOf<WeatherData>()
 
         return try {
