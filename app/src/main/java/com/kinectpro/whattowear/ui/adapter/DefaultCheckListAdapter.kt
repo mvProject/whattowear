@@ -7,14 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.TripInfoCheckistItemBinding
-import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
-import com.kinectpro.whattowear.utils.filteredType
 
-class DefaultCheckListAdapter(vm: TripInfoViewModel) :
+class DefaultCheckListAdapter(defaultWears: List<WearItem>) :
     RecyclerView.Adapter<DefaultCheckListAdapter.DefaultCheckListViewHolder>() {
 
-    var wears: List<WearItem> =
-        vm.tripDetailInformation.value?.wears?.filteredType(true) ?: emptyList()
+    val wears = defaultWears
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DefaultCheckListViewHolder {
         return DefaultCheckListViewHolder(

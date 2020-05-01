@@ -61,7 +61,7 @@ class TripInfoFragment : Fragment() {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(context)
                         adapter =
-                            DefaultCheckListAdapter(tripInfoViewModel)
+                            DefaultCheckListAdapter(it.wears.filteredType(true))
                     }
 
                     tripPersonalCheckList.apply {
