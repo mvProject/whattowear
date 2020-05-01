@@ -49,9 +49,9 @@ class ItemAdapter(
             }
 
             binding.addItem.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(p0: Editable?) {
-                    p0.let {
-                        binding.btnAdd.isEnabled = it!!.length >= MIN_NAME_LENGTH
+                override fun afterTextChanged(currentText: Editable?) {
+                    currentText?.let {
+                        binding.btnAdd.isEnabled = it.length >= MIN_NAME_LENGTH
                     }
                 }
 
