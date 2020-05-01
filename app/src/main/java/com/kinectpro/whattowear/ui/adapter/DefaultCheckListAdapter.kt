@@ -41,7 +41,7 @@ class DefaultCheckListAdapter(vm: TripInfoViewModel) :
             binding.wearItem = wear
 
             binding.txtWearItem.setOnClickListener {
-                binding.chbWearItem.isChecked = binding.chbWearItem.isChecked != true
+                binding.chbWearItem.isChecked = !binding.chbWearItem.isChecked
             }
 
             binding.chbWearItem.apply {

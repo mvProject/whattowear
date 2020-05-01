@@ -49,7 +49,7 @@ class PersonalCheckListAdapter(
             binding.wearItem = wear
 
             binding.txtWearItem.setOnClickListener {
-                binding.chbWearItem.isChecked = binding.chbWearItem.isChecked != true
+                binding.chbWearItem.isChecked = !binding.chbWearItem.isChecked
             }
             // keep item selection
             binding.chbWearItem.apply {
