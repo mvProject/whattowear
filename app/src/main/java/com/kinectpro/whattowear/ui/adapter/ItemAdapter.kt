@@ -41,9 +41,9 @@ class ItemAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindItem() {
-            if (viewModel.wearItemForEdit != null) {
+            viewModel.wearItemForEdit?.let {
                 binding.addItem.apply {
-                    text?.append(viewModel.wearItemForEdit!!.name)
+                    append(it.name)
                     requestFocus()
                 }
             }
@@ -60,7 +60,14 @@ class ItemAdapter(
             })
 
             binding.btnAdd.setOnClickListener {
-                viewModel.addOrEditPersonalWear(binding.addItem.text.toString())
+                when (viewModel.wearItemForEdit) {
+                    null -> {
+                        viewModel.addPersonalWear(binding.addItem.text.toString())
+                    }
+                    else -> {
+                        viewModel.editPersonalWear(binding.addItem.text.toString())
+                    }
+                }
             }
         }
     }

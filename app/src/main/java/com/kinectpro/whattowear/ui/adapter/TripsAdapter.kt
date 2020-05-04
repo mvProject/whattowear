@@ -55,7 +55,7 @@ class TripsAdapter(var trips: List<TripItem>, private val listener: OnItemSelect
 
         // specify which item menu clicked
         override fun onMenuItemClick(item: MenuItem?): Boolean {
-            val trip: TripItem = trips[adapterPosition]
+            val trip: TripItem = trips[layoutPosition]
             listener.onMenuAction(trip, item)
             return false
         }

@@ -128,4 +128,5 @@ fun List<String>.getWearsWithIds(tripId: String, isDefault: Boolean): List<WearI
  * Filter wears list with selected type predicate
  * @return filtered wears list
  */
-fun List<WearItem>.filteredType(isDefault: Boolean) = this.filter { it.isDefault == isDefault }
+fun List<WearItem>.filteredDefaultType(isDefault: Boolean) =
+    this.filter { it.isDefault == isDefault }

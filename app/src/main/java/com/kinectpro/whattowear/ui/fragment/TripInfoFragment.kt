@@ -2,12 +2,14 @@ package com.kinectpro.whattowear.ui.fragment
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.TripInfoFragmentBinding
 import com.kinectpro.whattowear.ui.adapter.DefaultCheckListAdapter
 import com.kinectpro.whattowear.ui.adapter.ItemAdapter
@@ -17,7 +19,7 @@ import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModelFactory
 import com.kinectpro.whattowear.utils.*
 import kotlinx.android.synthetic.main.trip_info_fragment.*
 
-class TripInfoFragment : Fragment() {
+class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedListener {
 
     private var selectedTripId = ""
     private lateinit var tripInfoViewModel: TripInfoViewModel
@@ -61,14 +63,17 @@ class TripInfoFragment : Fragment() {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(context)
                         adapter =
-                            DefaultCheckListAdapter(it.wears.filteredType(true))
+                            DefaultCheckListAdapter(it.wears.filteredDefaultType(true))
                     }
 
                     tripPersonalCheckList.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(context)
                         adapter = MergeAdapter(
-                            PersonalCheckListAdapter(tripInfoViewModel),
+                            PersonalCheckListAdapter(
+                                it.wears.filteredDefaultType(false),
+                                this@TripInfoFragment
+                            ),
                             ItemAdapter(tripInfoViewModel)
                         )
                     }
@@ -89,5 +94,13 @@ class TripInfoFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         tripInfoViewModel.updateWears()
+    }
+
+    override fun onEditAction(wear: WearItem) {
+        tripInfoViewModel.wearItemForEdit = wear
+    }
+
+    override fun onDeleteAction(wear: WearItem) {
+        tripInfoViewModel.deleteSelectedWearFromDb(wear)
     }
 }

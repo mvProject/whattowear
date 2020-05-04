@@ -9,22 +9,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.TripInfoPersonalChecklistItemBinding
-import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
-import com.kinectpro.whattowear.utils.filteredType
 
 class PersonalCheckListAdapter(
-    vm: TripInfoViewModel
+    personalWears: List<WearItem>, private val listener: OnItemSelectedListener
 ) :
     RecyclerView.Adapter<PersonalCheckListAdapter.PersonalCheckListViewHolder>() {
 
-    var wears: List<WearItem> =
-        vm.tripDetailInformation.value?.wears?.filteredType(false) ?: emptyList()
-    private val viewModel = vm
+    var wears = personalWears
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalCheckListViewHolder {
         return PersonalCheckListViewHolder(
             parent
         )
+    }
+
+    interface OnItemSelectedListener {
+        fun onEditAction(wear: WearItem)
+        fun onDeleteAction(wear: WearItem)
     }
 
     override fun getItemCount(): Int {
@@ -70,14 +71,16 @@ class PersonalCheckListAdapter(
         // specify which item menu clicked
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             val wear: WearItem = wears[layoutPosition]
-            when (item!!.itemId) {
-                R.id.trip_item_edit -> {
-                    viewModel.wearItemForEdit = wear
-                    notifyDataSetChanged()
-                }
-                R.id.trip_item_delete -> {
-                    viewModel.deleteSelectedWearFromDb(wear)
-                    notifyDataSetChanged()
+            item?.let {
+                when (it.itemId) {
+                    R.id.trip_item_edit -> {
+                        listener.onEditAction(wear)
+                        notifyDataSetChanged()
+                    }
+                    R.id.trip_item_delete -> {
+                        listener.onDeleteAction(wear)
+                        notifyDataSetChanged()
+                    }
                 }
             }
             return false
