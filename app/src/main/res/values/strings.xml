@@ -56,4 +56,5 @@
     <string name="checklist_default_type">default</string>
     <string name="show_title">show</string>
     <string name="hide_title">hide</string>
+    <string name="error_empty_trip_selected">Trip not selected</string>
 </resources>

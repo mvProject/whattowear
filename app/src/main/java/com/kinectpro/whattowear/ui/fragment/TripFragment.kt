@@ -231,12 +231,27 @@ class TripFragment : Fragment() {
         }
 
         binding.apply {
+            dialogMessage.setOnClickListener {
+                checkBox.isChecked = !checkBox.isChecked
+            }
             btnDialogCancel.setOnClickListener {
                 dialog.dismiss()
             }
             btnDialogOk.setOnClickListener {
-                tripViewModel.saveTripToDatabase(checkBox.isChecked)
-                view?.findNavController()?.navigate(R.id.action_TripFragment_to_TripListFragment)
+                when (tripViewModel.saveTripToDatabase(checkBox.isChecked)) {
+                    true -> {
+                        view?.findNavController()
+                            ?.navigate(R.id.action_TripFragment_to_TripListFragment)
+                    }
+                    false -> {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.error_empty_trip_selected),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
                 dialog.dismiss()
             }
         }
