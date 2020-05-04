@@ -7,18 +7,27 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.AddPersonalItemBinding
-import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel
+import java.util.*
 
 class ItemAdapter(
-    vm: TripInfoViewModel
+    private val listener: OnAddItemSelectedListener
 ) :
     RecyclerView.Adapter<ItemAdapter.AddCheckListItemViewHolder>() {
 
     private val MIN_NAME_LENGTH = 2
     private val ITEM_COUNT = 1
-    private val viewModel = vm
 
+    private var wearItemForEdit: WearItem? = null
+
+    interface OnAddItemSelectedListener {
+        fun onAddAction(wear: WearItem, isNewItem: Boolean)
+    }
+
+    fun setWearForEdit(item: WearItem) {
+        wearItemForEdit = item
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddCheckListItemViewHolder {
         return AddCheckListItemViewHolder(
             parent
@@ -41,7 +50,7 @@ class ItemAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindItem() {
-            viewModel.wearItemForEdit?.let {
+            wearItemForEdit?.let {
                 binding.addItem.apply {
                     append(it.name)
                     requestFocus()
@@ -60,12 +69,23 @@ class ItemAdapter(
             })
 
             binding.btnAdd.setOnClickListener {
-                when (viewModel.wearItemForEdit) {
+                when (wearItemForEdit) {
                     null -> {
-                        viewModel.addPersonalWear(binding.addItem.text.toString())
+                        listener.onAddAction(
+                            WearItem(
+                                Random().nextInt(),
+                                binding.addItem.text.toString(),
+                                false,
+                                null
+                            ), true
+                        )
                     }
                     else -> {
-                        viewModel.editPersonalWear(binding.addItem.text.toString())
+                        wearItemForEdit?.let {
+                            val wearItem = it.copy(name = binding.addItem.text.toString())
+                            listener.onAddAction(wearItem, false)
+                        }
+                        wearItemForEdit = null
                     }
                 }
             }

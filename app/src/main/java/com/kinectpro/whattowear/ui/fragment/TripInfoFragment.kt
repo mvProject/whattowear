@@ -2,7 +2,6 @@ package com.kinectpro.whattowear.ui.fragment
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,12 +18,15 @@ import com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModelFactory
 import com.kinectpro.whattowear.utils.*
 import kotlinx.android.synthetic.main.trip_info_fragment.*
 
-class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedListener {
+class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnMenuItemSelectedListener,
+    ItemAdapter.OnAddItemSelectedListener {
 
     private var selectedTripId = ""
     private lateinit var tripInfoViewModel: TripInfoViewModel
     private lateinit var tripInfoViewModelFactory: TripInfoViewModelFactory
     private lateinit var tripInfoFragmentBinding: TripInfoFragmentBinding
+
+    private val itemAdapter = ItemAdapter(this@TripInfoFragment)
 
     private val args: TripInfoFragmentArgs by navArgs()
 
@@ -74,7 +76,7 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
                                 it.wears.filteredDefaultType(false),
                                 this@TripInfoFragment
                             ),
-                            ItemAdapter(tripInfoViewModel)
+                            itemAdapter
                         )
                     }
                 }
@@ -96,11 +98,22 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnItemSelectedList
         tripInfoViewModel.updateWears()
     }
 
-    override fun onEditAction(wear: WearItem) {
-        tripInfoViewModel.wearItemForEdit = wear
+    override fun onEditMenuAction(wear: WearItem) {
+        itemAdapter.setWearForEdit(wear)
     }
 
-    override fun onDeleteAction(wear: WearItem) {
+    override fun onDeleteMenuAction(wear: WearItem) {
         tripInfoViewModel.deleteSelectedWearFromDb(wear)
+    }
+
+    override fun onAddAction(wear: WearItem, isNewItem: Boolean) {
+        when (isNewItem) {
+            true -> {
+                tripInfoViewModel.addPersonalWear(wear)
+            }
+            false -> {
+                tripInfoViewModel.editPersonalWear(wear)
+            }
+        }
     }
 }

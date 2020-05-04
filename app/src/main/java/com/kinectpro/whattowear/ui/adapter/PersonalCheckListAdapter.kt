@@ -11,7 +11,7 @@ import com.kinectpro.whattowear.data.model.wear.WearItem
 import com.kinectpro.whattowear.databinding.TripInfoPersonalChecklistItemBinding
 
 class PersonalCheckListAdapter(
-    personalWears: List<WearItem>, private val listener: OnItemSelectedListener
+    personalWears: List<WearItem>, private val listenerMenu: OnMenuItemSelectedListener
 ) :
     RecyclerView.Adapter<PersonalCheckListAdapter.PersonalCheckListViewHolder>() {
 
@@ -23,9 +23,9 @@ class PersonalCheckListAdapter(
         )
     }
 
-    interface OnItemSelectedListener {
-        fun onEditAction(wear: WearItem)
-        fun onDeleteAction(wear: WearItem)
+    interface OnMenuItemSelectedListener {
+        fun onEditMenuAction(wear: WearItem)
+        fun onDeleteMenuAction(wear: WearItem)
     }
 
     override fun getItemCount(): Int {
@@ -47,24 +47,25 @@ class PersonalCheckListAdapter(
     ) : RecyclerView.ViewHolder(binding.root), PopupMenu.OnMenuItemClickListener {
 
         fun bindItem(wear: WearItem) {
-            binding.wearItem = wear
-
-            binding.txtWearItem.setOnClickListener {
-                binding.chbWearItem.isChecked = !binding.chbWearItem.isChecked
-            }
-            // keep item selection
-            binding.chbWearItem.apply {
-                isChecked = wears[layoutPosition].isChecked
-                setOnCheckedChangeListener { _, isChecked ->
-                    wears[layoutPosition].isChecked = isChecked
+            binding.apply {
+                wearItem = wear
+                txtWearItem.setOnClickListener {
+                    binding.chbWearItem.isChecked = !binding.chbWearItem.isChecked
                 }
-            }
-            // define menu and show on click
-            binding.checkItemMenu.setOnClickListener {
-                val contextMenu = PopupMenu(parent.context, it)
-                contextMenu.inflate(R.menu.item_list_context_menu)
-                contextMenu.setOnMenuItemClickListener(this)
-                contextMenu.show()
+                // keep item selection
+                chbWearItem.apply {
+                    isChecked = wears[layoutPosition].isChecked
+                    setOnCheckedChangeListener { _, isChecked ->
+                        wears[layoutPosition].isChecked = isChecked
+                    }
+                }
+                // define menu and show on click
+                checkItemMenu.setOnClickListener {
+                    val contextMenu = PopupMenu(parent.context, it)
+                    contextMenu.inflate(R.menu.item_list_context_menu)
+                    contextMenu.setOnMenuItemClickListener(this@PersonalCheckListViewHolder)
+                    contextMenu.show()
+                }
             }
         }
 
@@ -74,11 +75,11 @@ class PersonalCheckListAdapter(
             item?.let {
                 when (it.itemId) {
                     R.id.trip_item_edit -> {
-                        listener.onEditAction(wear)
+                        listenerMenu.onEditMenuAction(wear)
                         notifyDataSetChanged()
                     }
                     R.id.trip_item_delete -> {
-                        listener.onDeleteAction(wear)
+                        listenerMenu.onDeleteMenuAction(wear)
                         notifyDataSetChanged()
                     }
                 }
