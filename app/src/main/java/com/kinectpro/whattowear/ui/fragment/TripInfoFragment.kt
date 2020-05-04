@@ -1,7 +1,9 @@
 package com.kinectpro.whattowear.ui.fragment
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,13 +23,12 @@ import kotlinx.android.synthetic.main.trip_info_fragment.*
 class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnMenuItemSelectedListener,
     ItemAdapter.OnAddItemSelectedListener {
 
+    private val KEYBOARD_FLAG_ZERO = 0
     private var selectedTripId = ""
     private lateinit var tripInfoViewModel: TripInfoViewModel
     private lateinit var tripInfoViewModelFactory: TripInfoViewModelFactory
     private lateinit var tripInfoFragmentBinding: TripInfoFragmentBinding
-
     private val itemAdapter = ItemAdapter(this@TripInfoFragment)
-
     private val args: TripInfoFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -56,6 +57,24 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnMenuItemSelected
             tripInfoViewModel.defaultCheckList.observe(viewLifecycleOwner, Observer {
             })
 
+            val focusListener = View.OnFocusChangeListener { v, hasFocus ->
+                val inputMethodManager: InputMethodManager =
+                    v.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                when (hasFocus) {
+                    true -> {
+                        // hide default checklist before show keyboard
+                        tripInfoViewModel.defaultListVisibility.value = false
+                        inputMethodManager.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
+                    }
+                    false -> {
+                        inputMethodManager.hideSoftInputFromWindow(
+                            v.windowToken,
+                            KEYBOARD_FLAG_ZERO
+                        )
+                    }
+                }
+            }
+
             tripInfoViewModel.tripDetailInformation.observe(
                 viewLifecycleOwner,
                 Observer {
@@ -76,7 +95,9 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnMenuItemSelected
                                 it.wears.filteredDefaultType(false),
                                 this@TripInfoFragment
                             ),
-                            itemAdapter
+                            itemAdapter.apply {
+                                setViewFocusListener(focusListener)
+                            }
                         )
                     }
                 }

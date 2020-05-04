@@ -3,6 +3,7 @@ package com.kinectpro.whattowear.ui.adapter
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ class ItemAdapter(
     private val MIN_NAME_LENGTH = 2
     private val ITEM_COUNT = 1
 
+    private var focusListener: View.OnFocusChangeListener? = null
     private var wearItemForEdit: WearItem? = null
 
     interface OnAddItemSelectedListener {
@@ -28,6 +30,11 @@ class ItemAdapter(
     fun setWearForEdit(item: WearItem) {
         wearItemForEdit = item
     }
+
+    fun setViewFocusListener(focusListener: View.OnFocusChangeListener) {
+        this.focusListener = focusListener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddCheckListItemViewHolder {
         return AddCheckListItemViewHolder(
             parent
@@ -55,6 +62,10 @@ class ItemAdapter(
                     append(it.name)
                     requestFocus()
                 }
+            }
+
+            focusListener?.let {
+                binding.addItem.onFocusChangeListener = it
             }
 
             binding.addItem.addTextChangedListener(object : TextWatcher {
