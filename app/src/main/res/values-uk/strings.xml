@@ -59,4 +59,5 @@
     <string name="show_title">показати</string>
     <string name="hide_title">сховати</string>
     <string name="hint_title_add">Додати</string>
+    <string name="error_empty_trip_selected">Поїздка не обрана</string>
 </resources>
