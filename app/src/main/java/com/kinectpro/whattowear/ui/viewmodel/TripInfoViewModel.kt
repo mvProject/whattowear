@@ -8,6 +8,7 @@ import com.kinectpro.whattowear.database.ITrip
 import com.kinectpro.whattowear.database.TripRepository
 import com.kinectpro.whattowear.utils.convertTripWithCheckListEntityToTripWithWearModel
 import com.kinectpro.whattowear.utils.filteredDefaultType
+import kotlin.random.Random
 
 class TripInfoViewModel(application: Application, tripId: String) : AndroidViewModel(application) {
 
@@ -17,6 +18,7 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
 
     val isHasDefaultChecklist = MutableLiveData<Boolean>().apply { value = false }
     val defaultListVisibility = MutableLiveData<Boolean>().apply { value = false }
+    var wearForEdit: WearItem? = null
 
     init {
         tripDetailInformation = repository.loadSingleTripWithCheckListsFromDatabase(tripDetailId)
@@ -39,12 +41,15 @@ class TripInfoViewModel(application: Application, tripId: String) : AndroidViewM
         }
     }
 
-    fun addPersonalWear(wear: WearItem) {
-        repository.saveWearToDatabase(wear.copy(tripId = tripDetailId))
+    fun addPersonalWear(name: String) {
+        repository.saveWearToDatabase(WearItem(Random.nextInt(), name, false, tripDetailId))
     }
 
-    fun editPersonalWear(wear: WearItem) {
-        repository.updateSelectedWear(wear)
+    fun editPersonalWear(name: String) {
+        wearForEdit?.let {
+            repository.updateSelectedWear(it.copy(name = name))
+            wearForEdit = null
+        }
     }
 
     fun deleteSelectedWearFromDb(wear: WearItem) {

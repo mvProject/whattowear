@@ -120,20 +120,21 @@ class TripInfoFragment : Fragment(), PersonalCheckListAdapter.OnMenuItemSelected
     }
 
     override fun onEditMenuAction(wear: WearItem) {
-        itemAdapter.setWearForEdit(wear)
+        itemAdapter.setWearNameForEdit(wear.name)
+        tripInfoViewModel.wearForEdit = wear
     }
 
     override fun onDeleteMenuAction(wear: WearItem) {
         tripInfoViewModel.deleteSelectedWearFromDb(wear)
     }
 
-    override fun onAddAction(wear: WearItem, isNewItem: Boolean) {
+    override fun onAddAction(name: String, isNewItem: Boolean) {
         when (isNewItem) {
             true -> {
-                tripInfoViewModel.addPersonalWear(wear)
+                tripInfoViewModel.addPersonalWear(name)
             }
             false -> {
-                tripInfoViewModel.editPersonalWear(wear)
+                tripInfoViewModel.editPersonalWear(name)
             }
         }
     }
