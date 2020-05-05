@@ -57,4 +57,5 @@
     <string name="checklist_default_type">по умолчанию</string>
     <string name="show_title">показать</string>
     <string name="hide_title">скрыть</string>
+    <string name="error_empty_trip_selected">Поездка не выбрана</string>
 </resources>
