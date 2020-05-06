@@ -18,7 +18,7 @@ class PreferencesUtilsTest {
         "SecondPlaceLon"
     )
     private val jsonPlace =
-        """{"id":"1","name":"PlaceName","latitude":"PlaceLat","longitude":"PlaceLon","offsetUTC":7200}"""
+        """{"id":"1","name":"PlaceName","latitude":"PlaceLat","longitude":"PlaceLon"}"""
 
     private val jsonSecondPlace =
         """{"id":"1","name":"SecondPlaceName","latitude":"PlaceLat","longitude":"PlaceLon","offsetUTC":7200}"""

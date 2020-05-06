@@ -26,12 +26,12 @@
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/chbWearItem"
                 android:layout_width="@dimen/view_size_30dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_4dp"
-                android:layout_marginTop="@dimen/padding_4dp"
+                android:layout_height="@dimen/view_size_30dp"
+                android:layout_marginStart="@dimen/padding_2dp"
+                android:layout_marginTop="@dimen/padding_2dp"
                 android:button="@drawable/checkbox_state"
                 android:checked="@{wearItem.checked}"
-                android:textSize="@dimen/text_size_16sp"
+                android:textSize="@dimen/text_size_14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,13 +42,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_40dp"
+                android:layout_marginEnd="@dimen/padding_20dp"
                 android:text="@{wearItem.name}"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_18sp"
+                android:textSize="@dimen/text_size_16sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/chbWearItem"
                 app:layout_constraintStart_toEndOf="@id/chbWearItem"
                 tools:text="wear item" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/checkItemMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_context_menu"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </layout>

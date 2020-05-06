@@ -2,6 +2,7 @@ package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
 import com.kinectpro.whattowear.data.model.wear.WearItem
+import java.util.*
 
 /**
  * Extension for String variable to convert
@@ -111,13 +112,21 @@ fun String?.checkProperConditionState(): Boolean {
     }
 }
 
-fun List<String>.getWearsWithIds(tripId: String): List<WearItem> {
+/**
+ * Create wears list with specified parameters from string list
+ * @return wears list
+ */
+fun List<String>.getWearsWithIds(tripId: String, isDefault: Boolean): List<WearItem> {
     val wearsWithId = mutableListOf<WearItem>()
-    for (wear in this) {
-        wearsWithId.add(WearItem(wear, false, tripId))
+    for (wearName in this) {
+        wearsWithId.add(WearItem(Random().nextInt(), wearName, false, tripId, isDefault))
     }
     return wearsWithId
 }
 
-
-
+/**
+ * Filter wears list with selected type predicate
+ * @return filtered wears list
+ */
+fun List<WearItem>.filteredDefaultType(isDefault: Boolean) =
+    this.filter { it.isDefault == isDefault }

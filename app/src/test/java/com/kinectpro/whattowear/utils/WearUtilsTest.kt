@@ -1,10 +1,19 @@
 package com.kinectpro.whattowear.utils
 
 import com.kinectpro.whattowear.R
+import com.kinectpro.whattowear.data.model.wear.WearItem
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class WearUtilsTest {
+
+    val wearsTest = listOf(
+        WearItem(1, "name1", true, "id1"),
+        WearItem(2, "name2", false, "id1"),
+        WearItem(3, "name3", true, "id1"),
+        WearItem(4, "name4", false, "id1", true),
+        WearItem(5, "name5", true, "id1", true)
+    )
 
     @Test
     fun convertIconToEnumValue_PROPER_VALUE() {
@@ -158,5 +167,30 @@ class WearUtilsTest {
     fun convertIconToWeatherRecommendation_NOT_PROPER_VALUE() {
         val state = "weather"
         assertEquals(null, state.convertIconToWeatherRecommendation())
+    }
+
+    @Test
+    fun getWearsWithIds_Empty() {
+        val emptyTest = listOf<String>()
+        assertEquals(emptyList<WearItem>(), emptyTest.getWearsWithIds("id1", false))
+    }
+
+    @Test
+    fun filteredType_Proper_Personal() {
+        val wearsPersonalTest = listOf(
+            WearItem(1, "name1", true, "id1"),
+            WearItem(2, "name2", false, "id1"),
+            WearItem(3, "name3", true, "id1")
+        )
+        assertEquals(wearsPersonalTest, wearsTest.filteredType(false))
+    }
+
+    @Test
+    fun filteredType_Proper_Default() {
+        val wearsDefaultTest = listOf(
+            WearItem(4, "name4", false, "id1", true),
+            WearItem(5, "name5", true, "id1", true)
+        )
+        assertEquals(wearsDefaultTest, wearsTest.filteredType(true))
     }
 }

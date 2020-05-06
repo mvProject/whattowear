@@ -54,7 +54,9 @@
     <string name="trip_details">Travel Information</string>
     <string name="checklist_title">Checklist</string>
     <string name="checklist_default_type">default</string>
+    <string name="checklist_personal_type">personal</string>
     <string name="show_title">show</string>
     <string name="hide_title">hide</string>
+    <string name="hint_title_add">Add</string>
     <string name="error_empty_trip_selected">Trip not selected</string>
 </resources>

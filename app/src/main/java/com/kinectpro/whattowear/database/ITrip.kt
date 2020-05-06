@@ -13,6 +13,7 @@ interface ITrip {
     fun updateSelectedTrip(trip: TripItem)
     fun deleteSelectedTrip(trip: TripItem)
     fun saveWearToDatabase(wear: WearItem)
+    fun updateSelectedWear(wear: WearItem)
     fun updateWears(wears: List<WearItem>)
     fun deleteSelectedWear(wear: WearItem)
     fun clearDatabase()

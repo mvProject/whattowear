@@ -39,7 +39,7 @@ fun getProperTextForWeatherConditionDatesTextView(
 ) {
     val backGroundColor = ContextCompat.getColor(view.context, R.color.colorAccent)
     val textColor = ContextCompat.getColor(view.context, R.color.colorPrimary)
-    view.text = dates.convertToShortDateFormatSpannedString(backGroundColor,textColor)
+    view.text = dates.convertToShortDateFormatSpannedString(backGroundColor, textColor)
 }
 
 /**
@@ -170,4 +170,15 @@ fun getProperTextForDateRangeView(
         startDate.convertDateToReadableFormat(DATE_READABLE_PATTERN),
         endDate.convertDateToReadableFormat(DATE_READABLE_PATTERN)
     )
+}
+
+@BindingAdapter(value = ["setVisibility"])
+fun setViewVisibility(
+    view: View,
+    condition: Boolean
+) {
+    when (condition) {
+        true -> view.visibility = View.VISIBLE
+        false -> view.visibility = View.GONE
+    }
 }

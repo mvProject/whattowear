@@ -6,11 +6,13 @@
     <data>
 
         <variable
-            name="tripItemInfo"
-            type="com.kinectpro.whattowear.data.model.trip.TripItem" />
+            name="tripModel"
+            type="com.kinectpro.whattowear.ui.viewmodel.TripInfoViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tripInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_8dp"
-            android:text="@{tripItemInfo.place}"
+            android:text="@{tripModel.tripDetailInformation.trip.place}"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_22sp"
@@ -29,6 +31,8 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tripRange"
+            tripEndDate="@{Long.valueOf(tripModel.tripDetailInformation.trip.endDate)}"
+            tripStartDate="@{Long.valueOf(tripModel.tripDetailInformation.trip.startDate)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_4dp"
@@ -37,8 +41,6 @@
             android:textSize="@dimen/text_size_18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tripDestination"
-            tripStartDate="@{Long.valueOf(tripItemInfo.startDate)}"
-            tripEndDate="@{Long.valueOf(tripItemInfo.endDate)}"
             tools:text="22.04 - 28.04" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -46,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_4dp"
-            android:text="@{tripItemInfo.nightTemp}"
+            android:text="@{tripModel.tripDetailInformation.trip.nightTemp}"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_18sp"
@@ -60,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_4dp"
-            android:text="@{tripItemInfo.dayTemp}"
+            android:text="@{tripModel.tripDetailInformation.trip.dayTemp}"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_18sp"
@@ -84,6 +86,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtDefaultListTitle"
+            setVisibility="@{tripModel.isHasDefaultChecklist}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_16dp"
@@ -96,6 +99,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtHideShow"
+            setVisibility="@{tripModel.isHasDefaultChecklist}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/padding_16dp"
@@ -106,19 +110,37 @@
             app:layout_constraintTop_toBottomOf="@id/txtVisibilityTitle"
             tools:text="@string/hide_title" />
 
-        <LinearLayout
-            android:id="@+id/defaultListContainer"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tripDefaultCheckList"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/view_size_300dp"
+            android:layout_height="@dimen/zero_dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtDefaultListTitle"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@id/txtDefaultListTitle" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tripCheckList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtPersonalListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_2dp"
+            android:layout_marginTop="@dimen/padding_2dp"
+            android:layout_marginEnd="@dimen/padding_2dp"
+            android:background="@color/colorPrimary"
+            android:paddingTop="@dimen/padding_2dp"
+            android:paddingBottom="@dimen/padding_2dp"
+            android:text="@string/checklist_personal_type"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tripDefaultCheckList" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tripPersonalCheckList"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_marginTop="@dimen/padding_2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtPersonalListTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -21,11 +21,11 @@ class DataMapperTest {
     private val defaultTripEntities =
         listOf(defaultTripEntity, defaultTripEntity, defaultTripEntity)
 
-    private val defaultWearItem = WearItem("test1", true, "tripid")
+    private val defaultWearItem = WearItem(11, "test1", true, "tripid")
     private val defaultWearItems =
         listOf(defaultWearItem, defaultWearItem)
 
-    private val defaultWearEntity = WearEntity("test1", true, "tripid")
+    private val defaultWearEntity = WearEntity(11, "test1", true, "tripid", true)
     private val defaultWearEntities =
         listOf(defaultWearEntity, defaultWearEntity)
 

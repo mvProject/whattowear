@@ -27,7 +27,8 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
             tripDao.insert(trip.convertTripModelToTripEntity())
             if (isDefaultListChecked) {
                 wearDao.insertTripWears(
-                    defaultList.getWearsWithIds(trip.id).convertWearItemsToWearEntities()
+                    defaultList.getWearsWithIds(trip.id, true)
+                        .convertWearItemsToWearEntities()
                 )
             }
         }
@@ -54,6 +55,12 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
     override fun updateWears(wears: List<WearItem>) {
         scope.launch {
             wearDao.updateTripWears(wears.convertWearItemsToWearEntities())
+        }
+    }
+
+    override fun updateSelectedWear(wear: WearItem) {
+        scope.launch {
+            wearDao.updateWear(wear.convertWearItemToWearEntity())
         }
     }
 
@@ -84,5 +91,4 @@ class TripRepository(context: Context, private val scope: CoroutineScope) :
             tripDao.deleteAll()
         }
     }
-
 }
