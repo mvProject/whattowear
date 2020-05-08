@@ -1,6 +1,7 @@
 package com.kinectpro.whattowear
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -35,7 +36,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.TripFragment -> {
                     val tripFragment =
                         nav_host_fragment.childFragmentManager.primaryNavigationFragment as TripFragment?
-                    tripFragment?.showDialog()
+                    tripFragment?.let {
+                        when (it.isTripReadyForSave()) {
+                            true -> {
+                                it.showDialog()
+                            }
+                            false -> {
+                                Toast.makeText(
+                                    this,
+                                    getString(R.string.error_empty_trip_selected),
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                    }
                 }
             }
         }

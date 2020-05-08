@@ -221,6 +221,7 @@ class TripFragment : Fragment() {
         tripViewModel.saveLastSelectedPlaceToCache()
     }
 
+    fun isTripReadyForSave() = tripViewModel.isTripReadyForSave
 
     fun showDialog() {
         val dialog: AlertDialog
@@ -238,20 +239,9 @@ class TripFragment : Fragment() {
                 dialog.dismiss()
             }
             btnDialogOk.setOnClickListener {
-                when (tripViewModel.saveTripToDatabase(checkBox.isChecked)) {
-                    true -> {
-                        view?.findNavController()
-                            ?.navigate(R.id.action_TripFragment_to_TripListFragment)
-                    }
-                    false -> {
-                        Toast.makeText(
-                            context,
-                            getString(R.string.error_empty_trip_selected),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                }
+                tripViewModel.saveTripToDatabase(checkBox.isChecked)
+                view?.findNavController()
+                    ?.navigate(R.id.action_TripFragment_to_TripListFragment)
                 dialog.dismiss()
             }
         }
