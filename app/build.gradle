@@ -29,7 +29,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
-        versionName "0.0.19"
+        versionName "0.0.20"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "GOOGLE_PLACE_API_KEY", '"AIzaSyAbiAj6LivbiUwyGh6YoU4sWiEd7Sfvrpk"'
@@ -69,8 +69,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //
-    implementation "androidx.recyclerview:recyclerview:1.2.0-alpha02"
+    // RecyclerView
+     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
     // app compatibility for older versions
     implementation 'androidx.appcompat:appcompat:1.1.0'
     // kotlin extensions
@@ -90,8 +90,8 @@ dependencies {
     // google places
     implementation 'com.google.android.libraries.places:places:2.2.0'
     // OkHttp
-    implementation 'com.squareup.okhttp3:okhttp:4.5.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.6.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.6.0'
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
@@ -105,9 +105,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     // Firebase Analytics
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-analytics:17.4.0'
     // Firebase Crashlytics
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
