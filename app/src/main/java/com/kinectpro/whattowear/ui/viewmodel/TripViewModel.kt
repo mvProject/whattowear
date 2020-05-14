@@ -32,6 +32,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
 
     private val tripCondition: IWeatherRangeSummary = TripWeatherCondition()
 
+    var isTripReadyForSave = false
     val selectedDestinationPlace = MutableLiveData<PlaceTrip>()
     val selectedPlaceStatus = MutableLiveData<String>()
 
@@ -151,6 +152,7 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
                         selectedTripCondition.value = ResourceWrapper.loading()
                     }
                     RequestStatus.SUCCESS -> {
+                        isTripReadyForSave = true
                         selectedTripCondition.value = ResourceWrapper.success(
                             tripCondition.getTripWeatherCondition(
                                 it.data!!
@@ -251,13 +253,12 @@ class TripViewModel(application: Application) : AndroidViewModel(application) {
     /*
     Save current trip to database
      */
-    fun saveTripToDatabase(isDefaultListChecked: Boolean): Boolean {
+    fun saveTripToDatabase(isDefaultListChecked: Boolean) {
         val currentTripItem = prepareTripToSaving()
         currentTripItem?.let { trip ->
             repository.saveTripToDatabase(trip, isDefaultListChecked)
-            return true
         }
-        return false
+        isTripReadyForSave = false
     }
 
     private fun prepareTripToSaving(): TripItem? {
