@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.nav_host_fragment)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navView.background = null
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.TripFragment, R.id.TripListFragment

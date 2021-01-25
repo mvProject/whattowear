@@ -40,7 +40,7 @@
         android:id="@+id/fabAddTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"
         android:clickable="true"
         android:focusable="true"
         app:layout_anchor="@id/bottom_bar"
